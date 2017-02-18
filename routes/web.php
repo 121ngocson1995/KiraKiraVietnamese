@@ -18,3 +18,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+/*
+|--------------------------------------------------------------------------
+| All dummy routes go below this line
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/dummy', 'DummyController@load');
+// Route::get('/dummy1', 'DummyController@load');		// Example
+
+/*
+|--------------------------------------------------------------------------
+| End dummy routes
+|--------------------------------------------------------------------------
+*/
