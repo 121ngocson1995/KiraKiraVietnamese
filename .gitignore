@@ -1,14 +1,13 @@
 vendor/
 node_modules/
+.gitignore
 
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
 
 # Laravel 5 & Lumen specific
-storage/app/
-storage/framework/
-storage/logs/
+bootstrap/cache/
 .env.*.php
 .env.php
 .env
