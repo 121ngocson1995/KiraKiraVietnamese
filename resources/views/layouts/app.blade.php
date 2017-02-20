@@ -19,6 +19,32 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    {{-- css --}}
+    <style type="text/css">
+    .img_right {
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+        background-image: url("{{ URL::asset('P4_img/right.jpeg') }}");
+        background-size: 300px 300px;
+        position: relative;
+        left: 10%;
+        opacity: 0;
+    }
+    .img_wrong {
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+        background-image: url("{{ URL::asset('P4_img/wrong.jpeg') }}");
+        background-size: 300px 300px;
+        position: relative;
+        left: 50%;
+        opacity: 0;
+    }
+
+</style>
 </head>
 <body>
     <div id="app">
