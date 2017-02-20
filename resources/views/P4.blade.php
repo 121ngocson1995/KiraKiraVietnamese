@@ -27,6 +27,9 @@
 		if (questionOrder.localeCompare(index) == 0) {
 			document.getElementById('right').style.opacity=1;
 			element.setAttribute('disabled', 'disabled');
+			if (index == Object.keys(questionList).length-1 ) {
+				window.alert("Bạn đã hoàn thành bài tập rồi");
+			}
 		}else{
 			document.getElementById('wrong').style.opacity=1;
 			checkOrder.splice(index,1);
