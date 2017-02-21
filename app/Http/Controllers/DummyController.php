@@ -37,9 +37,30 @@ class DummyController extends Controller
 	    $dummyData = File::get($filePath);
 		$dummy = json_decode($dummyData);
 
-		/*
-    	** Chuyển đến view
-    	*/
-		return view("{$uri}", compact('dummy'));
+        /*
+        ** Thực hiện xử lý riêng cho từng màn hình
+        ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
+        */
+        switch ($uri) {
+            case 'P3':
+                $firstLineNumber;
+
+                if (count($dummy) != 0)
+                {
+                    $firstLineNumber = $dummy[0]->lineNumber;
+                    return view("{$uri}", compact(['dummy', 'firstLineNumber']));
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
+
+                break;
+            
+            default:    
+                /*
+                ** Chuyển đến view trong điều kiện bình thường
+                */
+                return view("{$uri}", compact('dummy'));
+                break;
+        }
     }
 }

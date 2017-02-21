@@ -1,23 +1,28 @@
-{
-	"dummy1" : "ABC",
-	"dummy2" : {
-		"nestedDummy1" : "456",
-		"nestedDummy2" : [
-			1,
-			2,
-			3
-		]
+[
+	{
+		"dummy1" : 112233,
+		"summy2" : "ABC"
 	},
-	"dummy3" : [
-		{
-			"arrayNested1" : "lorem",
-			"arrayNested2" : "ipsum",
-			"arrayNested3" : "dolor"
+	{
+		"dummy3" : {
+			"nestedDummy1" : "456",
+			"nestedDummy2" : [
+				1,
+				2,
+				3
+			]
 		},
-		{
-			"arrayNested4" : 101,
-			"arrayNested5" : 202,
-			"arrayNested6" : 303
-		}
-	]
-}
+		"dummy4" : [
+			{
+				"arrayNested1" : "lorem",
+				"arrayNested2" : "ipsum",
+				"arrayNested3" : "dolor"
+			},
+			{
+				"arrayNested4" : 101,
+				"arrayNested5" : 202,
+				"arrayNested6" : 303
+			}
+		]
+	}
+]

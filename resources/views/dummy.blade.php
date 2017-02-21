@@ -16,7 +16,7 @@
 
 	<hr>
 
-	<h3>Print out dummy object:</h3>
+	<h3>Print out dummy array:</h3>
 
 	@php
 		var_dump(json_encode($dummy));
@@ -28,16 +28,16 @@
 
 	<table>
 		<tr>
-			<td>- $dummy->dummy1 <i>gives:</i></td>
-			<td>{{ $dummy->dummy1 }}</td>
+			<td>- $dummy[0]->dummy1 <i>gives:</i></td>
+			<td>{{ $dummy[0]->dummy1 }}</td>
 		</tr>
 		<tr>
-			<td>- $dummy->dummy2->nestedDummy2[0] <i>gives:</i></td>
-			<td>{{ $dummy->dummy2->nestedDummy2[0] }}</td>
+			<td>- $dummy[1]->dummy3->nestedDummy1 <i>gives:</i></td>
+			<td>{{ $dummy[1]->dummy3->nestedDummy1 }}</td>
 		</tr>
 		<tr>
-			<td>- $dummy->dummy3[1]->arrayNested4 <i>gives:</i></td>
-			<td>{{ $dummy->dummy3[1]->arrayNested4 }}</td>
+			<td>- $dummy[1]->dummy4[0]->arrayNested3 <i>gives:</i></td>
+			<td>{{ $dummy[1]->dummy4[0]->arrayNested3 }}</td>
 		</tr>
 	</table>
 </body>
