@@ -25,6 +25,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {{-- css --}}
     <style type="text/css">
+    #container {
+      margin: 20px;
+      width: 50%;
+      height: 8px;
+    }
+    .playWord {
+        transition: background 0.2s;
+    }
     .playWord:hover {
         background: cyan;
     }
@@ -57,10 +65,17 @@
         opacity: 0;
     }
     .wordLine {
-        margin: 5px 0px;
+        margin: 8px 0px;
     }
     .controlBtn {
         padding: 10px;
+    }
+    .correctWord, .correctWord:hover {
+        background: #33ffad;
+    }
+    .wrongWord, .wrongWord:hover {
+        color: white;
+        background: red;
     }
 
     /* Tooltip */

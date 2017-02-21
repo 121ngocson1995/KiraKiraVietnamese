@@ -15,27 +15,13 @@
 	</div>
 </div>
 <div class="col-md-6 col-lg-6" style="float: left;">
-	@php
-		$currentlineNumber = $firstLineNumber;
-	@endphp
-
-	<div class="wordLine" style="text-align: center;">
 
 		@foreach ($dummy as $dummyValue)
-			@if ($dummyValue->lineNumber > $currentlineNumber)
-				@php
-					$currentlineNumber = $dummyValue->lineNumber;
-				@endphp
 
-				</div><div class="wordLine" style="text-align: center;">
-			@endif
-
-			<span style="padding: 0px 2px;">
-				<button class="btn playWord" style="font-size: 18px; padding: 2px 10px" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
-			</span>
+			<div class="wordLine" style="text-align: center;">
+				<button class="btn playWord" style="font-size: 14px; padding: 2px 10px; width: 500px; white-space: normal;" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
+			</div>
 		@endforeach
-
-	</div>
 
 </div>
 

@@ -54,17 +54,10 @@ class DummyController extends Controller
                 }
 
                 break;
-            
-            case 'P3':
-                $firstLineNumber;
 
-                if (count($dummy) != 0)
-                {
-                    $firstLineNumber = $dummy[0]->lineNumber;
-                    return view("{$uri}", compact(['dummy', 'firstLineNumber']));
-                } else {
-                    return view("{$uri}", compact('dummy'));
-                }
+            case 'P2':
+                shuffle($dummy);
+                return view("{$uri}", compact('dummy'));
 
                 break;
             
