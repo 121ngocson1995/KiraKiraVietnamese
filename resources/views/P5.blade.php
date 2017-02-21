@@ -15,7 +15,7 @@
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
 		if(contentNow < contentArr.length-1){
-			contentNow = contentNow + 1;
+			contentNow = parseInt(contentNow) + 1;
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi");
 		}
@@ -23,6 +23,19 @@
 			editContent(contentArr[contentNow][i]);
 		}
 		
+
+	}
+
+	function chooseD(element){
+		
+		contentNow = element.getAttribute('id');
+		while (document.getElementById("content_id").firstChild) {
+			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
+		}
+
+		for (var i = 0; i < contentArr[contentNow].length; i++) {
+			editContent(contentArr[contentNow][i]);
+		}
 
 	}
 
@@ -38,7 +51,7 @@
 @section('content1')
 <div class="btn-group">
 	@for ($i = 1; $i <= $cnt; $i++)
-	<button id="{{$i-1}}" type="button" class="btn btn-primary" onclick="">D{{$i}}</button>
+	<button id="{{$i-1}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i}}</button>
 	@endfor
 </div>
 <div class="row">
