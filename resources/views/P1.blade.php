@@ -34,7 +34,7 @@
 			@endif
 
 			<span style="padding: 0px 2px;">
-				<button class="btn playWord" style="font-size: 14px; padding: 2px 10px" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
+				<button class="btn playWord" style="font-size: 18px; padding: 2px 10px" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
 			</span>
 		@endforeach
 
