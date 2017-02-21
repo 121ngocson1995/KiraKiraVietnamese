@@ -68,6 +68,20 @@ class DummyController extends Controller
 
                 break;
             
+            case 'P5': 
+                $cnt = count($dummy);
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $content[$i] = explode( "|", $dummy[$i]->content);
+                        
+                    }
+                    dd($content);
+                    return view("{$uri}", compact(['dummy', 'content'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
+
             case 'P6': 
                 $cnt = count($dummy);
                 if ($cnt != 0)
