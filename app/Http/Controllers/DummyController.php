@@ -73,11 +73,10 @@ class DummyController extends Controller
                 if ($cnt != 0)
                 {
                     for ($i=0; $i<$cnt; $i++){
-                        $content[$i] = explode( "|", $dummy[$i]->content);
+                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
                         
                     }
-                    dd($content);
-                    return view("{$uri}", compact(['dummy', 'content'])); 
+                    return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
                 } else {
                     return view("{$uri}", compact('dummy'));
                 }
