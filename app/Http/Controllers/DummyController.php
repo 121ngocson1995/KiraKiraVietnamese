@@ -42,6 +42,19 @@ class DummyController extends Controller
         ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
         */
         switch ($uri) {
+            case 'P1':
+                $firstLineNumber;
+
+                if (count($dummy) != 0)
+                {
+                    $firstLineNumber = $dummy[0]->lineNumber;
+                    return view("{$uri}", compact(['dummy', 'firstLineNumber']));
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
+
+                break;
+            
             case 'P3':
                 $firstLineNumber;
 

@@ -1,0 +1,116 @@
+[
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 1,
+		"sentence" : "Chào",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 2,
+		"sentence" : "Bạn",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 3,
+		"sentence" : "Anh",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 4,
+		"sentence" : "Chị",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 5,
+		"sentence" : "Cô",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 1,
+		"sentenceNumber" : 6,
+		"sentence" : "Chú",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 1,
+		"sentence" : "Bác",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 2,
+		"sentence" : "Ông",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 3,
+		"sentence" : "Bà",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 4,
+		"sentence" : "Tôi",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 5,
+		"sentence" : "Em",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 2,
+		"sentenceNumber" : 6,
+		"sentence" : "Cháu",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 1,
+		"sentence" : "Tên",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 2,
+		"sentence" : "Tuổi",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 3,
+		"sentence" : "Các",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 4,
+		"sentence" : "À",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 5,
+		"sentence" : "À",
+		"audio" : "/audio/vie-1-1-1-3.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 6,
+		"sentence" : "Dạ",
+		"audio" : "/audio/vie-1-1-1-6.mp3"
+	},
+	{
+		"lineNumber" : 3,
+		"sentenceNumber" : 6,
+		"sentence" : "Là",
+		"audio" : "/audio/vie-1-1-1-1.mp3"
+	}
+]
