@@ -88,7 +88,6 @@ class DummyController extends Controller
                 for ($i=0; $i<$cnt; $i++){
                     $problemArr[$i] = explode( "|", $dummy[$i]->problem);
                     $answerArr[$i] = explode( "|", $dummy[$i]->answer);
-
                 }
                 return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
             } else {
@@ -101,9 +100,11 @@ class DummyController extends Controller
             {
                 for ($i=0; $i<$cnt; $i++){
                     $contentArr[$i] = explode( "|", $dummy[$i]->content);
-
                 }
-                return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
+                for ($i=0; $i<$cnt; $i++){
+                    $audioArr[$i] = $dummy[$i]->audio;
+                }
+                return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
             } else {
                 return view("{$uri}", compact('dummy'));
             }

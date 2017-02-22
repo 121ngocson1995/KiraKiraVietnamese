@@ -9,6 +9,7 @@
 <script language="JavaScript">
 	var contentNow = 0;
 	var contentArr = <?php echo json_encode($contentArr); ?>;
+	var audioArr = <?php echo json_encode($audioArr); ?>;
 	function next(){
 		
 		while (document.getElementById("content_id").firstChild) {
@@ -22,8 +23,8 @@
 		for (var i = 0; i < contentArr[contentNow].length; i++) {
 			editContent(contentArr[contentNow][i]);
 		}
-		
-
+		editAudio(audioArr[contentNow]);
+		document.getElementById("audio").load();
 	}
 
 	function chooseD(element){
@@ -36,7 +37,8 @@
 		for (var i = 0; i < contentArr[contentNow].length; i++) {
 			editContent(contentArr[contentNow][i]);
 		}
-
+		editAudio(audioArr[contentNow]);
+		document.getElementById("audio").load();
 	}
 
 	function editContent(text) {
@@ -44,6 +46,10 @@
 		var textnode = document.createTextNode(text);
 		node.appendChild(textnode);
 		document.getElementById("content_id").appendChild(node);
+	}
+
+	function editAudio(path) {
+		document.getElementById("audio_id").setAttribute('src', '{{ URL::asset('') }}' + path);
 	}
 </script>
 @stop
@@ -62,8 +68,8 @@
 		<br>
 	</div>
 	<button type="button" class="btn btn-primary" onclick="JavaScript: next()">Next</button>
-	<div class="col-sm-3 col-md-6 col-lg-4"><audio controls>
-		<source src="{{ URL::asset('P4_audio/test.mp3') }}" type="audio/mpeg">
+	<div class="col-sm-3 col-md-6 col-lg-4"><audio id="audio" controls>
+		<source id="audio_id" src="{{ URL::asset($audioArr[0]) }}" type="audio/mpeg">
 			Your browser does not support the audio element.
 		</audio>
 	</div>
