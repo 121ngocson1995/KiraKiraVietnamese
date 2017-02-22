@@ -1,0 +1,50 @@
+[
+	{
+		"content":"- Chào bạn!|- Chào bạn!",
+		"id" : "0"
+	},
+	{
+		"content":"- Chào chị!|- Chào em!",
+		"id" : "1"
+	},
+	{
+		"content":"- Chào anh!|- Chào em!",
+		"id" : "2"
+	},
+	{
+		"content":"- Chào chú!|- Chào cháu!",
+		"id" : "3"
+	},
+	{
+		"content":"- Chào cô!|- Chào cháu!",
+		"id" : "4"
+	},
+	{
+		"content":"- Chào bác!|- Chào cháu!",
+		"id" : "5"
+	},
+	{
+		"content":"- Bạn tên là gì ?|- Tôi tên là Trung anh.",
+		"id" : "6"
+	},
+	{
+		"content":"- Cháu tên là gì?|- Cháu tên là Trung Anh.",
+		"id" : "7"
+	},
+	{
+		"content":"- Bạn mấy tuổi ?|- Tôi 7 tuổi.",
+		"id" : "8"
+	},
+	{
+		"content":"- Em bao nhiêu tuổi ?|- Em 7 tuổi ạ.",
+		"id" : "9"
+	},
+	{
+		"content":"- Bạn là hoc sinh à ?|- Ừ, tôi là học sinh.",
+		"id" : "10"
+	},
+	{
+		"content":"- Cháu là học sinh à ?|-Vâng ạ, cháu là học sinh.",
+		"id" : "11"
+	}
+]	

@@ -16,18 +16,16 @@
 		checkOrder.push(questionId);
 		var index = checkOrder.indexOf(questionId);
 		var questionOrder;
-		console.log(index);
-		console.log(Object.keys(questionList).length);
-		for (var i = 0; i < Object.keys(questionList).length; i++) {
+		for (var i = 0; i < questionList.length; i++) {
 			if (i == questionId ) {
-				questionOrder = questionList['question_'+i]['order'];
+				questionOrder = questionList[i]['order'];
 			}
 		}
 
 		if (questionOrder.localeCompare(index) == 0) {
 			document.getElementById('right').style.opacity=1;
 			element.setAttribute('disabled', 'disabled');
-			if (index == Object.keys(questionList).length-1 ) {
+			if (index == questionList.length-1 ) {
 				window.alert("Bạn đã hoàn thành bài tập rồi");
 			}
 		}else{
