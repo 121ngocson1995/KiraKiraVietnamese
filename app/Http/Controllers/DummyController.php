@@ -25,8 +25,8 @@ class DummyController extends Controller
     	** Nếu false -> kết thúc
     	*/
       if (!File::exists($filePath)) {
-       dd("Tên file không khớp đường dẫn");
-   }
+         dd("Tên file không khớp đường dẫn");
+     }
 
 	    /*
     	** Đọc data từ file và parse sang object
@@ -34,8 +34,8 @@ class DummyController extends Controller
     	** $dummy = json_decode($dummyData, trưe);
     	** để parse data sang array
     	*/
-       $dummyData = File::get($filePath);
-       $dummy = json_decode($dummyData);
+     $dummyData = File::get($filePath);
+     $dummy = json_decode($dummyData);
 
         /*
         ** Thực hiện xử lý riêng cho từng màn hình
@@ -68,8 +68,13 @@ class DummyController extends Controller
 
             break;
             
+            case 'P4':
+            shuffle($dummy);
+            return view("{$uri}", compact('dummy'));
+
             case 'P5': 
             $cnt = count($dummy);
+            
             if ($cnt != 0)
             {
                 for ($i=0; $i<$cnt; $i++){

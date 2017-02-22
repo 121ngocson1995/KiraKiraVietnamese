@@ -28,10 +28,12 @@
 			if (index == questionList.length-1 ) {
 				window.alert("Bạn đã hoàn thành bài tập rồi");
 			}
+			element.innerHTML = parseInt(questionOrder)+1;
 		}else{
 			document.getElementById('wrong').style.opacity=1;
 			checkOrder.splice(index,1);
 		}
+
 
 	}
 
@@ -45,7 +47,7 @@
 			@foreach ($dummy as $question)
 			<tr>
 				<td>{{$question->answer}}</td>
-				<td><button type="button" name="{{ $question->id }}"  onclick="javascript: chooseOrder(this)">Chose this</button></td>
+				<td><button type="button" name="{{ $question->id }}"  onclick="javascript: chooseOrder(this)">Choose this</button></td>
 			</tr>
 			@endforeach
 		</table>
