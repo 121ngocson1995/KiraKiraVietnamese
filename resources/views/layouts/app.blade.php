@@ -19,8 +19,21 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {{-- css --}}
     <style type="text/css">
+    .playWord:hover {
+        background: cyan;
+    }
+    .playWord:active {
+        outline: none;
+    }
+    .playWord:focus {
+        outline: none;
+    }
     .img_right {
         width: 300px;
         height: 300px;
@@ -43,7 +56,26 @@
         left: 50%;
         opacity: 0;
     }
+    .wordLine {
+        margin: 5px 0px;
+    }
+    .controlBtn {
+        padding: 10px;
+    }
 
+    /* Tooltip */
+    .tooltip > .tooltip-inner {
+        color: #FFFFFF;
+        width: 120px;
+        border: 1px solid black;
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid;
+    }
 </style>
 </head>
 <body>
