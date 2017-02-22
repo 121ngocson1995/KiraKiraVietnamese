@@ -22,11 +22,14 @@
 		}
 	}
 
-	function editContent(text) {
+	function editContent(problem, answer) {
 		var node = document.createElement("div");
-		var textnode = document.createTextNode(text);
-		node.appendChild(textnode);
+		var problemNode = document.createTextNode(problem);
+		var answerNode = document.createTextNode(answer);
+		node.appendChild(problemNode);
 		document.getElementById("problem_id").appendChild(node);
+		node.appendChild(answerNode);
+		document.getElementById("answer_id").appendChild(node);
 	}
 
 	function handleClick(checkbox) {
