@@ -1,0 +1,27 @@
+[
+	{
+		"word" : "hân",
+		"correctOrder" : 0,
+		"audio" : "/audio/vie-1-1-1-5.mp3"
+	},
+	{
+		"word" : "hạnh",
+		"correctOrder" : 1,
+		"audio" : "/audio/vie-1-1-1-5.mp3"
+	},
+	{
+		"word" : "được",
+		"correctOrder" : 2,
+		"audio" : "/audio/vie-1-1-1-5.mp3"
+	},
+	{
+		"word" : "biết",
+		"correctOrder" : 3,
+		"audio" : "/audio/vie-1-1-1-5.mp3"
+	},
+	{
+		"word" : "chị",
+		"correctOrder" : 4,
+		"audio" : "/audio/vie-1-1-1-5.mp3"
+	}
+]
