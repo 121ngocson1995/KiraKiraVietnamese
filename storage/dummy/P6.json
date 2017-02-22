@@ -16,27 +16,27 @@
 
 	{
 		"problem": "Bạn tên là gì?|... tên là Trung Anh.",
-		"answer" : "em|cháu|tôi"
+		"answer" : "tôi|cháu|em"
 	},
 
 	{
 		"problem": "Cháu tên là gì?|... tên là Trung Anh.",
-		"answer" : "em|cháu|anh"
+		"answer" : "cháu|em|anh"
 	},
 
 	{
 		"problem": "Em tên là gì?|... tên là Trung Anh.",
-		"answer" : "anh|tôi|em"
+		"answer" : "em|tôi|anh"
 	},
 
 	{
 		"problem": "Bạn ... là gì?|Tôi tên là Trung Anh.",
-		"answer" : "anh|tuổi|tên"
+		"answer" : "tên|tuổi|anh"
 	},
 
 	{
 		"problem": "Em ... tuổi?|Em 7 tuổi.",
-		"answer" : "tên|bao nhiêu|là"
+		"answer" : "bao nhiêu|tên|là"
 	},
 
 	{
@@ -51,11 +51,11 @@
 
 	{
 		"problem": "Em tên là ... ?|Em tên là Trung Anh ạ.",
-		"answer" : "dạ|mấy|gì"
+		"answer" : "gì|mấy|dạ"
 	},
 
 	{
 		"problem": "Em là học sinh ... ?|Vâng, em là học sinh.",
-		"answer" : "gì|à|d"
+		"answer" : "à|gì|d"
 	}
 ]
