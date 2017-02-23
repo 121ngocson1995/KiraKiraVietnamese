@@ -22,8 +22,27 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/j/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script
+          src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+          integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+          crossorigin="anonymous"></script>
     {{-- css --}}
+
+    <style>
+          #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+          #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+          #sortable li span { position: absolute; margin-left: -1.3em; }
+      </style>
+          <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+          $( function() {
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
+          } );
+      </script>
     <style type="text/css">
     #container {
       margin: 20px;

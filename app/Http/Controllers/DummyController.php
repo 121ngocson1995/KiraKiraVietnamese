@@ -18,15 +18,15 @@ class DummyController extends Controller
     	/*
     	** Tạo đường dẫn đầy đủ
     	*/
-      $filePath = storage_path() . "/dummy/{$uri}.json";
+        $filePath = storage_path() . "/dummy/{$uri}.json";
 
 		/*
     	** Kiểm tra xem đường dẫn và tên file có khớp nhau
     	** Nếu false -> kết thúc
     	*/
-      if (!File::exists($filePath)) {
-         dd("Tên file không khớp đường dẫn");
-     }
+        if (!File::exists($filePath)) {
+        dd("Tên file không khớp đường dẫn");
+        }
 
 	    /*
     	** Đọc data từ file và parse sang object
@@ -34,8 +34,8 @@ class DummyController extends Controller
     	** $dummy = json_decode($dummyData, trưe);
     	** để parse data sang array
     	*/
-     $dummyData = File::get($filePath);
-     $dummy = json_decode($dummyData);
+        $dummyData = File::get($filePath);
+        $dummy = json_decode($dummyData);
 
         /*
         ** Thực hiện xử lý riêng cho từng màn hình
@@ -43,84 +43,86 @@ class DummyController extends Controller
         */
         switch ($uri) {
             case 'P1':
-            $firstLineNumber;
+                $firstLineNumber;
 
-            if (count($dummy) != 0)
-            {
-                $firstLineNumber = $dummy[0]->lineNumber;
-                return view("{$uri}", compact(['dummy', 'firstLineNumber']));
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
+                if (count($dummy) != 0)
+                {
+                    $firstLineNumber = $dummy[0]->lineNumber;
+                    return view("{$uri}", compact(['dummy', 'firstLineNumber']));
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
 
-            break;
+                break;
             
-            case 'P3':
-            $firstLineNumber;
+            case 'P2':
+                $lastIndex = $dummy[count($dummy)-1]->correctOrder;
+                shuffle($dummy);
+                return view("{$uri}", compact(['dummy', 'lastIndex']));
 
-            if (count($dummy) != 0)
-            {
-                $firstLineNumber = $dummy[0]->lineNumber;
-                return view("{$uri}", compact(['dummy', 'firstLineNumber']));
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
-
-            break;
+                break;
             
             case 'P4':
-            shuffle($dummy);
-            return view("{$uri}", compact('dummy'));
+                shuffle($dummy);
+                return view("{$uri}", compact('dummy'));
+
+                break;
 
             case 'P5': 
-            $cnt = count($dummy);
-            
-            if ($cnt != 0)
-            {
-                for ($i=0; $i<$cnt; $i++){
-                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                $cnt = count($dummy);
+                
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
 
+                    }
+                    return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
                 }
-                return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
+
+                break;
 
             case 'P6': 
-            $cnt = count($dummy);
-            
-            if ($cnt != 0)
-            {
-                for ($i=0; $i<$cnt; $i++){
-                    $indexes = [0,1,2];
-                    $m = array_rand($indexes);
-                    $indexes2 = array_diff($indexes, [$m]);
-                    $n = array_rand($indexes2);
-                    $o = array_rand(array_diff($indexes2, [$n]));
-                    $problemArr[$i] = explode( "|", $dummy[$i]->problem);
-                    $answerArr[$i] = explode( "|", $dummy[$i]->answer);
-                    $arr[$i] = [$m, $n, $o];
+                $cnt = count($dummy);
+                
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $indexes = [0,1,2];
+                        $m = array_rand($indexes);
+                        $indexes2 = array_diff($indexes, [$m]);
+                        $n = array_rand($indexes2);
+                        $o = array_rand(array_diff($indexes2, [$n]));
+                        $problemArr[$i] = explode( "|", $dummy[$i]->problem);
+                        $answerArr[$i] = explode( "|", $dummy[$i]->answer);
+                        $arr[$i] = [$m, $n, $o];
+                    }
+                    // dd($arr[0], $arr[0][0], $arr[0][1]);
+                    return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
                 }
-                // dd($arr[0], $arr[0][0], $arr[0][1]);
-                return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
+
+                break;
 
             case 'P7': 
-            $cnt = count($dummy);
-            if ($cnt != 0)
-            {
-                for ($i=0; $i<$cnt; $i++){
-                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                $cnt = count($dummy);
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                    }
+                    for ($i=0; $i<$cnt; $i++){
+                        $audioArr[$i] = $dummy[$i]->audio;
+                    }
+                    return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
                 }
-                for ($i=0; $i<$cnt; $i++){
-                    $audioArr[$i] = $dummy[$i]->audio;
-                }
-                return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
+
+                break;
 
             default:    
                 /*

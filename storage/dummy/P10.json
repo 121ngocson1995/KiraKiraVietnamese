@@ -1,0 +1,61 @@
+[
+	{
+		"problem": "Chào bác.|Chào... ",
+		"answer" : "cháu|anh|em"
+	},
+	
+	{
+		"problem": "Chào em.|Chào... ",
+		"answer" : "bác|bạn|em"
+	},
+
+	{
+		"problem": "Chào bạn.|Chào... ",
+		"answer" : "bạn|chị|em"
+	},
+
+	{
+		"problem": "Bạn tên là gì?|... tên là Trung Anh.",
+		"answer" : "tôi|cháu|em"
+	},
+
+	{
+		"problem": "Cháu tên là gì?|... tên là Trung Anh.",
+		"answer" : "cháu|em|anh"
+	},
+
+	{
+		"problem": "Em tên là gì?|... tên là Trung Anh.",
+		"answer" : "em|tôi|anh"
+	},
+
+	{
+		"problem": "Bạn ... là gì?|Tôi tên là Trung Anh.",
+		"answer" : "tên|tuổi|anh"
+	},
+
+	{
+		"problem": "Em ... tuổi?|Em 7 tuổi.",
+		"answer" : "bao nhiêu|tên|là"
+	},
+
+	{
+		"problem": "Cháu ... tuổi?|Dạ, cháu 9 tuổi ạ.",
+		"answer" : "mấy|tên|em"
+	},
+
+	{
+		"problem": "Cháu ... học sinh à?|Vâng ạ, cháu là học sinh ạ.",
+		"answer" : "là|tuổi|dạ"
+	},
+
+	{
+		"problem": "Em tên là ... ?|Em tên là Trung Anh ạ.",
+		"answer" : "gì|mấy|dạ"
+	},
+
+	{
+		"problem": "Em là học sinh ... ?|Vâng, em là học sinh.",
+		"answer" : "à|gì|d"
+	}
+]
