@@ -1,22 +1,16 @@
 @extends('layout')
 
 @section('title')
-<h1 style="font-size: 200%" align="center"> Bài 6: Đọc và chọn đáp án đúng</h1>
-<style>
-	.testClass {
-		background: #e3e3e3;
-		padding: 10px;
-		text-align: center;
-		color: pink;
-	}
-</style>
+<h1 style="font-size: 200%" align="center">Đọc và chọn đáp án đúng</h1>
+
 <script type="text/javascript">
 	var contentNow = 0;
 	var problemArr = <?php echo json_encode($problemArr); ?>;
 	var answerArr = <?php echo json_encode($answerArr); ?>;
-	
 
 	function next() {
+
+		var char = 65;
 		while (document.getElementById("problem_id").firstChild) {
 			document.getElementById("problem_id").removeChild(document.getElementById("problem_id").firstChild);
 		}
@@ -26,12 +20,16 @@
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi");
 		}
+
 		while (document.getElementById("order_id").firstChild) {
 			document.getElementById("order_id").removeChild(document.getElementById("order_id").firstChild);
 		}
+
 		editOrder(contentNow + 1);
+
 		for (var i = 0; i < problemArr[contentNow].length; i++) {
 			editProblem(problemArr[contentNow][i]);
+			
 		}
 
 		while (document.getElementById("answer_id").firstChild) {
@@ -39,7 +37,8 @@
 		}
 		
 		for (var i = 0; i < answerArr[contentNow].length; i++) {
-			editAnswer(answerArr[contentNow][i]);
+			editAnswer(answerArr[contentNow][i], char, i);
+			char++;
 		}
 
 	}
@@ -53,24 +52,43 @@
 
 	function editProblem(problem) {
 		var node = document.createElement("div");
+		node.setAttribute("style", "background-color : gray; color : white; padding : 10px;");
 		var contentNode = document.createTextNode(problem);
 		node.appendChild(contentNode);
-		var att = document.createAttribute("class");
-		att.value = "testClass";
-		document.getElementById("problem_id").appendChild(node).setAttributeNode(att);
+		document.getElementById("problem_id").appendChild(node);
 	}
 
-	function editAnswer(answer) {
+	function editAnswer(answer, char, id) {
 		var node = document.createElement("div");
-		var contentNode = document.createTextNode(answer);
-		node.appendChild(contentNode);
-		document.getElementById("answer_id").appendChild(node);
-	}
+		var node1 = document.createElement("p");
+		var node2 = document.createElement("input");
+		var test = String.fromCharCode(char);
+		var contNode1 = document.createTextNode(test + ". " + answer);
+		node2.setAttribute('type', 'checkbox');
+		node2.setAttribute('name', id);
+		node2.setAttribute('onclick', 'handleClick(this);');
+		node1.appendChild(node2);
+		node1.appendChild(contNode1);
+		node.appendChild(node1);
+		document.getElementById("answer_id").appendChild(node1);
 
-	function handleClick(checkbox) {
-		document.getElementById('right').style.opacity=0;
-		document.getElementById('wrong').style.opacity=0;
-	} 
+}  
+
+function handleClick(element) {
+			document.getElementById('right').style.opacity=0;
+			document.getElementById('wrong').style.opacity=0;
+			var answerId = element.name;
+			console.log(answerId);
+			if (answerId == 0) {
+				document.getElementById('right').style.opacity=1;
+				document.getElementById("answer_id").setAttribute('color', 'green');
+				element.setAttribute('disabled', 'disabled');
+			}else{
+				document.getElementById('wrong').style.opacity=1;
+				element.setAttribute('disabled', 'disabled');
+			}
+		} 
+	
 </script>
 
 @stop
@@ -80,12 +98,10 @@
 
 <form>
 	<div id='order_id'><div>Câu 1</div></div>
-	<div id='problem_id' align="center" style="background-color:gray; color:white;padding:10px;">
-		
+	<div id='problem_id' align="center" style="background-color:gray; color:white ;padding:10px;">
 		<p><?php echo $problemArr[0][0] ?></p>
 		<p><?php echo $problemArr[0][1] ?></p>
 	</div>
-
 	
 	<div id='answer_id' align="center" style="background-color:#e3e3e3; color:black;padding:10px;">
 		@php
@@ -94,13 +110,12 @@
 		$indexes2 = array_diff($indexes, [$m]);
 		$n = array_rand($indexes2);
 		$o = array_rand(array_diff($indexes2, [$n]));
-
 		@endphp
-		<p><input type="checkbox" onclick='handleClick(this);'><?php echo "A. ". $answerArr[0][$m] ?></p>
-		<p><input type="checkbox" onclick='handleClick(this);'><?php echo "B. ". $answerArr[0][$n] ?></p>
-		<p><input type="checkbox" onclick='handleClick(this);'><?php echo "C. ". $answerArr[0][$o] ?></p>
+		<p><input type="checkbox" name="{{$m}}" onclick='handleClick(this);'><?php echo "A. ". $answerArr[0][$m] ?></p>
+		<p><input type="checkbox" name="{{$n}}" onclick='handleClick(this);'><?php echo "B. ". $answerArr[0][$n] ?></p>
+		<p><input type="checkbox" name="{{$o}}" onclick='handleClick(this);'><?php echo "C. ". $answerArr[0][$o] ?></p>
 	</div>
-	<input type="button" value="Next" id="nextBtn" onclick="next()">
+		<br><p align="center"><input type="button" value="Next" id="nextBtn" onclick="next()"></p>
 	
 </form>
 <div class="row">
