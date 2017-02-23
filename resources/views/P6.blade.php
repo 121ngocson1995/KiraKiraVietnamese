@@ -7,7 +7,7 @@
 	var contentNow = 0;
 	var problemArr = <?php echo json_encode($problemArr); ?>;
 	var answerArr = <?php echo json_encode($answerArr); ?>;
-
+	var arr = <?php echo json_encode($arr); ?>;
 	function next() {
 
 		var char = 65;
@@ -102,20 +102,25 @@ function handleClick(element) {
 		<p><?php echo $problemArr[0][0] ?></p>
 		<p><?php echo $problemArr[0][1] ?></p>
 	</div>
-	
 	<div id='answer_id' align="center" style="background-color:#e3e3e3; color:black;padding:10px;">
-		@php
-		$indexes = [0,1,2];
-		$m = array_rand($indexes);
-		$indexes2 = array_diff($indexes, [$m]);
-		$n = array_rand($indexes2);
-		$o = array_rand(array_diff($indexes2, [$n]));
-		@endphp
-		<p><input type="checkbox" name="{{$m}}" onclick='handleClick(this);'><?php echo "A. ". $answerArr[0][$m] ?></p>
-		<p><input type="checkbox" name="{{$n}}" onclick='handleClick(this);'><?php echo "B. ". $answerArr[0][$n] ?></p>
-		<p><input type="checkbox" name="{{$o}}" onclick='handleClick(this);'><?php echo "C. ". $answerArr[0][$o] ?></p>
+		<p>
+			<input type="checkbox" name="{{ $arr[0][0] }}" onclick='handleClick(this);'>
+			<?php echo "A. ". $answerArr[0][$arr[0][0]] ?>
+		</p>
+		<p>
+			<input type="checkbox" name="{{ $arr[0][1] }}" onclick='handleClick(this);'>
+			<?php echo "B. ". $answerArr[0][$arr[0][1]] ?>
+		</p>
+		<p>
+			<input type="checkbox" name="{{ $arr[0][2] }}" onclick='handleClick(this);'>
+			<?php echo "C. ". $answerArr[0][$arr[0][2]] ?>
+		</p>
 	</div>
-		<br><p align="center"><input type="button" value="Next" id="nextBtn" onclick="next()"></p>
+		<br>
+		<p align="center">
+			<input type="button" value="Back" id="nextBtn" onclick="back()">
+			<input type="button" value="Next" id="nextBtn" onclick="next()">
+		</p>
 	
 </form>
 <div class="row">

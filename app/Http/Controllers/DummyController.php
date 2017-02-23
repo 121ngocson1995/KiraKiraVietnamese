@@ -88,12 +88,20 @@ class DummyController extends Controller
 
             case 'P6': 
             $cnt = count($dummy);
+            
             if ($cnt != 0)
             {
                 for ($i=0; $i<$cnt; $i++){
+                    $indexes = [0,1,2];
+                    $m = array_rand($indexes);
+                    $indexes2 = array_diff($indexes, [$m]);
+                    $n = array_rand($indexes2);
+                    $o = array_rand(array_diff($indexes2, [$n]));
                     $problemArr[$i] = explode( "|", $dummy[$i]->problem);
                     $answerArr[$i] = explode( "|", $dummy[$i]->answer);
+                    $arr[$i] = [$m, $n, $o];
                 }
+                // dd($arr[0], $arr[0][0], $arr[0][1]);
                 return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
             } else {
                 return view("{$uri}", compact('dummy'));
