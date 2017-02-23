@@ -84,7 +84,7 @@ class DummyController extends Controller
 
                 break;
 
-            case 'P6': 
+            case 'P6':
                 $cnt = count($dummy);
                 
                 if ($cnt != 0)
@@ -107,7 +107,7 @@ class DummyController extends Controller
 
                 break;
 
-            case 'P7': 
+            case 'P7':
                 $cnt = count($dummy);
                 if ($cnt != 0)
                 {
@@ -124,7 +124,28 @@ class DummyController extends Controller
 
                 break;
 
-            default:    
+            case 'P10':
+                $initOrder = [];
+                foreach ($dummy as $dummyValue) {
+                    $initOrder[] = $dummyValue->correctOrder;
+                }
+
+                $currentOrder;
+
+                do {
+                    shuffle($dummy);
+
+                    $currentOrder = array();
+                    foreach ($dummy as $dummyValue) {
+                        $currentOrder[] = $dummyValue->correctOrder;
+                    }
+                } while ( $currentOrder === $initOrder );
+
+                return view("{$uri}", compact('dummy'));
+
+                break;
+
+            default:
                 /*
                 ** Chuyển đến view trong điều kiện bình thường
                 */
