@@ -1,130 +1,237 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('title')
+@section('content')
 <h1 style="font-size: 200%" align="center">Đọc và chọn đáp án đúng</h1>
 
+<style>
+	#questions {
+		position: fixed;
+		top: 42%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	#result {
+		position: fixed;
+		top: 42%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+	}
+	.btn-answer {
+		border-radius: 4px;
+		border: 1px solid transparent;
+		padding: 6px 15px;
+		margin: 10px;
+		font-size: 30px;
+		transition: background-color 0.4s;
+	}
+	.btnNext {
+		font-size: 20px;
+		width: 150px;
+		border-radius: 50px;
+		font-weight: 800;
+		transition: background-color 0.4s;
+	}
+	.chosen.correctAnswer, .chosen.correctAnswer:hover {
+		background-color: #008000;
+		border-color: #008000;
+	}
+	.chosen.wrongAnswer, .chosen.wrongAnswer:hover {
+		background-color: red;
+		border-color: red;
+	}
+	.result {
+		padding: 10px;
+		border: none;
+		outline: none;
+		color: cornflowerblue;
+		background-color: transparent;
+		border-bottom: solid 2px #6495ed;
+		border-bottom: solid 2px #cccccc;
+		text-align: center;
+		font-size: 60px;
+		transition: color 0.4s, background-color 0.4s, border-bottom 0.4s;
+		cursor: default;
+	}
+</style>
+
 <script type="text/javascript">
-	var contentNow = 0;
-	var problemArr = <?php echo json_encode($problemArr); ?>;
-	var answerArr = <?php echo json_encode($answerArr); ?>;
-	var arr = <?php echo json_encode($arr); ?>;
-	function next() {
+	var dummy = <?php echo json_encode($dummy); ?>;
+	var currentQuestion = 0;
+	var lastQuestion = dummy.length - 1;
+	var questionsDone = 0;
+	var correctAnswerNo = 0;
 
-		var char = 65;
-		while (document.getElementById("problem_id").firstChild) {
-			document.getElementById("problem_id").removeChild(document.getElementById("problem_id").firstChild);
+	function next(button) {
+		if (button.innerHTML == "Next") {
+			switchQuestion(currentQuestion + 1);
+		} else {
+			showResult();
 		}
-		
-		if(contentNow < problemArr.length-1){
-			contentNow = parseInt(contentNow) + 1;
-		}else{
-			window.alert("Bạn đã hoàn thành bài tập rồi");
-		}
-
-		while (document.getElementById("order_id").firstChild) {
-			document.getElementById("order_id").removeChild(document.getElementById("order_id").firstChild);
-		}
-
-		editOrder(contentNow + 1);
-
-		for (var i = 0; i < problemArr[contentNow].length; i++) {
-			editProblem(problemArr[contentNow][i]);
-			
-		}
-
-		while (document.getElementById("answer_id").firstChild) {
-			document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
-		}
-		
-		for (var i = 0; i < answerArr[contentNow].length; i++) {
-			editAnswer(answerArr[contentNow][i], char, i);
-			char++;
-		}
-
 	}
 
-	function editOrder(x) {
-		var node = document.createElement("div");
-		var contentNode = document.createTextNode('Câu '+ x);
-		node.appendChild(contentNode);
-		document.getElementById("order_id").appendChild(node);
-	}
+	function switchQuestion(questionId) {
+		currentQuestion = questionId;
 
-	function editProblem(problem) {
-		var node = document.createElement("div");
-		node.setAttribute("style", "background-color : gray; color : white; padding : 10px;");
-		var contentNode = document.createTextNode(problem);
-		node.appendChild(contentNode);
-		document.getElementById("problem_id").appendChild(node);
-	}
-
-	function editAnswer(answer, char, id) {
-		var node = document.createElement("div");
-		var node1 = document.createElement("p");
-		var node2 = document.createElement("input");
-		var test = String.fromCharCode(char);
-		var contNode1 = document.createTextNode(test + ". " + answer);
-		node2.setAttribute('type', 'checkbox');
-		node2.setAttribute('name', id);
-		node2.setAttribute('onclick', 'handleClick(this);');
-		node1.appendChild(node2);
-		node1.appendChild(contNode1);
-		node.appendChild(node1);
-		document.getElementById("answer_id").appendChild(node1);
-
-}  
-
-function handleClick(element) {
-			document.getElementById('right').style.opacity=0;
-			document.getElementById('wrong').style.opacity=0;
-			var answerId = element.name;
-			console.log(answerId);
-			if (answerId == 0) {
-				document.getElementById('right').style.opacity=1;
-				document.getElementById("answer_id").setAttribute('color', 'green');
-				element.setAttribute('disabled', 'disabled');
-			}else{
-				document.getElementById('wrong').style.opacity=1;
-				element.setAttribute('disabled', 'disabled');
+		var btnNext = document.getElementsByClassName('btnNext')[0];
+		if (currentQuestion == lastQuestion) {
+			btnNext.innerHTML = 'Finish';
+			if (questionsDone < lastQuestion + 1) {
+				btnNext.disabled = true;
+			} else {
+				btnNext.disabled = false;
 			}
-		} 
-	
+		} else {
+			btnNext.innerHTML = 'Next';
+			btnNext.disabled = false;
+		}
+
+		$('#problems').empty();
+
+		var problemArr = dummy[questionId].dialog.split("|");
+		for (var i = 0; i < problemArr.length; i++) {
+			var p = document.createElement('p');
+			p.innerHTML = problemArr[i];
+			document.getElementById("problems").appendChild(p);
+		}
+
+		$('#answerGroup').empty();
+
+		var button = [];
+		
+		for (var i = 0; i <= 2; i++) {
+			var toDisable = false;
+			button.push(document.createElement('button'));
+			button[i].id = questionId;
+			button[i].name = dummy[questionId].answerOrder[i];
+			button[i].className = "btn btn-primary btn-answer";
+
+			if (dummy[questionId].answers[dummy[questionId].answerOrder[i]].chosen == true) {
+				button[i].className += " chosen";
+				toDisable = true;
+			}
+
+			if (dummy[questionId].answerOrder[i] == "correctAnswer") {
+				button[i].className += " correctAnswer";
+			} else {
+				button[i].className += " wrongAnswer";
+			}
+
+			button[i].innerHTML = dummy[questionId].answers[dummy[questionId].answerOrder[i]].content;
+
+			button[i].onclick = function () {
+				checkAnswer(button[i]);
+			};
+
+			if (toDisable == true) {
+				button[i].disabled = true;
+			}
+
+			document.getElementById("answerGroup").appendChild(button[i]);
+		}
+		
+		$('.btn-answer').click(function () {
+			checkAnswer(this);
+		})
+	}
+
+	function checkAnswer(button) {
+		var giveMark = true
+
+		if ($(button).hasClass('correctAnswer')) {
+			if ($(button).attr('name') == "correctAnswer") {
+				dummy[parseInt($(button).attr('id'))].answers.correctAnswer.chosen = true;
+			}
+
+			markBtn('.btn-answer');
+
+			correctAnswerNo++;
+			questionsDone++;
+
+			var navQn = $(button).attr('id');
+			$('#navQ'+navQn).removeClass('btn-warning');
+			$('#navQ'+navQn).addClass('btn-success');
+		} else if ($(button).hasClass('wrongAnswer')) {
+			if ($(button).attr('name') == "wrongAnswer1") {
+				dummy[parseInt($(button).attr('id'))].answers.wrongAnswer1.chosen = true;
+			} else if ($(button).attr('name') == "wrongAnswer2") {
+				dummy[parseInt($(button).attr('id'))].answers.wrongAnswer2.chosen = true;
+			}
+
+			markBtn(button);
+
+			if ($('.chosen').length == 2) {
+				markBtn('.btn-answer');
+				questionsDone++;
+
+				var navQn = $(button).attr('id');
+				$('#navQ'+navQn).removeClass('btn-warning');
+				$('#navQ'+navQn).addClass('btn-danger');
+			}
+		}
+	}
+
+	function markBtn(button) {
+		$(button).addClass('chosen');
+		$(button).prop('disabled', true);
+
+		if (button == ".btn-answer" && currentQuestion == lastQuestion) {
+			document.getElementsByClassName('btnNext')[0].disabled = false;
+		}
+	}
+
+	function showResult() {
+		var result = document.createElement("span");
+		result.className = 'result';
+		result.innerHTML = 'You are ' + (correctAnswerNo / (lastQuestion + 1) * 100).toFixed(2) + '% correct <br> (' + correctAnswerNo + '/' + (lastQuestion + 1) + ')';
+		document.getElementById("result").appendChild(result);
+		$('#questions').fadeOut(600, function () {
+			$('#result').fadeIn(600);
+		});
+	}
 </script>
 
-@stop
-
-@section('content1') 
-
-
-<form>
-	<div id='order_id'><div>Câu 1</div></div>
-	<div id='problem_id' align="center" style="background-color:gray; color:white ;padding:10px;">
-		<p><?php echo $problemArr[0][0] ?></p>
-		<p><?php echo $problemArr[0][1] ?></p>
+<div id="questions">
+	<div id="order_id" style="text-align: center; margin: 10px">
+		<div class="btn-group">
+			@for ($i = 0; $i < count($dummy); $i++)
+				<button type="button" id="navQ{{ $i }}" class="btn btn-warning" style="font-size: 18px; width: 60px;" onclick="switchQuestion({{ $i }})">{{ "Q".($i+1) }}</button>
+			@endfor
+		</div>
 	</div>
-	<div id='answer_id' align="center" style="background-color:#e3e3e3; color:black;padding:10px;">
-		<p>
-			<input type="checkbox" name="{{ $arr[0][0] }}" onclick='handleClick(this);'>
-			<?php echo "A. ". $answerArr[0][$arr[0][0]] ?>
-		</p>
-		<p>
-			<input type="checkbox" name="{{ $arr[0][1] }}" onclick='handleClick(this);'>
-			<?php echo "B. ". $answerArr[0][$arr[0][1]] ?>
-		</p>
-		<p>
-			<input type="checkbox" name="{{ $arr[0][2] }}" onclick='handleClick(this);'>
-			<?php echo "C. ". $answerArr[0][$arr[0][2]] ?>
-		</p>
+	<div id='problems' align="center" style="border-radius: 10px; background-color:#e6e6e6; color:white ;padding:10px; font-size: 30px; color: black">
+		@php
+			$problems = explode("|", $dummy[0]->dialog);
+		@endphp
+		@foreach ($problems as $problem)
+			<p>{{ $problem }}</p>
+		@endforeach
 	</div>
-		<br>
-		<p align="center">
-			<input type="button" value="Back" id="nextBtn" onclick="back()">
-			<input type="button" value="Next" id="nextBtn" onclick="next()">
-		</p>
 	
-</form>
-<div class="row">
-	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
-	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
+	<div id="answerGroup" style="text-align: center;">
+		<button id="0" name="{{ $dummy[0]->answerOrder[0] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $dummy[0]->answers[$dummy[0]->answerOrder[0]]["content"] }}
+		</button>              
+		<button id="0" name="{{ $dummy[0]->answerOrder[1] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $dummy[0]->answers[$dummy[0]->answerOrder[1]]["content"] }}
+		</button>
+		<button id="0" name="{{ $dummy[0]->answerOrder[2] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $dummy[0]->answers[$dummy[0]->answerOrder[2]]["content"] }}
+		</button>
+	</div>
+
+	<div style="text-align: center">
+		<button class="btn btn-warning btnNext" onclick="next(this)">Next</button>
+	</div>
 </div>
+
+<div>
+	<div id="result"></div>
+</div>
+
+<script>
+	$('.btn-answer').click(function () {
+		checkAnswer(this);
+	})
+</script>
 @stop

@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="col-md-6 col-lg-6" style="text-align: center; vertical-align: middle; float: right; height: 85vh">
+<div class="col-md-6" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
 	<div>
-		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/sample_replay.svg') }}" onclick="toggleSample(this); /*startProgress('progressSample')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click a word on the left to hear sample!">
-		<input type="image" class="startRecord controlBtn" id="playSample" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="toggleRecord(this); /*startProgress('progressRecord')*/" alt="Submit" width="130" height="130">
-		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record')[0].pause(); $('#record')[0].currentTime = 0; $('#record')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
+		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/sample_replay.svg') }}" onclick="toggleSample(this); /*startProgress('progressSample')*/" alt="Submit" width="25%" height="25%" data-toggle="tooltip" data-placement="bottom" title="Click a word on the left to hear sample!">
+		<input type="image" class="startRecord controlBtn" id="playSample" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="toggleRecord(this); /*startProgress('progressRecord')*/" alt="Submit" width="25%" height="25%">
+		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record')[0].pause(); $('#record')[0].currentTime = 0; $('#record')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="25%" height="25%" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
 	</div>
 
 	<div>
@@ -14,12 +14,12 @@
 		<audio id="record"></audio>
 	</div>
 </div>
-<div class="col-md-6 col-lg-6" style="float: left;">
+<div class="col-md-6">
 	@php
 		$currentlineNumber = $firstLineNumber;
 	@endphp
 
-	<div class="wordLine" style="text-align: center;">
+	<div class="wordLine" style="text-align: center;  width: 100%">
 
 		@foreach ($dummy as $dummyValue)
 			@if ($dummyValue->lineNumber > $currentlineNumber)
@@ -30,7 +30,7 @@
 				</div><div class="wordLine" style="text-align: center;">
 			@endif
 
-			<span style="padding: 0px 2px;">
+			<span style="padding: 0px 2px; margin: 10px 0px">
 				<button class="btn playWord" style="font-size: 18px; padding: 2px 10px" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
 			</span>
 		@endforeach
@@ -168,7 +168,10 @@
 		try {
 			// webkit shim
 			window.AudioContext = window.AudioContext || window.webkitAudioContext;
-			navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+			navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
 			window.URL = window.URL || window.webkitURL;
 
 			audio_context = new AudioContext;
@@ -177,6 +180,7 @@
 		} catch (e) {
 			alert('No web audio support in this browser!');
 		}
+
 
 		navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
 			window.alert('No live audio input: ' + e);

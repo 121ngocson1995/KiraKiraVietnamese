@@ -1,61 +1,44 @@
 [
 	{
-		"problem": "Chào bác.|Chào... ",
-		"answer" : "cháu|anh|em"
+		"dialogNo" : 1,
+		"dialog": "Chào bác.|Chào...",
+		"correctAnswer" : "cháu",
+		"wrongAnswer1" : "anh",
+		"wrongAnswer2" : "em"
 	},
-	
 	{
-		"problem": "Chào em.|Chào... ",
-		"answer" : "bác|bạn|em"
+		"dialogNo" : 2,
+		"dialog": "Chào em.|Chào...",
+		"correctAnswer" : "bác",
+		"wrongAnswer1" : "bạn",
+		"wrongAnswer2" : "em"
 	},
-
 	{
-		"problem": "Chào bạn.|Chào... ",
-		"answer" : "bạn|chị|em"
+		"dialogNo" : 3,
+		"dialog": "Chào bạn.|Chào...",
+		"correctAnswer" : "bạn",
+		"wrongAnswer1" : "chị",
+		"wrongAnswer2" : "em"
 	},
-
 	{
-		"problem": "Bạn tên là gì?|... tên là Trung Anh.",
-		"answer" : "tôi|cháu|em"
+		"dialogNo" : 4,
+		"dialog": "Bạn tên là gì?|... tên là Trung Anh.",
+		"correctAnswer" : "tôi",
+		"wrongAnswer1" : "cháu",
+		"wrongAnswer2" : "em"
 	},
-
 	{
-		"problem": "Cháu tên là gì?|... tên là Trung Anh.",
-		"answer" : "cháu|em|anh"
+		"dialogNo" : 5,
+		"dialog": "Cháu tên là gì?|... tên là Trung Anh.",
+		"correctAnswer" : "cháu",
+		"wrongAnswer1" : "em",
+		"wrongAnswer2" : "anh"
 	},
-
 	{
-		"problem": "Em tên là gì?|... tên là Trung Anh.",
-		"answer" : "em|tôi|anh"
-	},
-
-	{
-		"problem": "Bạn ... là gì?|Tôi tên là Trung Anh.",
-		"answer" : "tên|tuổi|anh"
-	},
-
-	{
-		"problem": "Em ... tuổi?|Em 7 tuổi.",
-		"answer" : "bao nhiêu|tên|là"
-	},
-
-	{
-		"problem": "Cháu ... tuổi?|Dạ, cháu 9 tuổi ạ.",
-		"answer" : "mấy|tên|em"
-	},
-
-	{
-		"problem": "Cháu ... học sinh à?|Vâng ạ, cháu là học sinh ạ.",
-		"answer" : "là|tuổi|dạ"
-	},
-
-	{
-		"problem": "Em tên là ... ?|Em tên là Trung Anh ạ.",
-		"answer" : "gì|mấy|dạ"
-	},
-
-	{
-		"problem": "Em là học sinh ... ?|Vâng, em là học sinh.",
-		"answer" : "à|gì|d"
+		"dialogNo" : 6,
+		"dialog": "Em ... tuổi?|Em 7 tuổi.",
+		"correctAnswer" : "bao nhiêu",
+		"wrongAnswer1" : "tên",
+		"wrongAnswer2" : "là"
 	}
 ]

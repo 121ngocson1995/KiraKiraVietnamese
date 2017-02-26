@@ -154,7 +154,10 @@
 		try {
 			// webkit shim
 			window.AudioContext = window.AudioContext || window.webkitAudioContext;
-			navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+			navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
 			window.URL = window.URL || window.webkitURL;
 
 			audio_context = new AudioContext;
@@ -163,6 +166,7 @@
 		} catch (e) {
 			alert('No web audio support in this browser!');
 		}
+
 
 		navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
 			window.alert('No live audio input: ' + e);
