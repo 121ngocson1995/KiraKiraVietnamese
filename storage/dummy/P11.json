@@ -1,0 +1,42 @@
+[
+	{
+		"sentence" : "Chào bạn!",
+		"correctOrder" : 0
+	},
+
+	{
+		"sentence" : "Chào bạn.",
+		"correctOrder" : 1
+	},
+
+	{
+		"sentence" : "Tôi tên là Lan.",
+		"correctOrder" : 2
+	},
+
+	{
+		"sentence" : "Tôi tên là Sơn.",
+		"correctOrder" : 3
+	},
+
+	{
+		"sentence" : "Tôi chín tuổi, còn bạn?",
+		"correctOrder" : 4
+	},
+
+	{
+		"sentence" : "Còn tôi, tôi mười tuổi.",
+		"correctOrder" : 5
+	},
+
+	{
+		"sentence" : "Tôi là học sinh.",
+		"correctOrder" : 6
+	},
+
+	{
+		"sentence" : "Tôi cũng là học sinh.",
+		"correctOrder" : 7 
+	}
+
+]

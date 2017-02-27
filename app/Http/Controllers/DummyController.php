@@ -145,6 +145,31 @@ class DummyController extends Controller
 
                 break;
 
+            case 'P11':
+                $initOrder = [];
+                $stArr = [];
+                $cnt = count($dummy);
+                foreach ($dummy as $dummyValue) {
+                    $initOrder[] = $dummyValue->correctOrder;
+                }
+                foreach ($dummy as $dummyValue) {
+                    $stArr[] = $dummyValue->sentence;
+                }
+                $currentOrder;
+
+                do {
+                    shuffle($dummy);
+
+                    $currentOrder = array();
+                    foreach ($dummy as $dummyValue) {
+                        $currentOrder[] = $dummyValue->correctOrder;
+                    }
+                } while ( $currentOrder === $initOrder );
+            
+                return view("{$uri}", compact(['dummy', 'stArr', 'cnt']));
+
+                break;
+
             default:
                 /*
                 ** Chuyển đến view trong điều kiện bình thường
@@ -152,5 +177,6 @@ class DummyController extends Controller
                 return view("{$uri}", compact('dummy'));
                 break;
             }
+            
         }
     }
