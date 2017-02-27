@@ -193,4 +193,8 @@
 </script>
 <script src="{{ asset('js/recorder.js') }}"></script>
 
-@stop()
+@stop
+
+@section('description')
+	In this activity, you can click on the button on the left to hear the sample recording, use controls on the right to replay sample, practive your pronunciation by recording and listening to your own voice.
+@stop

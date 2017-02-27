@@ -32,7 +32,11 @@
 		font-size: 1.2em; 
 		width: 120px; 
 	}
-
+	.ui-state-disabled, .ui-state-disabled:hover, .ui-state-disabled:active {
+		cursor: default;
+		color: white;
+		background: green;
+	}
 </style>
 
 
@@ -56,13 +60,14 @@
 	var sentence = [];
 	$( function() {
 		$( "ul.droptrue" ).sortable({
-			connectWith: "ul"
+			connectWith: "ul",
+			items: "li:not(.ui-state-disabled)",
+			revert: 200
 		});
 
-		$( "ul.dropfalse" ).sortable({
-			connectWith: "ul",
-			dropOnEmpty: false
-		});
+		// $("#sortable1").sortable({
+		// 	items: "li:not(.ui-state-disabled)"
+		// });
 
 		$( "#sortable1, #sortable2" ).disableSelection();
 
@@ -74,34 +79,56 @@
 	function checkAnswer() {
 		var idsInOrder = [];
 		var expect = 1;
+ 		var startIndex = 0;
     	$("ul#sortable2 li").each(function() {
     		idsInOrder.push(parseInt($(this).attr('id')));
     	});
 
-    	var equal =true;
-    	if (idsCorrectOrder.length != idsInOrder.length) {
-    		equal = false;
-    	} else {
-	    	var loop = idsCorrectOrder.length < idsInOrder.length ? idsCorrectOrder.length : idsInOrder.length;
-	    	for (var i = 0; i <= loop-1; i++) {
-				if (idsInOrder[i] != idsCorrectOrder[i]) {
-					equal = false;
+   //  	var equal =true;
+   //  	if (idsCorrectOrder.length != idsInOrder.length) {
+   //  		equal = false;
+   //  	} else {
+	  //   	var loop = idsCorrectOrder.length < idsInOrder.length ? idsCorrectOrder.length : idsInOrder.length;
+	  //   	for (var i = 0; i <= loop-1; i++) {
+			// 	if (idsInOrder[i] != idsCorrectOrder[i]) {
+			// 		equal = false;
+			// 		break;
+			// 	}
+			// }
+   //  	}
+
+   //  	if (equal == true) {
+   //  		idsCorrectOrder.push(parseInt(idsCorrectOrder[idsCorrectOrder.length - 1]) + 1);
+
+   //  		$('#sortable2').children().last().addClass('ui-state-disabled');
+   //  		$("#sortable2").sortable({
+		 //    	items: "li:not(.ui-state-disabled)"
+		 //    });
+   //  	} else {
+    		
+   //  	}
+
+		var end = false;
+		if (parseInt(idsInOrder[0]) == 0) {
+			$($('#sortable2').children()[0]).addClass('ui-state-disabled');
+
+			for (var i = 1; i < idsInOrder.length; i++) {
+				if (i == 0 || parseInt(idsInOrder[i]) == parseInt(idsInOrder[i-1]) + 1) {
+					$($('#sortable2').children()[i]).addClass('ui-state-disabled');
+				} else {
 					break;
 				}
 			}
-    	}
-
-    	if (equal == true) {
-    		idsCorrectOrder.push(parseInt(idsCorrectOrder[idsCorrectOrder.length - 1]) + 1);
-    		showResult();
-    	} else {
-    		
-    	}
-	}
-
-	function showResult() {
+		}
+		$("#sortable2").sortable({
+	    	items: "li:not(.ui-state-disabled)"
+	    });
 		
 	}
 </script>
 
+@stop
+
+@section('description')
+	In this activity, drag and drop sentences from the left box to the right one so that they makes a dialog.
 @stop
