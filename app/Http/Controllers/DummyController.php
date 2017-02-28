@@ -84,27 +84,43 @@ class DummyController extends Controller
             break;
 
             case 'P6':
-            $cnt = count($dummy);
+                $all = [];
 
-            if ($cnt != 0)
-            {
-                for ($i=0; $i<$cnt; $i++){
-                    $indexes = [0,1,2];
-                    $m = array_rand($indexes);
-                    $indexes2 = array_diff($indexes, [$m]);
-                    $n = array_rand($indexes2);
-                    $o = array_rand(array_diff($indexes2, [$n]));
-                    $problemArr[$i] = explode( "|", $dummy[$i]->problem);
-                    $answerArr[$i] = explode( "|", $dummy[$i]->answer);
-                    $arr[$i] = [$m, $n, $o];
+                foreach ($dummy as $dummyValue) {
+                    $newElem = (object) array(
+                        "dialogNo"  => $dummyValue->dialogNo,
+                        "dialog"    => $dummyValue->dialog,
+                        "answers"   => [
+                            "correctAnswer" => [
+                                "content"   => $dummyValue->correctAnswer,
+                                "chosen"    => false
+                            ],
+                            "wrongAnswer1" => [
+                                "content"   => $dummyValue->wrongAnswer1,
+                                "chosen"    => false
+                            ],
+                            "wrongAnswer2" => [
+                                "content"   => $dummyValue->wrongAnswer2,
+                                "chosen"    => false
+                            ]
+                        ],
+                        "answerOrder" => [
+                            "correctAnswer",
+                            "wrongAnswer1",
+                            "wrongAnswer2"
+                        ]
+                    );
+
+                    shuffle($newElem->answerOrder);
+
+                    $all[] = $newElem;
                 }
-                    // dd($arr[0], $arr[0][0], $arr[0][1]);
-                return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
-            } else {
-                return view("{$uri}", compact('dummy'));
-            }
 
-            break;
+                $dummy = $all;
+
+                return view("{$uri}", compact('dummy'));
+
+                break;
 
             case 'P7':
             $cnt = count($dummy);
@@ -180,6 +196,69 @@ class DummyController extends Controller
 
             break;
 
+            case 'P11':
+                $initOrder = [];
+                $stArr = [];
+                $cnt = count($dummy);
+                foreach ($dummy as $dummyValue) {
+                    $initOrder[] = $dummyValue->correctOrder;
+                }
+                foreach ($dummy as $dummyValue) {
+                    $stArr[] = $dummyValue->sentence;
+                }
+                $currentOrder;
+
+                do {
+                    shuffle($dummy);
+
+                    $currentOrder = array();
+                    foreach ($dummy as $dummyValue) {
+                        $currentOrder[] = $dummyValue->correctOrder;
+                    }
+                } while ( $currentOrder === $initOrder );
+            
+                return view("{$uri}", compact(['dummy', 'stArr', 'cnt']));
+
+                break;
+
+            case 'P12':
+
+                return view("{$uri}", compact('dummy'));
+                break;
+
+            case 'P13':
+                foreach ($dummy as $dummyValue) 
+                {
+                    $noteArr = explode("|", $dummyValue->note);
+                } 
+                return view("{$uri}", compact(['dummy', 'noteArr'])); 
+                break;
+
+            case 'P14':
+                foreach ($dummy as $dummyValue) 
+                {
+                    $contentArr = explode("|", $dummyValue->content);
+                } 
+                return view("{$uri}", compact(['dummy', 'contentArr'])); 
+                break;
+                
+            case 'P15':
+                $cnt = count($dummy);
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                    }
+                    foreach ($dummy as $dummyValue) 
+                    {
+                        $titleArr[] = $dummyValue->title;
+                    } 
+                    return view("{$uri}", compact(['dummy', 'contentArr', 'titleArr', 'cnt'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
+                break;
+
             default:
                 /*
                 ** Chuyển đến view trong điều kiện bình thường
@@ -187,5 +266,6 @@ class DummyController extends Controller
                 return view("{$uri}", compact('dummy'));
                 break;
             }
+            
         }
     }
