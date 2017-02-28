@@ -125,13 +125,6 @@ class DummyController extends Controller
 
                 return view("{$uri}", compact('dummy'));
 
-
-
-
-
-
-
-
                 // $cnt = count($dummy);
                 
                 // if ($cnt != 0)
@@ -215,6 +208,40 @@ class DummyController extends Controller
             
                 return view("{$uri}", compact(['dummy', 'stArr', 'cnt']));
 
+                break;
+
+            case 'P12':
+
+                return view("{$uri}", compact('dummy'));
+                break;
+
+            case 'P13':
+                foreach ($dummy as $dummyValue) 
+                {
+                    $noteArr = explode("|", $dummyValue->note);
+                } 
+                return view("{$uri}", compact(['dummy', 'noteArr'])); 
+                break;
+
+            case 'P14':
+                foreach ($dummy as $dummyValue) 
+                {
+                    $contentArr = explode("|", $dummyValue->content);
+                } 
+                return view("{$uri}", compact(['dummy', 'contentArr'])); 
+                break;
+                
+            case 'P15':
+                $cnt = count($dummy);
+                if ($cnt != 0)
+                {
+                    for ($i=0; $i<$cnt; $i++){
+                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                    }
+                    return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
+                } else {
+                    return view("{$uri}", compact('dummy'));
+                }
                 break;
 
             default:
