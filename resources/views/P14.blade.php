@@ -30,13 +30,17 @@
 @stop
 
 @section('content1')
+
 <body class='content'>
-	@foreach($contentArr as $key)
-		<span>{{ $key }}</span><br>
+<table align="center">
+  	@foreach($contentArr as $key)
+		<tr>
+			<td> {{ $key }}</td>
+		</tr>
 	@endforeach 
+</table>
 </body>
 @stop
-
 
 @section('description')
 In this activity,...
