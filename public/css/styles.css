@@ -1,0 +1,100 @@
+nav.navbar.navbar-default{
+  background:#05a2f9;
+  margin-bottom:0;
+  border:0;
+  border-radius:0;
+}
+
+.navbar-default .navbar-link, .navbar-nav a{
+  color:#fdfdfe;
+  background-color:transparent;
+}
+
+.navbar-default .navbar-nav > .active > a:hover{
+  color:#ffffff;
+  background-color:transparent;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus{
+  color:##e6e6e6;
+  background-color:white;
+}
+
+.navbar-default .navbar-nav > li > a{
+  color:white;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+  color:white;
+  background-color:transparent;
+}
+
+navbtn{
+  margin:auto;
+}
+
+li.navbtn{
+  margin:auto;
+}
+
+div#promo{
+  margin-top:65px;
+}
+
+div.jumbotron.hero{
+  background:url(/img/banner1.jpg) no-repeat;
+  background-size:cover;
+}
+
+color{
+}
+
+.jumbotron{
+  color:white;
+}
+
+a.btn.btn-success.btn-lg{
+  margin-left:20px;
+}
+
+.fa{
+  margin-left:5px;
+}
+
+.row{
+  margin-left:0;
+  margin-right:0;
+}
+
+@media (max-width:450px) {
+  a.margin-sm{
+    margin-top:10px;
+    margin-left:0 !important;
+  }
+}
+
+@media (max-width:450px) {
+  a.btn.margin-sm{
+    width:100%;
+  }
+}
+
+div.jumbotron.hero{
+  margin-bottom:0;
+}
+
+div.container.about{
+  background:rgb(228,248,214);
+  width:100%;
+}
+
+@media (max-width:991px) {
+  div.jumbotron.hero{
+  }
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+  color:white;
+  background-color:transparent;
+}
+
