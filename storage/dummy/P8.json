@@ -1,0 +1,145 @@
+[
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 1,
+		"sentence" : "– Chào *!",
+		"answer" : [
+			"bạn"
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 2,
+		"sentence" : "- * bạn!",
+		"answer" : [
+			"chào"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 3,
+		"sentence" : "- Tôi * là Trung Anh.",
+		"answer" : [
+			"tên"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 4,
+		"sentence" : " Bạn tên * gì?",
+		"answer" : [
+			"là"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 5,
+		"sentence" : "- * tên là Lan. Tôi 7 tuổi.",
+		"answer" : [
+			"tôi"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 6,
+		"sentence" : "- Tôi * 7 tuổi.",
+		"answer" : [
+			"cũng"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 7,
+		"sentence" : "Tôi là *.Còn *?",
+		"answer" : [
+			"học sinh",
+			"bạn"
+		]
+	},
+
+	{
+		"dialogNo" : 1,
+		"sentenceNo" : 8,
+		"sentence" : "-Tôi * là học sinh.",
+		"answer" : [
+			"cũng"
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 1,
+		"sentence" : "– foo *!",
+		"answer" : [
+			"fee"
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 2,
+		"sentence" : "- * bạn!",
+		"answer" : [
+			"chào"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 3,
+		"sentence" : "- Tôi * là Trung Anh.",
+		"answer" : [
+			"tên"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 4,
+		"sentence" : " Bạn tên * gì?",
+		"answer" : [
+			"là"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 5,
+		"sentence" : "- * tên là Lan. Tôi 7 tuổi.",
+		"answer" : [
+			"tôi"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 6,
+		"sentence" : "- Tôi * 7 tuổi.",
+		"answer" : [
+			"cũng"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 7,
+		"sentence" : "Tôi là *.Còn *?",
+		"answer" : [
+			"học sinh",
+			"bạn"
+		]
+	},
+
+	{
+		"dialogNo" : 2,
+		"sentenceNo" : 8,
+		"sentence" : "-Tôi * là học sinh.",
+		"answer" : [
+			"cũng"
+		]
+	}
+
+]

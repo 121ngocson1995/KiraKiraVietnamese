@@ -25,7 +25,7 @@ class DummyController extends Controller
     	** Nếu false -> kết thúc
     	*/
         if (!File::exists($filePath)) {
-        dd("Tên file không khớp đường dẫn");
+            dd("Tên file không khớp đường dẫn");
         }
 
 	    /*
@@ -36,53 +36,52 @@ class DummyController extends Controller
     	*/
         $dummyData = File::get($filePath);
         $dummy = json_decode($dummyData);
-
         /*
         ** Thực hiện xử lý riêng cho từng màn hình
         ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
         */
         switch ($uri) {
             case 'P1':
-                $firstLineNumber;
+            $firstLineNumber;
 
-                if (count($dummy) != 0)
-                {
-                    $firstLineNumber = $dummy[0]->lineNumber;
-                    return view("{$uri}", compact(['dummy', 'firstLineNumber']));
-                } else {
-                    return view("{$uri}", compact('dummy'));
-                }
+            if (count($dummy) != 0)
+            {
+                $firstLineNumber = $dummy[0]->lineNumber;
+                return view("{$uri}", compact(['dummy', 'firstLineNumber']));
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
 
-                break;
+            break;
             
             case 'P2':
-                $lastIndex = $dummy[count($dummy)-1]->correctOrder;
-                shuffle($dummy);
-                return view("{$uri}", compact(['dummy', 'lastIndex']));
+            $lastIndex = $dummy[count($dummy)-1]->correctOrder;
+            shuffle($dummy);
+            return view("{$uri}", compact(['dummy', 'lastIndex']));
 
-                break;
+            break;
             
             case 'P4':
-                shuffle($dummy);
-                return view("{$uri}", compact('dummy'));
+            shuffle($dummy);
+            return view("{$uri}", compact('dummy'));
 
-                break;
+            break;
 
             case 'P5': 
-                $cnt = count($dummy);
-                
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
+            $cnt = count($dummy);
 
-                    }
-                    return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
-                } else {
-                    return view("{$uri}", compact('dummy'));
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
+
                 }
+                return view("{$uri}", compact(['dummy', 'contentArr', 'cnt'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
 
-                break;
+            break;
 
             case 'P6':
                 $all = [];
@@ -117,73 +116,85 @@ class DummyController extends Controller
                     $all[] = $newElem;
                 }
 
-                // $a = $all[0]->answers;
-
-                // dd($a[$all[0]->answerOrder[0]]);
-
                 $dummy = $all;
 
                 return view("{$uri}", compact('dummy'));
 
-                // $cnt = count($dummy);
-                
-                // if ($cnt != 0)
-                // {
-                //     for ($i=0; $i<$cnt; $i++){
-                //         $indexes = [0,1,2];
-                //         $m = array_rand($indexes);
-                //         $indexes2 = array_diff($indexes, [$m]);
-                //         $n = array_rand($indexes2);
-                //         $o = array_rand(array_diff($indexes2, [$n]));
-                //         $problemArr[$i] = explode( "|", $dummy[$i]->problem);
-                //         $answerArr[$i] = explode( "|", $dummy[$i]->answer);
-                //         $arr[$i] = [$m, $n, $o];
-                //     }
-                //     // dd($arr[0], $arr[0][0], $arr[0][1]);
-                //     return view("{$uri}", compact(['dummy', 'problemArr', 'answerArr', 'cnt', 'arr'])); 
-                // } else {
-                //     return view("{$uri}", compact('dummy'));
-                // }
-
                 break;
 
             case 'P7':
-                $cnt = count($dummy);
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
-                    }
-                    for ($i=0; $i<$cnt; $i++){
-                        $audioArr[$i] = $dummy[$i]->audio;
-                    }
-                    return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
-                } else {
-                    return view("{$uri}", compact('dummy'));
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
                 }
+                for ($i=0; $i<$cnt; $i++){
+                    $audioArr[$i] = $dummy[$i]->audio;
+                }
+                return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
 
-                break;
+            break;
+
+            case 'P8':
+            $cnt = count($dummy);
+            $dialogCnt = array();
+            $answerArrs = array();
+            
+            if ($cnt != 0){
+                for ($i=0; $i<$cnt; $i++){
+                    $dup = false;
+                    for ($j=0; $j < count($dialogCnt) ; $j++) { 
+                        if($dummy[$i]->dialogNo == $dialogCnt[$j]){
+                            $dup = true;
+                        }
+                    }
+                    if ($dup == false) {
+                        array_push($dialogCnt, $dummy[$i]->dialogNo);
+                    }
+                }
+                for ($i=0; $i < count($dialogCnt) ; $i++){ 
+                    $answerArrElement = array();
+                    for ($j=0; $j<$cnt; $j++){
+                        if ($dialogCnt[$i] == $dummy[$j]->dialogNo) {
+                            array_push($answerArrElement, $dummy[$j]->answer);
+                        }
+                    }array_push($answerArrs, $answerArrElement);
+                }
+                for ($i=0; $i < count($answerArrs) ; $i++) { 
+                    shuffle($answerArrs[$i]);
+                }
+                return view("{$uri}", compact(['dummy', 'sentenceArr', 'dialogCnt', 'answerArrs'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
+
+
+            break;
 
             case 'P10':
-                $initOrder = [];
+            $initOrder = [];
+            foreach ($dummy as $dummyValue) {
+                $initOrder[] = $dummyValue->correctOrder;
+            }
+
+            $currentOrder;
+
+            do {
+                shuffle($dummy);
+
+                $currentOrder = array();
                 foreach ($dummy as $dummyValue) {
-                    $initOrder[] = $dummyValue->correctOrder;
+                    $currentOrder[] = $dummyValue->correctOrder;
                 }
+            } while ( $currentOrder === $initOrder );
 
-                $currentOrder;
+            return view("{$uri}", compact('dummy'));
 
-                do {
-                    shuffle($dummy);
-
-                    $currentOrder = array();
-                    foreach ($dummy as $dummyValue) {
-                        $currentOrder[] = $dummyValue->correctOrder;
-                    }
-                } while ( $currentOrder === $initOrder );
-
-                return view("{$uri}", compact('dummy'));
-
-                break;
+            break;
 
             case 'P11':
                 $initOrder = [];

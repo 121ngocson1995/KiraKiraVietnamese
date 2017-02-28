@@ -1,4 +1,4 @@
-@extends('layout')
+ @extends('layout')
 
 @section('title')
 <h1 style="font-size: 400%" align="center">- Bài 5: Nghe phát âm đoạn thoại và nhắc lại </h1>
