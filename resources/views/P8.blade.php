@@ -151,7 +151,7 @@
 		
 		if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 			element.innerHTML = answerText;
-			element.setAttribute('style', 'width: 100px; height: 30px; background-color:transparent; display: inline-block; font-weight: 500;');
+			element.setAttribute('style', 'width: auto; height: auto; background-color:transparent; display: inline-block; font-weight: 500;');
 			console.log((dialogNow-1)+','+sentenceNo+','+answerOrder);
 			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('style', 'opacity: 0;');
 			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('draggable', 'false');
