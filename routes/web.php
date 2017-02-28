@@ -35,6 +35,7 @@ Route::get('/P5', 'DummyController@load');
 Route::get('/P6', 'DummyController@load');
 Route::get('/P7', 'DummyController@load');
 Route::get('/P8', 'DummyController@load');
+Route::get('/P9', 'DummyController@load');
 Route::get('/P10', 'DummyController@load');
 Route::get('/P11', 'DummyController@load');
 Route::get('/P12', 'DummyController@load');

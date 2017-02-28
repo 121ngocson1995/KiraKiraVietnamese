@@ -1,0 +1,94 @@
+[
+	{
+		"dialogNo" : 1,
+		"lineNo" : 1,
+		"lineContent" : "– Chào bạn !",
+		"answer": [
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"lineNo" : 2,
+		"lineContent" : "– *",
+		"answer": [
+			"Chào bạn."
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"lineNo" : 3,
+		"lineContent" : "- Tôi tên là Trung Anh. Còn bạn ?",
+		"answer": [
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"lineNo" : 4,
+		"lineContent" : "– *",
+		"answer": [
+			"Tôi tên là Nam."
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"lineNo" : 5,
+		"lineContent" : "Tôi 7 tuổi. Tôi là học sinh. *?",
+		"answer": [
+			"Còn bạn ?"
+		]
+	},
+	{
+		"dialogNo" : 1,
+		"lineNo" : 6,
+		"lineContent" : "– *",
+		"answer": [
+			"Tôi cũng là học sinh."
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 1,
+		"lineContent" : "– foo !",
+		"answer": [
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 2,
+		"lineContent" : "– *",
+		"answer": [
+			"Chào bạn."
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 3,
+		"lineContent" : "- Tôi tên là Trung Anh. Còn bạn ?",
+		"answer": [
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 4,
+		"lineContent" : "– *",
+		"answer": [
+			"Tôi tên là Nam."
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 5,
+		"lineContent" : "Tôi 7 tuổi. Tôi là học sinh. *?",
+		"answer": [
+			"Còn bạn ?"
+		]
+	},
+	{
+		"dialogNo" : 2,
+		"lineNo" : 6,
+		"lineContent" : "– *",
+		"answer": [
+			"Tôi cũng là học sinh."
+		]
+	}
+]

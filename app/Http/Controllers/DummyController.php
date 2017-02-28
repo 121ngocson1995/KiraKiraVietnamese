@@ -84,43 +84,43 @@ class DummyController extends Controller
             break;
 
             case 'P6':
-                $all = [];
+            $all = [];
 
-                foreach ($dummy as $dummyValue) {
-                    $newElem = (object) array(
-                        "dialogNo"  => $dummyValue->dialogNo,
-                        "dialog"    => $dummyValue->dialog,
-                        "answers"   => [
-                            "correctAnswer" => [
-                                "content"   => $dummyValue->correctAnswer,
-                                "chosen"    => false
-                            ],
-                            "wrongAnswer1" => [
-                                "content"   => $dummyValue->wrongAnswer1,
-                                "chosen"    => false
-                            ],
-                            "wrongAnswer2" => [
-                                "content"   => $dummyValue->wrongAnswer2,
-                                "chosen"    => false
-                            ]
-                        ],
-                        "answerOrder" => [
-                            "correctAnswer",
-                            "wrongAnswer1",
-                            "wrongAnswer2"
-                        ]
+            foreach ($dummy as $dummyValue) {
+                $newElem = (object) array(
+                    "dialogNo"  => $dummyValue->dialogNo,
+                    "dialog"    => $dummyValue->dialog,
+                    "answers"   => [
+                    "correctAnswer" => [
+                    "content"   => $dummyValue->correctAnswer,
+                    "chosen"    => false
+                    ],
+                    "wrongAnswer1" => [
+                    "content"   => $dummyValue->wrongAnswer1,
+                    "chosen"    => false
+                    ],
+                    "wrongAnswer2" => [
+                    "content"   => $dummyValue->wrongAnswer2,
+                    "chosen"    => false
+                    ]
+                    ],
+                    "answerOrder" => [
+                    "correctAnswer",
+                    "wrongAnswer1",
+                    "wrongAnswer2"
+                    ]
                     );
 
-                    shuffle($newElem->answerOrder);
+                shuffle($newElem->answerOrder);
 
-                    $all[] = $newElem;
-                }
+                $all[] = $newElem;
+            }
 
-                $dummy = $all;
+            $dummy = $all;
 
-                return view("{$uri}", compact('dummy'));
+            return view("{$uri}", compact('dummy'));
 
-                break;
+            break;
 
             case 'P7':
             $cnt = count($dummy);
@@ -156,18 +156,32 @@ class DummyController extends Controller
                         array_push($dialogCnt, $dummy[$i]->dialogNo);
                     }
                 }
-                for ($i=0; $i < count($dialogCnt) ; $i++){ 
-                    $answerArrElement = array();
-                    for ($j=0; $j<$cnt; $j++){
-                        if ($dialogCnt[$i] == $dummy[$j]->dialogNo) {
-                            array_push($answerArrElement, $dummy[$j]->answer);
+                return view("{$uri}", compact(['dummy', 'dialogCnt'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
+
+
+            break;
+
+            case 'P9':
+            $cnt = count($dummy);
+            $dialogCnt = array();
+            $answerArrs = array();
+            
+            if ($cnt != 0){
+                for ($i=0; $i<$cnt; $i++){
+                    $dup = false;
+                    for ($j=0; $j < count($dialogCnt) ; $j++) { 
+                        if($dummy[$i]->dialogNo == $dialogCnt[$j]){
+                            $dup = true;
                         }
-                    }array_push($answerArrs, $answerArrElement);
+                    }
+                    if ($dup == false) {
+                        array_push($dialogCnt, $dummy[$i]->dialogNo);
+                    }
                 }
-                for ($i=0; $i < count($answerArrs) ; $i++) { 
-                    shuffle($answerArrs[$i]);
-                }
-                return view("{$uri}", compact(['dummy', 'sentenceArr', 'dialogCnt', 'answerArrs'])); 
+                return view("{$uri}", compact(['dummy', 'dialogCnt'])); 
             } else {
                 return view("{$uri}", compact('dummy'));
             }
@@ -197,67 +211,67 @@ class DummyController extends Controller
             break;
 
             case 'P11':
-                $initOrder = [];
-                $stArr = [];
-                $cnt = count($dummy);
-                foreach ($dummy as $dummyValue) {
-                    $initOrder[] = $dummyValue->correctOrder;
-                }
-                foreach ($dummy as $dummyValue) {
-                    $stArr[] = $dummyValue->sentence;
-                }
-                $currentOrder;
+            $initOrder = [];
+            $stArr = [];
+            $cnt = count($dummy);
+            foreach ($dummy as $dummyValue) {
+                $initOrder[] = $dummyValue->correctOrder;
+            }
+            foreach ($dummy as $dummyValue) {
+                $stArr[] = $dummyValue->sentence;
+            }
+            $currentOrder;
 
-                do {
-                    shuffle($dummy);
+            do {
+                shuffle($dummy);
 
-                    $currentOrder = array();
-                    foreach ($dummy as $dummyValue) {
-                        $currentOrder[] = $dummyValue->correctOrder;
-                    }
-                } while ( $currentOrder === $initOrder );
+                $currentOrder = array();
+                foreach ($dummy as $dummyValue) {
+                    $currentOrder[] = $dummyValue->correctOrder;
+                }
+            } while ( $currentOrder === $initOrder );
             
-                return view("{$uri}", compact(['dummy', 'stArr', 'cnt']));
+            return view("{$uri}", compact(['dummy', 'stArr', 'cnt']));
 
-                break;
+            break;
 
             case 'P12':
 
-                return view("{$uri}", compact('dummy'));
-                break;
+            return view("{$uri}", compact('dummy'));
+            break;
 
             case 'P13':
-                foreach ($dummy as $dummyValue) 
-                {
-                    $noteArr = explode("|", $dummyValue->note);
-                } 
-                return view("{$uri}", compact(['dummy', 'noteArr'])); 
-                break;
+            foreach ($dummy as $dummyValue) 
+            {
+                $noteArr = explode("|", $dummyValue->note);
+            } 
+            return view("{$uri}", compact(['dummy', 'noteArr'])); 
+            break;
 
             case 'P14':
+            foreach ($dummy as $dummyValue) 
+            {
+                $contentArr = explode("|", $dummyValue->content);
+            } 
+            return view("{$uri}", compact(['dummy', 'contentArr'])); 
+            break;
+            
+            case 'P15':
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                }
                 foreach ($dummy as $dummyValue) 
                 {
-                    $contentArr = explode("|", $dummyValue->content);
+                    $titleArr[] = $dummyValue->title;
                 } 
-                return view("{$uri}", compact(['dummy', 'contentArr'])); 
-                break;
-                
-            case 'P15':
-                $cnt = count($dummy);
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
-                    }
-                    foreach ($dummy as $dummyValue) 
-                    {
-                        $titleArr[] = $dummyValue->title;
-                    } 
-                    return view("{$uri}", compact(['dummy', 'contentArr', 'titleArr', 'cnt'])); 
-                } else {
-                    return view("{$uri}", compact('dummy'));
-                }
-                break;
+                return view("{$uri}", compact(['dummy', 'contentArr', 'titleArr', 'cnt'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
+            break;
 
             default:
                 /*

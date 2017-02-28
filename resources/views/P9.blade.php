@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<h1 style="font-size: 400%" align="center">- Bài 8: Đọc và điền vào chỗ trống</h1>
+<h1 style="font-size: 400%" align="center">- Bài 9: Đọc và hoàn thành bài hội thoại</h1>
 
 <hr>
 
@@ -79,15 +79,15 @@
 		for (var j = 0; j < dialogSentence.length; j++) {
 			var node = document.createElement("div");
 			node.setAttribute('style', 'font-size: 25px; padding: 15px');
-			curSentence = dialogSentence[j]['sentence'].split("*");
+			curLine = dialogSentence[j]['lineContent'].split("*");
 			var index = 0;
-			for (var k = 0; k < curSentence.length; k++) {
-				if (index != curSentence.length-1) {
-					// console.log(curSentence[k]);
+			for (var k = 0; k < curLine.length; k++) {
+				if (index != curLine.length-1) {
+					// console.log(curLine[k]);
 					var dialogNode = document.createElement("div");
-					textNode = document.createTextNode(curSentence[k]);
+					textNode = document.createTextNode(curLine[k]);
 					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1');
-					dialogNode.setAttribute('id',dialogSentence[j]['sentenceNo']+','+k);
+					dialogNode.setAttribute('id',dialogSentence[j]['lineNo']+','+k);
 					dialogNode.setAttribute('ondragenter','return false;');
 					dialogNode.setAttribute('ondragover','return false;');
 					dialogNode.setAttribute('ondrop','drop(this,event)');
@@ -96,7 +96,7 @@
 					node.appendChild(dialogNode);
 					index++;
 				}else{
-					textNode = document.createTextNode(curSentence[k]);
+					textNode = document.createTextNode(curLine[k]);
 					node.appendChild(textNode);
 				}
 			}
@@ -117,7 +117,7 @@
 				var node = document.createElement("span");
 				node.setAttribute('draggable', 'true');
 				node.setAttribute('class', 'dragWord ui-state-default');
-				node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['sentenceNo']+','+j);
+				node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['lineNo']+','+j);
 				node.setAttribute('ondragstart', 'javascript: drag(event)');
 				var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 				node.appendChild(textnode);
@@ -131,6 +131,14 @@
 	}
 
 	function drag(event) {
+		// for (var i = 0; i < event.target.childNodes.length; i++) {
+		// 	for (var j = 0; j < event.target.childNodes[i].children[0].attributes.length; j++) {
+		// 		if (event.target.childNodes[i].children[0].attributes[j].value.localeCompare('semesterAdd'+event.target.id)==0) {
+		// 			semesterNumber = event.target.childNodes[i].children[0].attributes[j+1 ].value;
+		// 		}
+		// 	} 
+
+		// }event.dataTransfer.setData("text", event.target.id+','+semesterNumber);
 		event.dataTransfer.setData("Text", event.target.childNodes[0].data);
 	}
 
@@ -144,7 +152,7 @@
 		var rightAnswer;
 		console.log(dialogNow,sentenceNo);
 		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow && dummy[i]['sentenceNo'] == sentenceNo ) {
+			if (dummy[i]['dialogNo'] == dialogNow && dummy[i]['lineNo'] == sentenceNo ) {
 				rightAnswer = dummy[i]['answer'];
 			}
 		}
@@ -156,6 +164,9 @@
 			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('style', 'opacity: 0;');
 			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('draggable', 'false');
 		}
+		// semesterCount = document.getElementById("semesterCount").getAttribute("value");
+		// semesterCount = parseInt(semesterCount)-1;
+		// document.getElementById("semesterCount").setAttribute("value", semesterCount);
 	}
 
 </script>
@@ -175,10 +186,9 @@
 		}
 		shuffle($dialogAnswer);
 	@endphp
-	<script type="text/javascript">console.log(<?php echo json_encode($dialogAnswer); ?>);</script>
 	@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
-			<span id="0,{{$dialogAnswer[$i]->sentenceNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+			<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
 		@endfor	
 	@endfor
 </div>
@@ -187,18 +197,18 @@
 		@for ($i = 0; $i < count($dummy) ; $i++)
 				@if ($dummy[$i]->dialogNo == 1)
 					@php
-						$curSentence = explode('*', $dummy[$i]->sentence);
+						$curLine = explode('*', $dummy[$i]->lineContent);
 						$index = 0;
 					@endphp
 					<div style="font-size: 25px; padding: 15px">
-						@for ($j = 0; $j < count($curSentence) ; $j++)
-							@if ($index != count($curSentence)-1)
-								{{$curSentence[$j]}}<div id="{{$dummy[$i]->sentenceNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
+						@for ($j = 0; $j < count($curLine) ; $j++)
+							@if ($index != count($curLine)-1)
+								{{$curLine[$j]}}<div id="{{$dummy[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
 								@php
 									$index++;
 								@endphp
 							@else
-								{{$curSentence[$j]}}
+								{{$curLine[$j]}}
 							@endif
 						@endfor
 					</div>

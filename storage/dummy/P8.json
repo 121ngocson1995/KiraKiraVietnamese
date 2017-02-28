@@ -71,6 +71,14 @@
 		]
 	},
 	{
+		"dialogNo" : 1,
+		"sentenceNo" : 9,
+		"sentence" : "-Tôi *",
+		"answer" : [
+			"bố"
+		]
+	},
+	{
 		"dialogNo" : 2,
 		"sentenceNo" : 1,
 		"sentence" : "– foo *!",
