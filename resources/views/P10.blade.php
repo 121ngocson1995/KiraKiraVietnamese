@@ -69,7 +69,7 @@
 			<span id="{{ $dummyValue->correctOrder }}" class="dragWord ui-state-default">{{ $dummyValue->word }}</span>
 		@endforeach
 	</div>
-	<div id="result"></div>
+	<div id="result" style="text-align: center; text-align-last: center;"></div>
 </div>
 
 <script>
