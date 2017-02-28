@@ -61,9 +61,9 @@
 		while (document.getElementById("answer_id").firstChild) {
 			document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
 
-			editContent(dummy, dialogNow);
-			editAnswer(dummy, dialogNow);
 		}
+		editContent(dummy, dialogNow);
+		editAnswer(dummy, dialogNow);
 	}
 
 	function editContent(dummy, dialogNow) {
