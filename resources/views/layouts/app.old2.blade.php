@@ -20,16 +20,13 @@
         ]) !!};
     </script>
 
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://use.fontawesome.com/45e03a14ce.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
     <style type="text/css">
@@ -145,28 +142,26 @@
     }
     .header_bar main {
         margin-top: 0px;
-        font-weight: 600;
-        font-size: 1.5em;
     }
     header {
         padding-top: 30px;
     }
     .header_bar .navbar-nav li a.active {
-        color: greenyellow;
+        color: #ec3a3e;
     }
     /**sidbar menu**/
     .sidenav {
-        background-color: #05a2f9;
+        background-color: #111;
         height: 100%;
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
         position: fixed;
         text-align: left;
-        top: 0;
+        top: 50px;
         transition: all 0.5s ease 0s;
         width: 0;
-        z-index: 100;
+        z-index: 1;
         color:#fff;
     }
     .sidenac div {}
@@ -193,7 +188,6 @@
         z-index: 99 !important;
         right: 25px;
         top: 20px;
-        color: white;
     }
     .side_menu {
         padding-left: 32px;
@@ -208,8 +202,8 @@
     /**sidbar menu close**/
 
     .btn-red{
-        border-color:greenyellow;
-        background:greenyellow;
+        border-color:#ec3a3e;
+        background:#ec3a3e;
         color:#fff;
     }
     .btn-none{
@@ -232,7 +226,7 @@
         text-transform: uppercase;
     }
     .text-red{
-        color:greenyellow !important;
+        color:#ec3a3e !important;
     }
     h1, h2, h3, h4, h5, h6 {
         color: #4d4d4d;
@@ -271,18 +265,18 @@
         cursor:pointer;
     }
     .social_ico a:hover {
-        background: greenyellow none repeat scroll 0 0;
+        background: #ec3a3e none repeat scroll 0 0;
     }
     .sidenav .side_menu a.lesson:hover, .sidenav .side_menu div.active a.lesson, .sidenav .side_menu a.activity:hover, .sidenav .side_menu div.active a.activity {
-        border-left: 4px solid greenyellow;
-        color: greenyellow;
+        border-left: 4px solid #ec3a3e;
+        color: #ec3a3e;
     }
     .sidenav .side_menu div a.expandLesson {
         position: absolute;
         left: 150px;
     }
     .sidenav .side_menu a.expandLesson:hover {
-        color: greenyellow;
+        color: #ec3a3e;
         padding-left: 7px;
     }
     .top_section {
@@ -352,15 +346,14 @@
 
 
     .hamburger {
-        position: relative;
-        top: 18px;  
-        display: inline-block;
-        width: 20px;
-        height: 28px;
-        margin-right: 12px;
+        position: fixed;
+        top: 65px;  
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin-left: 15px;
         background: transparent;
         border: none;
-        float: left;
     }
     .hamburger:hover,
     .hamburger:focus,
@@ -394,13 +387,13 @@
     .hamburger.is-open .hamb-bottom {
         position: absolute;
         left: 0;
-        height: 2px;
+        height: 4px;
         width: 100%;
     }
     .hamburger .hamb-top,
     .hamburger .hamb-middle,
     .hamburger .hamb-bottom {
-        background-color: white;
+        background-color: #1a1a1a;
     }
     .hamburger .hamb-top { 
         top: 5px; 
@@ -411,7 +404,7 @@
         margin-top: -2px;
     }
     .hamburger .hamb-bottom {
-        bottom: 7px;  
+        bottom: 5px;  
         -webkit-transition: all .35s ease-in-out;
     }
 
@@ -426,36 +419,66 @@
 </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
+    <div id="app">
+        <nav class="navbar navbar-default navbar-static-top" style="position: fixed; width: 100%;">
+            <div class="container">
+                <div class="navbar-header">
 
-            <div class="navbar-header">
-                <button type="button" class="hamburger" onclick="openNav()">
-                    <span class="hamb-top"></span>
-                    <span class="hamb-middle"></span>
-                    <span class="hamb-bottom"></span>
-                </button>
-                <a class="navbar-brand navbar-link" href="#">KiraKiraVietnamese </a>
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @if (Auth::guest())
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active navbtn" role="presentation"><a href="#">Home</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">About</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> <span class="caret"></span><img src="{{ asset('img/avatar_2x.png') }}" class="dropdown-image"></a>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li role="presentation"><a href="#">Settings</a></li>
-                            <li role="presentation"><a href="#">Payments</a></li>
-                            <li role="presentation" class="active"><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
+
+
+
+    </div>
     
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
@@ -476,15 +499,15 @@
 
     </div>
 
-    <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
-        @yield('content')
-        <div class="tooltip">
-            <a>
-                <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
-            </a>
-            <span class="tooltiptext">
-                @yield('description')
-            </span>
+    <button type="button" class="hamburger" onclick="openNav()">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+    </button>
+    
+    <div id="page-content-wrapper" style="width: 100%; padding-top: 70px;">
+        <div class="container">
+            @yield('content')
         </div>
     </div>
 
