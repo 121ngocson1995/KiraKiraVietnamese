@@ -41,6 +41,23 @@ class DummyController extends Controller
         ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
         */
         switch ($uri) {
+            case 'Situation':
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
+                }
+                foreach ($dummy as $dummyValue) 
+                {
+                    $audioArr[] = $dummyValue->audio;
+                } 
+                return view("{$uri}", compact(['dummy', 'contentArr', 'audioArr', 'cnt'])); 
+            } else {
+                return view("{$uri}", compact('dummy'));
+            }
+            break;
+
             case 'P1':
             $firstLineNumber;
 
