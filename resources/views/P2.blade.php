@@ -9,14 +9,14 @@
 <div id="wordGroup" style="text-align: center; padding-bottom: 20px;">
 	@foreach ($dummy as $dummyValue)
 		<span style="padding: 0px 2px;">
-			<button id="{{ $dummyValue->correctOrder }}" class="btn playWord notChosen" style="font-size: 18px; padding: 2px 10px" onclick="chooseWord(this)" disabled="">{{ $dummyValue->word }}</button>
+			<button autocomplete="off" id="{{ $dummyValue->correctOrder }}" class="btn playWord notChosen" style="font-size: 18px; padding: 2px 10px" onclick="chooseWord(this)" disabled="">{{ $dummyValue->word }}</button>
 		</span>
 	@endforeach
 </div>
 
 <div style="text-align: center;">
-	<button id="btnStart" onclick="start()">Start</button>
-	<button id="btnRestart" onclick="start()" style="display: none;">Redo</button>
+	<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
+	<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
 	<span id="timer" style="font-size: 70px"></span>
 	<span id="addedTime" style="font-size: 40px; color: grey"></span>
 	<audio id="sample" src="{{ $dummy[0]->audio }}"></audio>

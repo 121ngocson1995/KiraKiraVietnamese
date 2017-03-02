@@ -1,0 +1,329 @@
+[
+	{
+		"lessonNo" : 1,
+		"lessonname" : "Xin chào",
+		"author" : "Nguyen Lan Trung",
+		"activity" : [
+			{
+				"name" : "Situation",
+				"content" : "Situation"
+			},
+			{
+				"name" : "P1",
+				"content" : "P1: Listen to words and repeat"
+			},
+			{
+				"name" : "P2",
+				"content" : "P2: Listen and find the correct words"
+			},
+			{
+				"name" : "P3",
+				"content" : "P3: Listen to sentences and repeat"
+			},
+			{
+				"name" : "P4",
+				"content" : "P4: Listen and find the correct sentences"
+			},
+			{
+				"name" : "P5",
+				"content" : "P5: Listen to dialogues and repeat"
+			},
+			{
+				"name" : "P6",
+				"content" : "P6: Choose the correct answer"
+			},
+			{
+				"name" : "P7",
+				"content" : "P7: Practice speaking after dialogues"
+			},
+			{
+				"name" : "P8",
+				"content" : "P8: Fill in the blanks"
+			},
+			{
+				"name" : "P9",
+				"content" : "P9: Complete the dialogues"
+			},
+			{
+				"name" : "P10",
+				"content" : "P10: Arrange words in correct order"
+			},
+			{
+				"name" : "P11",
+				"content" : "P11: Arrange sentences in correct order"
+			},
+			{
+				"name" : "P12",
+				"content" : "P12: Group activity"
+			},
+			{
+				"name" : "P13",
+				"content" : "P13: Texts"
+			},
+			{
+				"name" : "P14",
+				"content" : "P14: Learn by heart the grammars"
+			},
+			{
+				"name" : "P15",
+				"content" : "P15: Expansion"
+			}
+		]
+	},
+	{
+		"lessonNo" : 2,
+		"lessonname" : "Giới thiệu.",
+		"author" : "Nguyen Lan Trung",
+		"activity" : [
+			{
+				"name" : "Situation",
+				"content" : "Situation"
+			},
+			{
+				"name" : "P1",
+				"content" : "P1: Listen to words and repeat"
+			},
+			{
+				"name" : "P2",
+				"content" : "P2: Listen and find the correct words"
+			},
+			{
+				"name" : "P3",
+				"content" : "P3: Listen to sentences and repeat"
+			},
+			{
+				"name" : "P4",
+				"content" : "P4: Listen and find the correct sentences"
+			},
+			{
+				"name" : "P5",
+				"content" : "P5: Listen to dialogues and repeat"
+			},
+			{
+				"name" : "P6",
+				"content" : "P6: Choose the correct answer"
+			},
+			{
+				"name" : "P7",
+				"content" : "P7: Practice speaking after dialogues"
+			},
+			{
+				"name" : "P8",
+				"content" : "P8: Fill in the blanks"
+			},
+			{
+				"name" : "P9",
+				"content" : "P9: Complete the dialogues"
+			},
+			{
+				"name" : "P10",
+				"content" : "P10: Arrange words in correct order"
+			},
+			{
+				"name" : "P11",
+				"content" : "P11: Arrange sentences in correct order"
+			},
+			{
+				"name" : "P12",
+				"content" : "P12: Group activity"
+			},
+			{
+				"name" : "P13",
+				"content" : "P13: Texts"
+			},
+			{
+				"name" : "P14",
+				"content" : "P14: Learn by heart the grammars"
+			}
+		]
+	},
+	{
+		"lessonNo" : 3,
+		"lessonname" : "Chút lòng thành.",
+		"author" : "Nguyen Lan Trung",
+		"activity" : [
+			{
+				"name" : "Situation",
+				"content" : "Situation"
+			},
+			{
+				"name" : "P1",
+				"content" : "P1: Listen to words and repeat"
+			},
+			{
+				"name" : "P2",
+				"content" : "P2: Listen and find the correct words"
+			},
+			{
+				"name" : "P3",
+				"content" : "P3: Listen to sentences and repeat"
+			},
+			{
+				"name" : "P4",
+				"content" : "P4: Listen and find the correct sentences"
+			},
+			{
+				"name" : "P5",
+				"content" : "P5: Listen to dialogues and repeat"
+			},
+			{
+				"name" : "P6",
+				"content" : "P6: Choose the correct answer"
+			},
+			{
+				"name" : "P7",
+				"content" : "P7: Practice speaking after dialogues"
+			},
+			{
+				"name" : "P8",
+				"content" : "P8: Complete the dialogues"
+			},
+			{
+				"name" : "P9",
+				"content" : "P9: Arrange words in correct order"
+			},
+			{
+				"name" : "P10",
+				"content" : "P10: Arrange sentences in correct order"
+			},
+			{
+				"name" : "P11",
+				"content" : "P11: Learn by heart the grammars"
+			}
+		]
+	},
+	{
+		"lessonNo" : 4,
+		"lessonname" : "Xin cho tôi cái này.",
+		"author" : "Nguyen Lan Trung",
+		"activity" : [
+			{
+				"name" : "Situation",
+				"content" : "Situation"
+			},
+			{
+				"name" : "Situation2",
+				"content" : "Situation2"
+			},
+			{
+				"name" : "P1",
+				"content" : "P1: Listen to words and repeat"
+			},
+			{
+				"name" : "P2",
+				"content" : "P2: Listen and find the correct words"
+			},
+			{
+				"name" : "P3",
+				"content" : "P3: Listen to sentences and repeat"
+			},
+			{
+				"name" : "P4",
+				"content" : "P4: Listen and find the correct sentences"
+			},
+			{
+				"name" : "P5",
+				"content" : "P5: Listen to dialogues and repeat"
+			},
+			{
+				"name" : "P6",
+				"content" : "P6: Choose the correct answer"
+			},
+			{
+				"name" : "P7",
+				"content" : "P7: Practice speaking after dialogues"
+			},
+			{
+				"name" : "P8",
+				"content" : "P8: Fill in the blanks"
+			},
+			{
+				"name" : "P9",
+				"content" : "P9: Complete the dialogues"
+			},
+			{
+				"name" : "P10",
+				"content" : "P10: Arrange words in correct order"
+			},
+			{
+				"name" : "P11",
+				"content" : "P11: Arrange sentences in correct order"
+			},
+			{
+				"name" : "P12",
+				"content" : "P12: Texts"
+			},
+			{
+				"name" : "13",
+				"content" : "P13: Learn by heart the grammars"
+			},
+			{
+				"name" : "14",
+				"content" : "P14: Expansion"
+			}
+		]
+	},
+	{
+		"lessonNo" : 5,
+		"lessonname" : "Bây giờ là mấy giờ?",
+		"author" : "Nguyen Lan Trung",
+		"activity" : [
+			{
+				"name" : "Situation",
+				"content" : "Situation"
+			},
+			{
+				"name" : "P1",
+				"content" : "P1: Listen to words and repeat"
+			},
+			{
+				"name" : "P2",
+				"content" : "P2: Listen and find the correct words"
+			},
+			{
+				"name" : "P3",
+				"content" : "P3: Listen to sentences and repeat"
+			},
+			{
+				"name" : "P4",
+				"content" : "P4: Listen and find the correct sentences"
+			},
+			{
+				"name" : "P5",
+				"content" : "P5: Listen to dialogues and repeat"
+			},
+			{
+				"name" : "P6",
+				"content" : "P6: Choose the correct answer"
+			},
+			{
+				"name" : "P7",
+				"content" : "P7: Practice speaking after dialogues"
+			},
+			{
+				"name" : "P8",
+				"content" : "P8: Fill in the blanks"
+			},
+			{
+				"name" : "P9",
+				"content" : "P9: Complete the dialogues"
+			},
+			{
+				"name" : "P10",
+				"content" : "P10: Arrange words in correct order"
+			},
+			{
+				"name" : "P11",
+				"content" : "P11: Arrange sentences in correct order"
+			},
+			{
+				"name" : "P12",
+				"content" : "P12: Group activity"
+			},
+			{
+				"name" : "P13",
+				"content" : "P13: Learn by heart the grammars"
+			}
+		]
+	}
+]

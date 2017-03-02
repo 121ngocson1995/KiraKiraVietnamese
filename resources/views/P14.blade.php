@@ -15,9 +15,11 @@
 		font-family: 'Dekko';
 		font-weight: 900;
 	}
-	.content {
+	.wallpaper {
 		background-image:url('P12_img/bg.jpg');
 		background-color:#ccccff;
+	}
+	.content {
 		font-family: 'Space Mono';
 		font-size: 18px;
 	}
@@ -30,9 +32,8 @@
 @stop
 
 @section('content1')
-
-<body class='content'>
-<table align="center">
+<body class='wallpaper'>
+<table align="center" class="content">
   	@foreach($contentArr as $key)
 		<tr>
 			<td> {{ $key }}</td>

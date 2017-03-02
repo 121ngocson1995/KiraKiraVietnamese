@@ -30,6 +30,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
     <style type="text/css">
@@ -37,6 +39,21 @@
       margin: 20px;
       width: 50%;
       height: 8px;
+    }
+    #lesson_menu, #activity_menu {
+        margin-bottom: 150px;
+    }
+    a {
+        outline: 0;
+    }
+    input::-moz-focus-inner { 
+        border: 0; 
+    }
+    .noscroll {
+        overflow: hidden;
+    }
+    .sidenav::-webkit-scrollbar {
+        display: none;
     }
     .playWord {
         transition: background 0.2s;
@@ -88,6 +105,7 @@
 
     /* Tooltip */
     .tooltip {
+        z-index: 40 !important;
         position: fixed;
         right: 50px;
         bottom: 50px;
@@ -156,14 +174,14 @@
     }
     /**sidbar menu**/
     .sidenav {
-        background-color: #05a2f9;
+        background-color: rgba(5, 162, 249, 0.9);
         height: 100%;
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
         position: fixed;
         text-align: left;
-        top: 0;
+        top: 65px;
         transition: all 0.5s ease 0s;
         width: 0;
         z-index: 100;
@@ -355,7 +373,7 @@
         position: relative;
         top: 18px;  
         display: inline-block;
-        width: 20px;
+        width: 15px;
         height: 28px;
         margin-right: 12px;
         background: transparent;
@@ -416,11 +434,11 @@
     }
 
     .hamburger:hover .hamb-top {
-        top: 0;
+        top: 2px;
         -webkit-transition: all .35s ease-in-out;
     }
     .hamburger:hover .hamb-bottom {
-        bottom: 0;
+        bottom: 2px;
         -webkit-transition: all .35s ease-in-out;
     }
 </style>
@@ -430,17 +448,17 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
-                <button type="button" class="hamburger" onclick="openNav()">
+                <button type="button" class="hamburger" onclick="toggleNav()">
                     <span class="hamb-top"></span>
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
                 </button>
-                <a class="navbar-brand navbar-link" href="#">KiraKiraVietnamese </a>
+                <a class="navbar-brand navbar-link" href="/">KiraKiraVietnamese </a>
                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active navbtn" role="presentation"><a href="#">Home</a></li>
+                    <li class="active navbtn" role="presentation"><a href="/">Home</a></li>
                     <li role="presentation" class="navbtn"><a href="#">About</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
@@ -456,18 +474,21 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        var lessons = <?php echo json_encode($lessons); ?>
+    </script>
     
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div id="lesson_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
 
-            <div><a href="#" class="lesson">Lesson 1</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 2</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 3</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 4</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 5</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 6</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 7</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
+            @foreach ($lessons as $lesson)
+                <div>
+                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson">Lesson {{ $lesson->lessonNo }}</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                </div>
+            @endforeach
+
         </div><!--side_menu-->
 
         <div id="activity_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
@@ -489,13 +510,23 @@
     </div>
 
     <script>
+        function toggleNav() {
+            if (document.getElementById("mySidenav").style.width != '100%') {
+                openNav();
+            } else {
+                closeNav();
+            }
+        }
+
         function openNav() {
             document.getElementById("mySidenav").style.width = "100%";
+            document.body.classList.toggle('noscroll');
         }
 
         /* Close/hide the sidenav */
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
+            document.body.classList.toggle('noscroll');
         }
 
         $('.expandLesson').click(function () {
@@ -506,17 +537,14 @@
             function createActivity() {
                 $('#activity_menu').children().first().empty();
                 var pracNo = 0;
-                for (var i = 0; i < 4; i++) {
+                var lesson = lessons[parseInt(expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)) - 1];
+                for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
                     var link = document.createElement('a');
                     link.className = "activity";
-                    if (i <= 0) {
-                        link.innerHTML = "Situation";
-                    } else {
-                        link.innerHTML = "Practice " + ++pracNo;
-                    }
-                    link.href = "#";
-                    link.innerHTML += " for " + expandBtn.parent().find('.lesson').html();
+                    link.href = "/lesson" + lesson.lessonNo + "/" + lesson.activity[i].name;
+                    link.innerHTML = lesson.activity[i].content;
+                    // link.innerHTML = lessons[];
                     outerDiv.appendChild(link);
                     $('#activity_menu').children().first().append(outerDiv);
                 }

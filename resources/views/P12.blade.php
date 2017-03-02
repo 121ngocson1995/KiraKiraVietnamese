@@ -16,11 +16,13 @@
 		font-family: 'Dekko';
 		font-weight: 900;
 	}
-	.content {
+	.wallpaper {
 		background-image:url('P12_img/bg.jpg');
+		background-color:#ccccff;
+	}
+	.content {
 		font-family: 'Space Mono';
 		font-size: 18px;
-		background-color:#ccccff;
 	}
 </style>
 
@@ -31,10 +33,13 @@
 @stop
 
 @section('content1')
-<body class='content'>
+<body class='wallpaper'>
+<div class='content'>
 	@foreach ($dummy as $dummyValue)
-	<span>{{ $dummyValue->content }}</span>
+		<span>{{ $dummyValue->content }}</span>
 	@endforeach
+</div>
+	
 </body>
 @stop
 

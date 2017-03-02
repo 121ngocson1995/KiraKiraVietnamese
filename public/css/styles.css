@@ -29,14 +29,6 @@ nav.navbar.navbar-default{
   background-color:transparent;
 }
 
-navbtn{
-  margin:auto;
-}
-
-li.navbtn{
-  margin:auto;
-}
-
 div#promo{
   margin-top:65px;
 }
@@ -96,5 +88,187 @@ div.container.about{
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
   color:white;
   background-color:transparent;
+}
+
+div.container-fluid.about{
+  padding:50px 100px;
+  background-color:rgb(246,247,246);
+}
+
+div.author{
+  padding:50px 100px;
+  background-color:rgb(231,252,231);
+}
+
+div.features{
+  padding:30px 50px;
+  background-color:rgb(231,252,231);
+}
+
+div.col-md-4.feature{
+  padding:30px;
+  text-align:center;
+}
+
+feature p.text-center{
+  font-family:Arial, sans-serif;
+}
+
+feature > p.text-center{
+  font-family:"Arial", sans-serif;
+}
+
+p.text-center.feature{
+  font-family:Arial, Helvetica, sans-serif;
+  padding:0 20px;
+}
+
+feature > img{
+  width:50%;
+}
+
+div.feature img{
+  width:30%;
+  min-width:140px;
+}
+
+div.col-sm-4.feature{
+  text-align:center;
+  padding:30px 10px;
+}
+
+.navbtn a{
+  transition:all 0.3s;
+}
+
+div.item.active{
+  background:transparent;
+}
+
+div.item.active{
+  text-align:center;
+}
+
+img{
+  width:600px;
+  max-width:100%;
+  text-align:center;
+}
+
+div.cc{
+  background:url(../../assets/img/1.gif) no-repeat 500px;
+  width:500px;
+  height:300px;
+}
+
+div.item.active{
+  text-align:center;
+}
+
+div.row.wehave{
+  margin-top:30px;
+}
+
+wehave div.col-md-5.col-md-push-7{
+  text-align:center;
+}
+
+@media (min-width:990px) {
+  .wehave div.left h3{
+    text-align:right !important;
+  }
+}
+
+.wehave div.left h3{
+  text-align:center;
+}
+
+@media (min-width:990px) {
+  .wehave div.left p{
+    text-align:justify;
+    text-align-last:right !important;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:20px;
+  }
+}
+
+@media (min-width:990px) {
+  .wehave div.right p{
+    text-align:justify;
+    text-align-last:left !important;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:20px;
+  }
+}
+
+.wehave div.right p{
+  text-align-last:center;
+}
+
+.wehave div.left p{
+  text-align-last:center;
+}
+
+@media (min-width:990px) {
+  .wehave .left, .wehave .right{
+    padding:20px 40px;
+  }
+}
+
+.wehave .image{
+  text-align:center;
+}
+
+@media (min-width:990px) {
+  .wehave div.right h3{
+    text-align:left !important;
+  }
+}
+
+.wehave div.right h3{
+  text-align:center;
+}
+
+div.row.introduction{
+  margin-top:50px;
+}
+
+div.col-md-5.col-md-push-7.teacher_img{
+  text-align:center;
+}
+
+.teacher_img img{
+  border:7px solid transparent;
+}
+
+div.img_container{
+  margin:auto;
+  max-width:300px;
+  border:2px solid rgb(205,205,205);
+  border-radius:50%;
+}
+
+div.col-md-pull-5.col-sm-7.author_info{
+  padding:20px 0;
+}
+
+h2.author_info{
+  text-align:center;
+}
+
+h1.text-center{
+  font-size:4em;
+}
+
+p.author_info{
+  text-align:justify;
+  text-align-last:center;
+  justify-content:center;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:1.2em;
+}
+
+div.col-sm-4.feature img{
+  margin-bottom:1.5em;
 }
 
