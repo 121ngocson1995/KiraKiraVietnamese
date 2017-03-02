@@ -30,6 +30,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
     <style type="text/css">
@@ -37,6 +38,12 @@
       margin: 20px;
       width: 50%;
       height: 8px;
+    }
+    a {
+        outline: 0;
+    }
+    input::-moz-focus-inner { 
+        border: 0; 
     }
     .playWord {
         transition: background 0.2s;
@@ -156,14 +163,14 @@
     }
     /**sidbar menu**/
     .sidenav {
-        background-color: #05a2f9;
+        background-color: rgba(5, 162, 249, 0.9);
         height: 100%;
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
         position: fixed;
         text-align: left;
-        top: 0;
+        top: 65px;
         transition: all 0.5s ease 0s;
         width: 0;
         z-index: 100;
@@ -355,7 +362,7 @@
         position: relative;
         top: 18px;  
         display: inline-block;
-        width: 20px;
+        width: 15px;
         height: 28px;
         margin-right: 12px;
         background: transparent;
@@ -416,11 +423,11 @@
     }
 
     .hamburger:hover .hamb-top {
-        top: 0;
+        top: 2px;
         -webkit-transition: all .35s ease-in-out;
     }
     .hamburger:hover .hamb-bottom {
-        bottom: 0;
+        bottom: 2px;
         -webkit-transition: all .35s ease-in-out;
     }
 </style>

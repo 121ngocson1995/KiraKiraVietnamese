@@ -4,11 +4,11 @@
 <h1 style="font-size: 300%" align="center">Situations Page</h1>
 <style>
 	.img {
-		width:500px;
 		height:250px;
-		float:right;
 	}
-
+	.paragraph p {
+		font-weight: 600;
+	}
 </style>
 
 <hr>
@@ -62,31 +62,34 @@
 @stop
 
 @section('content1')
-{{-- <img align="right" class="img" src="Situation_img/hinh.png"> --}}
-<div style="text-align: left;">
-	<div style="margin: 10px">
-		<div class="btn-group">
-			@for ($i = 1; $i <= $cnt; $i++)
-			<button id="{{$i-1}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">S{{$i}}
-			</button>
-			@endfor
+<div style="margin: 10px; text-align: center;">
+	<div class="btn-group">
+		@for ($i = 1; $i <= $cnt; $i++)
+		<button id="{{$i-1}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">S{{$i}}
+		</button>
+		@endfor
+	</div>
+</div >
+
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image" style="text-align: center;">
+		<div>
+			<img class="img" src="Situation_img/hinh.png">
 		</div>
-	</div >
-	
-	<div class="col-sm-9 col-md-6 col-lg-8">	
-		<table align="left" id="content_id">
-			<div class="col-sm-3 col-md-6 col-lg-4"><audio id="audio" controls>
-				<source id="audio_id" src="{{ URL::asset($audioArr[0]) }}" type="audio/mpeg">
-					Your browser does not support the audio element.
-				</audio>
-			</div>
-			<br><br>
+		<div>
+			<audio id="audio" controls>
+			<source id="audio_id" src="{{ URL::asset($audioArr[0]) }}" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+		</div>
+	</div>
+	<div class="col-sm-3 col-sm-pull-4 paragraph" style="text-align: center; height: 100%">
+		<div style="margin-top: 40px">
 			@for ($i = 0; $i < count($contentArr[0]) ; $i++)
-				<tr><td>{{ $contentArr[0][$i]}}</td></tr>
+				<p>{{ $contentArr[0][$i]}}</p>
 			@endfor	
-		</table>	
-		{{-- <div><button class="btn btn-primary" onclick="next(this)">Next</button></div> --}}
+		</div>
 	</div>
 </div>
-<img class="img" src="Situation_img/hinh.png">	
+
 @stop
