@@ -5,6 +5,7 @@
 <style>
 	.img {
 		height:250px;
+		width: inherit;
 	}
 	.paragraph p {
 		font-weight: 600;
@@ -74,7 +75,7 @@
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image" style="text-align: center;">
 		<div>
-			<img class="img" src="Situation_img/hinh.png">
+			<img class="img" src="{{ asset('Situation_img/hinh.png') }}">
 		</div>
 		<div>
 			<audio id="audio" controls>

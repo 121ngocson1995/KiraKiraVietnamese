@@ -168,6 +168,7 @@
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
+        padding-bottom: 150px;
         position: fixed;
         text-align: left;
         top: 65px;
@@ -463,18 +464,21 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        var lessons = <?php echo json_encode($lessons); ?>
+    </script>
     
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div id="lesson_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
 
-            <div><a href="#" class="lesson">Lesson 1</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 2</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 3</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 4</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 5</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 6</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
-            <div><a href="#" class="lesson">Lesson 7</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a></div>
+            @foreach ($lessons as $lesson)
+                <div>
+                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson">Lesson {{ $lesson->lessonNo }}</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                </div>
+            @endforeach
+
         </div><!--side_menu-->
 
         <div id="activity_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
@@ -513,17 +517,14 @@
             function createActivity() {
                 $('#activity_menu').children().first().empty();
                 var pracNo = 0;
-                for (var i = 0; i < 4; i++) {
+                var lesson = lessons[parseInt(expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)) - 1];
+                for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
                     var link = document.createElement('a');
                     link.className = "activity";
-                    if (i <= 0) {
-                        link.innerHTML = "Situation";
-                    } else {
-                        link.innerHTML = "Practice " + ++pracNo;
-                    }
-                    link.href = "#";
-                    link.innerHTML += " for " + expandBtn.parent().find('.lesson').html();
+                    link.href = "/lesson" + lesson.lessonNo + "/" + lesson.activity[i].name;
+                    link.innerHTML = lesson.activity[i].content;
+                    // link.innerHTML = lessons[];
                     outerDiv.appendChild(link);
                     $('#activity_menu').children().first().append(outerDiv);
                 }

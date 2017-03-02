@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-4 feature"><img src="{{ asset('img/profits.svg') }}">
             <h3>Advance </h3>
-            <p class="text-center feature">Be infuelt</p>
+            <p class="text-center feature">Know you're being better after spending time to learn with us</p>
         </div>
     </div>
 </div>
