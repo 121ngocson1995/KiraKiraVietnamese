@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
     <style type="text/css">
@@ -51,7 +52,7 @@
     .noscroll {
         overflow: hidden;
     }
-    .sidenav::-webkit-scrollbar, .sidenav::scrollbar {
+    .sidenav::-webkit-scrollbar {
         display: none;
     }
     .playWord {
@@ -515,16 +516,17 @@
             } else {
                 closeNav();
             }
-            document.body.classList.toggle('noscroll');
         }
 
         function openNav() {
             document.getElementById("mySidenav").style.width = "100%";
+            document.body.classList.toggle('noscroll');
         }
 
         /* Close/hide the sidenav */
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
+            document.body.classList.toggle('noscroll');
         }
 
         $('.expandLesson').click(function () {
