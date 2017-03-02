@@ -9,7 +9,7 @@
                 <div class="col-md-6 col-sm-7 get-it">
                     <h1>Start your learning today</h1>
                     <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                    <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="#">Start your first lesson<i class="fa fa-graduation-cap"></i></a><a class="btn btn-success btn-lg margin-sm" role="button" href="#">Login<i class="fa fa-sign-in fa fa-sign-in"></i></a></p>
+                    <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="#">Start your first lesson<i class="fa fa-graduation-cap"></i></a><a class="btn btn-success btn-lg margin-sm" role="button" href="/login">Login<i class="fa fa-sign-in fa fa-sign-in"></i></a></p>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="img_container"><img class="img-circle" src="{{ asset('img/avatar_2x.png') }}"></div>
         </div>
         <div class="col-sm-7 col-sm-pull-5 author_info">
-            <h2 class="author_info">Heading</h2>
+            <h2 class="author_info">Ph.D Lan Trung Nguyen</h2>
             <p class="author_info">Lorem ipsum dolor sit amet, cum mucius aliquip graecis cu, no persius scripserit pro, vix habemus atomorum consequat et. Soluta epicurei accusamus duo ne. Te vitae labore qui, maiorum constituto pri eu. Nisl veri posidonium et vel. </p>
         </div>
     </div>

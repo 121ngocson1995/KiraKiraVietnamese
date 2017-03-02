@@ -442,12 +442,12 @@
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
                 </button>
-                <a class="navbar-brand navbar-link" href="#">KiraKiraVietnamese </a>
+                <a class="navbar-brand navbar-link" href="/">KiraKiraVietnamese </a>
                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active navbtn" role="presentation"><a href="#">Home</a></li>
+                    <li class="active navbtn" role="presentation"><a href="/">Home</a></li>
                     <li role="presentation" class="navbtn"><a href="#">About</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Guide</a></li>

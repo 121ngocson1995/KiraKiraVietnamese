@@ -209,7 +209,7 @@ wehave div.col-md-5.col-md-push-7{
   text-align-last:center;
 }
 
-@media (min-width:1199px) {
+@media (min-width:990px) {
   .wehave .left, .wehave .right{
     padding:20px 40px;
   }
@@ -266,5 +266,9 @@ p.author_info{
   justify-content:center;
   font-family:Arial, Helvetica, sans-serif;
   font-size:1.2em;
+}
+
+div.col-sm-4.feature img{
+  margin-bottom:1.5em;
 }
 
