@@ -39,11 +39,20 @@
       width: 50%;
       height: 8px;
     }
+    #lesson_menu, #activity_menu {
+        margin-bottom: 150px;
+    }
     a {
         outline: 0;
     }
     input::-moz-focus-inner { 
         border: 0; 
+    }
+    .noscroll {
+        overflow: hidden;
+    }
+    .sidenav::-webkit-scrollbar, .sidenav::scrollbar {
+        display: none;
     }
     .playWord {
         transition: background 0.2s;
@@ -95,6 +104,7 @@
 
     /* Tooltip */
     .tooltip {
+        z-index: 40 !important;
         position: fixed;
         right: 50px;
         bottom: 50px;
@@ -168,7 +178,6 @@
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
-        padding-bottom: 150px;
         position: fixed;
         text-align: left;
         top: 65px;
@@ -438,7 +447,7 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
-                <button type="button" class="hamburger" onclick="openNav()">
+                <button type="button" class="hamburger" onclick="toggleNav()">
                     <span class="hamb-top"></span>
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
@@ -500,6 +509,15 @@
     </div>
 
     <script>
+        function toggleNav() {
+            if (document.getElementById("mySidenav").style.width != '100%') {
+                openNav();
+            } else {
+                closeNav();
+            }
+            document.body.classList.toggle('noscroll');
+        }
+
         function openNav() {
             document.getElementById("mySidenav").style.width = "100%";
         }
