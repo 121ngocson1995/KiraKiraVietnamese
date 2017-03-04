@@ -121,7 +121,7 @@
 			}
 		}
 		$("#sortable2").sortable({
-	    	items: "li:not(.ui-state-disabled)"
+	    	cancel: ".ui-state-disabled"
 	    });
 		
 	}

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\File;
 */
 
 Route::get('/', function () {
-    $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
+    // $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
     return view('welcome2', compact('lessons'));
 });
 
@@ -30,22 +30,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
-Route::get('/lesson{lessonNo}/Situation', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P1', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P2', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P3', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P4', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P5', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P6', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P7', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P8', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P9', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P10', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P11', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P12', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P13', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P14', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P15', 'DummyController@load');
+Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
 /*
 |--------------------------------------------------------------------------
 | End dummy routes

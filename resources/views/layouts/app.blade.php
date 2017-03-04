@@ -53,7 +53,7 @@
         overflow: hidden;
     }
     .sidenav::-webkit-scrollbar {
-        display: none;
+        /*display: none;*/
     }
     .playWord {
         transition: background 0.2s;
@@ -179,6 +179,7 @@
         left: 0;
         overflow-x: hidden;
         padding-top: 100px;
+        padding-bottom: 145px;
         position: fixed;
         text-align: left;
         top: 65px;
@@ -187,7 +188,6 @@
         z-index: 100;
         color:#fff;
     }
-    .sidenac div {}
     .sidenav div a {
         color: #fff;
         display: inline-block;
@@ -200,7 +200,7 @@
     }
     .sidenav .side_menu div a {
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 500;
         padding-left: 8px;
     }
 
@@ -213,6 +213,10 @@
         top: 20px;
         color: white;
     }
+    .sidenav .closebtn.open {
+        position: fixed !important;
+        top: 85px !important;
+    }
     .side_menu {
         padding-left: 32px;
         border-right: 1px solid #ffffff;
@@ -221,7 +225,13 @@
         padding-left: 50px;
     }
     @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 45px;}
+        .sidenav {
+            padding-top: 45px;
+            padding-bottom: 100px;
+        }
+        #lesson_menu, #activity_menu {
+            margin-bottom: 80px;
+        }
     }
     /**sidbar menu close**/
 
@@ -476,14 +486,14 @@
     </nav>
 
     <script>
-        var lessons = <?php echo json_encode($lessons); ?>
+        var lessons = <?php echo json_encode(\Request::get('lessons')); ?>
     </script>
     
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav" style="overflow: hidden;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <div id="lesson_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
+        <div id="lesson_menu" class="col-sm-6 side_menu" style="white-space: nowrap; height: 100%; overflow-y: scroll;">
 
-            @foreach ($lessons as $lesson)
+            @foreach (\Request::get('lessons') as $lesson)
                 <div>
                     <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson">Lesson {{ $lesson->lessonNo }}</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
                 </div>
@@ -491,7 +501,7 @@
 
         </div><!--side_menu-->
 
-        <div id="activity_menu" class="col-sm-6 side_menu" style="white-space: nowrap; overflow: hidden;">
+        <div id="activity_menu" class="col-sm-6 side_menu" style="white-space: nowrap; height: 100%; overflow-y: scroll;">
             <div class="activity_holder"></div>
         </div>
 
@@ -510,6 +520,9 @@
     </div>
 
     <script>
+        var lessonNo = <?php echo json_encode(\Request::get('lessonNo')); ?>;
+        var activity = <?php echo json_encode(\Request::get('activity')); ?>;
+
         function toggleNav() {
             if (document.getElementById("mySidenav").style.width != '100%') {
                 openNav();
@@ -521,13 +534,25 @@
         function openNav() {
             document.getElementById("mySidenav").style.width = "100%";
             document.body.classList.toggle('noscroll');
+            setTimeout(function() {
+                if (document.getElementById("mySidenav").style.width == "100%") {
+                    $('.closebtn').addClass('open');
+                }
+            }, 500);
         }
 
         /* Close/hide the sidenav */
         function closeNav() {
+            $('.closebtn').removeClass('open');
             document.getElementById("mySidenav").style.width = "0";
             document.body.classList.toggle('noscroll');
         }
+
+        $('.lesson').click(function () {
+            $('#lesson_menu').find('.active').removeClass('active');
+            var expandBtn = $(this);
+            expandBtn.closest('div').addClass('active');
+        })
 
         $('.expandLesson').click(function () {
             $('#lesson_menu').find('.active').removeClass('active');
@@ -541,6 +566,7 @@
                 for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
                     var link = document.createElement('a');
+                    link.id = lesson.activity[i].name;
                     link.className = "activity";
                     link.href = "/lesson" + lesson.lessonNo + "/" + lesson.activity[i].name;
                     link.innerHTML = lesson.activity[i].content;
@@ -549,11 +575,19 @@
                     $('#activity_menu').children().first().append(outerDiv);
                 }
 
+                if (expandBtn.parent().find('.lesson').attr('id') == lessonNo) {
+                    $('#'+activity).closest('div').addClass('active');
+                    $('#'+activity).bind('click', function(e){
+                        e.preventDefault();
+                        closeNav();
+                    })
+                }
+
                 $('#activity_menu').children().first().fadeIn(250);
             }
 
             if ($('#activity_menu').children().first().html() == "") {
-                $('#activity_menu').children().first().hide()
+                $('#activity_menu').children().first().hide();
                 createActivity();
             } else {
                 $('#activity_menu').children().first().fadeOut(250, createActivity);
@@ -564,6 +598,19 @@
             if(e.which == 27) {
                 closeNav();
             }
+        });
+
+        $( document ).ready(function() {
+            if (!lessonNo && !activity) {
+                return;
+            }
+
+            $('#'+lessonNo).next('a').click();
+            $('#'+activity).closest('div').addClass('active');
+            $('#'+activity).bind('click', function(e){
+                e.preventDefault();
+                closeNav();
+            })
         });
 
     </script>

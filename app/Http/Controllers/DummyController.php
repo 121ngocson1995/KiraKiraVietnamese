@@ -7,24 +7,17 @@ use Illuminate\Support\Facades\File;
 
 class DummyController extends Controller
 {
-    public function load(Request $request, $lessonNo)
+    public function load(Request $request, $lessonNo, $activity)
     {
-        /*
-        ** Lấy thông tin các lesson cho navigation
-        */
-        $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
-
     	/*
     	** Lấy đường dẫn từ request
-    	** Ví dụ localhost:8080/dummy sẽ cho ra $uri == dummy
+    	** Ví dụ localhost:8080/dummy sẽ cho ra $activity == dummy
     	*/
-        $path = explode('/', $request->path());
-    	$uri = end($path);
 
     	/*
     	** Tạo đường dẫn đầy đủ
     	*/
-        $filePath = storage_path() . "/dummy/{$uri}.json";
+        $filePath = storage_path() . "/dummy/{$activity}.json";
 
 		/*
     	** Kiểm tra xem đường dẫn và tên file có khớp nhau
@@ -46,7 +39,7 @@ class DummyController extends Controller
         ** Thực hiện xử lý riêng cho từng màn hình
         ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
         */
-        switch ($uri) {
+        switch ($activity) {
             case 'Situation':
                 $cnt = count($dummy);
                 if ($cnt != 0)
@@ -58,9 +51,9 @@ class DummyController extends Controller
                     {
                         $audioArr[] = $dummyValue->audio;
                     } 
-                    return view("{$uri}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
                 break;
 
@@ -70,9 +63,9 @@ class DummyController extends Controller
                 if (count($dummy) != 0)
                 {
                     $firstLineNumber = $dummy[0]->lineNumber;
-                    return view("{$uri}", compact(['dummy', 'lessons', 'firstLineNumber']));
+                    return view("{$activity}", compact(['dummy', 'lessons', 'firstLineNumber']));
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
 
             break;
@@ -80,13 +73,13 @@ class DummyController extends Controller
             case 'P2':
                 $lastIndex = $dummy[count($dummy)-1]->correctOrder;
                 shuffle($dummy);
-                return view("{$uri}", compact(['dummy', 'lessons', 'lastIndex']));
+                return view("{$activity}", compact(['dummy', 'lessons', 'lastIndex']));
 
                 break;
                 
                 case 'P4':
                 shuffle($dummy);
-            return view("{$uri}", compact(['dummy', 'lessons']));
+            return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
@@ -99,9 +92,9 @@ class DummyController extends Controller
                         $contentArr[$i] = explode( "|", $dummy[$i]->content);
 
                     }
-                    return view("{$uri}", compact(['dummy', 'lessons', 'contentArr', 'cnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'cnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
 
             break;
@@ -141,7 +134,7 @@ class DummyController extends Controller
 
                 $dummy = $all;
 
-                return view("{$uri}", compact(['dummy', 'lessons']));
+                return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
@@ -155,9 +148,9 @@ class DummyController extends Controller
                     for ($i=0; $i<$cnt; $i++){
                         $audioArr[$i] = $dummy[$i]->audio;
                     }
-                    return view("{$uri}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
 
             break;
@@ -179,9 +172,9 @@ class DummyController extends Controller
                             array_push($dialogCnt, $dummy[$i]->dialogNo);
                         }
                     }
-                    return view("{$uri}", compact(['dummy', 'lessons', 'dialogCnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
 
 
@@ -204,9 +197,9 @@ class DummyController extends Controller
                             array_push($dialogCnt, $dummy[$i]->dialogNo);
                         }
                     }
-                    return view("{$uri}", compact(['dummy', 'lessons', 'dialogCnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
 
 
@@ -229,7 +222,7 @@ class DummyController extends Controller
                     }
                 } while ( $currentOrder === $initOrder );
 
-                return view("{$uri}", compact(['dummy', 'lessons']));
+                return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
@@ -254,12 +247,12 @@ class DummyController extends Controller
                     }
                 } while ( $currentOrder === $initOrder );
                 
-                return view("{$uri}", compact(['dummy', 'lessons', 'stArr', 'cnt']));
+                return view("{$activity}", compact(['dummy', 'lessons', 'stArr', 'cnt']));
 
             break;
 
             case 'P12':
-                return view("{$uri}", compact(['dummy', 'lessons']));
+                return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
@@ -268,7 +261,7 @@ class DummyController extends Controller
                 {
                     $noteArr = explode("|", $dummyValue->note);
                 } 
-                return view("{$uri}", compact(['dummy', 'lessons', 'noteArr'])); 
+                return view("{$activity}", compact(['dummy', 'lessons', 'noteArr'])); 
                 break;
 
                 case 'P14':
@@ -276,7 +269,7 @@ class DummyController extends Controller
                 {
                     $contentArr = explode("|", $dummyValue->content);
                 } 
-                return view("{$uri}", compact(['dummy', 'lessons', 'contentArr'])); 
+                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr'])); 
             break;
             
             case 'P15':
@@ -290,9 +283,9 @@ class DummyController extends Controller
                     {
                         $titleArr[] = $dummyValue->title;
                     } 
-                    return view("{$uri}", compact(['dummy', 'lessons', 'contentArr', 'titleArr', 'cnt'])); 
+                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'titleArr', 'cnt'])); 
                 } else {
-                    return view("{$uri}", compact(['dummy', 'lessons']));
+                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
             break;
 
@@ -300,7 +293,7 @@ class DummyController extends Controller
                 /*
                 ** Chuyển đến view trong điều kiện bình thường
                 */
-                return view("{$uri}", compact(['dummy', 'lessons']));
+                return view("{$activity}", compact(['dummy', 'lessons']));
                 break;
             }
             
