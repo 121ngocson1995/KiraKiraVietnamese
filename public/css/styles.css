@@ -95,14 +95,32 @@ div.container-fluid.about{
   background-color:rgb(246,247,246);
 }
 
-div.author{
+@media (max-width:767px) {
+  div.container-fluid.about{
+    padding:20px;
+  }
+}
+
+div.container-fluid.author{
   padding:50px 100px;
   background-color:rgb(231,252,231);
+}
+
+@media (max-width:767px) {
+  div.container-fluid.author{
+    padding:20px;
+  }
 }
 
 div.features{
   padding:30px 50px;
   background-color:rgb(231,252,231);
+}
+
+@media (max-width:767px) {
+  div.features{
+    padding:0;
+  }
 }
 
 div.col-md-4.feature{
@@ -250,6 +268,12 @@ div.img_container{
 
 div.col-md-pull-5.col-sm-7.author_info{
   padding:20px 0;
+}
+
+@media (max-width:767px) {
+  div.author_info{
+    margin-top:30px;
+  }
 }
 
 h2.author_info{
