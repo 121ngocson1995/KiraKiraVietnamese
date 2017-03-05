@@ -92,7 +92,10 @@ class DummyController extends Controller
                         $contentArr[$i] = explode( "|", $dummy[$i]->content);
 
                     }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'cnt'])); 
+                    for ($i=0; $i<$cnt; $i++){
+                        $audioArr[$i] = $dummy[$i]->audio;
+                    }
+                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
                 } else {
                     return view("{$activity}", compact(['dummy', 'lessons']));
                 }
