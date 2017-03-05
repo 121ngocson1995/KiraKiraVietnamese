@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateP1ElementsTable extends Migration
+class CreateP6ElementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateP1ElementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('p1_elements', function (Blueprint $table) {
+        Schema::create('p6_elements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
             $table->foreign('lesson')
@@ -21,10 +21,11 @@ class CreateP1ElementsTable extends Migration
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('lineNo')->unsigned();
-            $table->tinyInteger('wordNo')->unsigned();
-            $table->string('word');
-            $table->string('audio');
+            $table->tinyInteger('dialogNo')->unsigned();
+            $table->string('dialog');
+            $table->string('correctAnswer');
+            $table->string('wrongAnswer1');
+            $table->string('wrongAnswer2');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -38,6 +39,6 @@ class CreateP1ElementsTable extends Migration
     public function down()
     {
         $table->dropForeign(['lesson_id']);
-        Schema::dropIfExists('p1_elements');
+        Schema::dropIfExists('p6_elements');
     }
 }
