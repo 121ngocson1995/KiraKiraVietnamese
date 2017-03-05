@@ -53,9 +53,9 @@
 		</table>
 	</div>
 	<div class="col-sm-3 col-md-6 col-lg-4"><audio controls>
-			<source src="{{ URL::asset('P4_audio/test.mp3') }}" type="audio/mpeg">
-				Your browser does not support the audio element.
-			</audio>
+			<source id="audio_id" src="{{ URL::asset($dummy[0]->audio) }}" type="audio/mpeg">
+			Your browser does not support the audio element.
+		</audio>
 		</div>
 	</div>
 	<div class="row">
