@@ -47,7 +47,7 @@
 			@foreach ($dummy as $question)
 			<tr>
 				<td>{{$question->answer}}</td>
-				<td><button autocomplete="off" type="button" name="{{ $question->id }}"  onclick="javascript: chooseOrder(this)">Choose this</button></td>
+				<td><button autocomplete="off" type="button" name="{{ $question->order }}"  onclick="javascript: chooseOrder(this)">Choose this</button></td>
 			</tr>
 			@endforeach
 		</table>
