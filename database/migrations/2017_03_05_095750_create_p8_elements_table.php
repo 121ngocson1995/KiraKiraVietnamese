@@ -16,13 +16,13 @@ class CreateP8ElementsTable extends Migration
         Schema::create('p8_elements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson')
+            $table->foreign('lesson_id')
                 ->references('id')
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->tinyInteger('dialogNo')->unsigned();
-            $table->tinyInteger('sentenceNo');
+            $table->tinyInteger('sentenceNo')->unsigned();
             $table->string('sentence');
             $table->string('answer');
             $table->timestamps();
