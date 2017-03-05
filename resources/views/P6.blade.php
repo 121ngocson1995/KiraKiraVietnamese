@@ -175,7 +175,7 @@
 		$(button).addClass('chosen');
 		$(button).prop('disabled', true);
 
-		if (button == ".btn-answer" && currentQuestion == lastQuestion) {
+		if (button == ".btn-answer" && currentQuestion == lastQuestion && questionsDone == lastQuestion + 1) {
 			document.getElementsByClassName('btnNext')[0].disabled = false;
 		}
 	}
@@ -226,7 +226,7 @@
 </div>
 
 <div>
-	<div id="result"></div>
+	<div id="result" style="text-align: center;"></div>
 </div>
 
 <script>
