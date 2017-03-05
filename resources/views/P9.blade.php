@@ -56,7 +56,7 @@
 	function next() {
 
 		if (checkAnswer(dummy , rightAnswerCnt) || checkQuestion == false) {
-
+			rightAnswerCnt = 0
 			for (var i = 0; i < checkFinish.length; i++) {
 				if (checkFinish[i]['dialogNo'] == dialogNow) {
 					checkFinish[i]['finish'] = true;
@@ -214,7 +214,6 @@
 		}
 		if (dialogAnswer.length == rightAnswerCnt) {
 			result = true;
-			rightAnswerCnt = 0;
 		}else{
 			for (var i = 0; i < dialogAnswer.length; i++) {
 				delete dialogAnswer[i];
