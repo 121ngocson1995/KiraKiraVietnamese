@@ -17,23 +17,7 @@
 <script language="JavaScript">
 	var contentNow = 0;
 	var contentArr = <?php echo json_encode($contentArr); ?>;
-	var audioArr = <?php echo json_encode($audioArr); ?>;
-	function next(){
-		
-		while (document.getElementById("content_id").firstChild) {
-			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
-		}
-		if(contentNow < contentArr.length-1){
-			contentNow = parseInt(contentNow) + 1;
-		}else{
-			window.alert("Bạn đã hoàn thành các tình huống rồi");
-		}
-		for (var i = 0; i < contentArr[contentNow].length; i++) {
-			editContent(contentArr[contentNow][i]);
-		}
-		editAudio(audioArr[contentNow]);
-		document.getElementById("audio").load();
-	}
+	var dummy = <?php echo json_encode($dummy); ?>;
 
 	function chooseD(element){
 		
@@ -45,12 +29,13 @@
 		for (var i = 0; i < contentArr[contentNow].length; i++) {
 			editContent(contentArr[contentNow][i]);
 		}
-		editAudio(audioArr[contentNow]);
+		editAudio(dummy[contentNow].audio);
+		editThumbnail(dummy[contentNow].image);
 		document.getElementById("audio").load();
 	}
 
 	function editContent(text) {
-		var node = document.createElement("div");
+		var node = document.createElement("p");
 		var textnode = document.createTextNode(text);
 		node.appendChild(textnode);
 		document.getElementById("content_id").appendChild(node);
@@ -58,6 +43,10 @@
 
 	function editAudio(path) {
 		document.getElementById("audio_id").setAttribute('src', '{{ URL::asset('') }}' + path);
+	}
+
+	function editThumbnail(path) {
+		document.getElementById("thumbnail").setAttribute('src', '{{ URL::asset('') }}' + path);
 	}
 </script>
 @stop
@@ -75,17 +64,17 @@
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image" style="text-align: center;">
 		<div>
-			<img class="img" src="{{ asset('Situation_img/hinh.png') }}">
+			<img id="thumbnail" class="img" src="{{ asset('Situation_img/hinh.png') }}">
 		</div>
 		<div>
 			<audio id="audio" controls>
-			<source id="audio_id" src="{{ URL::asset($audioArr[0]) }}" type="audio/mpeg">
+			<source id="audio_id" src="{{ URL::asset($dummy[0]->audio) }}" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
 		</div>
 	</div>
 	<div class="col-sm-3 col-sm-pull-4 paragraph" style="text-align: center; height: 100%">
-		<div style="margin-top: 40px">
+		<div id="content_id" style="margin-top: 40px">
 			@for ($i = 0; $i < count($contentArr[0]) ; $i++)
 				<p>{{ $contentArr[0][$i]}}</p>
 			@endfor	

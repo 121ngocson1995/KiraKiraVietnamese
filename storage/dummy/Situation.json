@@ -1,42 +1,50 @@
 [
 	{
 		"content": "Chào các bạn. | Tôi tên là Trung Anh. | Tôi 9 tuổi. | Tôi là học sinh.",
+		"image" : "Situation_img/hinh.png",
 		"audio" : "P7_audio/test_0.mp3"
 	},
 
 	{
 		"content": "- Chào bạn, bạn tên là gì? | - Tôi tên là Nam. | - Bạn bao nhiêu tuổi? | - Tôi 9 tuổi. Tôi là học sinh.",
-		"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh1.png",
+		"audio" : "P7_audio/test_1.mp3"
 	},
 
 	{
 		"content": "Chào anh. | Em tên là Trung Anh. | Em 9 tuổi. | Em là học sinh.",
-		"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh.png",
+		"audio" : "P7_audio/test_2.mp3"
 	},
 
 	{
 	 	"content": "- Chào em, em tên là gì? | - Em tên là Trung Anh. | - Em bao nhiêu tuổi? | - Em 9 tuổi ạ, em là học sinh.",
-	 	"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh1.png",
+	 	"audio" : "P7_audio/test_3.mp3"
 	},
 
 	{
 		"content": "Chào bác. | Cháu tên là Trung Anh. | Cháu 9 tuổi. | Cháu là học sinh.",
+		"image" : "Situation_img/hinh.png",
 		"audio" : "P7_audio/test_0.mp3"
 	},
 
 	{
 		"content": "- Chào cháu, cháu tên là gì? | - Cháu tên là Trung Anh ạ. | - Cháu mấy tuổi? | - Dạ, cháu 9 tuổi ạ, cháu là học sinh. ",
-		"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh1.png",
+		"audio" : "P7_audio/test_1.mp3"
 	},
 
 	{
 		"content": "Còn bạn? | Bạn tên là gì? | Bạn bao nhiêu tuổi? | Bạn là học sinh à?",
-		"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh.png",
+		"audio" : "P7_audio/test_2.mp3"
 	},
 
 	{
 		"content": "Tôi à? | Tôi tên là... | Tôi... tuổi. | Tôi là học sinh.",
-		"audio" : "P7_audio/test_0.mp3"
+		"image" : "Situation_img/hinh1.png",
+		"audio" : "P7_audio/test_3.mp3"
 	}
 
 ]
