@@ -16,12 +16,12 @@ class CreateP2ElementsTable extends Migration
         Schema::create('p2_elements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson')
+            $table->foreign('lesson_id')
                 ->references('id')
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('word')->unsigned();
+            $table->string('word');
             $table->tinyInteger('correctOrder')->unsigned();
             $table->string('audio');
             $table->timestamps();

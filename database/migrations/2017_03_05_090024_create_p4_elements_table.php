@@ -16,7 +16,7 @@ class CreateP4ElementsTable extends Migration
         Schema::create('p4_elements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson')
+            $table->foreign('lesson_id')
                 ->references('id')
                 ->on('lessons')
                 ->onUpdate('cascade')

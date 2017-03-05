@@ -10,6 +10,14 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * Get the administrator associated with the user.
+     */
+    public function administrator()
+    {
+        return $this->hasOne('App\Administrator');
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
