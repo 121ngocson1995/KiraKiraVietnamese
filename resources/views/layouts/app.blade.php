@@ -508,7 +508,12 @@
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                 <li role="presentation"><a href="#">Settings</a></li>
                                 <li role="presentation"><a href="#">Payments</a></li>
-                                <li role="presentation" class="active"><a href="#">Logout</a></li>
+                                <li role="presentation" class="active"><a href="{{ url('/logout') }}" 
+                                    onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Logout</a></li>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
                             </ul>
                         </li>
                     @endif
