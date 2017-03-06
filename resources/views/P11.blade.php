@@ -24,13 +24,14 @@
 		margin-right: 10px;
 		background: #eee;
 		padding: 5px;
-		width: 143px;
+		/*width: 143px;*/
+		min-width: 10em;
 	}
 	#sortable1 li, #sortable2 li {
 		margin: 5px;
 		padding: 5px; 
 		font-size: 1.2em; 
-		width: 120px; 
+		width: 10em; 
 	}
 	.ui-state-disabled, .ui-state-disabled:hover, .ui-state-disabled:active {
 		cursor: default;
@@ -39,15 +40,14 @@
 	}
 </style>
 
+	<ul id="sortable1" class="droptrue">
+		@foreach ($dummy as $dummyValue)
+			<li id="{{ $dummyValue->correctOrder }}" class="dragSentence ui-state-default">{{ $dummyValue->sentence }}</li>
+		@endforeach
+	</ul>
 
-<ul id="sortable1" class="droptrue">
-	@foreach ($dummy as $dummyValue)
-		<li id="{{ $dummyValue->correctOrder }}" class="dragSentence ui-state-default">{{ $dummyValue->sentence }}</li>
-	@endforeach
-</ul>
-
-<ul id="sortable2" class="droptrue">
-</ul>
+	<ul id="sortable2" class="droptrue">
+	</ul>
 
 
 <br style="clear:both">
