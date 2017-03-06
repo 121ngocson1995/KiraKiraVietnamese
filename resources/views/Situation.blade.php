@@ -29,8 +29,8 @@
 		for (var i = 0; i < contentArr[contentNow].length; i++) {
 			editContent(contentArr[contentNow][i]);
 		}
-		editAudio(dummy[contentNow].audio);
 		editThumbnail(dummy[contentNow].image);
+		editAudio(dummy[contentNow].audio);
 		document.getElementById("audio").load();
 	}
 
@@ -46,7 +46,7 @@
 	}
 
 	function editThumbnail(path) {
-		document.getElementById("thumbnail").setAttribute('src', '{{ URL::asset('') }}' + path);
+		document.getElementById("thumbnail").setAttribute('src', '{{ URL::asset('') }}' + path + '?' + new Date().getTime());
 	}
 </script>
 @stop
