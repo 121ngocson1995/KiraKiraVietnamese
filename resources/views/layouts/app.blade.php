@@ -43,6 +43,20 @@
     #lesson_menu, #activity_menu {
         margin-bottom: 150px;
     }
+    .onFocus {
+        display: block;
+    }
+    .offFocus {
+        display: block;
+    }
+    @media screen and (max-width:767px) {
+        .onFocus {
+            display: block;
+        }
+        .offFocus {
+            display: none;
+        }
+    }
     a {
         outline: 0;
     }
@@ -209,13 +223,28 @@
         margin-left: 50px;
         position: absolute;
         z-index: 99 !important;
-        right: 25px;
-        top: 20px;
+        right: 15px;
+        top: 0;
         color: white;
     }
     .sidenav .closebtn.open {
         position: fixed !important;
-        top: 85px !important;
+        top: 65px;
+    }
+    .sidenav .backbtn {
+        display: block;
+        font-size: 30px;
+        margin-left: 50px;
+        position: absolute;
+        z-index: 99 !important;
+        left: -15px;
+        top: 0;
+        color: white;
+    }
+    @media screen and (min-width: 767px) {
+        .sidenav .backbtn {
+            display: none;
+        }
     }
     .side_menu {
         padding-left: 32px;
@@ -376,9 +405,6 @@
 
     }
 
-
-
-
     .hamburger {
         position: relative;
         top: 18px;  
@@ -472,14 +498,20 @@
                     <li role="presentation" class="navbtn"><a href="#">About</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> <span class="caret"></span><img src="{{ asset('img/avatar_2x.png') }}" class="dropdown-image"></a>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li role="presentation"><a href="#">Settings</a></li>
-                            <li role="presentation"><a href="#">Payments</a></li>
-                            <li role="presentation" class="active"><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li role="presentation" class="navbtn"><a href="{{ url('/login') }}">Login</a></li>
+                        <li role="presentation" class="navbtn"><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> <span class="caret"></span><img src="{{ asset('img/avatar_2x.png') }}" class="dropdown-image"></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li role="presentation"><a href="#">Settings</a></li>
+                                <li role="presentation"><a href="#">Payments</a></li>
+                                <li role="presentation" class="active"><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -490,6 +522,7 @@
     </script>
     
     <div id="mySidenav" class="sidenav" style="overflow: hidden;">
+        <a href="javascript:void(0)" class="backbtn" onclick="back()"><</a>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div id="lesson_menu" class="col-sm-6 side_menu" style="white-space: nowrap; height: 100%; overflow-y: scroll;">
 
@@ -548,6 +581,13 @@
             document.body.classList.toggle('noscroll');
         }
 
+        function back() {
+            if ($('#activity_menu').hasClass('onFocus')) {
+                $('#activity_menu').removeClass('onFocus').addClass('offFocus');
+                $('#lesson_menu').removeClass('offFocus').addClass('onFocus');
+            }
+        }
+
         $('.lesson').click(function () {
             $('#lesson_menu').find('.active').removeClass('active');
             var expandBtn = $(this);
@@ -582,6 +622,9 @@
                         closeNav();
                     })
                 }
+
+                $('#lesson_menu').removeClass('onFocus').addClass('offFocus');
+                $('#activity_menu').removeClass('offFocus').addClass('onFocus');
 
                 $('#activity_menu').children().first().fadeIn(250);
             }
