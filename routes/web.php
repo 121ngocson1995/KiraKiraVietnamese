@@ -36,3 +36,7 @@ Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
 | End dummy routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('/testAnimate', function () {
+	return view('testAnimate');
+});
