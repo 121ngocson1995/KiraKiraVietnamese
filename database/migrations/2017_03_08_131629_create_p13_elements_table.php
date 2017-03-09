@@ -22,7 +22,7 @@ class CreateP13ElementsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('note')->nullable();
-            $table->string('content');
+            $table->mediumText('content');
             $table->string('audio');
             $table->timestamps();
             $table->softDeletes();
