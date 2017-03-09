@@ -30,7 +30,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
-Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+// Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+Route::get('/lesson1/P8', 'P8Controller@load');
 /*
 |--------------------------------------------------------------------------
 | End dummy routes

@@ -31,7 +31,7 @@
 @stop
 @section('content1')
 <script langauge="JavaScript">
-	var dummy = <?php echo json_encode($dummy); ?>;
+	var elementData = <?php echo json_encode($elementData); ?>;
 	var dialogCnt = <?php echo json_encode($dialogCnt); ?>;
 	var dialogNow = 1;
 	var checkFinish = new Array();
@@ -42,21 +42,21 @@
 		checkFinish.push({dialogNo:(i+1), finish:false});
 	}
 
-	function edit(dummy, dialogNow, dialogCnt){
+	function edit(elementData, dialogNow, dialogCnt){
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
 		while (document.getElementById("answer_id").firstChild) {
 			document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
 		}
-		editContent(dummy, dialogNow);
-		editAnswer(dummy, dialogNow);
+		editContent(elementData, dialogNow);
+		editAnswer(elementData, dialogNow);
 		editButtonGr(dialogCnt, dialogNow);
 	}
 
 	function next() {
 
-		if (checkAnswer(dummy , rightAnswerCnt) || checkQuestion == false) {
+		if (checkAnswer(elementData , rightAnswerCnt) || checkQuestion == false) {
 
 			for (var i = 0; i < checkFinish.length; i++) {
 				if (checkFinish[i]['dialogNo'] == dialogNow) {
@@ -69,7 +69,7 @@
 			}else{
 				window.alert("Bạn đã hoàn thành bài tập rồi !");
 			}
-			edit(dummy, dialogNow, dialogCnt);
+			edit(elementData, dialogNow, dialogCnt);
 		}else{
 			window.alert("Bạn phải hoàn thành đoạn hội thoại hiện tại thì mới làm tiếp được !");
 		}
@@ -81,7 +81,7 @@
 		
 		dialogNow = element.getAttribute('id');
 		var textNode;
-		var dialogSentence = new Array();
+		var dialogline = new Array();
 		var questionDone;
 		
 		for (var i = 0; i < checkFinish.length; i++) {
@@ -96,54 +96,54 @@
 			while (document.getElementById("answer_id").firstChild) {
 				document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
 			}
-			for (var i = 0; i < dummy.length; i++) {
-				if (dummy[i]['dialogNo'] == dialogNow) {
-					dialogSentence.push(dummy[i]);
+			for (var i = 0; i < elementData.length; i++) {
+				if (elementData[i]['dialogNo'] == dialogNow) {
+					dialogline.push(elementData[i]);
 				}
 			}
 
-			for (var j = 0; j < dialogSentence.length; j++) {
-				var sentence = dialogSentence[j]['sentence'];
-				for (var i = 0; i < dialogSentence[j]['answer'].length; i++) {
-					sentence = sentence.replace("*",dialogSentence[j]['answer'][i]);
+			for (var j = 0; j < dialogline.length; j++) {
+				var line = dialogline[j]['line'];
+				for (var i = 0; i < dialogline[j]['answer'].length; i++) {
+					line = line.replace("*",dialogline[j]['answer'][i]);
 				}
 
 				var node = document.createElement("div");
 				node.setAttribute('style', 'font-size: 25px; padding: 15px');	
-				textNode = document.createTextNode(sentence);
+				textNode = document.createTextNode(line);
 				node.appendChild(textNode);
 				document.getElementById("content_id").appendChild(node);
 			} 
 			checkQuestion = false;
 		}else{
-			edit(dummy, dialogNow, dialogCnt);
+			edit(elementData, dialogNow, dialogCnt);
 		}
 		
 	}
 
-	function editContent(dummy, dialogNow) {
+	function editContent(elementData, dialogNow) {
 		var textNode;
-		var dialogSentence = new Array();
-		var sentenceNo = new Array();
+		var dialogline = new Array();
+		var lineNo = new Array();
 		var dialogAnswer = new Array();
 
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				dialogSentence.push(dummy[i]);
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogline.push(elementData[i]);
 			}
 		}
-		for (var j = 0; j < dialogSentence.length; j++) {
+		for (var j = 0; j < dialogline.length; j++) {
 			var node = document.createElement("div");
 			node.setAttribute('style', 'font-size: 25px; padding: 15px');
-			curSentence = dialogSentence[j]['sentence'].split("*");
+			curline = dialogline[j]['line'].split("*");
 			var index = 0;
-			for (var k = 0; k < curSentence.length; k++) {
-				if (index != curSentence.length-1) {
-					// console.log(curSentence[k]);
+			for (var k = 0; k < curline.length; k++) {
+				if (index != curline.length-1) {
+					// console.log(curline[k]);
 					var dialogNode = document.createElement("div");
-					textNode = document.createTextNode(curSentence[k]);
+					textNode = document.createTextNode(curline[k]);
 					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1');
-					dialogNode.setAttribute('id',dialogSentence[j]['sentenceNo']+','+k);
+					dialogNode.setAttribute('id',dialogline[j]['lineNo']+','+k);
 					dialogNode.setAttribute('ondragenter','return false;');
 					dialogNode.setAttribute('ondragover','return false;');
 					dialogNode.setAttribute('ondrop','drop(this,event)');
@@ -152,7 +152,7 @@
 					node.appendChild(dialogNode);
 					index++;
 				}else{
-					textNode = document.createTextNode(curSentence[k]);
+					textNode = document.createTextNode(curline[k]);
 					node.appendChild(textNode);
 				}
 			}
@@ -160,11 +160,11 @@
 		} 
 	}
 
-	function editAnswer(dummy,dialogNow) {
+	function editAnswer(elementData,dialogNow) {
 		var dialogAnswer = new Array();
-		for (i=0; i < dummy.length ; i++) { 
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				dialogAnswer.push(dummy[i]);
+		for (i=0; i < elementData.length ; i++) { 
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogAnswer.push(elementData[i]);
 			}
 		}
 		dialogAnswer.sort(function(a, b){return 0.5 - Math.random()});
@@ -173,7 +173,7 @@
 				var node = document.createElement("span");
 				node.setAttribute('draggable', 'true');
 				node.setAttribute('class', 'dragWord ui-state-default');
-				node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['sentenceNo']+','+j);
+				node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['lineNo']+','+j);
 				node.setAttribute('ondragstart', 'javascript: drag(event)');
 				var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 				node.appendChild(textnode);
@@ -198,19 +198,19 @@
 			if (i > dialogNow  ) {
 				node.setAttribute('disabled', 'true');
 			}
-			console.log(i);
+
 			document.getElementById("btn-group").appendChild(node);
 		}
 
 	}
 
-	function checkAnswer(dummy , rightAnswerCnt){
+	function checkAnswer(elementData , rightAnswerCnt){
 		var dialogAnswer = new Array();
 		var result;
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				for (var j = 0; j < dummy[i]['answer'].length; j++) {
-					dialogAnswer.push(dummy[i]['answer'][j]);
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				for (var j = 0; j < elementData[i]['answer'].length; j++) {
+					dialogAnswer.push(elementData[i]['answer'][j]);
 				}
 			}
 		}
@@ -239,21 +239,21 @@
 		var answerText = event.dataTransfer.getData("Text")
 
 		var data = element.getAttribute('id').split(',');
-		var sentenceNo = data[0];
+		var lineNo = data[0];
 		var answerOrder = data[1];
 		var rightAnswer;
 
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow && dummy[i]['sentenceNo'] == sentenceNo ) {
-				rightAnswer = dummy[i]['answer'];
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow && elementData[i]['lineNo'] == lineNo ) {
+				rightAnswer = elementData[i]['answer'];
 			}
 		}
 		
 		if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 			element.innerHTML = answerText;
 			element.setAttribute('style', 'width: auto; height: auto; background-color:transparent; display: inline-block; font-weight: 500;');
-			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('style', 'opacity: 0;');
-			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('draggable', 'false');
+			document.getElementById((dialogNow-1)+','+lineNo+','+answerOrder).setAttribute('style', 'opacity: 0;');
+			document.getElementById((dialogNow-1)+','+lineNo+','+answerOrder).setAttribute('draggable', 'false');
 			rightAnswerCnt++;
 		}
 	}
@@ -271,36 +271,36 @@
 <div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
 	@php
 	$dialogAnswer = array();
-	for ($i=0; $i < count($dummy) ; $i++) { 
-		if ($dummy[$i]->dialogNo == 1) {
-			array_push($dialogAnswer, $dummy[$i]);
+	for ($i=0; $i < count($elementData) ; $i++) { 
+		if ($elementData[$i]->dialogNo == 1) {
+			array_push($dialogAnswer, $elementData[$i]);
 		}
 	}
 	shuffle($dialogAnswer);
 	@endphp
 	@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 	@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
-	<span id="0,{{$dialogAnswer[$i]->sentenceNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+	<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
 	@endfor	
 	@endfor
 </div>
 <div class="row">
 	<div id="content_id" class="col-sm-10 col-md-10 col-lg-10">
-		@for ($i = 0; $i < count($dummy) ; $i++)
-		@if ($dummy[$i]->dialogNo == 1)
+		@for ($i = 0; $i < count($elementData) ; $i++)
+		@if ($elementData[$i]->dialogNo == 1)
 		@php
-		$curSentence = explode('*', $dummy[$i]->sentence);
+		$curline = explode('*', $elementData[$i]->line);
 		$index = 0;
 		@endphp
 		<div style="font-size: 25px; padding: 15px">
-			@for ($j = 0; $j < count($curSentence) ; $j++)
-			@if ($index != count($curSentence)-1)
-			{{$curSentence[$j]}}<div id="{{$dummy[$i]->sentenceNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
+			@for ($j = 0; $j < count($curline) ; $j++)
+			@if ($index != count($curline)-1)
+			{{$curline[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
 			@php
 			$index++;
 			@endphp
 			@else
-			{{$curSentence[$j]}}
+			{{$curline[$j]}}
 			@endif
 			@endfor
 		</div>
