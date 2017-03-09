@@ -31,7 +31,7 @@
 @stop
 @section('content1')
 <script langauge="JavaScript">
-	var dummy = <?php echo json_encode($dummy); ?>;
+	var elementData = <?php echo json_encode($elementData); ?>;
 	var dialogCnt = <?php echo json_encode($dialogCnt); ?>;
 	var dialogNow = 1;
 	var checkFinish = new Array();
@@ -41,21 +41,21 @@
 
 		checkFinish.push({dialogNo:(i+1), finish:false});
 	}
-	function edit(dummy, dialogNow, dialogCnt){
+	function edit(elementData, dialogNow, dialogCnt){
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
 		while (document.getElementById("answer_id").firstChild) {
 			document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
 		}
-		editContent(dummy, dialogNow);
-		editAnswer(dummy, dialogNow);
+		editContent(elementData, dialogNow);
+		editAnswer(elementData, dialogNow);
 		editButtonGr(dialogCnt, dialogNow);
 	}
 
 	function next() {
 
-		if (checkAnswer(dummy , rightAnswerCnt) || checkQuestion == false) {
+		if (checkAnswer(elementData , rightAnswerCnt) || checkQuestion == false) {
 			rightAnswerCnt = 0
 			for (var i = 0; i < checkFinish.length; i++) {
 				if (checkFinish[i]['dialogNo'] == dialogNow) {
@@ -68,7 +68,7 @@
 			}else{
 				window.alert("Bạn đã hoàn thành bài tập rồi !");
 			}
-			edit(dummy, dialogNow, dialogCnt);
+			edit(elementData, dialogNow, dialogCnt);
 		}else{
 			window.alert("Bạn phải hoàn thành đoạn hội thoại hiện tại thì mới làm tiếp được !");
 		}
@@ -95,14 +95,14 @@
 			while (document.getElementById("answer_id").firstChild) {
 				document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
 			}
-			for (var i = 0; i < dummy.length; i++) {
-				if (dummy[i]['dialogNo'] == dialogNow) {
-					dialogSentence.push(dummy[i]);
+			for (var i = 0; i < elementData.length; i++) {
+				if (elementData[i]['dialogNo'] == dialogNow) {
+					dialogSentence.push(elementData[i]);
 				}
 			}
 
 			for (var j = 0; j < dialogSentence.length; j++) {
-				var sentence = dialogSentence[j]['lineContent'];
+				var sentence = dialogSentence[j]['line'];
 				for (var i = 0; i < dialogSentence[j]['answer'].length; i++) {
 					sentence = sentence.replace("*",dialogSentence[j]['answer'][i]);
 				}
@@ -115,26 +115,26 @@
 			} 
 			checkQuestion = false;
 		}else{
-			edit(dummy, dialogNow, dialogCnt);
+			edit(elementData, dialogNow, dialogCnt);
 		}
 		
 	}
 
-	function editContent(dummy, dialogNow) {
+	function editContent(elementData, dialogNow) {
 		var textNode;
 		var dialogSentence = new Array();
 		var sentenceNo = new Array();
 		var dialogAnswer = new Array();
 
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				dialogSentence.push(dummy[i]);
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogSentence.push(elementData[i]);
 			}
 		}
 		for (var j = 0; j < dialogSentence.length; j++) {
 			var node = document.createElement("div");
 			node.setAttribute('style', 'font-size: 25px; padding: 15px');
-			curLine = dialogSentence[j]['lineContent'].split("*");
+			curLine = dialogSentence[j]['line'].split("*");
 			var index = 0;
 			for (var k = 0; k < curLine.length; k++) {
 				if (index != curLine.length-1) {
@@ -159,24 +159,26 @@
 		} 
 	}
 
-	function editAnswer(dummy,dialogNow) {
+	function editAnswer(elementData,dialogNow) {
 		var dialogAnswer = new Array();
-		for (i=0; i < dummy.length ; i++) { 
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				dialogAnswer.push(dummy[i]);
+		for (i=0; i < elementData.length ; i++) { 
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogAnswer.push(elementData[i]);
 			}
 		}
 		dialogAnswer.sort(function(a, b){return 0.5 - Math.random()});
 		for (var i = 0; i < dialogAnswer.length; i++) {
 			for (var j = 0; j < dialogAnswer[i]['answer'].length; j++) {
-				var node = document.createElement("span");
-				node.setAttribute('draggable', 'true');
-				node.setAttribute('class', 'dragWord ui-state-default');
-				node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['lineNo']+','+j);
-				node.setAttribute('ondragstart', 'javascript: drag(event)');
-				var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
-				node.appendChild(textnode);
-				document.getElementById("answer_id").appendChild(node);
+				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
+					var node = document.createElement("span");
+					node.setAttribute('draggable', 'true');
+					node.setAttribute('class', 'dragWord ui-state-default');
+					node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['lineNo']+','+j);
+					node.setAttribute('ondragstart', 'javascript: drag(event)');
+					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
+					node.appendChild(textnode);
+					document.getElementById("answer_id").appendChild(node);
+				}
 			}
 		}
 	}
@@ -202,13 +204,15 @@
 
 	}
 
-	function checkAnswer(dummy , rightAnswerCnt){
+	function checkAnswer(elementData , rightAnswerCnt){
 		var dialogAnswer = new Array();
 		var result;
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow) {
-				for (var j = 0; j < dummy[i]['answer'].length; j++) {
-					dialogAnswer.push(dummy[i]['answer'][j]);
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				for (var j = 0; j < elementData[i]['answer'].length; j++) {
+					if (elementData[i]['answer'][j].localeCompare("")!=0) {
+						dialogAnswer.push(elementData[i]['answer'][j]);
+					}
 				}
 			}
 		}
@@ -228,29 +232,29 @@
 	}
 
 	function drag(event) {
-		event.dataTransfer.setData("Text", event.target.childNodes[0].data);
+		event.dataTransfer.setData("Text", event.target.getAttribute("id"));
 	}
 
 	function drop(element, event) {
 		event.preventDefault();
-		var answerText = event.dataTransfer.getData("Text")
-
+		var targetId = event.dataTransfer.getData("Text");
+		var answerText = document.getElementById(targetId).innerHTML;
 		var data = element.getAttribute('id').split(',');
 		var sentenceNo = data[0];
 		var answerOrder = data[1];
 		var rightAnswer;
 
-		for (var i = 0; i < dummy.length; i++) {
-			if (dummy[i]['dialogNo'] == dialogNow && dummy[i]['lineNo'] == sentenceNo ) {
-				rightAnswer = dummy[i]['answer'];
+		for (var i = 0; i < elementData.length; i++) {
+			if (elementData[i]['dialogNo'] == dialogNow && elementData[i]['lineNo'] == sentenceNo ) {
+				rightAnswer = elementData[i]['answer'];
 			}
 		}
 		
 		if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 			element.innerHTML = answerText;
 			element.setAttribute('style', 'width: auto; height: auto; background-color:transparent; display: inline-block; font-weight: 500;');
-			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('style', 'opacity: 0;');
-			document.getElementById((dialogNow-1)+','+sentenceNo+','+answerOrder).setAttribute('draggable', 'false');
+			document.getElementById(targetId).setAttribute('style', 'opacity: 0;');
+			document.getElementById(targetId).setAttribute('draggable', 'false');
 			rightAnswerCnt++;
 		}
 	}
@@ -268,31 +272,33 @@
 <div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
 	@php
 	$dialogAnswer = array();
-	for ($i=0; $i < count($dummy) ; $i++) { 
-		if ($dummy[$i]->dialogNo == 1) {
-			array_push($dialogAnswer, $dummy[$i]);
+	for ($i=0; $i < count($elementData) ; $i++) { 
+		if ($elementData[$i]->dialogNo == 1) {
+			array_push($dialogAnswer, $elementData[$i]);
 		}
 	}
 	shuffle($dialogAnswer);
 	@endphp
 	@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 	@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
+	@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
 	<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+	@endif
 	@endfor	
 	@endfor
 </div>
 <div class="row">
 	<div id="content_id" class="col-sm-10 col-md-10 col-lg-10">
-		@for ($i = 0; $i < count($dummy) ; $i++)
-		@if ($dummy[$i]->dialogNo == 1)
+		@for ($i = 0; $i < count($elementData) ; $i++)
+		@if ($elementData[$i]->dialogNo == 1)
 		@php
-		$curLine = explode('*', $dummy[$i]->lineContent);
+		$curLine = explode('*', $elementData[$i]->line);
 		$index = 0;
 		@endphp
 		<div style="font-size: 25px; padding: 15px">
 			@for ($j = 0; $j < count($curLine) ; $j++)
 			@if ($index != count($curLine)-1)
-			{{$curLine[$j]}}<div id="{{$dummy[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
+			{{$curLine[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
 			@php
 			$index++;
 			@endphp

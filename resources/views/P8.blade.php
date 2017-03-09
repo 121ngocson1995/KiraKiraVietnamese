@@ -240,7 +240,7 @@
 
 		function drop(element, event) {
 			event.preventDefault();
-			var targetId = event.dataTransfer.getData("Text")
+			var targetId = event.dataTransfer.getData("Text");
 			var answerText = document.getElementById(targetId).innerHTML;
 			var data = element.getAttribute('id').split(',');
 			var lineNo = data[0];
