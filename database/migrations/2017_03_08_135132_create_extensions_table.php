@@ -32,7 +32,7 @@ class CreateExtensionsTable extends Migration
                 *  5: game
                 */
             $table->string('title')->nullable();
-            $table->string('content');
+            $table->mediumText('content');
             $table->string('audio')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('video')->nullable();

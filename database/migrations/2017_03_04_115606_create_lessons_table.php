@@ -22,7 +22,7 @@ class CreateLessonsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('lessonNo')->unsigned();
-            $table->integer('lesson_name')->unsigned();
+            $table->string('lesson_name');
             $table->mediumText('description');
             $table->string('author');
             $table->integer('added_by')->unsigned();

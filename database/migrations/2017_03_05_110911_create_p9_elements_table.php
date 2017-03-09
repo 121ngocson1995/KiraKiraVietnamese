@@ -22,8 +22,8 @@ class CreateP9ElementsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->tinyInteger('dialogNo')->unsigned();
-            $table->tinyInteger('sentenceNo')->unsigned();
-            $table->string('sentence');
+            $table->tinyInteger('lineNo')->unsigned();
+            $table->string('line');
             $table->string('answer');
             $table->timestamps();
             $table->softDeletes();
