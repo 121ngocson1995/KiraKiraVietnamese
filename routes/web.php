@@ -37,3 +37,7 @@ Route::get('/lesson1/P8', 'P8Controller@load');
 | End dummy routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('/testAnimate', function () {
+	return view('testAnimate');
+});
