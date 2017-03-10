@@ -31,7 +31,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
 // Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+Route::get('/lesson1/P4', 'P4Controller@load');
+Route::get('/lesson1/P5', 'P5Controller@load');
 Route::get('/lesson1/P8', 'P8Controller@load');
+Route::get('/lesson1/P9', 'P9Controller@load');
 Route::get('/lesson1/P11', 'P11Controller@load');
 Route::get('/lesson1/P12', 'P12Controller@load');
 Route::get('/lesson1/P13', 'P13Controller@load');
