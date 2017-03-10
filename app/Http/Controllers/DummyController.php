@@ -41,251 +41,251 @@ class DummyController extends Controller
         */
         switch ($activity) {
             case 'Situation':
-                $cnt = count($dummy);
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
-                    }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'cnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
                 }
-                break;
+                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'cnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
+            break;
 
             case 'P1':
-                $firstLineNumber;
+            $firstLineNumber;
 
-                if (count($dummy) != 0)
-                {
-                    $firstLineNumber = $dummy[0]->lineNumber;
-                    return view("{$activity}", compact(['dummy', 'lessons', 'firstLineNumber']));
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
-                }
+            if (count($dummy) != 0)
+            {
+                $firstLineNumber = $dummy[0]->lineNumber;
+                return view("{$activity}", compact(['dummy', 'lessons', 'firstLineNumber']));
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
 
             break;
             
             case 'P2':
-                $lastIndex = $dummy[count($dummy)-1]->correctOrder;
-                shuffle($dummy);
-                return view("{$activity}", compact(['dummy', 'lessons', 'lastIndex']));
+            $lastIndex = $dummy[count($dummy)-1]->correctOrder;
+            shuffle($dummy);
+            return view("{$activity}", compact(['dummy', 'lessons', 'lastIndex']));
 
-                break;
-                
-                case 'P4':
-                shuffle($dummy);
+            break;
+            
+            case 'P4':
+            shuffle($dummy);
             return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
             case 'P5': 
-                $cnt = count($dummy);
+            $cnt = count($dummy);
 
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
 
-                    }
-                    for ($i=0; $i<$cnt; $i++){
-                        $audioArr[$i] = $dummy[$i]->audio;
-                    }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
                 }
+                for ($i=0; $i<$cnt; $i++){
+                    $audioArr[$i] = $dummy[$i]->audio;
+                }
+                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
 
             break;
 
             case 'P6':
-                $all = [];
+            $all = [];
 
-                foreach ($dummy as $dummyValue) {
-                    $newElem = (object) array(
-                        "dialogNo"  => $dummyValue->dialogNo,
-                        "dialog"    => $dummyValue->dialog,
-                        "answers"   => [
-                        "correctAnswer" => [
-                        "content"   => $dummyValue->correctAnswer,
-                        "chosen"    => false
-                        ],
-                        "wrongAnswer1" => [
-                        "content"   => $dummyValue->wrongAnswer1,
-                        "chosen"    => false
-                        ],
-                        "wrongAnswer2" => [
-                        "content"   => $dummyValue->wrongAnswer2,
-                        "chosen"    => false
-                        ]
-                        ],
-                        "answerOrder" => [
-                        "correctAnswer",
-                        "wrongAnswer1",
-                        "wrongAnswer2"
-                        ]
-                        );
+            foreach ($dummy as $dummyValue) {
+                $newElem = (object) array(
+                    "dialogNo"  => $dummyValue->dialogNo,
+                    "dialog"    => $dummyValue->dialog,
+                    "answers"   => [
+                    "correctAnswer" => [
+                    "content"   => $dummyValue->correctAnswer,
+                    "chosen"    => false
+                    ],
+                    "wrongAnswer1" => [
+                    "content"   => $dummyValue->wrongAnswer1,
+                    "chosen"    => false
+                    ],
+                    "wrongAnswer2" => [
+                    "content"   => $dummyValue->wrongAnswer2,
+                    "chosen"    => false
+                    ]
+                    ],
+                    "answerOrder" => [
+                    "correctAnswer",
+                    "wrongAnswer1",
+                    "wrongAnswer2"
+                    ]
+                    );
 
-                    shuffle($newElem->answerOrder);
+                shuffle($newElem->answerOrder);
 
-                    $all[] = $newElem;
-                }
+                $all[] = $newElem;
+            }
 
-                $dummy = $all;
+            $dummy = $all;
 
-                return view("{$activity}", compact(['dummy', 'lessons']));
+            return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
             case 'P7':
-                $cnt = count($dummy);
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
-                    }
-                    for ($i=0; $i<$cnt; $i++){
-                        $audioArr[$i] = $dummy[$i]->audio;
-                    }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
                 }
+                for ($i=0; $i<$cnt; $i++){
+                    $audioArr[$i] = $dummy[$i]->audio;
+                }
+                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'audioArr', 'cnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
 
             break;
 
             case 'P8':
-                $cnt = count($dummy);
-                $dialogCnt = array();
-                $answerArrs = array();
-                
-                if ($cnt != 0){
-                    for ($i=0; $i<$cnt; $i++){
-                        $dup = false;
-                        for ($j=0; $j < count($dialogCnt) ; $j++) { 
-                            if($dummy[$i]->dialogNo == $dialogCnt[$j]){
-                                $dup = true;
-                            }
-                        }
-                        if ($dup == false) {
-                            array_push($dialogCnt, $dummy[$i]->dialogNo);
+            $cnt = count($dummy);
+            $dialogCnt = array();
+            $answerArrs = array();
+            
+            if ($cnt != 0){
+                for ($i=0; $i<$cnt; $i++){
+                    $dup = false;
+                    for ($j=0; $j < count($dialogCnt) ; $j++) { 
+                        if($dummy[$i]->dialogNo == $dialogCnt[$j]){
+                            $dup = true;
                         }
                     }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
+                    if ($dup == false) {
+                        array_push($dialogCnt, $dummy[$i]->dialogNo);
+                    }
                 }
+                return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
 
 
             break;
 
             case 'P9':
-                $cnt = count($dummy);
-                $dialogCnt = array();
-                $answerArrs = array();
-                
-                if ($cnt != 0){
-                    for ($i=0; $i<$cnt; $i++){
-                        $dup = false;
-                        for ($j=0; $j < count($dialogCnt) ; $j++) { 
-                            if($dummy[$i]->dialogNo == $dialogCnt[$j]){
-                                $dup = true;
-                            }
-                        }
-                        if ($dup == false) {
-                            array_push($dialogCnt, $dummy[$i]->dialogNo);
+            $cnt = count($dummy);
+            $dialogCnt = array();
+            $answerArrs = array();
+            
+            if ($cnt != 0){
+                for ($i=0; $i<$cnt; $i++){
+                    $dup = false;
+                    for ($j=0; $j < count($dialogCnt) ; $j++) { 
+                        if($dummy[$i]->dialogNo == $dialogCnt[$j]){
+                            $dup = true;
                         }
                     }
-                    return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
+                    if ($dup == false) {
+                        array_push($dialogCnt, $dummy[$i]->dialogNo);
+                    }
                 }
+                return view("{$activity}", compact(['dummy', 'lessons', 'dialogCnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
 
 
             break;
 
             case 'P10':
-                $initOrder = [];
+            $initOrder = [];
+            foreach ($dummy as $dummyValue) {
+                $initOrder[] = $dummyValue->correctOrder;
+            }
+
+            $currentOrder;
+
+            do {
+                shuffle($dummy);
+
+                $currentOrder = array();
                 foreach ($dummy as $dummyValue) {
-                    $initOrder[] = $dummyValue->correctOrder;
+                    $currentOrder[] = $dummyValue->correctOrder;
                 }
+            } while ( $currentOrder === $initOrder );
 
-                $currentOrder;
-
-                do {
-                    shuffle($dummy);
-
-                    $currentOrder = array();
-                    foreach ($dummy as $dummyValue) {
-                        $currentOrder[] = $dummyValue->correctOrder;
-                    }
-                } while ( $currentOrder === $initOrder );
-
-                return view("{$activity}", compact(['dummy', 'lessons']));
+            return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
             case 'P11':
-                $initOrder = [];
-                $stArr = [];
-                $cnt = count($dummy);
-                foreach ($dummy as $dummyValue) {
-                    $initOrder[] = $dummyValue->correctOrder;
-                }
-                foreach ($dummy as $dummyValue) {
-                    $stArr[] = $dummyValue->sentence;
-                }
-                $currentOrder;
+            $initOrder = [];
+            $stArr = [];
+            $cnt = count($dummy);
+            foreach ($dummy as $dummyValue) {
+                $initOrder[] = $dummyValue->correctOrder;
+            }
+            foreach ($dummy as $dummyValue) {
+                $stArr[] = $dummyValue->sentence;
+            }
+            $currentOrder;
 
-                do {
-                    shuffle($dummy);
+            do {
+                shuffle($dummy);
 
-                    $currentOrder = array();
-                    foreach ($dummy as $dummyValue) {
-                        $currentOrder[] = $dummyValue->correctOrder;
-                    }
-                } while ( $currentOrder === $initOrder );
-                
-                return view("{$activity}", compact(['dummy', 'lessons', 'stArr', 'cnt']));
+                $currentOrder = array();
+                foreach ($dummy as $dummyValue) {
+                    $currentOrder[] = $dummyValue->correctOrder;
+                }
+            } while ( $currentOrder === $initOrder );
+            
+            return view("{$activity}", compact(['dummy', 'lessons', 'stArr', 'cnt']));
 
             break;
 
             case 'P12':
-                return view("{$activity}", compact(['dummy', 'lessons']));
+            return view("{$activity}", compact(['dummy', 'lessons']));
 
             break;
 
             case 'P13':
-                foreach ($dummy as $dummyValue) 
-                {
-                    $noteArr = explode("|", $dummyValue->note);
-                } 
-                return view("{$activity}", compact(['dummy', 'lessons', 'noteArr'])); 
-                break;
+            foreach ($dummy as $dummyValue) 
+            {
+                $noteArr = explode("|", $dummyValue->note);
+            } 
+            return view("{$activity}", compact(['dummy', 'lessons', 'noteArr'])); 
+            break;
 
             case 'P14':
-                foreach ($dummy as $dummyValue) 
-                {
-                    $contentArr = explode("|", $dummyValue->content);
-                } 
-                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr'])); 
+            foreach ($dummy as $dummyValue) 
+            {
+                $contentArr = explode("|", $dummyValue->content);
+            } 
+            return view("{$activity}", compact(['dummy', 'lessons', 'contentArr'])); 
             break;
             
             case 'P15':
-                $cnt = count($dummy);
-                if ($cnt != 0)
-                {
-                    for ($i=0; $i<$cnt; $i++){
-                        $contentArr[$i] = explode( "|", $dummy[$i]->content);
-                    }
-                    foreach ($dummy as $dummyValue) 
-                    {
-                        $titleArr[] = $dummyValue->title;
-                    } 
-                    return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'titleArr', 'cnt'])); 
-                } else {
-                    return view("{$activity}", compact(['dummy', 'lessons']));
+            $cnt = count($dummy);
+            if ($cnt != 0)
+            {
+                for ($i=0; $i<$cnt; $i++){
+                    $contentArr[$i] = explode( "|", $dummy[$i]->content);
                 }
+                foreach ($dummy as $dummyValue) 
+                {
+                    $titleArr[] = $dummyValue->title;
+                } 
+                return view("{$activity}", compact(['dummy', 'lessons', 'contentArr', 'titleArr', 'cnt'])); 
+            } else {
+                return view("{$activity}", compact(['dummy', 'lessons']));
+            }
             break;
 
             default:
