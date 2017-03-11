@@ -30,7 +30,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
-// Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
 Route::get('/lesson1/P1', 'P1Controller@load');
 Route::get('/lesson1/P2', 'P2Controller@load');
 Route::get('/lesson1/P3', 'P3Controller@load');
