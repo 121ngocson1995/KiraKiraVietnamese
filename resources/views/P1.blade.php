@@ -21,17 +21,17 @@
 
 	<div class="wordLine" style="text-align: center;  width: 100%">
 
-		@foreach ($dummy as $dummyValue)
-			@if ($dummyValue->lineNumber > $currentlineNumber)
+		@foreach ($elementData as $elementValue)
+			@if ($elementValue->lineNo > $currentlineNumber)
 				@php
-					$currentlineNumber = $dummyValue->lineNumber;
+					$currentlineNumber = $elementValue->lineNo;
 				@endphp
 
 				</div><div class="wordLine" style="text-align: center;">
 			@endif
 
 			<span style="padding: 0px 2px; margin: 10px 0px">
-				<button class="btn playWord" style="font-size: 18px; padding: 2px 10px" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
+				<button class="btn playWord" style="font-size: 18px; padding: 2px 10px" onclick="playWord('{{ $elementValue->audio }}')">{{ $elementValue->word }}</button>
 			</span>
 		@endforeach
 
