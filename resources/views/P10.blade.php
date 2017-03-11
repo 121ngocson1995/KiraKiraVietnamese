@@ -65,8 +65,8 @@
 
 <div class='fullscreenDiv'>
 	<div id="sortable">
-		@foreach ($dummy as $dummyValue)
-			<span id="{{ $dummyValue->correctOrder }}" class="dragWord ui-state-default">{{ $dummyValue->word }}</span>
+		@foreach ($elementData as $key)
+			<span id="{{ $key->correctOrder }}" class="dragWord ui-state-default">{{ $key->word }}</span>
 		@endforeach
 	</div>
 	<div id="result" style="text-align: center; text-align-last: center;"></div>

@@ -28,8 +28,8 @@ class P11Controller extends Controller
     	$currentOrder;
 
     	do {
-    		shuffle($stArr);
-    		dd($stArr);
+            $elementData = $elementData->shuffle();
+            // dd($elementData);
     		$currentOrder = array();
     		foreach ($elementData as $key) {
     			$currentOrder[] = $key->correctOrder;

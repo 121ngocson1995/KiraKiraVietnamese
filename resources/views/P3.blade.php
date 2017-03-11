@@ -16,10 +16,10 @@
 </div>
 <div class="col-md-6 col-lg-6" style="float: left;">
 
-		@foreach ($dummy as $dummyValue)
+		@foreach ($elementData as $elementValue)
 
 			<div class="wordLine" style="text-align: center;">
-				<button class="btn playWord" style="font-size: 14px; padding: 2px 10px; width: 500px; white-space: normal;" onclick="playWord('{{ $dummyValue->audio }}')">{{ $dummyValue->sentence }}</button>
+				<button class="btn playWord" style="font-size: 14px; padding: 2px 10px; width: 500px; white-space: normal;" onclick="playWord('{{ $elementValue->audio }}')">{{ $elementValue->sentence }}</button>
 			</div>
 		@endforeach
 

@@ -56,9 +56,10 @@
 </style>
 
 <script type="text/javascript">
-	var dummy = <?php echo json_encode($dummy); ?>;
+	var elementData = <?php echo json_encode($elementData); ?>;
+	var cnt = <?php echo json_encode($cnt); ?>;
 	var currentQuestion = 0;
-	var lastQuestion = dummy.length - 1;
+	var lastQuestion = cnt - 1;
 	var questionsDone = 0;
 	var correctAnswerNo = 0;
 
@@ -88,7 +89,7 @@
 
 		$('#problems').empty();
 
-		var problemArr = dummy[questionId].dialog.split("|");
+		var problemArr = elementData[questionId].dialog.split("|");
 		for (var i = 0; i < problemArr.length; i++) {
 			var p = document.createElement('p');
 			p.innerHTML = problemArr[i];
@@ -103,21 +104,21 @@
 			var toDisable = false;
 			button.push(document.createElement('button'));
 			button[i].id = questionId;
-			button[i].name = dummy[questionId].answerOrder[i];
+			button[i].name = elementData[questionId].answerOrder[i];
 			button[i].className = "btn btn-primary btn-answer";
 
-			if (dummy[questionId].answers[dummy[questionId].answerOrder[i]].chosen == true) {
+			if (elementData[questionId].answers[elementData[questionId].answerOrder[i]].chosen == true) {
 				button[i].className += " chosen";
 				toDisable = true;
 			}
 
-			if (dummy[questionId].answerOrder[i] == "correctAnswer") {
+			if (elementData[questionId].answerOrder[i] == "correctAnswer") {
 				button[i].className += " correctAnswer";
 			} else {
 				button[i].className += " wrongAnswer";
 			}
 
-			button[i].innerHTML = dummy[questionId].answers[dummy[questionId].answerOrder[i]].content;
+			button[i].innerHTML = elementData[questionId].answers[elementData[questionId].answerOrder[i]].content;
 
 			button[i].onclick = function () {
 				checkAnswer(button[i]);
@@ -140,7 +141,7 @@
 
 		if ($(button).hasClass('correctAnswer')) {
 			if ($(button).attr('name') == "correctAnswer") {
-				dummy[parseInt($(button).attr('id'))].answers.correctAnswer.chosen = true;
+				elementData[parseInt($(button).attr('id'))].answers.correctAnswer.chosen = true;
 			}
 
 			markBtn('.btn-answer');
@@ -153,9 +154,9 @@
 			$('#navQ'+navQn).addClass('btn-success');
 		} else if ($(button).hasClass('wrongAnswer')) {
 			if ($(button).attr('name') == "wrongAnswer1") {
-				dummy[parseInt($(button).attr('id'))].answers.wrongAnswer1.chosen = true;
+				elementData[parseInt($(button).attr('id'))].answers.wrongAnswer1.chosen = true;
 			} else if ($(button).attr('name') == "wrongAnswer2") {
-				dummy[parseInt($(button).attr('id'))].answers.wrongAnswer2.chosen = true;
+				elementData[parseInt($(button).attr('id'))].answers.wrongAnswer2.chosen = true;
 			}
 
 			markBtn(button);
@@ -194,14 +195,14 @@
 <div id="questions">
 	<div id="order_id" style="text-align: center; margin: 10px">
 		<div class="btn-group">
-			@for ($i = 0; $i < count($dummy); $i++)
+			@for ($i = 0; $i < count($elementData); $i++)
 				<button type="button" id="navQ{{ $i }}" class="btn btn-warning" style="font-size: 18px; width: 60px;" onclick="switchQuestion({{ $i }})">{{ "Q".($i+1) }}</button>
 			@endfor
 		</div>
 	</div>
 	<div id='problems' align="center" style="border-radius: 10px; background-color:#e6e6e6; color:white ;padding:10px; font-size: 30px; color: black">
 		@php
-			$problems = explode("|", $dummy[0]->dialog);
+			$problems = explode("|", $elementData[0]->dialog);
 		@endphp
 		@foreach ($problems as $problem)
 			<p>{{ $problem }}</p>
@@ -209,14 +210,14 @@
 	</div>
 	
 	<div id="answerGroup" style="text-align: center;">
-		<button id="0" name="{{ $dummy[0]->answerOrder[0] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
-				{{ $dummy[0]->answers[$dummy[0]->answerOrder[0]]["content"] }}
+		<button id="0" name="{{ $elementData[0]->answerOrder[0] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["content"] }}
 		</button>              
-		<button id="0" name="{{ $dummy[0]->answerOrder[1] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
-				{{ $dummy[0]->answers[$dummy[0]->answerOrder[1]]["content"] }}
+		<button id="0" name="{{ $elementData[0]->answerOrder[1] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["content"] }}
 		</button>
-		<button id="0" name="{{ $dummy[0]->answerOrder[2] }}" class="btn btn-primary btn-answer {{ strcmp($dummy[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $dummy[0]->answers[$dummy[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
-				{{ $dummy[0]->answers[$dummy[0]->answerOrder[2]]["content"] }}
+		<button id="0" name="{{ $elementData[0]->answerOrder[2] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
+				{{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["content"] }}
 		</button>
 	</div>
 
