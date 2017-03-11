@@ -27,7 +27,9 @@
 </style>
 
 <div class='header'>
-	<h1>Tương tác nhóm</h1>
+	@foreach ($elementData as $key)
+		<h1>{{ $key->title }}</h1>
+	@endforeach
 </div>
 <hr>
 @stop
@@ -35,8 +37,8 @@
 @section('content1')
 <body class='wallpaper'>
 <div class='content'>
-	@foreach ($dummy as $dummyValue)
-		<span>{{ $dummyValue->content }}</span>
+	@foreach ($elementData as $key)
+		<span>{{ $key->content }}</span>
 	@endforeach
 </div>
 	

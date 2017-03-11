@@ -65,8 +65,8 @@
 				"content" : "P14: Learn by heart the grammars"
 			},
 			{
-				"name" : "P15",
-				"content" : "P15: Expansion"
+				"name" : "Expansion",
+				"content" : "Expansion"
 			}
 		]
 	},
@@ -254,12 +254,12 @@
 				"content" : "P12: Texts"
 			},
 			{
-				"name" : "13",
+				"name" : "P13",
 				"content" : "P13: Learn by heart the grammars"
 			},
 			{
-				"name" : "14",
-				"content" : "P14: Expansion"
+				"name" : "Expansion",
+				"content" : "Expansion"
 			}
 		]
 	},

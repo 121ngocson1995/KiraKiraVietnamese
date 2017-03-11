@@ -41,8 +41,8 @@
 
 <body class='wallpaper'>
 	<div class='content'>
-		@foreach ($dummy as $dummyValue)
-			<span>{{ $dummyValue->content }}</span>
+		@foreach ($elementData as $value)
+			<span>{{ $value->content }}</span>
 		@endforeach
 	</div>
 	

@@ -263,7 +263,7 @@ class DummyController extends Controller
                 return view("{$activity}", compact(['dummy', 'lessons', 'noteArr'])); 
                 break;
 
-                case 'P14':
+            case 'P14':
                 foreach ($dummy as $dummyValue) 
                 {
                     $contentArr = explode("|", $dummyValue->content);

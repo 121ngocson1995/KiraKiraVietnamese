@@ -34,11 +34,18 @@
 @section('content1')
 <body class='wallpaper'>
 <table align="center" class="content">
-  	@foreach($contentArr as $key)
+{{--   	@foreach($contentArr as $key)
 		<tr>
 			<td> {{ $key }}</td>
 		</tr>
+	@endforeach  --}}
+
+	@foreach($elementData as $key)
+		<tr>
+			<td> {{ $key->sentence }}</td>
+		</tr>
 	@endforeach 
+
 </table>
 </body>
 @stop

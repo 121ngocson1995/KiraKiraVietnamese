@@ -16,8 +16,8 @@
 
 <script language="JavaScript">
 	var contentNow = 0;
-	var contentArr = <?php echo json_encode($contentArr); ?>;
-	var dummy = <?php echo json_encode($dummy); ?>;
+	var dialogArr = <?php echo json_encode($dialogArr); ?>;
+	var elementData = <?php echo json_encode($elementData); ?>;
 
 	function chooseD(element){
 		
@@ -26,11 +26,11 @@
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
 
-		for (var i = 0; i < contentArr[contentNow].length; i++) {
-			editContent(contentArr[contentNow][i]);
+		for (var i = 0; i < dialogArr[contentNow].length; i++) {
+			editContent(dialogArr[contentNow][i]);
 		}
-		editThumbnail(dummy[contentNow].image);
-		editAudio(dummy[contentNow].audio);
+		editThumbnail(elementData[contentNow].image);
+		editAudio(elementData[contentNow].audio);
 		document.getElementById("audio").load();
 	}
 
@@ -68,15 +68,15 @@
 		</div>
 		<div>
 			<audio id="audio" controls>
-			<source id="audio_id" src="{{ URL::asset($dummy[0]->audio) }}" type="audio/mpeg">
+			<source id="audio_id" src="{{ URL::asset($elementData[0]->audio) }}" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
 		</div>
 	</div>
 	<div class="col-sm-3 col-sm-pull-4 paragraph" style="text-align: center; height: 100%">
 		<div id="content_id" style="margin-top: 40px">
-			@for ($i = 0; $i < count($contentArr[0]) ; $i++)
-				<p>{{ $contentArr[0][$i]}}</p>
+			@for ($i = 0; $i < count($dialogArr[0]) ; $i++)
+				<p>{{ $dialogArr[0][$i]}}</p>
 			@endfor	
 		</div>
 	</div>

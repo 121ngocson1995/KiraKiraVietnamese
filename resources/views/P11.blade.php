@@ -41,8 +41,8 @@
 </style>
 
 	<ul id="sortable1" class="droptrue">
-		@foreach ($dummy as $dummyValue)
-			<li id="{{ $dummyValue->correctOrder }}" class="dragSentence ui-state-default">{{ $dummyValue->sentence }}</li>
+		@foreach ($elementData as $key)
+			<li id="{{ $key->correctOrder }}" class="dragSentence ui-state-default">{{ $key->sentence }}</li>
 		@endforeach
 	</ul>
 
