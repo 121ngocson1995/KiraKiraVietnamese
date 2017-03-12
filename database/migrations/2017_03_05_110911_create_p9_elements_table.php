@@ -24,7 +24,7 @@ class CreateP9ElementsTable extends Migration
             $table->tinyInteger('dialogNo')->unsigned();
             $table->tinyInteger('lineNo')->unsigned();
             $table->string('line');
-            $table->string('answer');
+            $table->string('answer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
