@@ -22,9 +22,9 @@ class P1Controller extends Controller
 		if ($cnt != 0)
 		{
 			$firstLineNumber = $elementData[0]->lineNo;
-			return view("P1", compact(['elementData', 'firstLineNumber']));
+			return view("P1ani", compact(['elementData', 'firstLineNumber']));
 		} else {
-			return view("P1", compact('elementData'));
+			return view("P1ani", compact('elementData'));
 		}
 	}
 	

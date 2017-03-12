@@ -10,14 +10,14 @@
 	}
 	.replay {
 		position: fixed;
-		bottom: -10px;
+		bottom: -30px;
 		right: 80px;
 		overflow: hidden;
 	}
 	.play {
 		position: fixed;
 		bottom: -30px;
-		right: 450px;
+		right: 510px;
 		overflow: hidden;
 	}
 	.record {
@@ -40,18 +40,18 @@
 			overflow: visible;
 		}
 	}
-	.replay svg, .play svg, .record svg {
+	.replay svg, .play svg, .record svg, .replay img, .play img, .record img {
 		cursor: pointer;
 	}
-	.replay svg:hover, .play svg:hover, .record svg:hover {
+	.replay svg:hover, .play svg:hover, .record svg:hover, .replay img:hover, .play img:hover, .record img:hover {
 		-webkit-filter: drop-shadow( 0px 0px 10px blue );
         filter: drop-shadow( 0px 0px 10px blue );
 	}
-	div.red svg {
+	div.red svg, div.red img {
 		-webkit-filter: drop-shadow( 0px 0px 10px red ) !important;
 		filter: drop-shadow( 0px 0px 10px red ) !important;
 	}
-	div.blue svg {
+	div.blue svg, div.blue img {
 		-webkit-filter: drop-shadow( 0px 0px 10px blue );
 		filter: drop-shadow( 0px 0px 10px blue );
 	}
@@ -80,13 +80,13 @@
 
 
 <div class="play"">
-	<img class="fillable" src="{{ asset('img/testAnimate/play.svg') }}" id="playSample">
+	<img class="fillable" src="{{ asset('img/testAnimate/play.png') }}" id="playSample">
 </div>
 <div class="replay">
-	<img class="fillable" src="{{ asset('img/testAnimate/replay.svg') }}" id="playSample">
+	<img class="fillable" src="{{ asset('img/testAnimate/replay.png') }}" id="playSample">
 </div>
 <div class="record">
-	<img class="fillable" src="{{ asset('img/testAnimate/record.svg') }}" id="record">
+	<img class="fillable" src="{{ asset('img/testAnimate/record.png') }}" id="record">
 </div>
 
 <div>
@@ -97,11 +97,12 @@
 <div class="col-md-6" style="margin-top: 30px">
 	@php
 		$currentlineNumber = $firstLineNumber;
+		// dd($elementData);
 	@endphp
 
 	<div class="wordLine" style="text-align: center; width: 100%">
 
-		@foreach ($dummy as $dummyValue)
+		@foreach ($elementData as $dummyValue)
 			@if ($dummyValue->lineNumber > $currentlineNumber)
 				@php
 					$currentlineNumber = $dummyValue->lineNumber;
@@ -110,7 +111,7 @@
 				</div><div class="wordLine" style="text-align: center; width: 100%">
 			@endif
 
-			<div class="wordWrap"><span id="{{ $dummyValue->audio }}" class="word">{{ $dummyValue->sentence }}</span></div>
+			<div class="wordWrap"><span id="{{ $dummyValue->audio }}" class="word">{{ $dummyValue->word }}</span></div>
 		@endforeach
 
 	</div>
@@ -118,35 +119,6 @@
 </div>
 
 <script>
-	jQuery('img.fillable').each(function() {
-		var $img = jQuery(this);
-		var imgID = $img.attr('id');
-		var imgClass = $img.attr('class');
-		var imgURL = $img.attr('src');
-
-		jQuery.get(imgURL, function(data) {
-		// Get the SVG tag, ignore the rest
-		var $svg = jQuery(data).find('svg');
-
-		// Add replaced image's ID to the new SVG
-		if(typeof imgID !== 'undefined') {
-			$svg = $svg.attr('id', imgID);
-		}
-		// Add replaced image's classes to the new SVG
-		if(typeof imgClass !== 'undefined') {
-			$svg = $svg.attr('class', imgClass+' replaced-svg');
-		}
-
-		// Remove any invalid XML tags as per http://validator.w3.org
-		$svg = $svg.removeAttr('xmlns:a');
-
-		// Replace image with new SVG
-		$img.replaceWith($svg);
-
-		}, 'xml');
-
-	});
-
 	$('.play').click(function() {
 		playSample(this);
 	});
@@ -166,6 +138,9 @@
 
 <script>
 	// TweenMax.from('.replay', 2, {opacity:0, scale:0, y:-500, ease:Elastic.easeOut}, 2);
+	TweenMax.from('.play', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
+	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
+	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.6, ease:Elastic.easeOut});
 	TweenMax.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2);
 </script>
 
