@@ -23,7 +23,7 @@
  		<div class="row">
  			<div class="col-sm-6 col-md-6 col-lg-6" align="right">
  				@for ($j = 0; $j < count($contentArr[$i]) ; $j++)
- 				<div align="left" >{{ $contentArr[$i][$j]}}</div>
+ 				<p align="center" >{{ $contentArr[$i][$j]}}</p>
  				@endfor
  			</div>
  			<div class="col-sm-6 col-md-6 col-lg-6" align="left">
@@ -38,7 +38,7 @@
  			</div>
  			<div class="col-sm-6 col-md-6 col-lg-6" >
  				@for ($j = 0; $j < count($contentArr[$i]) ; $j++)
- 				<div align="left">{{ $contentArr[$i][$j]}}</div>
+ 				<p align="left" >{{ $contentArr[$i][$j]}}</p>
  				@endfor
  			</div>
  		</div> 

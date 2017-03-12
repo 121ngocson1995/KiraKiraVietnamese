@@ -31,23 +31,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
 // Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
-Route::get('/lesson{lessonNo}/P1new', function() {
-	$filePath = storage_path() . "/dummy/P1.json";
-	$dummyData = File::get($filePath);
-	$dummy = json_decode($dummyData);
-	$firstLineNumber;
-	if (count($dummy) != 0)
-	{
-	    $firstLineNumber = $dummy[0]->lineNumber;
-	    return view("P1ani", compact(['dummy', 'lessons', 'firstLineNumber']));
-	} else {
-	    return view("P1ani", compact(['dummy', 'lessons']));
-	}
-});
-
 Route::get('/lesson1/P1', 'P1Controller@load');
 Route::get('/lesson1/P2', 'P2Controller@load');
 Route::get('/lesson1/P3', 'P3Controller@load');
+Route::get('/lesson1/P4', 'P4Controller@load');
+Route::get('/lesson1/P5', 'P5Controller@load');
 Route::get('/lesson1/P6', 'P6Controller@load');
 Route::get('/lesson1/P8', 'P8Controller@load');
 Route::get('/lesson1/P10', 'P10Controller@load');

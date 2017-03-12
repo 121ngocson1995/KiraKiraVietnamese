@@ -16,28 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `p4_elements`
---
-
-DROP TABLE IF EXISTS `p4_elements`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `p4_elements` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `lesson_id` int(10) unsigned NOT NULL,
-  `sentenceOrder` tinyint(3) unsigned NOT NULL,
-  `sentence` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `audio` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `p4_elements_lesson_id_foreign` (`lesson_id`),
-  CONSTRAINT `p4_elements_lesson_id_foreign` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `p4_elements`
 --
 
@@ -56,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-12 13:15:52
+-- Dump completed on 2017-03-12 15:31:37
