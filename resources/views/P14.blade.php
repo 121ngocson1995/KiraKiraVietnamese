@@ -1,4 +1,3 @@
-
 @extends('layout')
 
 @section('title')
@@ -33,20 +32,51 @@
 
 @section('content1')
 <body class='wallpaper'>
-<table align="center" class="content">
-{{--   	@foreach($contentArr as $key)
+{{-- <table align="center" class="content">
+
+	@foreach($open as $key)
 		<tr>
 			<td> {{ $key }}</td>
 		</tr>
-	@endforeach  --}}
-
-	@foreach($elementData as $key)
-		<tr>
-			<td> {{ $key->sentence }}</td>
-		</tr>
 	@endforeach 
+<li> {{ $nounArr[$i][$j]}} </li> 
+</table> --}}
 
-</table>
+	<style type="text/css">
+		.text {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.group {
+			margin-top: 0;
+			margin-bottom: 0;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.contain {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+	
+	@for($i=0; $i<$cnt; $i++)
+		<div class="contain">
+			<?php $cnt2 = count($nounArr[$i]); ?>
+			<span class="text">{{ $open[$i] }}</span>
+			<ul class="group" style="display: inline-block;">
+				@for($j=0; $j<$cnt2; $j++)
+					@if($cnt2!=1)
+						<li> {{ $nounArr[$i][$j]}} </li>
+					@endif 
+				@endfor
+			</ul>
+			<span class="text">{{ $close[$i] }}</span>
+
+			<hr>
+		</div>
+	@endfor
+
+
 </body>
 @stop
 
