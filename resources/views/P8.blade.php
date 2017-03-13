@@ -151,9 +151,10 @@
 					// console.log(curline[k]);
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curline[k]);
-					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1');
+					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; ');
 					dialogNode.setAttribute('id',dialogline[j]['lineNo']+','+k);
 					dialogNode.setAttribute('ondragenter','return false;');
+					dialogNode.setAttribute('class','blank-sqr');
 					dialogNode.setAttribute('ondragover','return false;');
 					dialogNode.setAttribute('ondrop','drop(this,event)');
 					node.appendChild(textNode);
@@ -263,7 +264,7 @@
 
 			if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 				element.innerHTML = answerText;
-				element.setAttribute('style', 'width: auto; height: auto; background-color:transparent; display: inline-block; font-weight: 500;');
+				element.setAttribute("class", "sqr");
 				document.getElementById(targetId).remove();
 				rightAnswerCnt++;
 			}
@@ -291,8 +292,6 @@
 					}
 				}
 			}
-			console.log(dialogAnswer);
-			console.log(answerCnt);
 			return answerCnt;
 		}
 
@@ -301,10 +300,23 @@
 			result.className = 'result';
 			result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
 			document.getElementById("result").appendChild(result);
-			$('#content').fadeOut(600, function () {
-				$('#result').fadeIn(600);
-			});
+			$('#result').fadeIn(600);
 			rightAnswerCnt = 0;
+
+			var blankBlockList =  document.getElementsByClassName("blank-sqr");
+			var dialogAnswer = new Array();
+			for (i=0; i < elementData.length ; i++) { 
+				if (elementData[i]['dialogNo'] == dialogNow) {
+					dialogAnswer.push(elementData[i]);
+				}
+			}
+
+			for (var i = 0; i < blankBlockList.length; i++) {
+				var data = blankBlockList[i].id.split(',');
+				console.log(data);
+				blankBlockList[i].innerHTML = dialogAnswer[data[0]-1]['answer'][data[1]];
+				blankBlockList[i].setAttribute('style', 'width: 100px; height: 30px; background-color:#ffc2b3; display: inline-block; ')
+			}
 		}
 	</script>
 
@@ -347,7 +359,7 @@
 				<div style="font-size: 25px; padding: 15px">
 					@for ($j = 0; $j < count($curline) ; $j++)
 					@if ($index != count($curline)-1)
-					{{$curline[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
+					{{$curline[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" class="blank-sqr" style="width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
 					@php
 					$index++;
 					@endphp
@@ -378,6 +390,7 @@
 			autostart   : true,
 			onComplete  : function (){
 				showResult();
+				$('#btn-Next').show();
 			}
 		});
 	</script>
