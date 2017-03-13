@@ -68,3 +68,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 routes/web.php
+routes/web.php
+routes/web.php

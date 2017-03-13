@@ -22,6 +22,6 @@ class P5Controller extends Controller
 		for ($i=0; $i<$cnt; $i++){
 			$audioArr[$i] = $elementData[$i]->audio;
 		}
-		return view("P5", compact(['dummy', 'contentArr', 'audioArr', 'cnt']));
+		return view("P5", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
 	}  
 }

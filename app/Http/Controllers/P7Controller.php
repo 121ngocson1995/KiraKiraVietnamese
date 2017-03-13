@@ -14,7 +14,7 @@ class P7Controller extends Controller
 		$lesson_id= 1;
 
     		// Lấy dữ liệu từ db
-		$elementData = P7Element::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = P7Element::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
 		for ($i=0; $i<$cnt; $i++){
 			$contentArr[$i] = explode( "|", $elementData[$i]->dialog);
@@ -23,6 +23,6 @@ class P7Controller extends Controller
 		for ($i=0; $i<$cnt; $i++){
 			$audioArr[$i] = $elementData[$i]->audio;
 		}
-		return view("P5", compact(['dummy', 'contentArr', 'audioArr', 'cnt']));
-	}  s
+		return view("P7", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
+	}  
 }
