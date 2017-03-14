@@ -15,10 +15,23 @@ class P2Controller extends Controller
 
 		// Lấy dữ liệu từ db
 		$elementData = P2Element::where('lesson_id', '=', $lesson_id)->get();
-		$cnt = count($elementData);
-		$lastIndex = $elementData[$cnt-1]->correctOrder;
-        $elementData = $elementData->shuffle();
+		// $cnt = count($elementData);
+		// $lastIndex = $elementData[$cnt-1]->correctOrder;
+        // $elementData = $elementData->shuffle();      
 
-		return view("P2", compact(['elementData', 'lastIndex']));
+		$textRender = array();
+		foreach ($elementData as $element) {
+			$textRender[] = [
+				"id" => $element->id,
+				"word" => $element->word
+			];
+		}
+
+		shuffle($textRender);
+		$elementData = $elementData->shuffle();
+
+		// dd($elementData);
+
+		return view("P2", compact(['elementData', 'textRender']));
 	}
 }

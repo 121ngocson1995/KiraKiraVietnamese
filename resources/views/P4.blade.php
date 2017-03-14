@@ -5,10 +5,9 @@
 
 <hr>
 
-
 <script langauge="JavaScript">
 	var checkOrder = new Array();
-	var questionList = <?php echo json_encode($dummy); ?>;
+	var questionList = <?php echo json_encode($elementData); ?>;
 	function chooseOrder(element){
 			document.getElementById('right').style.opacity=0;
 			document.getElementById('wrong').style.opacity=0;
@@ -18,11 +17,10 @@
 		var questionOrder;
 		for (var i = 0; i < questionList.length; i++) {
 			if (i == questionId ) {
-				questionOrder = questionList[i]['order'];
+				questionOrder = questionList[i]['sentenceOrder'];
 			}
 		}
-
-		if (questionOrder.localeCompare(index) == 0) {
+		if (questionOrder == index.toString()) {
 			document.getElementById('right').style.opacity=1;
 			element.setAttribute('disabled', 'disabled');
 			if (index == questionList.length-1 ) {
@@ -33,8 +31,6 @@
 			document.getElementById('wrong').style.opacity=1;
 			checkOrder.splice(index,1);
 		}
-
-
 	}
 
 </script>
@@ -44,16 +40,16 @@
 <div class="row">
 	<div class="col-sm-9 col-md-6 col-lg-8">
 		<table  class="table table-hover"  align="center">
-			@foreach ($dummy as $question)
-			<tr>
-				<td>{{$question->answer}}</td>
-				<td><button autocomplete="off" type="button" name="{{ $question->order }}"  onclick="javascript: chooseOrder(this)">Choose this</button></td>
+			@for ($i = 0; $i < count($elementData) ; $i++)
+				<tr>
+				<td>{{$elementData[$i]['sentence']}}</td>
+				<td><button autocomplete="off" type="button" name="{{ $i }}"  onclick="javascript: chooseOrder(this)">Choose this</button></td>
 			</tr>
-			@endforeach
+			@endfor
 		</table>
 	</div>
 	<div class="col-sm-3 col-md-6 col-lg-4"><audio controls>
-			<source id="audio_id" src="{{ URL::asset($dummy[0]->audio) }}" type="audio/mpeg">
+			<source id="audio_id" src="{{ URL::asset($elementData[0]['audio']) }}" type="audio/mpeg">
 			Your browser does not support the audio element.
 		</audio>
 		</div>
@@ -62,4 +58,5 @@
 		<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
 		<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
 	</div>
-	@stop
+</div>
+@stop

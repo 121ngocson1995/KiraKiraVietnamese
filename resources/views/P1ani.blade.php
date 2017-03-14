@@ -79,7 +79,7 @@
 </style>
 
 
-<div class="play"">
+<div class="play">
 	<img class="fillable" src="{{ asset('img/testAnimate/play.png') }}" id="playSample">
 </div>
 <div class="replay">
