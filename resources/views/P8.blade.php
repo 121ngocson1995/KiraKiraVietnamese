@@ -53,6 +53,7 @@
 		editContent(elementData, dialogNow);
 		editAnswer(elementData, dialogNow);
 		editButtonGr(dialogCnt, dialogNow);
+		$('#btn-Next').hide();
 	}
 
 	function next() {
@@ -69,12 +70,13 @@
 			dialogNow = parseInt(dialogNow) + 1;
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi !");
+			$("#countdown").empty();
 		}
 		edit(elementData, dialogNow, dialogCnt);
 		if(countdown)
 			countdown.stop();
 		$("#countdown").empty();
-		$("#countdown").countdown360({
+		countdown = $("#countdown").countdown360({
 			radius      : 80,
 			seconds     : getDialogAnswer(elementData, dialogNow)*5,
 			fontColor   : '#FFFFFF',
@@ -84,7 +86,6 @@
 			}
 		});
 	}
-
 
 	function chooseD(element){
 
@@ -194,8 +195,7 @@
 			}
 		}
 
-
-		function editButtonGr(dialogCnt, dialogNow) {
+		function editButtonGr(dialogCnt, dialogNow){
 			while (document.getElementById("btn-group").firstChild) {
 				document.getElementById("btn-group").removeChild(document.getElementById("btn-group").firstChild);
 			}
@@ -265,6 +265,7 @@
 			if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 				element.innerHTML = answerText;
 				element.setAttribute("class", "sqr");
+				element.setAttribute("style", "width: auto; height: auto; background-color:#e6ffee; display: inline-block; font-weight: 500");
 				document.getElementById(targetId).remove();
 				rightAnswerCnt++;
 			}
@@ -272,7 +273,7 @@
 			if (checkAnswer(elementData , rightAnswerCnt)) {
 				$('#btn-Next').show();
 				countdown.stop();
-				showResult()
+				showResult();
 			}
 		}
 
@@ -313,9 +314,8 @@
 
 			for (var i = 0; i < blankBlockList.length; i++) {
 				var data = blankBlockList[i].id.split(',');
-				console.log(data);
 				blankBlockList[i].innerHTML = dialogAnswer[data[0]-1]['answer'][data[1]];
-				blankBlockList[i].setAttribute('style', 'width: 100px; height: 30px; background-color:#ffc2b3; display: inline-block; ')
+				blankBlockList[i].setAttribute('style', 'width: auto; height: auto; background-color:#ffc2b3; display: inline-block; ')
 			}
 		}
 	</script>
@@ -329,7 +329,8 @@
 		@endfor
 	</div>
 	<br>
-	<div id="content">
+	<button type="button" id="btn-Start" class="btn btn-info" onclick="JavaScript: showPractice()">Start practice</button>
+	<div id="content" style=" filter: blur(12px); transition: 3s">
 		<div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
 			@php
 			$dialogAnswer = array();
@@ -371,7 +372,7 @@
 				@endif
 				@endfor
 			</div>
-			<div class="col-sm-5 col-md-5 col-lg-5" align="left">
+			<div class="col-sm-5 col-md-5 col-lg-5"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
 				<div id="countdown"></div>
 			</div>
 		</div>
@@ -387,12 +388,18 @@
 			radius      : 80,
 			seconds     : getDialogAnswer(elementData, dialogNow)*5,
 			fontColor   : '#FFFFFF',
-			autostart   : true,
+			autostart   : false,
 			onComplete  : function (){
 				showResult();
 				$('#btn-Next').show();
 			}
 		});
+
+		function showPractice(){
+			$("#content").attr("style", "transition: 1s;");
+			$("#btn-Start").remove();
+			countdown.start();
+		}
 	</script>
 
 	@stop

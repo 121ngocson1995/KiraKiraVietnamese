@@ -37,10 +37,12 @@
 	var checkFinish = new Array();
 	var rightAnswerCnt = 0;
 	var checkQuestion = true;
+	var countdown;
 	for (var i = 0; i < dialogCnt.length; i++) {
 
 		checkFinish.push({dialogNo:(i+1), finish:false});
 	}
+
 	function edit(elementData, dialogNow, dialogCnt){
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
@@ -51,30 +53,39 @@
 		editContent(elementData, dialogNow);
 		editAnswer(elementData, dialogNow);
 		editButtonGr(dialogCnt, dialogNow);
+		$('#btn-Next').hide();
 	}
 
 	function next() {
-
-		if (checkAnswer(elementData , rightAnswerCnt) || checkQuestion == false) {
-			rightAnswerCnt = 0
-			for (var i = 0; i < checkFinish.length; i++) {
-				if (checkFinish[i]['dialogNo'] == dialogNow) {
-					checkFinish[i]['finish'] = true;
-				}
+		$("#content").show();
+		$('#result').hide();
+		$('#result').empty();
+		for (var i = 0; i < checkFinish.length; i++) {
+			if (checkFinish[i]['dialogNo'] == dialogNow) {
+				checkFinish[i]['finish'] = true;
 			}
-
-			if(dialogNow < dialogCnt.length){
-				dialogNow = parseInt(dialogNow) + 1;
-			}else{
-				window.alert("Bạn đã hoàn thành bài tập rồi !");
-			}
-			edit(elementData, dialogNow, dialogCnt);
-		}else{
-			window.alert("Bạn phải hoàn thành đoạn hội thoại hiện tại thì mới làm tiếp được !");
 		}
 
+		if(dialogNow < dialogCnt.length){
+			dialogNow = parseInt(dialogNow) + 1;
+		}else{
+			window.alert("Bạn đã hoàn thành bài tập rồi !");
+			$("#countdown").empty();
+		}
+		edit(elementData, dialogNow, dialogCnt);
+		if(countdown)
+			countdown.stop();
+		$("#countdown").empty();
+		countdown = $("#countdown").countdown360({
+			radius      : 80,
+			seconds     : getDialogAnswer(elementData, dialogNow)*5,
+			fontColor   : '#FFFFFF',
+			autostart   : true,
+			onComplete  : function (){
+				showResult();
+			}
+		});
 	}
-
 
 	function chooseD(element){
 		
@@ -106,7 +117,7 @@
 				for (var i = 0; i < dialogSentence[j]['answer'].length; i++) {
 					sentence = sentence.replace("*",dialogSentence[j]['answer'][i]);
 				}
-				console.log(sentence);
+
 				var node = document.createElement("div");
 				node.setAttribute('style', 'font-size: 25px; padding: 15px');	
 				textNode = document.createTextNode(sentence);
@@ -141,9 +152,10 @@
 					// console.log(curLine[k]);
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curLine[k]);
-					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1');
+					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; ');
 					dialogNode.setAttribute('id',dialogSentence[j]['lineNo']+','+k);
 					dialogNode.setAttribute('ondragenter','return false;');
+					dialogNode.setAttribute('class','blank-sqr');
 					dialogNode.setAttribute('ondragover','return false;');
 					dialogNode.setAttribute('ondrop','drop(this,event)');
 					node.appendChild(textNode);
@@ -252,13 +264,60 @@
 		
 		if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 			element.innerHTML = answerText;
-			element.setAttribute('style', 'width: auto; height: auto; background-color:transparent; display: inline-block; font-weight: 500;');
-			document.getElementById(targetId).setAttribute('style', 'opacity: 0;');
-			document.getElementById(targetId).setAttribute('draggable', 'false');
+			element.setAttribute("class", "sqr");
+			element.setAttribute("style", "width: auto; height: auto; background-color:#e6ffee; display: inline-block; font-weight: 500");
+			document.getElementById(targetId).remove();
 			rightAnswerCnt++;
+		}
+
+		if (checkAnswer(elementData , rightAnswerCnt)) {
+			$('#btn-Next').show();
+			countdown.stop();
+			showResult();
 		}
 	}
 
+	function getDialogAnswer(elementData, dialogNow) {
+		var dialogAnswer = new Array();
+		var answerCnt = 0;
+		for (i=0; i < elementData.length ; i++) { 
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogAnswer.push(elementData[i]);
+			}
+		}
+
+		for (var i = 0; i < dialogAnswer.length; i++) {
+			for (var j = 0; j < dialogAnswer[i]['answer'].length; j++) {
+				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
+					answerCnt++;
+				}
+			}
+		}
+		return answerCnt;
+	}
+
+	function showResult() {
+		var result = document.createElement("span");
+		result.className = 'result';
+		result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
+		document.getElementById("result").appendChild(result);
+		$('#result').fadeIn(600);
+		rightAnswerCnt = 0;
+
+		var blankBlockList =  document.getElementsByClassName("blank-sqr");
+		var dialogAnswer = new Array();
+		for (i=0; i < elementData.length ; i++) { 
+			if (elementData[i]['dialogNo'] == dialogNow) {
+				dialogAnswer.push(elementData[i]);
+			}
+		}
+
+		for (var i = 0; i < blankBlockList.length; i++) {
+			var data = blankBlockList[i].id.split(',');
+			blankBlockList[i].innerHTML = dialogAnswer[data[0]-1]['answer'][data[1]];
+			blankBlockList[i].setAttribute('style', 'width: auto; height: auto; background-color:#ffc2b3; display: inline-block; ')
+		}
+	}
 </script>
 <div id="btn-group" class="btn-group">
 	@for ($i = 1; $i <= count($dialogCnt); $i++)
@@ -269,48 +328,78 @@
 	@endfor
 </div>
 <br>
-<div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
-	@php
-	$dialogAnswer = array();
-	for ($i=0; $i < count($elementData) ; $i++) { 
-		if ($elementData[$i]->dialogNo == 1) {
-			array_push($dialogAnswer, $elementData[$i]);
-		}
-	}
-	shuffle($dialogAnswer);
-	@endphp
-	@for ($i = 0; $i < count($dialogAnswer) ; $i++)
-	@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
-	@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-	<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
-	@endif
-	@endfor	
-	@endfor
-</div>
-<div class="row">
-	<div id="content_id" class="col-sm-10 col-md-10 col-lg-10">
-		@for ($i = 0; $i < count($elementData) ; $i++)
-		@if ($elementData[$i]->dialogNo == 1)
+<button type="button" id="btn-Start" class="btn btn-info" onclick="JavaScript: showPractice()">Start practice</button>
+<div id="content" style=" filter: blur(12px); transition: 3s">
+	<div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
 		@php
-		$curLine = explode('*', $elementData[$i]->line);
-		$index = 0;
+		$dialogAnswer = array();
+		for ($i=0; $i < count($elementData) ; $i++) { 
+			if ($elementData[$i]->dialogNo == 1) {
+				array_push($dialogAnswer, $elementData[$i]);
+			}
+		}
+		shuffle($dialogAnswer);
 		@endphp
-		<div style="font-size: 25px; padding: 15px">
-			@for ($j = 0; $j < count($curLine) ; $j++)
-			@if ($index != count($curLine)-1)
-			{{$curLine[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:green; display: inline-block; opacity: 0.1; font-weight: 500" ondragenter="return false;" ondragover="return false;" ondrop="drop(this,event)"></div>
+		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
+		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
+		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
+		<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+		@endif
+		@endfor	
+		@endfor
+	</div>
+	<div class="row">
+		<div id="content_id" class="col-sm-10 col-md-10 col-lg-10">
+			@for ($i = 0; $i < count($elementData) ; $i++)
+			@if ($elementData[$i]->dialogNo == 1)
 			@php
-			$index++;
+			$curLine = explode('*', $elementData[$i]->line);
+			$index = 0;
 			@endphp
-			@else
-			{{$curLine[$j]}}
+			<div style="font-size: 25px; padding: 15px">
+				@for ($j = 0; $j < count($curLine) ; $j++)
+				@if ($index != count($curLine)-1)
+				{{$curLine[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; font-weight: 500" ondragenter="return false;"
+				ondragover="return false;" ondrop="drop(this,event)"></div>
+				@php
+				$index++;
+				@endphp
+				@else
+				{{$curLine[$j]}}
+				@endif
+				@endfor
+			</div>
 			@endif
 			@endfor
 		</div>
-		@endif
-		@endfor
+		<div class="col-sm-5 col-md-5 col-lg-5"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
+				<div id="countdown"></div>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-2 col-md-2 col-lg-2"><button type="button" class="btn btn-primary" onclick="JavaScript: next()">Next</button>
+	<button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button>
+	<div>
+		<div id="result" style="text-align: center;"></div>
 	</div>
-</div>
-@stop
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		countdown = $("#countdown").countdown360({
+			radius      : 80,
+			seconds     : getDialogAnswer(elementData, dialogNow)*5,
+			fontColor   : '#FFFFFF',
+			autostart   : false,
+			onComplete  : function (){
+				showResult();
+				$('#btn-Next').show();
+			}
+		});
+
+		function showPractice(){
+			$("#content").attr("style", "transition: 1s;");
+			$("#btn-Start").remove();
+			countdown.start();
+		}
+	</script>
+
+	@stop
