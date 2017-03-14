@@ -26,6 +26,32 @@
 		right: 280px;
 		overflow: hidden;
 	}
+	@media screen and (max-width: 768px) {
+		.replay {
+			width: 35% !important;
+			right: 30px !important;
+		}
+		.play {
+			width: 35% !important;
+			left: 30px !important;
+		}
+		.record {
+			width: 35% !important;
+			left: 30% !important;
+		}
+		.replay img {
+			width: 100% !important;
+			max-width: 262px !important;
+		}
+		.play img {
+			width: 100% !important;
+			max-width: 240px !important;
+		}
+		.record img {
+			width: 100% !important;
+			max-width: 289px !important;
+		}
+	}
 	@media screen and (max-height: 600px) {
 		.replay {
 			top: 230px !important;
