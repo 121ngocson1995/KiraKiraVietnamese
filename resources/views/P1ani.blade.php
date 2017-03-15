@@ -52,7 +52,7 @@
 			max-width: 289px !important;
 		}
 	}
-	@media screen and (max-height: 600px) {
+	@media screen and (max-height: 400px) {
 		.replay {
 			top: 230px !important;
 			overflow: visible;
