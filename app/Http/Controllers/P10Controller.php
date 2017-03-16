@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\P10Element;
 
-
 class P10Controller extends Controller
 {
     public function load()
@@ -15,24 +14,43 @@ class P10Controller extends Controller
     	$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = P10Element::where('lesson_id', '=', $lesson_id)->get();
-		$cnt = count($elementData);
+		$data = P10Element::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();
 
-		$initOrder = [];
-		foreach ($elementData as $key) {
-			$initOrder[] = $key->correctOrder;
+		$curSentenceNo = 0;
+		$elementData = array();
+		$curElement = array();
+		foreach ($data as $dataValue) {
+			if ($dataValue->sentenceNo != $curSentenceNo) {
+				if ($curSentenceNo != 0) {
+					$elementData[] = $curElement;
+					$curElement = array();
+				}
+				$curSentenceNo = $dataValue->sentenceNo;
+			}
+			
+			$curElement[] = $dataValue;
+		}
+		$elementData[] = $curElement;
+
+		for ($i=0; $i < count($elementData); $i++) { 
+			$initOrder = [];
+			foreach ($elementData[$i] as $elementValue) {
+				$initOrder[] = $elementValue->correctOrder;
+			}
+
+			$currentOrder;
+
+			do {
+				shuffle($elementData[$i]);
+
+				$currentOrder = array();
+				foreach ($elementData[$i] as $elementValue) {
+					$currentOrder[] = $elementValue->correctOrder;
+				}
+			} while ( $currentOrder === $initOrder );
 		}
 
-		$currentOrder;
-
-		do {
-			$elementData = $elementData->shuffle();
-
-			$currentOrder = array();
-			foreach ($elementData as $key) {
-				$currentOrder[] = $key->correctOrder;
-			}
-		} while ( $currentOrder === $initOrder );
+		// dd($elementData);
 
 		return view("P10", compact('elementData'));
 	}

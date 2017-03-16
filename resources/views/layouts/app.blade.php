@@ -28,6 +28,7 @@
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
