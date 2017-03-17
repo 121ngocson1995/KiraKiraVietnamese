@@ -104,13 +104,17 @@
 		padding-right: 2em;
 		border-radius: 10px;
 		background: #f2f2f2;
-		font-size: 18;
+		font-size: 26;
 		color: black;
 		transition: all .5s;
 	}
 	.tryAgain:hover {
 		background: #bfbfbf;
 		color: white;
+	}
+	#nextBtn {
+	    position: relative;
+	    top: 50px;
 	}
 </style>
 
@@ -147,8 +151,8 @@
 		</div>
 		<div id="result" style="text-align: center; text-align-last: center;"></div>
 		<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
-			<a class="{{-- hi-icon --}}tryAgain" role="button" onclick="changeSentence(curQuestion)">Try again<i class="fa fa-repeat fa-3x faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-			<a class="{{-- hi-icon --}}tryAgain" role="button" onclick="changeSentence(curQuestion+1)">Next<i class="fa fa-repeat fa-3x faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion)" style="display: none;">Try again<i class="fa fa-repeat fa-3x faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion+1)" style="display: none;">Next<i class="fa fa-forward fa-3x faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 		</div>
 	</div>
 </div>
@@ -318,6 +322,7 @@
 		$('#draggable').fadeOut(500);
 		$('#droppable').fadeOut(500, function () {
 			$('#resultContainer').fadeIn(500);
+			$('#nextBtn').fadeIn(500);
 			document.getElementById('happy').checked = true;
 		});
 	}
@@ -328,6 +333,7 @@
 		$('#draggable').fadeOut(500);
 		$('#droppable').fadeOut(500, function () {
 			$('#resultContainer').fadeIn(500);
+			$('#tryAgainBtn').fadeIn(500);
 			document.getElementById('normal').checked = true;
 		});
 	}
@@ -397,6 +403,14 @@
 			$('#droppable').fadeIn(500);
 			document.getElementById('normal').checked = true;
 		});
+
+		if ($('#tryAgainBtn').css('display') != 'none') {
+			$('#tryAgainBtn').fadeOut(500);
+		}
+
+		if ($('#nextBtn').css('display') != 'none') {
+			$('#nextBtn').fadeOut(500);
+		}
 
 		curQuestion = index;
 		initDroppable();
