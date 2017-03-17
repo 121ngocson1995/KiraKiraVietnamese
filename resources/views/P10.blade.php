@@ -7,23 +7,28 @@
 		width: 100%;
 		height: auto;
 		bottom: 0px;
-		top: 0px;
+		top: 65px;
 		left: 0;
 		position: absolute;
+		text-align: center;
+	}
+	#questionHolder {
+		top: 50%;
+		left: 50%;
+		/* bring your own prefixes */
+		transform: translate(-50%, -50%);
 	}
 	#draggable {
-		position: fixed;
-		top: 32%;
-		left: 50%;
-		/* bring your own prefixes */
-		transform: translate(-50%, -50%);
+		position: relative;
+		/*top: 32%;
+		left: 50%;*/
+		/*transform: translate(-50%, -50%);*/
 	}
 	#droppable {
-		position: fixed;
-		top: 55%;
-		left: 50%;
-		/* bring your own prefixes */
-		transform: translate(-50%, -50%);
+		position: relative;
+		/*top: 55%;
+		left: 50%;*/
+		/*transform: translate(-50%, -50%);*/
 	}
 	#resultContainer {
 		position: fixed;
@@ -82,6 +87,19 @@
 		transform: translate(-50%, -50%);
 		/*padding: 0 20px;*/
 	}
+	@media screen and (max-height: 736px) {
+	}
+	@media screen and (max-width: 791px) {
+		.dragWord {
+			height: 40px;
+			font-size: 20px;
+		}
+		.dropWord {
+			width: 40px;
+			height: 40px;
+			font-size: 20px;
+		}
+	}
 	.result {
 		background-color: transparent;
 		padding: 10px;
@@ -125,19 +143,20 @@
 	var curQuestion = 0;
 </script>
 
-<div id="droppable">
-	@for ($i = 0; $i < count($elementData); $i++)
-		<div class="dropWord"></div>
-	@endfor
-</div>
-
 <div class='fullscreenDiv'>
-	<div id="draggable">
-		@foreach ($elementData[0] as $elementValue)
-			<div id="{{ $elementValue->correctOrder }}" class="dragWord"><span>{{ $elementValue->word }}</span></div>
-		@endforeach
-	</div>
 
+	<div id="questionHolder" class="col-xs-12">
+		<div id="draggable">
+			@foreach ($elementData[0] as $elementValue)
+				<div id="{{ $elementValue->correctOrder }}" class="dragWord"><span>{{ $elementValue->word }}</span></div>
+			@endforeach
+		</div>
+		<div id="droppable">
+			@for ($i = 0; $i < count($elementData); $i++)
+				<div class="dropWord"></div>
+			@endfor
+		</div>
+	</div>
 	<div id="resultContainer">
 
 		<input id="happy" type="radio" name="smiley" value="Happy">
