@@ -21,7 +21,7 @@
 
 LOCK TABLES `p7_elements` WRITE;
 /*!40000 ALTER TABLE `p7_elements` DISABLE KEYS */;
-INSERT INTO `p7_elements` VALUES (0,1,1,0,'Trung Anh: - Chào bạn!!','audio/P7/audio_1_0_0.mp3',NULL,NULL,NULL),(2,1,1,1,'Hoa: - Chào bạn!!*','audio/P7/audio_1_0_1.mp3',NULL,NULL,NULL),(3,1,1,2,'Trung Anh:-Tôi tên là Trung Anh.','audio/P7/audio_1_0_2.mp3',NULL,NULL,NULL),(4,1,1,3,'Hoa:- Tôi tên là Hoa.*','audio/P7/audio_1_0_3.mp3',NULL,NULL,NULL),(5,1,1,4,'Trung Anh:- Tôi bảy tuổi.','audio/P7/audio_1_0_4.mp3',NULL,NULL,NULL),(6,1,1,5,'Hoa:- Tôi cũng bảy tuổi.*','audio/P7/audio_1_0_5.mp3',NULL,NULL,NULL);
+INSERT INTO `p7_elements` VALUES (0,1,0,0,'Trung Anh:| - Chào bạn!!','audio/P7/audio_1_0_0.mp3',NULL,NULL,NULL),(2,1,0,1,'Hoa:| - Chào bạn!!*','audio/P7/audio_1_0_1.mp3',NULL,NULL,NULL),(3,1,0,2,'Trung Anh:| -Tôi tên là Trung Anh.','audio/P7/audio_1_0_2.mp3',NULL,NULL,NULL),(4,1,0,3,'Hoa:|- Tôi tên là Hoa.*','audio/P7/audio_1_0_3.mp3',NULL,NULL,NULL),(5,1,0,4,'Trung Anh:| - Tôi bảy tuổi.','audio/P7/audio_1_0_4.mp3',NULL,NULL,NULL),(6,1,0,5,'Hoa:| - Tôi cũng bảy tuổi.*','audio/P7/audio_1_0_5.mp3',NULL,NULL,NULL),(7,1,1,0,'Trung Anh:| - Chào bạn!!','audio/P7/audio_1_1_0.mp3',NULL,NULL,NULL),(8,1,1,1,'Hoa:| - Chào bạn!!*','audio/P7/audio_1_1_1.mp3',NULL,NULL,NULL),(9,1,1,2,'Trung Anh :| - Tôi tên là Trung Anh, còn bạn?','audio/P7/audio_1_1_2.mp3',NULL,NULL,NULL),(10,1,1,3,'Hoa:| - Tôi à, tôi tên là Hoa.*','audio/P7/audio_1_1_3.mp3',NULL,NULL,NULL),(11,1,1,4,' |Tôi là học sinh, còn bạn?*','audio/P7/audio_1_1_4.mp3',NULL,NULL,NULL),(12,1,1,5,'Trung Anh:| - Tôi cũng là học sinh.','audio/P7/audio_1_1_5.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p7_elements` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-16 22:53:48
+-- Dump completed on 2017-03-18 23:34:29
