@@ -6,6 +6,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
 
 <style>
+	body {
+		background: #75D1F5;
+		/*background: url(http://localhost:8000/img/testAnimate/p2bg.svg) no-repeat center bottom fixed;
+		background-size: cover;*/
+	}
 	#scoreText {
 		font-size: 2em;
 	}
@@ -45,6 +50,10 @@
 	<span id="correct"></span>
 	<span id="total"></span>
 </div>
+
+{{-- <div id="background">
+	<img src="{{ asset('img/testAnimate/59AC1D2.png') }}" alt="" style="bottom: 0">
+</div> --}}
 
 <script src="{{ asset('js/progressbar.js') }}"></script>
 

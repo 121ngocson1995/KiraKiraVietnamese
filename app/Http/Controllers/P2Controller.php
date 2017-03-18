@@ -32,6 +32,6 @@ class P2Controller extends Controller
 
 		// dd($elementData);
 
-		return view("P2", compact(['elementData', 'textRender']));
+		return view("P2ani", compact(['elementData', 'textRender']));
 	}
 }

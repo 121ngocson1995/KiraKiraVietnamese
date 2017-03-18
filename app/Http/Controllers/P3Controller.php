@@ -16,6 +16,6 @@ class P3Controller extends Controller
 		// Lấy dữ liệu từ db
 		$elementData = P3Element::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
-		return view("P3", compact(['elementData', 'cnt']));
+		return view("P3v2", compact(['elementData', 'cnt']));
 	}
 }

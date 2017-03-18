@@ -17,6 +17,8 @@ class P10Controller extends Controller
 		$data = P10Element::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();
 
 		$curSentenceNo = 0;
+
+		/* restructure elementData */
 		$elementData = array();
 		$curElement = array();
 		foreach ($data as $dataValue) {
@@ -32,6 +34,7 @@ class P10Controller extends Controller
 		}
 		$elementData[] = $curElement;
 
+		/* shuffle words in elementData */
 		for ($i=0; $i < count($elementData); $i++) { 
 			$initOrder = [];
 			foreach ($elementData[$i] as $elementValue) {
@@ -49,8 +52,6 @@ class P10Controller extends Controller
 				}
 			} while ( $currentOrder === $initOrder );
 		}
-
-		// dd($elementData);
 
 		return view("P10", compact('elementData'));
 	}

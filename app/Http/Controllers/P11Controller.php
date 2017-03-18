@@ -14,19 +14,18 @@ class P11Controller extends Controller
     	$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = P11Element::where('lesson_id', '=', $lesson_id)->get();
-		$cnt = count($elementData);
+		$elementData = P11Element::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
     	$initOrder = [];
-    	$stArr = [];
+    	$correctAnswer = [];
     	
     	foreach ($elementData as $key) {
     		$initOrder[] = $key->correctOrder;
     	}
     	foreach ($elementData as $key) {
-    		$stArr[] = $key->sentence;
+    		$correctAnswer[] = $key->sentence;
     	}
-    	$currentOrder;
 
+    	$currentOrder;
     	do {
             $elementData = $elementData->shuffle();
             // dd($elementData);
@@ -36,6 +35,6 @@ class P11Controller extends Controller
     		}
     	} while ( $currentOrder === $initOrder );
 
-    	return view("P11", compact(['elementData', 'stArr', 'cnt']));
+    	return view("P11", compact(['elementData', 'correctAnswer']));
     }
 }

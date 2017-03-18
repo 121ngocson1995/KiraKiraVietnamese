@@ -13,7 +13,7 @@
 		text-align: center;
 	}
 	#questionHolder {
-		top: 50%;
+		top: 40%;
 		left: 50%;
 		/* bring your own prefixes */
 		transform: translate(-50%, -50%);
@@ -116,13 +116,13 @@
 		border-bottom: solid 2px #6495ed;
 	}
 	.tryAgain {
-		padding-top: 1em;
-		padding-bottom: 1em;
-		padding-left: 2em;
-		padding-right: 2em;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		padding-left: 1em;
+		padding-right: 1em;
 		border-radius: 10px;
 		background: #f2f2f2;
-		font-size: 26;
+		font-size: 2.5em;
 		color: black;
 		transition: all .5s;
 	}
@@ -137,7 +137,7 @@
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}">
-<link rel="stylesheet" href="{{ asset('css/component.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/component.css') }}"> --}}
 <script>
 	var elementData = <?php echo json_encode($elementData); ?>;
 	var curQuestion = 0;
@@ -152,7 +152,7 @@
 			@endforeach
 		</div>
 		<div id="droppable">
-			@for ($i = 0; $i < count($elementData); $i++)
+			@for ($i = 0; $i < count($elementData[0]); $i++)
 				<div class="dropWord"></div>
 			@endfor
 		</div>
@@ -170,8 +170,8 @@
 		</div>
 		<div id="result" style="text-align: center; text-align-last: center;"></div>
 		<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
-			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion)" style="display: none;">Try again<i class="fa fa-repeat fa-3x faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion+1)" style="display: none;">Next<i class="fa fa-forward fa-3x faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion+1)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 		</div>
 	</div>
 </div>
@@ -213,7 +213,9 @@
 
 				/* change position of draggable element along with drop target */
 				$('.dropWord').each(function() {
-					rePosition($(this), $(this).data('curDrag'));
+					if ($(this).data('curDrag') != ui.draggable) {
+						rePosition($(this), $(this).data('curDrag'));
+					}
 				})
 			},
 			out: function(event, ui) {
@@ -222,17 +224,8 @@
 
 				/* change position of draggable element along with drop target */
 				$('.dropWord').each(function() {
-					var thisDrop = $(this);
-					if (thisDrop.data('curDrag')) {
-						var curDrag = $(this).data('curDrag');
-						curDrag.position({
-							my: "center",
-							at: "center",
-							of: thisDrop,
-							using: function(pos) {
-								$(this).animate(pos, 0, "linear");
-							}
-						});
+					if ($(this).data('curDrag') != ui.draggable) {
+						rePosition($(this), $(this).data('curDrag'));
 					}
 				})
 			},
@@ -274,12 +267,12 @@
 				});
 
 				$(this).data('curDrag', ui.draggable);
+				$(ui.draggable.data('curDrop')).removeData('curDrag');
 				ui.draggable.data('curDrop', dropTarget);
 				checkAnswer();
 
 				$('.dropWord').each(function() {
 					rePosition($(this), $(this).data('curDrag'));
-					// console.log($(this));
 				})
 			}
 		});
@@ -307,13 +300,10 @@
 
 		$('.dropWord').each(function() {
 			if ($(this).data('curDrag')) {
-				// console.log($(this).data('curDrag'));
 				order.push($(this).data('curDrag').attr('id'));
 				sentence.push($(this).data('curDrag').html().replace('<span>', '').replace('</span>', ''));
 			}
 		});
-
-		console.log(order);
 
 		if (order.length == $('.dragWord').length) {
 			var allCorrect = true;
@@ -405,6 +395,7 @@
 		var draggable = document.getElementById('draggable');
 		emptyDiv(draggable);
 
+		shuffleWords(index);
 		for (var i = 0; i < elementData[index].length; i++) {
 			var newDrop = document.createElement('div');
 			newDrop.className = 'dropWord';
@@ -434,6 +425,27 @@
 		curQuestion = index;
 		initDroppable();
 	}
+
+	function shuffleWords(elementDataIndex) {
+		var doAgain = true;
+		while(doAgain) {
+			doAgain = true;
+
+			Shuffle(elementData[elementDataIndex]);
+
+			for (var i = 0; i < elementData[elementDataIndex].length - 1; i++) {
+				if (parseInt(elementData[elementDataIndex][i].correctOrder) != parseInt(elementData[elementDataIndex][i+1].correctOrder) - 1) {
+					doAgain = false;
+					break;
+				}
+			}
+		}
+	}
+
+	function Shuffle(o) {
+		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+	};
 
 	function emptyDiv(div) {
 		while(div.firstChild){
