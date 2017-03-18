@@ -13,8 +13,6 @@
 	body {
 		height: calc(100% - 65px);
 		background: #75D1F5;
-		/*background: url(http://localhost:8000/img/testAnimate/p2bg.svg) no-repeat center bottom fixed;
-		background-size: cover;*/
 	}
 	#result {
 		font-weight: 300;
