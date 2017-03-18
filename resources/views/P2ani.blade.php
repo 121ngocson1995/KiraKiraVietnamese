@@ -153,6 +153,7 @@
 
 	$('.wordCloud').each(function() {
 		$(this).bind('load', function() {
+			console.log('loaded');
 			var img = $(this);
 			var p = img.parent().parent().find('p')[0];
 			$(p).position({
