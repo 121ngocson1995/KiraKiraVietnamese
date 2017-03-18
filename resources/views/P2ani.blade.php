@@ -324,15 +324,15 @@
 
 
 		if (!isNaN(audioFile.duration)) {
-			buildProgressBar(this.duration);
+			checkTickLoad(this.duration);
 		} else {
 			audioFile.addEventListener('loadedmetadata', function() {
-				buildProgressBar(this.duration);
+				checkTickLoad(this.duration);
 			});
 		}
 	}
 
-	function checkTickLoad(argument) {
+	function checkTickLoad(duration) {
 		wordNo++;
 		wordTime += duration;
 
@@ -343,16 +343,16 @@
 			} else {
 				tick.addEventListener('loadedmetadata', function() {
 					buildProgressBar(wordTime + wordNo * this.duration);
-				}
+				});
 			}
 		}
 	}
 
-	function buildProgressBar(duration) {
+	function buildProgressBar(totalTime) {
 		console.log('wordTime=' + wordTime + ' wordNo=' + wordNo + ' totalTime=' + totalTime);
 		docBar = new ProgressBar.Line("#container", {
 			strokeWidth: 4,
-			duration: duration * 1000,
+			duration: totalTime * 1000,
 			color: '#FFEA82',
 			trailColor: '#eee',
 			trailWidth: 1,
