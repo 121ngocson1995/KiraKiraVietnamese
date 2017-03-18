@@ -496,7 +496,7 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active navbtn" role="presentation"><a href="/">Home</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">About</a></li>
+                    <li role="presentation" class="navbtn"><a href="/about">About</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
                     <!-- Authentication Links -->
