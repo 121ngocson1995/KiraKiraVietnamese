@@ -328,7 +328,7 @@
 		} else {
 			audioFile.addEventListener('loadedmetadata', function() {
 				buildProgressBar(this.duration);
-				console.log('eventfire' + i);
+				// console.log('eventfire' + i);
 			});
 		}
 	}
@@ -340,6 +340,7 @@
 		if (wordNo == elementData.length) {
 			var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
 
+			console.log(totalTime);
 			docBar = new ProgressBar.Line("#container", {
 				strokeWidth: 4,
 				duration: totalTime * 1000,
