@@ -137,7 +137,7 @@
 		$('#cloudBottom').addClass('animated shake infinite');
 	}, 2000);
 
-	document.getElementById('imgStart').addEventListener('load', function() {
+	$('#imgStart').on('load', function() {
 		$('#pStart').position({
 			my: "center",
 			at: "center",
@@ -152,7 +152,7 @@
 	var textRender = <?php echo json_encode($textRender); ?>;
 
 	$('.wordCloud').each(function() {
-		$(this).bind('load', function() {
+		$(this).on('load', function() {
 			console.log('loaded');
 			var img = $(this);
 			var p = img.parent().parent().find('p')[0];
