@@ -1,0 +1,84 @@
+#promo1{
+  text-align:left;
+  padding:40px;
+  background:url(../../assets/img/O6YXOV0.jpg);
+  background-size:cover;
+  padding-top:24px;
+  margin-top:65px;
+}
+
+div.row.about{
+  margin-left:0;
+  margin-right:0;
+}
+
+@media (max-width:1199px) {
+  #promo1{
+    padding:20px;
+    margin-top:100px;
+  }
+}
+
+#promo1 .jumbotron.about{
+  background-color:rgba(255,255,255,0);
+  background-size:cover;
+}
+
+@media (max-width:991px) {
+  #promo1 .jumbotron.about{
+    padding:20px;
+  }
+}
+
+body{
+  font-family:Arial, Helvertica, sans-sarif;
+}
+
+.grey-section{
+  background-color:#eff;
+  padding-bottom:24px;
+}
+
+.green-section{
+  background-color:#357757;
+  padding-top:24px;
+}
+
+.site-section{
+  text-align:center;
+  padding:60px 0;
+}
+
+.site-section h1{
+  font-weight:normal;
+  margin-bottom:30px;
+}
+
+#descript p{
+  max-width:800px;
+  font-size:20px;
+  margin:0 auto;
+  margin-bottom:30px;
+}
+
+#descript.row{
+  margin-left:0;
+  margin-right:0;
+}
+
+div#promo1{
+  margin-top:65px;
+}
+
+div.jumbotron.about{
+  color:white;
+}
+
+div.jumbotron.about{
+  margin-bottom:0;
+}
+
+div.col-md-4.about{
+  padding-top:24px;
+}
+

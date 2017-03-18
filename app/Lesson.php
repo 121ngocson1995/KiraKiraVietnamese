@@ -22,13 +22,6 @@ class Lesson extends Model
 	    return $this->belongsTo('App\Administrator', 'last_updated_by');
 	}
 
-    /**
-     * Get the situations belongs to the lesson.
-     */
-    public function situations()
-    {
-        return $this->hasMany('App\Situation');
-    }
 
     /**
      * Get the situations belongs to the lesson.

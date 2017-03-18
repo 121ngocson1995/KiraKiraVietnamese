@@ -15,6 +15,7 @@ class P12Controller extends Controller
 
     	// Lấy dữ liệu từ db
     	$elementData = P12Element::where('lesson_id', '=', $lesson_id)->get();
+    	dd($elementData);
     	return view("P12", compact('elementData')); 
     }
 }
