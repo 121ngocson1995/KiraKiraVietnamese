@@ -340,7 +340,7 @@
 		if (wordNo == elementData.length) {
 			var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
 
-			console.log('wordTime=' + wordTime + ' wordNo=' + wordNo ' totalTime=' + totalTime);
+			console.log('wordTime=' + wordTime + ' wordNo=' + wordNo + ' totalTime=' + totalTime);
 			docBar = new ProgressBar.Line("#container", {
 				strokeWidth: 4,
 				duration: totalTime * 1000,
