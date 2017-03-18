@@ -7,7 +7,7 @@
 
 
 <script language="JavaScript">
-	var contentNow = 0;
+	var dialogNow = 0;
 	var contentArr = <?php echo json_encode($contentArr); ?>;
 	var audioArr = <?php echo json_encode($audioArr); ?>;
 	function next(){
@@ -15,29 +15,29 @@
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
-		if(contentNow < contentArr.length-1){
-			contentNow = parseInt(contentNow) + 1;
+		if(dialogNow < contentArr.length-1){
+			dialogNow = parseInt(dialogNow) + 1;
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi");
 		}
-		for (var i = 0; i < contentArr[contentNow].length; i++) {
-			editContent(contentArr[contentNow][i]);
+		for (var i = 0; i < contentArr[dialogNow].length; i++) {
+			editContent(contentArr[dialogNow][i]);
 		}
-		editAudio(audioArr[contentNow]);
+		editAudio(audioArr[dialogNow]);
 		// document.getElementById("audio").load();
 	}
 
 	function chooseD(element){
 		
-		contentNow = element.getAttribute('id');
+		dialogNow = element.getAttribute('id');
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
 
-		for (var i = 0; i < contentArr[contentNow].length; i++) {
-			editContent(contentArr[contentNow][i]);
+		for (var i = 0; i < contentArr[dialogNow].length; i++) {
+			editContent(contentArr[dialogNow][i]);
 		}
-		editAudio(audioArr[contentNow]);
+		editAudio(audioArr[dialogNow]);
 		document.getElementById("audio").load();
 	}
 
@@ -87,28 +87,6 @@
 		}
 	}
 
-	function playSample(button) {
-		$('#sample')[0].pause();
-		$('#sample')[0].currentTime = 0;
-		$('#sample')[0].play();
-	}
-
-	function imgToReplay() {
-		$('#playSample').attr('src', "{{ asset('img/icons/sample_replay.svg') }}");
-	}
-
-	function imgToPause(button) {
-		$('#playSample').attr('src', "{{ asset('img/icons/sample_pause.svg') }}");
-	}
-
-	function toggleRecord(button) {
-		if ($(button).hasClass('startRecord')) {
-			startRecording(button);
-		} else if ($(button).hasClass('stopRecord')) {
-			stopRecording(button);
-		}
-	}
-
 	function startUserMedia(stream) {
 		var input = audio_context.createMediaStreamSource(stream);
 
@@ -116,6 +94,7 @@
 	}
 
 	function startRecording(button) {
+		muteSound()
 		recorder && recorder.record();
 		$(button).removeClass('startRecord');
 		$(button).addClass('stopRecord');
@@ -128,50 +107,70 @@
 				$(button).addClass('startRecord');
 				$(button).attr('src', '{{ asset('img/icons/rec_startRecording.svg') }}');
 
-				createMedia();
+				createMedia($(button).attr("id"));
 
 				recorder.clear();
 
 				$('#playRecord').show();
 			}
-		}, 5000);
+		}, 3000);
+		$('#playRec-btn').show();
 	}
 
-	function stopRecording(button) {
-		recorder && recorder.stop();
-
-		// $('#progressRecord').attr('style', 'width: 0%');
-		// $('#progressRecord').closest('.progress').hide();
-
-		$(button).removeClass('stopRecord');
-		$(button).addClass('startRecord');
-		$(button).attr('src', '{{ asset('img/icons/rec_startRecording.svg') }}');
-		createMedia();
-
-		recorder.clear();
-
-		$('#playRecord').show();
-
-		$('.stopRecord').parent().find('.progress').hide();
-	}
-
-	function createMedia() {
+	function createMedia(lineNo) {
 		recorder && recorder.exportWAV(function(blob) {
 			var url = URL.createObjectURL(blob);
-			var auRecord = document.getElementById("record");
+			var auRecord = document.getElementById("record"+lineNo);
 			auRecord.src = url;
-			localStorage.setItem("record", url);
+			localStorage.setItem("record"+lineNo, url);
 		});
 	}
-	function play(index){
-		if (index == audioArr[contentNow].length) {
+
+	function play(lineNo){
+		muteSound();
+		if (lineNo == audioArr[dialogNow].length) {
 			return;
 		}
+		$('#audio' + lineNo).unbind();
+		$('#audio' + lineNo).bind('ended', function() {
+				play(lineNo+1);
+			});
+		document.getElementById('audio' + lineNo).play();
+	}
 
-		document.getElementById('audio' + index).play();
-		document.getElementById('audio' + index).addEventListener('ended', function() {
-			play(index+1);
-		});
+	function playRecord(lineNo){
+		muteSound();
+		if (lineNo == audioArr[dialogNow].length) {
+			return;
+		}
+		if ($('#record' + lineNo).length && document.getElementById("record" + lineNo).hasAttribute('src')) {
+			$('#record' + lineNo).unbind();
+			$('#record' + lineNo).bind('ended', function() {
+				playRecord(lineNo+1);
+			});
+			document.getElementById('record' + lineNo).play();
+			console.log('record' + lineNo);
+		}else{
+			$('#audio' + lineNo).unbind();
+			$('#audio' + lineNo).bind('ended', function() {
+				playRecord(lineNo+1);
+			});
+			document.getElementById('audio' + lineNo).play();
+			console.log('audio' + lineNo);
+		}
+	}
+
+	function muteSound(){
+		$('audio').each(function() {
+			this.pause();
+			this.currentTime = 0;
+			$(this).unbind();
+		})
+
+		// var sounds = document.getElementsByTagName('audio');
+		// for(i=0; i<sounds.length; i++) {
+		// 	sounds[i].pause();
+		// }
 	}
 </script>
 <script src="{{ asset('js/recorder.js') }}"></script>
@@ -181,44 +180,41 @@
 @section('content1')
 <div class="btn-group">
 	@for ($i = 0; $i < count($dialogCnt); $i++)
-	<button id="{{$i}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i}}</button>
+	<button id="{{$i}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i+1}}</button>
 	@endfor
 </div>
 <div class="row">
 	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
-		@for ($i = 0; $i < count($contentArr[0]) ; $i++)
-		
-		@if (strcmp(substr($contentArr[0][$i], -1), "*") == 0)
-		<div class="row">
-			<div>{{ substr_replace($contentArr[0][$i] ,"",-1)}}
-				<input type="image" class="startRecord controlBtn" style="width: 50px; height: auto;" id="playSample" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="toggleRecord(this); /*startProgress('progressRecord')*/" alt="Submit" width="130" height="130">
-				<input type="image" class="controlBtn" style="width: 50px; height: auto;" id="playSample" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record')[0].pause(); $('#record')[0].currentTime = 0; $('#record')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
+		@for ($i = 0; $i < count($contentArr[1]) ; $i++)
 
+		@if (strcmp(substr($contentArr[1][$i], -1), "*") == 0)
+		<div class="row">
+			<div>{{ substr_replace($contentArr[1][$i] ,"",-1)}}
+				<input type="image" class="startRecord controlBtn" style="width: 50px; height: auto;" id="{{$i}}" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="startRecording(this); /*startProgress('progressRecord')*/" alt="Submit" width="130" height="130">
+				<input type="image" class="controlBtn" style="width: 50px; height: auto;" id="{{$i}}" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record{{$i}}')[0].pause(); $('#record{{$i}}')[0].currentTime = 0; $('#record{{$i}}')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
+				<audio id="record{{$i}}"></audio>
 			</div>
 		</div>
 		@else
-		<div>{{ $contentArr[0][$i]}}</div>
+		<div>{{ $contentArr[1][$i]}}</div>
 		@endif 
 		@endfor
 		<br>
 	</div>
-	<div>
-		<audio id="sample" onpause="imgToReplay()" onplay="imgToPause()"></audio>
-		<audio id="record"></audio>
-	</div>
 	<button type="button" class="btn btn-primary" onclick="JavaScript: next()">Next</button>
 	<div class="col-sm-3 col-md-6 col-lg-4" id="audio" >
-	@for ($i = 0; $i < count($audioArr[0]) ; $i++)
+		@for ($i = 0; $i < count($audioArr[1]) ; $i++)
 		<audio id="audio{{$i}}">
-		<source id="audio_id" src="{{ URL::asset($audioArr[0][$i]) }}" type="audio/mpeg">
-			Your browser does not support the audio element.
-		</audio>
-	@endfor
+			<source src="{{ URL::asset($audioArr[1][$i]) }}" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			@endfor
+		</div>
+		<button id="play-btn" type="button" onclick="play(0);">Play sample audio</button>
+		<button id="playRec-btn" type="button" onclick="playRecord(0);" style="display: none;">Play with recorded</button>
 	</div>
-	<button type="button" onclick="play(0);">play</button>
-</div>
-<div class="row">
-	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
-	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
-</div>
-@stop
+	<div class="row">
+		<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
+		<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
+	</div>
+	@stop
