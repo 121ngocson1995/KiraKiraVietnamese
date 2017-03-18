@@ -22,7 +22,8 @@ class CreateP7ElementsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->tinyInteger('dialogNo')->unsigned();
-            $table->string('dialog');
+            $table->tinyInteger('lineNo')->unsigned();
+            $table->string('line');
             $table->string('audio');
             $table->timestamps();
             $table->softDeletes();
