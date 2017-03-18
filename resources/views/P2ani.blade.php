@@ -138,37 +138,6 @@
 		$('#cloudBottom').addClass('animated shake infinite');
 	}, 2000);
 
-	// if (document.readyState !== "complete") {
-	// 	setTimeout(bindPosition, 0);
-	// } else {
-	// 	window.addEventListener("load", bindPosition, true);
-	// }
-
-	// function bindPosition() {
-	// 	$('#pStart').position({
-	// 		my: "center",
-	// 		at: "center",
-	// 		of: $('#startBtn')
-	// 	});
-	// 	$('#pStart').show();
-	// 	var tl = new TimelineMax();
-	// 	tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
-
-	// 	$(this).on('load', function() {
-	// 		console.log('loaded');
-	// 		var img = $(this);
-	// 		var p = img.parent().parent().find('p')[0];
-	// 		$(p).position({
-	// 			my: "center",
-	// 			at: "center",
-	// 			of: $(img)
-	// 		});
-	// 		// $(p).show();
-	// 		$(p).css('opacity', 1);
-	// 	});
-	// 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
-	// }
-
 	imagesLoaded( document.getElementById('imgStart'), function() {
 		$('#pStart').position({
 			my: "center",
@@ -198,12 +167,8 @@
 			$(p).css('opacity', 1);
 		});
 	});
-
-
-
 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
 
-	
 	window.onresize = function() {
 		$('#pStart').position({
 			my: "center",
@@ -356,11 +321,11 @@
 		wordNo++;
 
 		if (i != elementData.length - 1) {
-			audioFile.addEventListener('loadedmetadata', function() {
+			audioFile.onloadedmetadata = function() {
 				wordTime += this.duration;
-			});
+			};
 		} else {
-			audioFile.addEventListener('loadedmetadata', function() {
+			audioFile.onloadedmetadata = function() {
 				wordTime += this.duration;
 				
 				var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
@@ -380,7 +345,7 @@
 				});
 
 				docBar.set(1);
-			});
+			};
 		}
 	}
 
