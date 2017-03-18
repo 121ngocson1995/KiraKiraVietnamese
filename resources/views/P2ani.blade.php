@@ -325,17 +325,20 @@
 		wordNo++;
 
 		if (i != elementData.length - 1) {
-			try {
-				var dur = audioFile.duration;
+			if (!isNaN(audioFile.duration)) {
 				wordTime += this.duration;
-			} catch (e) {
-				audioFile.addEventListener('load', function() {
+				// console.log('try');
+			} else {
+				// console.log('catch');
+				audioFile.addEventListener('loadedmetadata', function() {
+					// console.log(this.duration);
 					wordTime += this.duration;
 				});
 			}
+
+		// console.log('wordTime = ' + wordTime);
 		} else {
-			try {
-				var dur = audioFile.duration;
+			if (!isNaN(audioFile.duration)) {
 				wordTime += this.duration;
 				
 				var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
@@ -355,8 +358,8 @@
 				});
 
 				docBar.set(1);
-			} catch (e) {
-				audioFile.addEventListener('load', function() {
+			} else {
+				audioFile.addEventListener('loadedmetadata', function() {
 					wordTime += this.duration;
 					
 					var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
