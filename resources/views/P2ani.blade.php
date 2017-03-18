@@ -168,7 +168,7 @@
 	// 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
 	// }
 
-	$('#imgStart').on('load', function() {
+	$('#imgStart').one('load', function() {
 		$('#pStart').position({
 			my: "center",
 			at: "center",
@@ -177,13 +177,15 @@
 		$('#pStart').show();
 		var tl = new TimelineMax();
 		tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
-	});
+	}).each(function() {
+		if(this.complete) $(this).load();
+	});;
 
 	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
 	$('.wordCloud').each(function() {
-		$(this).on('load', function() {
+		$(this).one('load', function() {
 			// console.log('loaded');
 			var img = $(this);
 			var p = img.parent().parent().find('p')[0];
@@ -195,7 +197,9 @@
 			// $(p).show();
 			$(p).css('opacity', 1);
 		})
-	});
+	}).each(function() {
+		if(this.complete) $(this).load();
+	});;
 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
 
 	
@@ -378,7 +382,7 @@
 			});
 		}
 	}
-	
+
 	$(document).ready(function(){});
 	
 </script>
