@@ -4,6 +4,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
+<script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 
 <style>
@@ -168,7 +169,7 @@
 	// 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
 	// }
 
-	$('#imgStart').one('load', function() {
+	imagesLoaded( document.getElementById('imgStart'), function() {
 		$('#pStart').position({
 			my: "center",
 			at: "center",
@@ -177,29 +178,29 @@
 		$('#pStart').show();
 		var tl = new TimelineMax();
 		tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
-	}).each(function() {
-		if(this.complete) $(this).load();
-	});;
+	});
 
 	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
 	$('.wordCloud').each(function() {
-		$(this).one('load', function() {
+		var word = $(this).get();
+		imagesLoaded( word, function() {
 			// console.log('loaded');
-			var img = $(this);
-			var p = img.parent().parent().find('p')[0];
+			// var img = $(this);
+			var p = $(word).parent().parent().find('p')[0];
 			$(p).position({
 				my: "center",
 				at: "center",
-				of: $(img)
+				of: $(word)
 			});
 			// $(p).show();
 			$(p).css('opacity', 1);
-		})
-	}).each(function() {
-		if(this.complete) $(this).load();
-	});;
+		});
+	});
+
+
+
 	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
 
 	
