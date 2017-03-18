@@ -322,69 +322,39 @@
 		audioFile.innerHTML  = "<source src='" + elementData[i].audio + "' type='audio/mp3'>";
 		sampleGroup.appendChild(audioFile);
 
-		wordNo++;
 
-		if (i != elementData.length - 1) {
-			if (!isNaN(audioFile.duration)) {
-				wordTime += this.duration;
-				// console.log('try');
-			} else {
-				// console.log('catch');
-				audioFile.addEventListener('loadedmetadata', function() {
-					// console.log(this.duration);
-					wordTime += this.duration;
-				});
-			}
-
-		// console.log('wordTime = ' + wordTime);
+		if (!isNaN(audioFile.duration)) {
+			buildProgressBar(this.duration);
 		} else {
-			if (!isNaN(audioFile.duration)) {
-				wordTime += this.duration;
-				
-				var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
-
-				docBar = new ProgressBar.Line("#container", {
-					strokeWidth: 4,
-					duration: totalTime * 1000,
-					color: '#FFEA82',
-					trailColor: '#eee',
-					trailWidth: 1,
-					svgStyle: {width: '100%', height: '100%'},
-					from: {color: '#ED6A5A'},
-					to: {color: '#1affa3'},
-					step: (state, bar) => {
-						bar.path.setAttribute('stroke', state.color);
-					}
-				});
-
-				docBar.set(1);
-			} else {
-				audioFile.addEventListener('loadedmetadata', function() {
-					wordTime += this.duration;
-					
-					var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
-
-					docBar = new ProgressBar.Line("#container", {
-						strokeWidth: 4,
-						duration: totalTime * 1000,
-						color: '#FFEA82',
-						trailColor: '#eee',
-						trailWidth: 1,
-						svgStyle: {width: '100%', height: '100%'},
-						from: {color: '#ED6A5A'},
-						to: {color: '#1affa3'},
-						step: (state, bar) => {
-							bar.path.setAttribute('stroke', state.color);
-						}
-					});
-
-					docBar.set(1);
-				});
-			}
+			audioFile.addEventListener('loadedmetadata', function() {
+				buildProgressBar(this.duration);
+			});
 		}
 	}
 
-	$(document).ready(function(){});
+	function buildProgressBar(duration) {
+		wordNo++;
+		wordTime += duration;
+
+		if (wordNo == elementData.length) {
+			var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
+
+			docBar = new ProgressBar.Line("#container", {
+				strokeWidth: 4,
+				duration: totalTime * 1000,
+				color: '#FFEA82',
+				trailColor: '#eee',
+				trailWidth: 1,
+				svgStyle: {width: '100%', height: '100%'},
+				from: {color: '#ED6A5A'},
+				to: {color: '#1affa3'},
+				step: (state, bar) => {
+					bar.path.setAttribute('stroke', state.color);
+				}
+			});
+			docBar.set(1);
+		}
+	}
 	
 </script>
 
