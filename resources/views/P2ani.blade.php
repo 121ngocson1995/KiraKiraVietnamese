@@ -328,6 +328,7 @@
 		} else {
 			audioFile.addEventListener('loadedmetadata', function() {
 				buildProgressBar(this.duration);
+				console.log('eventfire' + i);
 			});
 		}
 	}
