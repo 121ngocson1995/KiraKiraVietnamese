@@ -328,34 +328,42 @@
 		} else {
 			audioFile.addEventListener('loadedmetadata', function() {
 				buildProgressBar(this.duration);
-				// console.log('eventfire' + i);
 			});
 		}
 	}
 
-	function buildProgressBar(duration) {
+	function checkTickLoad(argument) {
 		wordNo++;
 		wordTime += duration;
 
 		if (wordNo == elementData.length) {
-			var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
-
-			console.log('wordTime=' + wordTime + ' wordNo=' + wordNo + ' totalTime=' + totalTime);
-			docBar = new ProgressBar.Line("#container", {
-				strokeWidth: 4,
-				duration: totalTime * 1000,
-				color: '#FFEA82',
-				trailColor: '#eee',
-				trailWidth: 1,
-				svgStyle: {width: '100%', height: '100%'},
-				from: {color: '#ED6A5A'},
-				to: {color: '#1affa3'},
-				step: (state, bar) => {
-					bar.path.setAttribute('stroke', state.color);
+			var tick = document.getElementById('tick');
+			if (!isNaN(tick.duration)) {
+				buildProgressBar(wordTime + wordNo * tick.duration);
+			} else {
+				tick.addEventListener('loadedmetadata', function() {
+					buildProgressBar(wordTime + wordNo * this.duration);
 				}
-			});
-			docBar.set(1);
+			}
 		}
+	}
+
+	function buildProgressBar(duration) {
+		console.log('wordTime=' + wordTime + ' wordNo=' + wordNo + ' totalTime=' + totalTime);
+		docBar = new ProgressBar.Line("#container", {
+			strokeWidth: 4,
+			duration: duration * 1000,
+			color: '#FFEA82',
+			trailColor: '#eee',
+			trailWidth: 1,
+			svgStyle: {width: '100%', height: '100%'},
+			from: {color: '#ED6A5A'},
+			to: {color: '#1affa3'},
+			step: (state, bar) => {
+				bar.path.setAttribute('stroke', state.color);
+			}
+		});
+		docBar.set(1);
 	}
 	
 </script>
