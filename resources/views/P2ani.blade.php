@@ -325,11 +325,17 @@
 		wordNo++;
 
 		if (i != elementData.length - 1) {
-			audioFile.addEventListener('canplay', function() {
+			try {
+				var dur = audioFile.duration;
 				wordTime += this.duration;
-			});
+			} catch (e) {
+				audioFile.addEventListener('load', function() {
+					wordTime += this.duration;
+				});
+			}
 		} else {
-			audioFile.addEventListener('canplay', function() {
+			try {
+				var dur = audioFile.duration;
 				wordTime += this.duration;
 				
 				var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
@@ -349,7 +355,29 @@
 				});
 
 				docBar.set(1);
-			});
+			} catch (e) {
+				audioFile.addEventListener('load', function() {
+					wordTime += this.duration;
+					
+					var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
+
+					docBar = new ProgressBar.Line("#container", {
+						strokeWidth: 4,
+						duration: totalTime * 1000,
+						color: '#FFEA82',
+						trailColor: '#eee',
+						trailWidth: 1,
+						svgStyle: {width: '100%', height: '100%'},
+						from: {color: '#ED6A5A'},
+						to: {color: '#1affa3'},
+						step: (state, bar) => {
+							bar.path.setAttribute('stroke', state.color);
+						}
+					});
+
+					docBar.set(1);
+				});
+			}
 		}
 	}
 
