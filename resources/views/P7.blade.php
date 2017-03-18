@@ -2,7 +2,13 @@
 
 @section('title')
 <h1 style="font-size: 400%" align="center">- Bài 7: Nghe và nhắc lại bài hội thoại</h1>
-
+<style type="text/css">
+	.dialogDiv{
+		display: inline-block;
+		width: 100px;
+		text-align: right;
+	}
+</style>
 <hr>
 
 
@@ -11,9 +17,12 @@
 	var contentArr = <?php echo json_encode($contentArr); ?>;
 	var audioArr = <?php echo json_encode($audioArr); ?>;
 	function next(){
-		
+
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
+		}
+		while (document.getElementById("audio_id").firstChild) {
+			document.getElementById("audio_id").removeChild(document.getElementById("audio_id").firstChild);
 		}
 		if(dialogNow < contentArr.length-1){
 			dialogNow = parseInt(dialogNow) + 1;
@@ -21,10 +30,10 @@
 			window.alert("Bạn đã hoàn thành bài tập rồi");
 		}
 		for (var i = 0; i < contentArr[dialogNow].length; i++) {
-			editContent(contentArr[dialogNow][i]);
+			editContent(i);
+			editAudio(i);
 		}
-		editAudio(audioArr[dialogNow]);
-		// document.getElementById("audio").load();
+		
 	}
 
 	function chooseD(element){
@@ -33,23 +42,79 @@
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
-
-		for (var i = 0; i < contentArr[dialogNow].length; i++) {
-			editContent(contentArr[dialogNow][i]);
+		while (document.getElementById("audio_id").firstChild) {
+			document.getElementById("audio_id").removeChild(document.getElementById("audio_id").firstChild);
 		}
-		editAudio(audioArr[dialogNow]);
-		document.getElementById("audio").load();
+		for (var i = 0; i < contentArr[dialogNow].length; i++) {
+			editContent(i);
+			editAudio(i);
+		}
 	}
-
-	function editContent(text) {
+	function editContent(index) {
 		var node = document.createElement("div");
-		var textnode = document.createTextNode(text);
-		node.appendChild(textnode);
+		var node_spker = document.createElement("div");
+		var node_content = document.createElement("div");
+		var text_spker = contentArr[dialogNow][index][0];
+		var text = contentArr[dialogNow][index][1];
+		var textnode_spker;
+		var textnode_content;
+		textnode_spker = document.createTextNode(text_spker);
+		node_spker.appendChild(textnode_spker);
+		node_spker.setAttribute('class', 'dialogDiv');
+		node_spker.setAttribute('style', 'display: inline-block;');
+		if (text.substr(-1,1) == "*") {
+			textnode_content = document.createTextNode(text.replace("*",""));
+			node_content.appendChild(textnode_content);
+
+			var nodeRecord = document.createElement("input");
+			var nodePlayRecord = document.createElement("input");
+			var nodeAudio = document.createElement("audio");
+
+			nodeRecord.setAttribute('id', index);
+			nodeRecord.setAttribute('type', 'image');
+			nodeRecord.setAttribute('class', 'startRecord controlBtn');
+			nodeRecord.setAttribute('style', 'width: 50px; height: auto;');
+			nodeRecord.setAttribute('src', '{{ asset('img/icons/rec_startRecording.svg') }}');
+			nodeRecord.setAttribute('onclick', 'startRecording(this);');
+			nodeRecord.setAttribute('alt', 'Submit');
+			nodeRecord.setAttribute('width', '130');
+			nodeRecord.setAttribute('height', '130');
+			node_content.appendChild(nodeRecord);
+
+			nodePlayRecord.setAttribute('id', index);
+			nodePlayRecord.setAttribute('type', 'image');
+			nodePlayRecord.setAttribute('class', 'controlBtn');
+			nodePlayRecord.setAttribute('style', 'width: 50px; height: auto;');
+			nodePlayRecord.setAttribute('src', '{{ asset('img/icons/rec_playback2.svg') }}');
+			nodePlayRecord.setAttribute('onclick', "$('#record"+index+"')[0].pause(); $('#record"+index+"')[0].currentTime = 0; $('#record"+index+"')[0].play();");
+			nodePlayRecord.setAttribute('alt', 'Submit');
+			nodePlayRecord.setAttribute('width', '130');
+			nodePlayRecord.setAttribute('height', '130');
+			nodePlayRecord.setAttribute('data-toggle', 'tooltip');
+			nodePlayRecord.setAttribute('data-placement', 'bottom');
+			nodePlayRecord.setAttribute('title', 'Click the middle button to record your voice!');
+			node_content.appendChild(nodePlayRecord);
+
+			nodeAudio.setAttribute('id',"record"+index);
+			node_content.appendChild(nodeAudio);
+
+		}else{
+			textnode_content = document.createTextNode(text);
+			node_content.appendChild(textnode_content);
+		}
+		
+		node_content.setAttribute('style', 'display: inline-block;');
+		node.appendChild(node_spker);
+		node.appendChild(node_content);
 		document.getElementById("content_id").appendChild(node);
 	}
 
-	function editAudio(pathList) {
-		document.getElementById("audio").setAttribute('src', '{{ URL::asset('') }}' + path);
+	function editAudio(index) {
+		var node = document.createElement("audio");
+		node.setAttribute('id', 'audio'+index);
+		var path = audioArr[dialogNow][index];
+		node.setAttribute('src', '{{ URL::asset('') }}' + path);
+		document.getElementById('audio_id').appendChild(node);
 	}
 
 	window.onload = function init() {
@@ -133,8 +198,8 @@
 		}
 		$('#audio' + lineNo).unbind();
 		$('#audio' + lineNo).bind('ended', function() {
-				play(lineNo+1);
-			});
+			play(lineNo+1);
+		});
 		document.getElementById('audio' + lineNo).play();
 	}
 
@@ -149,14 +214,12 @@
 				playRecord(lineNo+1);
 			});
 			document.getElementById('record' + lineNo).play();
-			console.log('record' + lineNo);
 		}else{
 			$('#audio' + lineNo).unbind();
 			$('#audio' + lineNo).bind('ended', function() {
 				playRecord(lineNo+1);
 			});
 			document.getElementById('audio' + lineNo).play();
-			console.log('audio' + lineNo);
 		}
 	}
 
@@ -166,11 +229,6 @@
 			this.currentTime = 0;
 			$(this).unbind();
 		})
-
-		// var sounds = document.getElementsByTagName('audio');
-		// for(i=0; i<sounds.length; i++) {
-		// 	sounds[i].pause();
-		// }
 	}
 </script>
 <script src="{{ asset('js/recorder.js') }}"></script>
@@ -185,27 +243,27 @@
 </div>
 <div class="row">
 	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
-		@for ($i = 0; $i < count($contentArr[1]) ; $i++)
-
-		@if (strcmp(substr($contentArr[1][$i], -1), "*") == 0)
-		<div class="row">
-			<div>{{ substr_replace($contentArr[1][$i] ,"",-1)}}
+		@for ($i = 0; $i < count($contentArr[0]) ; $i++)
+		<div>
+			<div class="dialogDiv" style="display: inline-block;">{{ $contentArr[0][$i][0]}}</div>
+			@if (strcmp(substr($contentArr[0][$i][1], -1), "*") == 0)
+			<div style="display: inline-block;">{{ substr_replace($contentArr[0][$i][1] ,"",-1)}}
 				<input type="image" class="startRecord controlBtn" style="width: 50px; height: auto;" id="{{$i}}" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="startRecording(this); /*startProgress('progressRecord')*/" alt="Submit" width="130" height="130">
 				<input type="image" class="controlBtn" style="width: 50px; height: auto;" id="{{$i}}" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record{{$i}}')[0].pause(); $('#record{{$i}}')[0].currentTime = 0; $('#record{{$i}}')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
 				<audio id="record{{$i}}"></audio>
 			</div>
+			@else
+			<div style="display: inline-block;">{{ $contentArr[0][$i][1]}}</div>
+			@endif 
 		</div>
-		@else
-		<div>{{ $contentArr[1][$i]}}</div>
-		@endif 
 		@endfor
 		<br>
 	</div>
 	<button type="button" class="btn btn-primary" onclick="JavaScript: next()">Next</button>
-	<div class="col-sm-3 col-md-6 col-lg-4" id="audio" >
-		@for ($i = 0; $i < count($audioArr[1]) ; $i++)
+	<div class="col-sm-3 col-md-6 col-lg-4" id="audio_id" >
+		@for ($i = 0; $i < count($audioArr[0]) ; $i++)
 		<audio id="audio{{$i}}">
-			<source src="{{ URL::asset($audioArr[1][$i]) }}" type="audio/mpeg">
+			<source src="{{ URL::asset($audioArr[0][$i]) }}" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
 			@endfor

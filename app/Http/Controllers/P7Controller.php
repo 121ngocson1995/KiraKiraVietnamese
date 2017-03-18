@@ -35,7 +35,8 @@ class P7Controller extends Controller
 			$audioArr[$i] = array();
 			for ($j=0; $j < count($elementData) ; $j++) { 
 				if ($elementData[$j]['dialogNo'] == $dialogCnt[$i]) {
-					array_push($contentArr[$i], $elementData[$j]['line']);
+					$lineParts = explode('|', $elementData[$j]['line']);
+					array_push($contentArr[$i], $lineParts);
 					array_push($audioArr[$i], $elementData[$j]['audio']);
 				}
 			}
