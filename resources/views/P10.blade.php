@@ -248,7 +248,9 @@
 						lastDrop.data('curDrag', lastDrag);
 						lastDrag.data('curDrop', lastDrop);
 					} else {
-
+						lastDrag.css('top', 0);
+						lastDrag.css('left', 0);
+						ui.draggable.css('background', 'initial');
 					}
 				}
 

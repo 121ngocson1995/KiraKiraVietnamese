@@ -325,11 +325,11 @@
 		wordNo++;
 
 		if (i != elementData.length - 1) {
-			audioFile.onloadedmetadata = function() {
+			audioFile.addEventListener('canplay', function() {
 				wordTime += this.duration;
-			};
+			});
 		} else {
-			audioFile.onloadedmetadata = function() {
+			audioFile.addEventListener('canplay', function() {
 				wordTime += this.duration;
 				
 				var totalTime = wordTime + wordNo * document.getElementById('tick').duration;
@@ -349,7 +349,7 @@
 				});
 
 				docBar.set(1);
-			};
+			});
 		}
 	}
 
