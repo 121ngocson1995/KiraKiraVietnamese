@@ -186,7 +186,7 @@
 		start();
 	});
 
-	$('#restartBtn').click(function() {
+	$('#imgStart').click(function() {
 		start();
 	});
 
@@ -194,7 +194,7 @@
 		start();
 	});
 
-	$('#restartBtn').click(function() {
+	$('#imgRestart').click(function() {
 		start();
 	});
 </script>
