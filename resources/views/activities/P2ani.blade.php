@@ -202,6 +202,7 @@
 <script>
 	var docBar;
 	var playingSample = -1;
+	var tlFinalScore;
 
 	function chooseWord(button) {
 		if ('audio' + $(button).find('p').attr("id") == playingSample) {
@@ -226,6 +227,10 @@
 	}
 
 	function start() {
+		if(tlFinalScore) {
+			tlFinalScore.seek(0).pause();
+		}
+
 		$('.wordSpan').bind('click', function() {
 			chooseWord(this);
 		});
@@ -304,8 +309,8 @@
 		var tl = new TimelineMax();
 		tl.to('#imgRestart', 30, {rotation:-371.8181818, repeat:-1, ease: Power0.easeNone});
 		var scoreText = $('#scoreText');
-		var tl = new TimelineMax();
-		tl.to(scoreText, 2, {text:"Final score: "})
+		tlFinalScore = new TimelineMax();
+		tlFinalScore.to(scoreText, 2, {text:"Final score: "})
 		  .to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
 		  .to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
 	}
