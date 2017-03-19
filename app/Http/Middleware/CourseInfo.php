@@ -27,13 +27,13 @@ class CourseInfo
         $lessonNo = false;
         $activity = false;
         $uri = explode('/', $request->path());
+
         if (count($uri) > 1 && strpos($uri[count($uri) - 2], 'lesson') === 0) {
             $lessonNo = $uri[count($uri) - 2];
         }
         if (count($uri) > 0 && (strpos($uri[count($uri) - 1], 'P') === 0 || strpos($uri[count($uri) - 1], 'Situation') === 0) ) {
             $activity = $uri[count($uri) - 1];
         }
-
         $request->attributes->add(['lessons' => $lessons, 'lessonNo' => $lessonNo, 'activity' => $activity]);
         return $next($request);
     }
