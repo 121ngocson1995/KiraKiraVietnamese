@@ -48,7 +48,7 @@
 		-moz-animation-delay: 10s;
 		-moz-animation-iteration-count: infinite;
 	}
-	#pStart, #pRestart {
+	#pStart, #pRestart, #imgStart, #imgRestart {
 		cursor: pointer;
 	}
 	#controlBtn {
@@ -93,10 +93,6 @@
 
 <div id="wordGroup" class="" style="text-align: center; padding-bottom: 20px;">
 	@foreach ($textRender as $text)
-		{{-- <span style="padding: 0px 2px;">
-			<button autocomplete="off" id="{{ $text['id'] }}" class="btn playWord notChosen" style="font-size: 18px; padding: 2px 10px" onclick="chooseWord(this)" disabled="">{{ $text['word'] }}</button>
-		</span> --}}
-
 		<div class="wordSpan" style="display: inline-block;">
 			<p id="{{ $text['id'] }}" class="tbn word" style="position: absolute; color: #30A782; opacity: 0; font-size: 1.5em;">{{ $text['word'] }}</p>
 			<div class="btnBg">
