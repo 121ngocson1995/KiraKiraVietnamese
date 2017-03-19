@@ -48,7 +48,7 @@
 		-moz-animation-delay: 10s;
 		-moz-animation-iteration-count: infinite;
 	}
-	#pStart, #pRestart, .btnBg {
+	#pStart, #pRestart {
 		cursor: pointer;
 	}
 	#controlBtn {
