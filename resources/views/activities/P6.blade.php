@@ -1,6 +1,6 @@
 @extends('activities.layout.activityLayout')
 
-@section('content')
+@section('actContent')
 
 <style>
 	#questions {

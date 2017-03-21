@@ -87,15 +87,7 @@
 </script>
 
 <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
-    @yield('content')
-    <div class="tooltip" style="display: none;">
-        <a>
-            <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
-        </a>
-        <span class="tooltiptext">
-            @yield('description')
-        </span>
-    </div>
+    @yield('actContent')
 </div>
 
 @stop
