@@ -15,7 +15,15 @@ class P4Controller extends Controller
 
     		// Lấy dữ liệu từ db
 		$elementData = P4Element::where('lesson_id', '=', $lesson_id)->get()->toArray();
-		shuffle($elementData);
-		return view("P4", compact('elementData'));
+
+		$soundArr = array();
+		foreach ($elementData as $element) {
+				$soundArr[] = [
+				"id" => $element['id'],
+				"audio" => $element['audio']
+			];
+		}
+		shuffle($soundArr);
+		return view("P4", compact(['elementData', 'soundArr']));
 	}  
 }
