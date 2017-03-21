@@ -70,6 +70,7 @@
 			dialogNow = parseInt(dialogNow) + 1;
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi !");
+			$('#btn-NextAct').show();
 			$("#countdown").empty();
 		}
 		edit(elementData, dialogNow, dialogCnt);
@@ -381,6 +382,18 @@
 	<div>
 		<div id="result" style="text-align: center;"></div>
 	</div>
+	<div id="btn-NextAct">
+		<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
+		<span id="locationNext"></span>
+	</div>
+	<script type="text/javascript">
+		var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
+		$('#locationNext').html(nextAct['name']);
+		$('#btn-NextAct').hide();
+		$('#btn-NextAct').click(function(){
+			window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
+		});
+	</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">

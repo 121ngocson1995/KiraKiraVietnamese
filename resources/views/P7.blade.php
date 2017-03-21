@@ -54,7 +54,7 @@
 		if(dialogNow < contentArr.length-1){
 			dialogNow = parseInt(dialogNow) + 1;
 		}else{
-			window.alert("Bạn đã hoàn thành bài tập rồi");
+			$('#btn-NextAct').show();
 		}
 		for (var i = 0; i < contentArr[dialogNow].length; i++) {
 			editContent(i);
@@ -265,7 +265,7 @@
 @section('content1')
 <div id="btn-NextAct">
 	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
-	<span>Next</span>
+	<span id="locationNext"></span>
 </div>
 <div class="btn-group">
 	@for ($i = 0; $i < count($dialogCnt); $i++)
@@ -307,11 +307,13 @@
 		<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
 	</div>
 
-	{{-- <script type="text/javascript">
-		$('#btn-NextAct').hover(function() {
-			$(this).css('transform', 'translateX(0)');
-		})
-		.mouseout() 
-	</script> --}}
+	<script type="text/javascript">
+		var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
+		$('#locationNext').html(nextAct['name']);
+		$('#btn-NextAct').hide();
+		$('#btn-NextAct').click(function(){
+			window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
+		});
+	</script>
 
 	@stop

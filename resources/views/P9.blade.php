@@ -70,6 +70,7 @@
 			dialogNow = parseInt(dialogNow) + 1;
 		}else{
 			window.alert("Bạn đã hoàn thành bài tập rồi !");
+			$('#btn-NextAct').show();
 			$("#countdown").empty();
 		}
 		edit(elementData, dialogNow, dialogCnt);
@@ -373,33 +374,45 @@
 			@endfor
 		</div>
 		<div class="col-sm-5 col-md-5 col-lg-5"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
-				<div id="countdown"></div>
-			</div>
+			<div id="countdown"></div>
 		</div>
 	</div>
-	<button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button>
-	<div>
-		<div id="result" style="text-align: center;"></div>
-	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-		countdown = $("#countdown").countdown360({
-			radius      : 80,
-			seconds     : getDialogAnswer(elementData, dialogNow)*5,
-			fontColor   : '#FFFFFF',
-			autostart   : false,
-			onComplete  : function (){
-				showResult();
-				$('#btn-Next').show();
-			}
-		});
-
-		function showPractice(){
-			$("#content").attr("style", "transition: 1s;");
-			$("#btn-Start").remove();
-			countdown.start();
+</div>
+<button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button>
+<div>
+	<div id="result" style="text-align: center;"></div>
+</div>
+<div id="btn-NextAct">
+	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
+	<span id="locationNext"></span>
+</div>
+<script type="text/javascript">
+	var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
+	$('#locationNext').html(nextAct['name']);
+	$('#btn-NextAct').hide();
+	$('#btn-NextAct').click(function(){
+		window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
+	});
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	countdown = $("#countdown").countdown360({
+		radius      : 80,
+		seconds     : getDialogAnswer(elementData, dialogNow)*5,
+		fontColor   : '#FFFFFF',
+		autostart   : false,
+		onComplete  : function (){
+			showResult();
+			$('#btn-Next').show();
 		}
-	</script>
+	});
 
-	@stop
+	function showPractice(){
+		$("#content").attr("style", "transition: 1s;");
+		$("#btn-Start").remove();
+		countdown.start();
+	}
+</script>
+
+@stop
