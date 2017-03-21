@@ -51,6 +51,6 @@ class P6Controller extends Controller
 
 		$elementData = $all;
 
-		return view("P6", compact(['elementData', 'cnt']));
+		return view("activities.P6", compact(['elementData', 'cnt']));
 	}
 }
