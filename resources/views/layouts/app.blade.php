@@ -490,7 +490,8 @@
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
                 </button>
-                <a class="navbar-brand navbar-link" href="/">KiraKiraVietnamese </a>
+                <a class="navbar-brand original navbar-link" href="/" style="font-family: Arial;">KiraKiraVietnamese </a>
+                <a class="navbar-brand title navbar-link" href="/" style="font-family: Arial;"></a>
                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
@@ -546,17 +547,7 @@
 
     </div>
 
-    <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
-        @yield('content')
-        <div class="tooltip" style="display: none;">
-            <a>
-                <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
-            </a>
-            <span class="tooltiptext">
-                @yield('description')
-            </span>
-        </div>
-    </div>
+    @yield('body')
 
     <script>
         var lessonNo = <?php echo json_encode(\Request::get('lessonNo')); ?>;
