@@ -32,12 +32,12 @@
 		transition: background-color 0.4s;
 	}
 	.chosen.correctAnswer, .chosen.correctAnswer:hover {
-		background-color: #008000;
-		border-color: #008000;
+		background-color: #008000 !important;
+		border-color: #008000 !important;
 	}
 	.chosen.wrongAnswer, .chosen.wrongAnswer:hover {
-		background-color: red;
-		border-color: red;
+		background-color: red !important;
+		border-color: red !important;
 	}
 	.result {
 		padding: 10px;
@@ -104,6 +104,7 @@
 			var toDisable = false;
 			button.push(document.createElement('button'));
 			button[i].id = questionId;
+			button[i].setAttribute('autocomplete', 'off');
 			button[i].name = elementData[questionId].answerOrder[i];
 			button[i].className = "btn btn-primary btn-answer";
 
@@ -225,7 +226,7 @@
 				$firstBtn = true;
 			@endphp
 			@for ($i = 0; $i < count($elementData); $i++)
-				<button type="button" id="navQ{{ $i }}" class="btn btn-warning" style="font-size: 18px; width: 60px;" onclick="switchQuestion({{ $i }})"
+				<button autocomplete="off" type="button" id="navQ{{ $i }}" class="btn btn-warning" style="font-size: 18px; width: 60px;" onclick="switchQuestion({{ $i }})"
 				@if ($firstBtn != true)
 					disabled=""
 				@else
@@ -247,19 +248,19 @@
 	</div>
 	
 	<div id="answerGroup" style="text-align: center;">
-		<button id="0" name="{{ $elementData[0]->answerOrder[0] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
+		<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[0] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
 				{{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["content"] }}
 		</button>
-		<button id="0" name="{{ $elementData[0]->answerOrder[1] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
+		<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[1] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
 				{{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["content"] }}
 		</button>
-		<button id="0" name="{{ $elementData[0]->answerOrder[2] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
+		<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[2] }}" class="btn btn-primary btn-answer {{ strcmp($elementData[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
 				{{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["content"] }}
 		</button>
 	</div>
 
 	<div style="text-align: center">
-		<button class="btn btn-warning btnNext" onclick="next(this)" disabled>Next</button>
+		<button autocomplete="off" class="btn btn-warning btnNext" onclick="next(this)" disabled>Next</button>
 	</div>
 </div>
 
