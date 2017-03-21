@@ -12,112 +12,132 @@
 				height: 20px;
 				background-color: #e88b8b;
 			}
-		</style>
-		<hr>
 
-		<script langauge="JavaScript">
-			var checkOrder = new Array();
-			var questionList = <?php echo json_encode($elementData); ?>;
-			var soundList = <?php echo json_encode($soundArr); ?>;
-			var correctOrd = new Array();
-			for (var i = 0; i < soundList.length; i++) {
-				correctOrd.push(soundList[i]['id']);
-			}
-			var chooseIndex = 0;
-			function chooseOrder(element){
-				document.getElementById('right').style.opacity=0;
-				document.getElementById('wrong').style.opacity=0;
-				var questionId = element.name;
-				checkOrder.push(questionId);
-				var index = checkOrder.indexOf(questionId);
-				var questionOrder;
-				for (var i = 0; i < questionList.length; i++) {
-					if (i == questionId ) {
-						questionOrder = questionList[i]['sentenceOrder'];
-					}
-				}
-				if (questionOrder == index.toString()) {
-					document.getElementById('right').style.opacity=1;
-					element.setAttribute('disabled', 'disabled');
-					if (index == questionList.length-1 ) {
-						window.alert("Bạn đã hoàn thành bài tập rồi");
-					}
-					element.innerHTML = parseInt(questionOrder)+1;
-				}else{
-					document.getElementById('wrong').style.opacity=1;
-					checkOrder.splice(index,1);
-				}
-			}
+			body {
 
-		</script>
-		@stop
+		/*background: url(http://localhost:8000/img/testAnimate/p2bg.svg) no-repeat center bottom fixed;
+		background-size: cover;*/
+	}
+	#scoreText {
+		font-size: 2em;
+	}
+	#correct {
+		color: blue;
+		font-size: 5em;
+	}
+	#total {
+		color: red;
+		font-size: 2em;
+	}
 
-		@section('content1')
-		<div style="text-align: center; height: 70px">
-			<div id="container" style="display: inline-block;"></div>
+</style>
+<hr>
+
+<script langauge="JavaScript">
+	var checkOrder = new Array();
+	var questionList = <?php echo json_encode($elementData); ?>;
+	var soundList = <?php echo json_encode($soundArr); ?>;
+	var correctOrd = new Array();
+	for (var i = 0; i < soundList.length; i++) {
+		correctOrd.push(soundList[i]['id']);
+	}
+	var chooseIndex = 0;
+	// function chooseOrder(element){
+	// 	document.getElementById('right').style.opacity=0;
+	// 	document.getElementById('wrong').style.opacity=0;
+	// 	var questionId = element.name;
+	// 	checkOrder.push(questionId);
+	// 	var index = checkOrder.indexOf(questionId);
+	// 	var questionOrder;
+	// 	for (var i = 0; i < questionList.length; i++) {
+	// 		if (i == questionId ) {
+	// 			questionOrder = questionList[i]['sentenceOrder'];
+	// 		}
+	// 	}
+	// 	if (questionOrder == index.toString()) {
+	// 		document.getElementById('right').style.opacity=1;
+	// 		element.setAttribute('disabled', 'disabled');
+	// 		if (index == questionList.length-1 ) {
+	// 			window.alert("Bạn đã hoàn thành bài tập rồi");
+	// 		}
+	// 		element.innerHTML = parseInt(questionOrder)+1;
+	// 	}else{
+	// 		document.getElementById('wrong').style.opacity=1;
+	// 		checkOrder.splice(index,1);
+	// 	}
+	// }
+
+</script>
+@stop
+
+@section('content1')
+<div style="text-align: center; height: 70px">
+	<div id="container" style="display: inline-block;"></div>
+</div>
+<div class="row">
+	<div class="col-sm-9 col-md-6 col-lg-8">
+		<table  class="table table-hover"  align="center">
+			@for ($i = 0; $i < count($elementData) ; $i++)
+			<tr>
+				<td><button autocomplete="off" class="btn-Choose btn-notChosen" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
+				<td><span id="sentence{{$elementData[$i]['id']}}">{{$elementData[$i]['sentence']}}</span></td>				
+			</tr>
+			@endfor
+		</table>
+	</div>
+	<div class="col-sm-3 col-md-6 col-lg-4">
+		<div style="text-align: center;">
+			<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
+			<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
+			<span id="timer" style="font-size: 70px"></span>
+			<span id="addedTime" style="font-size: 40px; color: grey"></span>
+			<div id="sampleGroup"></div>
+			<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
 		</div>
-		<div class="row">
-			<div class="col-sm-9 col-md-6 col-lg-8">
-				<table  class="table table-hover"  align="center">
-					@for ($i = 0; $i < count($elementData) ; $i++)
-					<tr>
-						<td><button autocomplete="off" class="btn-Choose" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
-						<td>{{$elementData[$i]['sentence']}}</td>				
-					</tr>
-					@endfor
-				</table>
-			</div>
-			<div class="col-sm-3 col-md-6 col-lg-4">
-				<div style="text-align: center;">
-					<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
-					<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
-					<span id="timer" style="font-size: 70px"></span>
-					<span id="addedTime" style="font-size: 40px; color: grey"></span>
-					<div id="sampleGroup"></div>
-					<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
-				</div>
 
-				<div id="result" style="text-align: center; display: none;">
-					<span id="scoreText">Score: </span>
-					<span id="correct"></span>
-					<span id="total"></span>
-				</div>
-			</div>
-		</div>
-		<div id="audio_content"></div>
-		<div class="row">
-			<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
-			<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
+		<div id="result" style="text-align: center; display: none;">
+			<span id="scoreText">Score: </span>
+			<span id="correct"></span>
+			<span id="total"></span>
 		</div>
 	</div>
-	<script src="{{ asset('js/progressbar.js') }}"></script>
-	<script>
-		var docBar;
-		var playingSample = -1;
+</div>
+<div id="audio_content"></div>
+<div class="row">
+	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
+	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
+</div>
+</div>
+<script src="{{ asset('js/progressbar.js') }}"></script>
+<script>
+	var docBar;
+	var playingSample = -1;
 
-		function chooseWord(button) {
-			if ('audio' + $(button).attr("id") == playingSample) {
-				correctChoice(button);
-			} else {
-				wrongChoice(button);
-			}
+	function chooseWord(button) {
+		if ('audio' + $(button).attr("id") == playingSample) {
+			correctChoice(document.getElementById("sentence"+$(button).attr("id")),button);
+		} else {
+			wrongChoice(document.getElementById("sentence"+$(button).attr("id")));
 		}
+	}
 
-		function correctChoice(button) {
-			$(button).removeClass("notChosen");
-			$(button).addClass("correctWord");
-			$(button).prop("disabled", true);
-			$(".wrongWord").removeClass("wrongWord").addClass("notChosen");
-			changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
-		}
+	function correctChoice(sentence, button) {
+		$(sentence).removeClass("notChosen");
+		$(sentence).addClass("correctWord");
+		$(button).removeClass("btn-notChosen");
+		$(button).prop("disabled", true);
+		$(".btn-notChosen").prop("disabled", true);
+		$(".wrongWord").removeClass("wrongWord").addClass("notChosen");
+		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
+	}
 
-		function wrongChoice(button) {
-			$(button).removeClass("notChosen");
-			$(button).addClass("wrongWord");
-		}
+	function wrongChoice(sentence) {
+		$(sentence).removeClass("notChosen");
+		$(sentence).addClass("wrongWord");
+	}
 
-		function start() {
-			chosenOrder = 0;
+	function start() {
+		chooseIndex = 0;
 
 		// $("#wordGroup").find("button").prop("disabled", false);
 		// $("#wordGroup").find("button").removeClass("wrongWord").removeClass("correctWord").addClass("notChosen");
@@ -147,6 +167,7 @@
 		tl.to(box, 0.25, {scale:1.4, ease:Power2.easeOut})
 		.set(text, {text:to})
 		.to(box, 0.25, {scale:1, ease:Power2.easeOut});
+
 	}
 
 	function playSample(index) {
@@ -155,7 +176,9 @@
 			showResult();
 			return;
 		}
-
+		$(".btn-notChosen").prop("disabled", false);
+		$(".wrongWord").removeClass("wrongWord").addClass("notChosen");
+		chooseIndex++;
 		$('#sampleGroup').children().eq(index)[0].play();
 		playingSample = $('#sampleGroup').children().eq(index)[0].id;
 		changeScore('total', '/' + parseInt(index + 1));
