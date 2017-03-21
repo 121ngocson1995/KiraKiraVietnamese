@@ -44,7 +44,7 @@ class Navigate
                 }
             }
         }
-
+        
         $request->attributes->add(['preAct' => $preAct, 'nextAct' => $nextAct]);
         return $next($request);
     }

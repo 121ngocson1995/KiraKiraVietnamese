@@ -75,7 +75,7 @@
 	<div id="container" style="display: inline-block;"></div>
 </div>
 <div class="row">
-	<div class="col-sm-9 col-md-6 col-lg-8">
+	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
 		<table  class="table table-hover"  align="center">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			<tr>
@@ -139,8 +139,8 @@
 	function start() {
 		chooseIndex = 0;
 
-		// $("#wordGroup").find("button").prop("disabled", false);
-		// $("#wordGroup").find("button").removeClass("wrongWord").removeClass("correctWord").addClass("notChosen");
+		$("#content_id").find("button").prop("disabled", false);
+		$("#content_id").find("span").removeClass("wrongWord").removeClass("correctWord").addClass("notChosen");
 
 		initScore();
 		playSample(0);
@@ -196,8 +196,9 @@
 		}
 	}
 	function showResult() {
+
 		$(".notChosen").removeClass("notChosen").addClass("wrongWord");
-		$("#wordGroup").find("button").prop("disabled", true);
+		$("#content_id").find("button").prop("disabled", true);
 		$("#btnRestart").prop("disabled", false);
 		$("#btnRestart").show();
 		var scoreText = $('#scoreText');

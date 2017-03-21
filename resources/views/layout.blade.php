@@ -8,4 +8,5 @@
 
     @yield('content1')
 
+    @yield('next-btn')
 @stop
