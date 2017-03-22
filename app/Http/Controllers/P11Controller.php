@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P11ConversationReorder;
+use App\P11Element;
 
 class P11Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P11Controller extends Controller
     	$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
+		$elementData = P11Element::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
     	$initOrder = [];
     	$correctAnswer = [];
     	
