@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P10Element;
+use App\P10SentenceReorder;
 
 class P10Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P10Controller extends Controller
     	$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$data = P10Element::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();
+		$data = P10SentenceReorder::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();
 
 		$curSentenceNo = 0;
 
