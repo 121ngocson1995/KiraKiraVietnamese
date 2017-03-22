@@ -79,7 +79,7 @@
 		<table  class="table table-hover"  align="center">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			<tr>
-				<td><button autocomplete="off" class="btn-Choose btn-notChosen" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
+				<td><button autocomplete="off" class="btn-Choose btn-notChosen" disabled="true" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
 				<td><span id="sentence{{$elementData[$i]['id']}}">{{$elementData[$i]['sentence']}}</span></td>				
 			</tr>
 			@endfor
