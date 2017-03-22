@@ -116,10 +116,11 @@
 		border-bottom: solid 2px #6495ed;
 	}
 	.tryAgain {
-		padding-top: 0.5em;
-		padding-bottom: 0.5em;
-		padding-left: 1em;
-		padding-right: 1em;
+		padding-top: 0.3em;
+		padding-bottom: 0.3em;
+		padding-left: 0.8em;
+		padding-right: 0.8em;
+		border: 0.2em solid #f2f2f2;
 		border-radius: 10px;
 		background: #f2f2f2;
 		font-size: 2.5em;
@@ -127,10 +128,18 @@
 		transition: all .5s;
 	}
 	.tryAgain:hover {
+		border: 0.2em solid #bfbfbf;
 		background: #bfbfbf;
 		color: white;
 	}
-	#nextBtn {
+	.score {
+		background: initial;
+	}
+	.score:hover {
+		background: initial;
+		color: black;
+	}
+	.resultSpace {
 	    position: relative;
 	    top: 50px;
 	}
@@ -170,13 +179,21 @@
 		</div>
 		<div id="result" style="text-align: center; text-align-last: center;"></div>
 		<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
-			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion+1)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+			<div class="btn tryAgain score">
+				<span id="scoreText">Score: </span>
+				<span id="correct"></span>
+				<span id="total"></span>
+			</div>
+			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion, false)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain resultSpace" role="button" onclick="changeSentence(curQuestion+1, true)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 		</div>
 	</div>
 </div>
 
 <script>
+	var correctNo = 0;
+	var totalQuestion = 0;
+
 	window.onresize = function() {
 		$('.dropWord').each(function() {
 			rePosition($(this), $(this).data('curDrag'));
@@ -209,7 +226,9 @@
 			over: function(event, ui) {
 				var dropTarget = $(this);
 				dropInitialWidth = dropTarget.css('width');
-				dropTarget.css('width', ui.draggable.css('width'));
+				if (parseFloat(ui.draggable.css('width')) > parseFloat(dropInitialWidth)) {
+					dropTarget.css('width', ui.draggable.css('width'));
+				}
 
 				/* change position of draggable element along with drop target */
 				$('.dropWord').each(function() {
@@ -254,10 +273,14 @@
 						ui.draggable.css('background', 'initial');
 						lastDrag.removeData('curDrop');
 					}
+				} else {
+					$(ui.draggable.data('curDrop')).removeData('curDrag');
 				}
 
 				/* place draggable element at the middle of drop target */
 				var dropTarget = $(this);
+				dropTarget.css('width', ui.draggable.css('width'));
+
 				ui.draggable.position({
 					my: "center",
 					at: "center",
@@ -271,7 +294,6 @@
 				});
 
 				dropTarget.data('curDrag', ui.draggable);
-				// $(ui.draggable.data('curDrop')).removeData('curDrag');
 				ui.draggable.data('curDrop', dropTarget);
 				checkAnswer();
 
@@ -318,8 +340,10 @@
 			}
 
 			if (allCorrect == true) {
+				showScore(true);
 				showCorrect(sentence);
 			} else {
+				showScore(false);
 				showWrong();
 			}
 		}
@@ -338,6 +362,7 @@
 			$('#nextBtn').fadeIn(500);
 			document.getElementById('happy').checked = true;
 		});
+		$('.score').addClass('resultSpace');
 	}
 
 	function showWrong() {
@@ -349,6 +374,11 @@
 			$('#tryAgainBtn').fadeIn(500);
 			document.getElementById('normal').checked = true;
 		});
+	}
+
+	function showScore(isCorrect) {
+		$('#correct').html(isCorrect ? ++correctNo : correctNo);
+		$('#total').html('/' + ++totalQuestion + ' tries');
 	}
 
 	function mergeWord(correctSentence) {
@@ -393,7 +423,7 @@
 		return fixedSentence;
 	}
 
-	function changeSentence(index) {
+	function changeSentence(index, isNext) {
 		var droppable = document.getElementById('droppable');
 		emptyDiv(droppable);
 		var draggable = document.getElementById('draggable');
@@ -416,6 +446,12 @@
 			$('#draggable').fadeIn(500);
 			$('#droppable').fadeIn(500);
 			document.getElementById('normal').checked = true;
+			
+			if (isNext) {
+				correctNo = 0;
+				totalQuestion = 0;
+				$('.score').removeClass('resultSpace');
+			}
 		});
 
 		if ($('#tryAgainBtn').css('display') != 'none') {
