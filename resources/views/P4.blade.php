@@ -119,7 +119,7 @@
 	$('#btn-NextAct').click(function(){
 		window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
 	});
-</script>
+</scr                                                                                                                                                                                                                                                                                                                                                                                             
 <script src="{{ asset('js/progressbar.js') }}"></script>
 <script>
 	var docBar;
@@ -170,6 +170,10 @@
 		document.getElementById('scoreText').innerHTML = 'Score: ';
 		document.getElementById('correct').innerHTML = '0';
 		document.getElementById('total').innerHTML = '/0';
+
+		if (docBar) {
+			docBar.set(1);
+		}
 	}
 
 	function changeScore(text, to) {
