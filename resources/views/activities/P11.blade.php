@@ -74,18 +74,20 @@
 		}
 	}
 	#resultContainer {
-		position: fixed;
+		/*position: fixed;
 		top:50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);*/
 		text-align: center;
 		display: none;
+		padding-top: 10%;
 	}
 	.tryAgain {
 		padding-top: 0.3em;
 		padding-bottom: 0.3em;
 		padding-left: 0.8em;
 		padding-right: 0.8em;
+		margin: 0.2em;
 		border: 0.2em solid #f2f2f2;
 		border-radius: 10px;
 		background: #f2f2f2;
@@ -332,7 +334,7 @@
 
 	function showScore(isCorrect) {
 		$('#correct').html(isCorrect ? ++correctNo : correctNo);
-		$('#total').html('/' + ++totalQuestion + ' tries');
+		$('#total').html('/' + ++totalQuestion + (totalQuestion == 1 ? ' try' : ' tries'));
 	}
 
 	function redo() {

@@ -36,6 +36,12 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
     <style type="text/css">
+    html, #page-content-wrapper {
+        height: 100%;
+    }
+    body {
+        height: calc(100% - 65px);
+    }
     #container {
       margin: 20px;
       width: 50%;

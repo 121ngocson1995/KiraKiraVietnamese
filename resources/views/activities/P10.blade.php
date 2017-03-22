@@ -31,12 +31,13 @@
 		/*transform: translate(-50%, -50%);*/
 	}
 	#resultContainer {
-		position: fixed;
+		/*position: fixed;
 		top:50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);*/
 		text-align: center;
 		display: none;
+		padding-top: 10%;
 	}
 	html>body #sortable span {
 		padding: 6px 15px;
@@ -120,6 +121,7 @@
 		padding-bottom: 0.3em;
 		padding-left: 0.8em;
 		padding-right: 0.8em;
+		margin: 0.2em;
 		border: 0.2em solid #f2f2f2;
 		border-radius: 10px;
 		background: #f2f2f2;
@@ -165,28 +167,28 @@
 				<div class="dropWord"></div>
 			@endfor
 		</div>
-	</div>
-	<div id="resultContainer">
+</div>
+</div>
+<div id="resultContainer">
 
-		<input id="happy" type="radio" name="smiley" value="Happy">
-		<input id="normal" type="radio" name="smiley" value="Normal">
-		<div class="smiley">
-			<div class="eyes">
-				<div class="eye"></div>
-				<div class="eye"></div>
-			</div>
-			<div class="mouth"></div>
+	<input id="happy" type="radio" name="smiley" value="Happy">
+	<input id="normal" type="radio" name="smiley" value="Normal">
+	<div class="smiley">
+		<div class="eyes">
+			<div class="eye"></div>
+			<div class="eye"></div>
 		</div>
-		<div id="result" style="text-align: center; text-align-last: center;"></div>
-		<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
-			<div class="btn tryAgain score">
-				<span id="scoreText">Score: </span>
-				<span id="correct"></span>
-				<span id="total"></span>
-			</div>
-			<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion, false)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-			<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain resultSpace" role="button" onclick="changeSentence(curQuestion+1, true)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+		<div class="mouth"></div>
+	</div>
+	<div id="result" style="text-align: center; text-align-last: center;"></div>
+	<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
+		<div class="btn tryAgain score">
+			<span id="scoreText">Score: </span>
+			<span id="correct"></span>
+			<span id="total"></span>
 		</div>
+		<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion, false)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain resultSpace" role="button" onclick="changeSentence(curQuestion+1, true)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 	</div>
 </div>
 
@@ -378,7 +380,7 @@
 
 	function showScore(isCorrect) {
 		$('#correct').html(isCorrect ? ++correctNo : correctNo);
-		$('#total').html('/' + ++totalQuestion + ' tries');
+		$('#total').html('/' + ++totalQuestion + (totalQuestion == 1 ? ' try' : ' tries'));
 	}
 
 	function mergeWord(correctSentence) {
