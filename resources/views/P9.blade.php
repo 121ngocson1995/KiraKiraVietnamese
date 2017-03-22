@@ -33,14 +33,14 @@
 <script langauge="JavaScript">
 	var elementData = <?php echo json_encode($elementData); ?>;
 	var dialogCnt = <?php echo json_encode($dialogCnt); ?>;
-	var dialogNow = 1;
+	var dialogNow = 0;
 	var checkFinish = new Array();
 	var rightAnswerCnt = 0;
 	var checkQuestion = true;
 	var countdown;
 	for (var i = 0; i < dialogCnt.length; i++) {
 
-		checkFinish.push({dialogNo:(i+1), finish:false});
+		checkFinish.push({dialogNo:(i), finish:false});
 	}
 
 	function edit(elementData, dialogNow, dialogCnt){
@@ -53,6 +53,19 @@
 		editContent(elementData, dialogNow);
 		editAnswer(elementData, dialogNow);
 		editButtonGr(dialogCnt, dialogNow);
+		if(countdown)
+			countdown.stop();
+		$("#countdown").empty();
+		countdown = $("#countdown").countdown360({
+			radius      : 80,
+			seconds     : getDialogAnswer(elementData, dialogNow)*5,
+			fontColor   : '#FFFFFF',
+			autostart   : true,
+			onComplete  : function (){
+				showResult();
+			}
+		});
+		$('#btn-Next').hide();
 		$('#btn-Next').hide();
 	}
 
@@ -74,18 +87,6 @@
 			$("#countdown").empty();
 		}
 		edit(elementData, dialogNow, dialogCnt);
-		if(countdown)
-			countdown.stop();
-		$("#countdown").empty();
-		countdown = $("#countdown").countdown360({
-			radius      : 80,
-			seconds     : getDialogAnswer(elementData, dialogNow)*5,
-			fontColor   : '#FFFFFF',
-			autostart   : true,
-			onComplete  : function (){
-				showResult();
-			}
-		});
 	}
 
 	function chooseD(element){
@@ -95,6 +96,10 @@
 		var dialogSentence = new Array();
 		var questionDone;
 		
+		$("#content").show();
+		$('#result').hide();
+		$('#result').empty();
+
 		for (var i = 0; i < checkFinish.length; i++) {
 			if (checkFinish[i]['dialogNo'] == dialogNow) {
 				questionDone = checkFinish[i]['finish'];
@@ -186,7 +191,7 @@
 					var node = document.createElement("span");
 					node.setAttribute('draggable', 'true');
 					node.setAttribute('class', 'dragWord ui-state-default');
-					node.setAttribute('id', (dialogNow-1)+','+dialogAnswer[i]['lineNo']+','+j);
+					node.setAttribute('id', (dialogNow)+','+dialogAnswer[i]['lineNo']+','+j);
 					node.setAttribute('ondragstart', 'javascript: drag(event)');
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 					node.appendChild(textnode);
@@ -200,15 +205,15 @@
 		while (document.getElementById("btn-group").firstChild) {
 			document.getElementById("btn-group").removeChild(document.getElementById("btn-group").firstChild);
 		}
-		for (var i = 1; i <= dialogCnt.length; i++) {
+		for (var i = 0; i < dialogCnt.length; i++) {
 			var node = document.createElement("button");
-			var textNode = document.createTextNode('D'+i);
+			var textNode = document.createTextNode('D'+(i+1));
 			node.setAttribute('id', i);
 			node.setAttribute('type', 'button');
 			node.setAttribute('class', 'btn btn-primary');
 			node.setAttribute('onclick', 'JavaScript: chooseD(this)');
 			node.appendChild(textNode);
-			if (i > dialogNow  ) {
+			if (i != dialogNow  ) {
 				node.setAttribute('disabled', 'true');
 			}
 
@@ -315,17 +320,30 @@
 
 		for (var i = 0; i < blankBlockList.length; i++) {
 			var data = blankBlockList[i].id.split(',');
-			blankBlockList[i].innerHTML = dialogAnswer[data[0]-1]['answer'][data[1]];
+			blankBlockList[i].innerHTML = dialogAnswer[data[0]]['answer'][data[1]];
 			blankBlockList[i].setAttribute('style', 'width: auto; height: auto; background-color:#ffc2b3; display: inline-block; ')
 		}
+		for (var i = 0; i < dialogNow; i++) {
+				document.getElementById(i).removeAttribute("disabled");
+			}	
+			if (document.getElementById(parseInt(dialogNow)+1) != null) {
+				document.getElementById(parseInt(dialogNow)+1).removeAttribute("disabled");
+			}
+			
+			for (var i = 0; i < checkFinish.length; i++) {
+				if (checkFinish[i]['dialogNo'] == dialogNow) {
+					checkFinish[i]['finish'] = true;
+				}
+			}
+			$('#btn-Next').show();
 	}
 </script>
 <div id="btn-group" class="btn-group">
-	@for ($i = 1; $i <= count($dialogCnt); $i++)
+	@for ($i = 0; $i < count($dialogCnt); $i++)
 	<button id="{{$i}}" type="button" 
-	@if ($i > 1)
+	@if ($i > 0)
 	disabled="true" 
-	@endif class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i}}</button>
+	@endif class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i+1}}</button>
 	@endfor
 </div>
 <br>
@@ -335,7 +353,7 @@
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
-			if ($elementData[$i]->dialogNo == 1) {
+			if ($elementData[$i]->dialogNo == 0) {
 				array_push($dialogAnswer, $elementData[$i]);
 			}
 		}
@@ -352,7 +370,7 @@
 	<div class="row">
 		<div id="content_id" class="col-sm-10 col-md-10 col-lg-10">
 			@for ($i = 0; $i < count($elementData) ; $i++)
-			@if ($elementData[$i]->dialogNo == 1)
+			@if ($elementData[$i]->dialogNo == 0)
 			@php
 			$curLine = explode('*', $elementData[$i]->line);
 			$index = 0;
@@ -378,7 +396,7 @@
 		</div>
 	</div>
 </div>
-<button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button>
+{{-- <button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button> --}}
 <div>
 	<div id="result" style="text-align: center;"></div>
 </div>
