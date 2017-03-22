@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P10Element;
+use App\P10SentenceReorder;
 
-class P10Controller extends Controller
+class P10Element extends Controller
 {
     public function load()
     {
@@ -53,6 +53,6 @@ class P10Controller extends Controller
 			} while ( $currentOrder === $initOrder );
 		}
 
-		return view("P10", compact('elementData'));
+		return view("activities.P10", compact('elementData'));
 	}
 }

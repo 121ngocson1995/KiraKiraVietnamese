@@ -246,23 +246,17 @@
 							}
 						});
 						lastDrop.data('curDrag', lastDrag);
-						console.log('lastDrop:');
-						console.log(lastDrop);
-
-						console.log('lastDrag:');
-						console.log(lastDrag);
 						lastDrag.data('curDrop', lastDrop);
 					} else {
 						lastDrag.css('top', 0);
 						lastDrag.css('left', 0);
 						lastDrag.css('background', '#e6e6e6');
 						ui.draggable.css('background', 'initial');
-
 						lastDrag.removeData('curDrop');
 					}
 				}
 
-				/* place draggable elemtn at the middle of drop target */
+				/* place draggable element at the middle of drop target */
 				var dropTarget = $(this);
 				ui.draggable.position({
 					my: "center",
@@ -277,8 +271,6 @@
 				});
 
 				dropTarget.data('curDrag', ui.draggable);
-				// console.log('dropTarget:');
-				// console.log(dropTarget);
 				// $(ui.draggable.data('curDrop')).removeData('curDrag');
 				ui.draggable.data('curDrop', dropTarget);
 				checkAnswer();

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P11Element;
+use App\P11ConversationReorder;
 
-class P11Controller extends Controller
+class P11Element extends Controller
 {
     public function load()
     {
@@ -35,6 +35,6 @@ class P11Controller extends Controller
     		}
     	} while ( $currentOrder === $initOrder );
 
-    	return view("P11", compact(['elementData', 'correctAnswer']));
+    	return view("activities.P11", compact(['elementData', 'correctAnswer']));
     }
 }
