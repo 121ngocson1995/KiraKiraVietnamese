@@ -9,12 +9,11 @@
 		/*display: inline-block;*/
 		border-radius: 4px;
 		border: 1px solid transparent;
-		min-height: 40px;
+		height: 40px;
 		width: 75%;
 		white-space: normal;
-		padding: 0 10px;
+		/*padding: 6px 15px;*/
 		margin: 5px;
-		text-align: center;
 		background: #e6e6e6;
 		font-size: 1.5em;
 		transition: background 0.6s;
@@ -26,6 +25,8 @@
 		background: gold;
 	}
 	.dragSentence span {
+		position: relative;
+		float: left;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -142,7 +143,7 @@
 			<span id="total"></span>
 		</div>
 		<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="redo()" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="redo()" style="display: none;">Do it once more<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="redo()" style="display: none;">Redo<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 	</div>
 </div>
 
@@ -154,7 +155,6 @@
 
 	window.onresize = function() {
 		$('.dropSentence').each(function() {
-			$(this).css('height', $($(this).data('curDrag')).css('height'));
 			rePosition($(this), $(this).data('curDrag'));
 		});
 	}
@@ -190,9 +190,7 @@
 				$(this).addClass('dropPulse');
 				var dropTarget = $(this);
 				dropInitialHeight = dropTarget.css('height');
-				if (parseFloat(ui.draggable.css('height')) > parseFloat(dropInitialHeight)) {
-					dropTarget.css('height', ui.draggable.css('height'));
-				}
+				dropTarget.css('height', ui.draggable.css('height'));
 
 				/* change position of draggable element along with drop target */
 				$('.dropSentence').each(function() {
@@ -221,7 +219,7 @@
 					
 					if (ui.draggable.data('curDrop')) {
 						var lastDrop = ui.draggable.data('curDrop');
-						lastDrop.css('height', lastDrag.css('height'));
+						lastDrop.css('width', lastDrag.css('width'));
 						lastDrag.position({
 							my: "center",
 							at: "center",
@@ -239,14 +237,10 @@
 						ui.draggable.css('background', 'initial');
 						lastDrag.removeData('curDrop');
 					}
-				} else {
-					$(ui.draggable.data('curDrop')).removeData('curDrag');
 				}
 
 				/* position draggable elemtn at the middle of drop target */
 				var dropTarget = $(this);
-				dropTarget.css('height', ui.draggable.css('height'));
-
 				ui.draggable.position({
 					my: "center",
 					at: "center",
@@ -260,6 +254,7 @@
 				});
 
 				dropTarget.data('curDrag', ui.draggable);
+				// $(ui.draggable.data('curDrop')).removeData('curDrag');
 				ui.draggable.data('curDrop', dropTarget);
 				checkAnswer();
 
