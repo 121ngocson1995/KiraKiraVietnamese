@@ -8,14 +8,10 @@
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 
 <style>
-	html, #page-content-wrapper {
-		height: 100%;
-	}
 	#page-content-wrapper {
 		padding-top: 3%;
 	}
 	body {
-		height: calc(100% - 65px);
 		background: #75D1F5;
 	}
 	#result {

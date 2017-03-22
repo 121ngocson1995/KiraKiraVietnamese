@@ -35,6 +35,6 @@ class P11Controller extends Controller
     		}
     	} while ( $currentOrder === $initOrder );
 
-    	return view("P11", compact(['elementData', 'correctAnswer']));
+    	return view("activities.P11", compact(['elementData', 'correctAnswer']));
     }
 }
