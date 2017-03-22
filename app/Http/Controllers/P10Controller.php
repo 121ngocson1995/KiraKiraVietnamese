@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P10SentenceReorder;
+use App\P10Element;
 
-class P10Element extends Controller
+class P10Controller extends Controller
 {
     public function load()
     {

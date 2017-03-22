@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P11ConversationReorder;
+use App\P11Element;
 
-class P11Element extends Controller
+class P11Controller extends Controller
 {
     public function load()
     {
