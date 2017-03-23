@@ -261,7 +261,6 @@
 					rightAnswer = elementData[i]['answer'];
 				}
 			}
-			console.log(rightAnswer, answerText);
 			if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 				element.innerHTML = answerText;
 				element.setAttribute("class", "sqr");
