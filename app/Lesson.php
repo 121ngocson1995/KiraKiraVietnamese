@@ -11,7 +11,7 @@ class Lesson extends Model
 	 */
 	public function administrator_added()
 	{
-	    return $this->belongsTo('App\Administrator', 'added_by');
+	    return $this->belongsTo('App\User', 'added_by');
 	}
 
     /**
@@ -19,7 +19,7 @@ class Lesson extends Model
 	 */
 	public function administrator_last_updated()
 	{
-	    return $this->belongsTo('App\Administrator', 'last_updated_by');
+	    return $this->belongsTo('App\User', 'last_updated_by');
 	}
 
 
@@ -36,7 +36,7 @@ class Lesson extends Model
      */
     public function p1()
     {
-        return $this->hasMany('App\P1_WordMemorize');
+        return $this->hasMany('App\P1WordMemorize');
     }
 
     /**
@@ -44,7 +44,7 @@ class Lesson extends Model
      */
     public function p2()
     {
-        return $this->hasMany('App\P2_WordRecognize');
+        return $this->hasMany('App\P2WordRecognize');
     }
 
     /**
@@ -52,7 +52,7 @@ class Lesson extends Model
      */
     public function p3()
     {
-        return $this->hasMany('App\P3_SentenceMemorize');
+        return $this->hasMany('App\P3SentenceMemorize');
     }
 
     /**
@@ -60,7 +60,7 @@ class Lesson extends Model
      */
     public function p4()
     {
-        return $this->hasMany('App\P4_SentenceRecognize');
+        return $this->hasMany('App\P4SentenceRecognize');
     }
 
     /**
@@ -68,7 +68,7 @@ class Lesson extends Model
      */
     public function p5()
     {
-        return $this->hasMany('App\P5_DialogueMemorize');
+        return $this->hasMany('App\P5DialogueMemorize');
     }
 
     /**
@@ -76,7 +76,7 @@ class Lesson extends Model
      */
     public function p6()
     {
-        return $this->hasMany('App\P6_DialogueMultipleChoice');
+        return $this->hasMany('App\P6DialogueMultipleChoice');
     }
 
     /**
@@ -84,7 +84,7 @@ class Lesson extends Model
      */
     public function p7()
     {
-        return $this->hasMany('App\P7_ConversationMemorize');
+        return $this->hasMany('App\P7ConversationMemorize');
     }
 
     /**
@@ -92,7 +92,7 @@ class Lesson extends Model
      */
     public function p8()
     {
-        return $this->hasMany('App\P8_ConversationFillWord');
+        return $this->hasMany('App\P8ConversationFillWord');
     }
 
     /**
@@ -100,7 +100,7 @@ class Lesson extends Model
      */
     public function p9()
     {
-        return $this->hasMany('App\P9_ConversationFillSentence');
+        return $this->hasMany('App\P9ConversationFillSentence');
     }
 
     /**
@@ -108,7 +108,7 @@ class Lesson extends Model
      */
     public function p10()
     {
-        return $this->hasMany('App\P10_SentenceReorder');
+        return $this->hasMany('App\P10SentenceReorder');
     }
 
     /**
@@ -116,7 +116,7 @@ class Lesson extends Model
      */
     public function p11()
     {
-        return $this->hasMany('App\P11_ConversationReorder');
+        return $this->hasMany('App\P11ConversationReorder');
     }
 
     /**
@@ -124,7 +124,7 @@ class Lesson extends Model
      */
     public function p12()
     {
-        return $this->hasOne('App\P12_GroupInteraction');
+        return $this->hasOne('App\P12GroupInteraction');
     }
 
     /**
@@ -132,7 +132,7 @@ class Lesson extends Model
      */
     public function p13()
     {
-        return $this->hasOne('App\P13_Text');
+        return $this->hasOne('App\P13Text');
     }
 
     /**
@@ -140,7 +140,7 @@ class Lesson extends Model
      */
     public function p14()
     {
-        return $this->hasMany('App\P14_SentencePattern');
+        return $this->hasMany('App\P14SentencePattern');
     }
 
     /**

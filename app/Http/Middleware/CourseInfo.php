@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\File;
+use App\Lesson;
 
 class CourseInfo
 {
@@ -19,7 +20,137 @@ class CourseInfo
         /*
         ** Get course's lessons and activities for sidebar navigation
         */
-        $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
+
+        // $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
+
+        $allLessons = Lesson::where('course_id', '=', 1)->get();
+        $lessons = [];
+        foreach ($allLessons as $lesson) {
+            $currentLesson = new \stdClass;
+            $currentLesson->lessonNo = $lesson->lessonNo;
+            $currentLesson->name = $lesson->lesson_name;
+            $currentLesson->author = $lesson->author;
+
+            $activity = [];
+
+            if ($lesson->situations()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'situations';
+                $currentActivity->content = 'Situation';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p1()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p1';
+                $currentActivity->content = 'Listen to words and repeat';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p2()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p2';
+                $currentActivity->content = 'Listen and find the correct words';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p3()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p3';
+                $currentActivity->content = 'Listen to sentences and repeat';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p4()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p4';
+                $currentActivity->content = 'Listen and find the correct sentences';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p5()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p5';
+                $currentActivity->content = 'Listen to dialogues and repeat';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p6()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p6';
+                $currentActivity->content = 'Choose the correct answer';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p7()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p7';
+                $currentActivity->content = 'Practice speaking after dialogues';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p8()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p8';
+                $currentActivity->content = 'Fill in the blanks';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p9()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p9';
+                $currentActivity->content = 'Complete the dialogues';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p10()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p10';
+                $currentActivity->content = 'Arrange words in correct order';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p11()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p11';
+                $currentActivity->content = 'Arrange sentences in correct order';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p12()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p12';
+                $currentActivity->content = 'Group activity';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p13()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p13';
+                $currentActivity->content = 'Texts';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->p14()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'p14';
+                $currentActivity->content = 'Learn by heart the grammars';
+                $activity[] = $currentActivity;
+            }
+
+            if ($lesson->extensions()->exists()) {
+                $currentActivity = new \stdClass;
+                $currentActivity->name = 'extensions';
+                $currentActivity->content = 'Listen and find the correct words';
+                $activity[] = $currentActivity;
+            }
+
+
+            $currentLesson->activity = $activity;
+            $lessons[] = $currentLesson;
+        }
+
+        // dd($lessons);
         
         /*
         ** Decide if there's any lesson or activity currently active
@@ -31,7 +162,7 @@ class CourseInfo
         if (count($uri) > 1 && strpos($uri[count($uri) - 2], 'lesson') === 0) {
             $lessonNo = $uri[count($uri) - 2];
         }
-        if (count($uri) > 0 && (strpos($uri[count($uri) - 1], 'P') === 0 || strpos($uri[count($uri) - 1], 'Situation') === 0) ) {
+        if (count($uri) > 0 && (strpos($uri[count($uri) - 1], 'p') === 0 || strpos($uri[count($uri) - 1], 'situation') === 0 || strpos($uri[count($uri) - 1], 'extension') === 0) ) {
             $activity = $uri[count($uri) - 1];
         }
         $request->attributes->add(['lessons' => $lessons, 'lessonNo' => $lessonNo, 'activity' => $activity]);

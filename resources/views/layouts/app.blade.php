@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
@@ -252,6 +252,9 @@
         font-weight: 500;
         padding-left: 8px;
     }
+    @media screen and (max-width: 767px) {
+        white-space: normal;
+    }
 
     .sidenav .closebtn {
         font-size: 30px;
@@ -369,11 +372,11 @@
         border-left: 4px solid greenyellow;
         color: greenyellow;
     }
-    .sidenav .side_menu div a.expandLesson {
+    .sidenav .side_menu div a.expandLesson ~ a {
         position: absolute;
         left: 150px;
     }
-    .sidenav .side_menu a.expandLesson:hover {
+    .sidenav .side_menu a.expandLesson ~ a:hover {
         color: greenyellow;
         padding-left: 7px;
     }
@@ -531,8 +534,7 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active navbtn" role="presentation"><a href="/">Home</a></li>
-                    <li role="presentation" class="navbtn"><a href="/about">About</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">Lessons</a></li>
+                    <li role="presentation" class="navbtn"><a href="/about">Lessons</a></li>
                     <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
@@ -569,7 +571,7 @@
 
             @foreach (\Request::get('lessons') as $lesson)
                 <div>
-                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson">Lesson {{ $lesson->lessonNo }}</a><a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson expandLesson">Lesson {{ $lesson->lessonNo }}: {{ $lesson->name }}</a>{{-- <a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a> --}}
                 </div>
             @endforeach
 
@@ -595,6 +597,10 @@
     </div>
 
     <script>
+        window.onresize = function() {
+            $('.activity_holder div').css('width', '100%');
+        }
+
         var lessonNo = <?php echo json_encode(\Request::get('lessonNo')); ?>;
         var activity = <?php echo json_encode(\Request::get('activity')); ?>;
 

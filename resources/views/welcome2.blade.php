@@ -2,6 +2,38 @@
 
 @section('content')
 
+<style>
+    .row.wehave {
+        display: flex;
+        align-items: center;
+    }
+    .row.wehave h3 {
+        font-size: 2.5em;
+    }
+    .row.wehave p {
+        font-size: 1.5em;
+    }
+    .row.introduction {
+        display: flex;
+        align-items: center;
+    }
+    .teacher_img img {
+        width: 600px;
+        max-width: 100%;
+        text-align: center;
+    }
+    @media screen and (max-width: 991px) {
+        .row.wehave {
+            display: block;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .row.introduction {
+            display: block;
+        }
+    }
+</style>
+
 <div id="promo">
     <div class="jumbotron hero">
         <div class="container">

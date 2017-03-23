@@ -25,7 +25,7 @@ class ExtendController extends Controller
 			{
 				$titleArr[] = $key->title;
 			} 
-			return view("Extend", compact(['elementData', 'contentArr','titleArr', 'cnt'])); 
+			return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'cnt'])); 
 
 		} else {
 			return view("activities.Extend", compact(['elementData']));
