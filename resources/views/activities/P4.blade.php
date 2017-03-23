@@ -29,7 +29,13 @@
 		color: red;
 		font-size: 2em;
 	}
-
+	.table_content{
+		position: relative;
+		width: auto;
+		margin-bottom: 22px;
+		left: 25%;
+		padding: 20px;
+	}
 </style>
 <hr>
 
@@ -75,8 +81,8 @@
 	<div id="container" style="display: inline-block;"></div>
 </div>
 <div class="row">
-	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
-		<table  class="table table-hover"  align="center">
+	<div  class="col-sm-9 col-md-6 col-lg-8">
+		<table id="content_id" class="table table-hover table_content "  align="center">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			<tr>
 				<td><button autocomplete="off" class="btn-Choose btn-notChosen" disabled="true" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
@@ -84,9 +90,7 @@
 			</tr>
 			@endfor
 		</table>
-	</div>
-	<div class="col-sm-3 col-md-6 col-lg-4">
-		<div style="text-align: center;">
+		<div style="text-align: center; position: relative;	text-align: center;	left: 25%;">
 			<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
 			<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
 			<span id="timer" style="font-size: 70px"></span>
@@ -94,20 +98,19 @@
 			<div id="sampleGroup"></div>
 			<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
 		</div>
-
 		<div id="result" style="text-align: center; display: none;">
 			<span id="scoreText">Score: </span>
 			<span id="correct"></span>
 			<span id="total"></span>
 		</div>
 	</div>
+	
+
+	<div class="col-sm-3 col-md-6 col-lg-4"></div>
 </div>
 <div id="audio_content"></div>
-<div class="row">
-	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
-	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
-</div>
-</div>                                                                                                                                                                                                                                                                                                                                                                                           
+
+
 <script src="{{ asset('js/progressbar.js') }}"></script>
 <script>
 	var docBar;
@@ -211,8 +214,8 @@
 		var scoreText = $('#scoreText');
 		tlFinalScore = new TimelineMax();
 		tlFinalScore.to(scoreText, 2, {text:"Final score: "})
-		  .to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
-		  .to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
+		.to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
+		.to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
 		$("#btnRestart").prop("disabled", false);
 		$("#btnRestart").show();
 		$('#btn-NextAct').show();
