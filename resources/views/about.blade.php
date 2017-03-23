@@ -69,7 +69,49 @@
                         <div class="panel-collapse collapse in item-{{$i+1}}" role="tabpanel">
                             <div class="panel-body">
                                 <span> {{$descripArr[$i]}} </span>
+                                <div class="row">
+                                <div class="col-md-12 btn-group">
+                                    <div class="btn-group" role="group">
+                                        @php
+                                            $j = 1;
+                                        @endphp
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/situations') }}" style="color: white; text-decoration: none;">Situation</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p1') }}" style="color: white; text-decoration: none;">P1</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p2') }}" style="color: white; text-decoration: none;">P2</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p3') }}" style="color: white; text-decoration: none;">P3</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p4') }}" style="color: white; text-decoration: none;">P4</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p5') }}" style="color: white; text-decoration: none;">P5</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p6') }}" style="color: white; text-decoration: none;">P6</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p7') }}" style="color: white; text-decoration: none;">P7</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p8') }}" style="color: white; text-decoration: none;">P8</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p9') }}" style="color: white; text-decoration: none;">P9</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p10') }}" style = "color: white; text-decoration: none;">P10</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p11') }}" style = "color: white; text-decoration: none;"  >P11</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p12') }}" style = "color: white; text-decoration: none;"  >P12</a></button>
+                                        
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p13') }}" style = "color: white; text-decoration: none;"  >P13</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/p14') }}" style = "color: white; text-decoration: none;"  >P14</a></button>
+
+                                        <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/extensions') }}" style = "color: white; text-decoration: none;"  >Extension</a></button>
+
+                                    </div>
+                                </div>
+                                </div>
                             </div>
+                            
                         </div>                   
                     </div>
                 @endfor 
