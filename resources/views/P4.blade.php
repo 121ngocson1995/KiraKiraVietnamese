@@ -124,6 +124,7 @@
 <script>
 	var docBar;
 	var playingSample = -1;
+	var tlFinalScore;
 
 	function chooseWord(button) {
 		if ('audio' + $(button).attr("id") == playingSample) {
@@ -150,6 +151,10 @@
 
 	function start() {
 		chooseIndex = 0;
+		if(tlFinalScore) {
+			tlFinalScore.seek(0).pause();
+		}
+
 
 		$("#content_id").find("button").prop("disabled", false);
 		$("#content_id").find("span").removeClass("wrongWord").removeClass("correctWord").addClass("notChosen");
@@ -215,13 +220,13 @@
 
 		$(".notChosen").removeClass("notChosen").addClass("wrongWord");
 		$("#content_id").find("button").prop("disabled", true);
+		var scoreText = $('#scoreText');
+		tlFinalScore = new TimelineMax();
+		tlFinalScore.to(scoreText, 2, {text:"Final score: "})
+		  .to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
+		  .to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
 		$("#btnRestart").prop("disabled", false);
 		$("#btnRestart").show();
-		var scoreText = $('#scoreText');
-		var tl = new TimelineMax();
-		tl.to(scoreText, 2, {text:"Final score: "})
-		.to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
-		.to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
 		$('#btn-NextAct').show();
 	}
 </script>

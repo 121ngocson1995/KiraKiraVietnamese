@@ -204,11 +204,13 @@
 				var node = document.createElement("button");
 				var textNode = document.createTextNode('D'+(i+1));
 				node.setAttribute('id', i);
+				node.setAttribute('autocomplete', 'off');
 				node.setAttribute('type', 'button');
 				node.setAttribute('class', 'btn btn-primary');
 				node.appendChild(textNode);
 				if (i != dialogNow  ) {
 					node.setAttribute('disabled', 'true');
+					node.setAttribute('onclick', 'JavaScript: chooseD(this)');
 				}
 
 				document.getElementById("btn-group").appendChild(node);
@@ -261,6 +263,7 @@
 					rightAnswer = elementData[i]['answer'];
 				}
 			}
+			console.log(rightAnswer, answerText);
 			if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 				element.innerHTML = answerText;
 				element.setAttribute("class", "sqr");
@@ -340,7 +343,7 @@
 		<button id="{{$i}}" type="button" 
 		@if ($i > 0)
 		disabled="true" 
-		@endif class="btn btn-primary" >D{{$i+1}}</button>
+		@endif class="btn btn-primary" autocomplete="off" >D{{$i+1}}</button>
 		@endfor
 	</div>
 	<br>
