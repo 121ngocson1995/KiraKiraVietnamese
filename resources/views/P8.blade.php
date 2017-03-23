@@ -321,8 +321,10 @@
 			for (var i = 0; i < dialogNow; i++) {
 				document.getElementById(i).removeAttribute("disabled");
 			}	
+			document.getElementById(dialogNow).setAttribute("onclick", "JavaScript: chooseD(this)");
 			if (document.getElementById(parseInt(dialogNow)+1) != null) {
 				document.getElementById(parseInt(dialogNow)+1).removeAttribute("disabled");
+				document.getElementById(parseInt(dialogNow)+1).setAttribute("onclick", "JavaScript: chooseD(this)");
 			}
 			
 			for (var i = 0; i < checkFinish.length; i++) {
@@ -330,6 +332,7 @@
 					checkFinish[i]['finish'] = true;
 				}
 			}
+			$("#answer_id").find("span").removeAttr("draggable");
 			$('#btn-Next').show();
 		}
 	</script> 
@@ -339,7 +342,7 @@
 		<button id="{{$i}}" type="button" 
 		@if ($i > 0)
 		disabled="true" 
-		@endif class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i+1}}</button>
+		@endif class="btn btn-primary" >D{{$i+1}}</button>
 		@endfor
 	</div>
 	<br>
@@ -391,7 +394,7 @@
 			</div>
 		</div>
 	</div>
-	<button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button>
+	{{-- <button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button> --}}
 	<div>
 		<div id="result" style="text-align: center;"></div>
 	</div>
