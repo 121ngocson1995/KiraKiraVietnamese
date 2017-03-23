@@ -89,5 +89,17 @@
 <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
     @yield('actContent')
 </div>
+<div id="btn-NextAct">
+	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
+	<span id="locationNext"></span>
+</div>
+<script type="text/javascript">
+	var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
+	$('#locationNext').html(nextAct['name']);
+	$('#btn-NextAct').hide();
+	$('#btn-NextAct').click(function(){
+		window.location.href="/"+nextAct['link']; 
+	});
+</script>  
 
 @stop

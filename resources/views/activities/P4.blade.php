@@ -107,19 +107,7 @@
 	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
 	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
 </div>
-</div>
-<div id="btn-NextAct">
-	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
-	<span id="locationNext"></span>
-</div>
-<script type="text/javascript">
-	var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
-	$('#locationNext').html(nextAct['name']);
-	$('#btn-NextAct').hide();
-	$('#btn-NextAct').click(function(){
-		window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
-	});
-</scr                                                                                                                                                                                                                                                                                                                                                                                             
+</div>                                                                                                                                                                                                                                                                                                                                                                                           
 <script src="{{ asset('js/progressbar.js') }}"></script>
 <script>
 	var docBar;

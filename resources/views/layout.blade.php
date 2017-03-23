@@ -2,11 +2,10 @@
 
 @section('content')
 
-    @yield('title')
+@yield('title')
 
-    @yield('navigation')
+@yield('navigation')
 
-    @yield('content1')
+@yield('content1')
 
-    @yield('next-btn')
 @stop
