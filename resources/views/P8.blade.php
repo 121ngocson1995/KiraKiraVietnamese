@@ -206,7 +206,6 @@
 				node.setAttribute('id', i);
 				node.setAttribute('type', 'button');
 				node.setAttribute('class', 'btn btn-primary');
-				node.setAttribute('onclick', 'JavaScript: chooseD(this)');
 				node.appendChild(textNode);
 				if (i != dialogNow  ) {
 					node.setAttribute('disabled', 'true');
