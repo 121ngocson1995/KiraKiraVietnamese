@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P13Element;
+use App\P13Text;
 
 class P13Controller extends Controller
 {
@@ -14,13 +14,13 @@ class P13Controller extends Controller
 		$lesson_id= 1;
 
     	// Lấy dữ liệu từ db
-    	$elementData = P13Element::where('lesson_id', '=', $lesson_id)->get();
+    	$elementData = P13Text::where('lesson_id', '=', $lesson_id)->get();
 
     	foreach ($elementData as $value) 
     	{
     		$noteArr = explode("|", $value->note);
     	} 
 
-    	return view("P13", compact(['elementData', 'noteArr'])); 
+    	return view("activities.P13", compact(['elementData', 'noteArr'])); 
     }
 }

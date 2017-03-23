@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P7Element;
+use App\P7ConversationMemorize;
 
 class P7Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P7Controller extends Controller
 		$lesson_id= 1;
 
     		// Lấy dữ liệu từ db
-		$elementData = P7Element::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
+		$elementData = P7ConversationMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
 		$dialogCnt = array();
 		$contentArr = array();
@@ -41,6 +41,6 @@ class P7Controller extends Controller
 				}
 			}
 		}
-		return view("P7", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
+		return view("activities.P7", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 }

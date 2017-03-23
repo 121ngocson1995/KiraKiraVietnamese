@@ -28,7 +28,7 @@ class ExtendController extends Controller
 			return view("Extend", compact(['elementData', 'contentArr','titleArr', 'cnt'])); 
 
 		} else {
-			return view("Extend", compact(['elementData']));
+			return view("activities.Extend", compact(['elementData']));
 		}
 	}
 }

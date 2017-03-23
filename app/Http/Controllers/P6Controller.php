@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P6Element;
+use App\P6DialogueMultipleChoice;
 
 class P6Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P6Controller extends Controller
     	$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = P6Element::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = P6DialogueMultipleChoice::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 
 		$all = [];

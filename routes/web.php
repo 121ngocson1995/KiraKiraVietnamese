@@ -46,8 +46,12 @@ Route::get('/lesson1/P11', 'P11Controller@load');
 Route::get('/lesson1/P12', 'P12Controller@load');
 Route::get('/lesson1/P13', 'P13Controller@load');
 Route::get('/lesson1/P14', 'P14Controller@load');
-Route::get('/lesson1/Expansion', 'ExtendController@load');
-Route::get('/lesson1/Situation', 'SituController@load');
+Route::get('/lesson1/extension', 'ExtendController@load');
+Route::get('/lesson1/situation', 'SituController@load');
+Route::get('/act', function () {
+	return view('activities.layout.activityLayout');
+});
+
 /*
 |--------------------------------------------------------------------------
 | End dummy routes

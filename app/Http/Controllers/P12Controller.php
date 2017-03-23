@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P12Element;
+use App\P12GroupInteraction;
 
 class P12Controller extends Controller
 {
@@ -14,8 +14,7 @@ class P12Controller extends Controller
 		$lesson_id= 1;
 
     	// Lấy dữ liệu từ db
-    	$elementData = P12Element::where('lesson_id', '=', $lesson_id)->get();
-    	dd($elementData);
-    	return view("P12", compact('elementData')); 
+    	$elementData = P12GroupInteraction::where('lesson_id', '=', $lesson_id)->get();
+    	return view("activities.P12", compact('elementData')); 
     }
 }

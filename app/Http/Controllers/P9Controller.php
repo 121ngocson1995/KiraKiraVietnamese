@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P9Element;
+use App\P9ConversationFillSentence;
 
 class P9Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P9Controller extends Controller
 		$lesson_id= 1;
 
     		// Lấy dữ liệu từ db
-		$elementData = P9Element::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = P9ConversationFillSentence::where('lesson_id', '=', $lesson_id)->get();
 		$dialogCnt = array();
 		$cnt = count($elementData);
 		if ($cnt != 0){
@@ -31,9 +31,9 @@ class P9Controller extends Controller
 
 				$elementData[$i]->answer = explode(',', $elementData[$i]->answer);
 			}
-			return view("P9", compact(['elementData', 'lessons', 'dialogCnt'])); 
+			return view("activities.P9", compact(['elementData', 'lessons', 'dialogCnt'])); 
 		} else {
-			return view("P9", compact(['elementData', 'lessons']));
+			return view("activities.P9", compact(['elementData', 'lessons']));
 		}
 	}
 }

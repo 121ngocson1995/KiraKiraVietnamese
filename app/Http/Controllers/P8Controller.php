@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P8Element;
+use App\P8ConversationFillWord;
 
 class P8Controller extends Controller
 {	
@@ -14,7 +14,7 @@ class P8Controller extends Controller
 		$lesson_id= 1;
 
     		// Lấy dữ liệu từ db
-		$elementData = P8Element::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
         $dialogCnt = array();
         $answerArrs = array();
@@ -33,9 +33,9 @@ class P8Controller extends Controller
 
                 $elementData[$i]->answer = explode(',', $elementData[$i]->answer);
             }
-            return view("P8", compact(['elementData', 'dialogCnt'])); 
+            return view("activities.P8", compact(['elementData', 'dialogCnt'])); 
         } else {
-            return view("P8", compact(['elementData', 'dialogCnt']));
+            return view("activities.P8", compact(['elementData', 'dialogCnt']));
         }
     }
 

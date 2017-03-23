@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P14Element;
+use App\P14SentencePattern;
 
 class P14Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P14Controller extends Controller
         $lesson_id= 1;
 
         // Lấy dữ liệu từ db
-        $elementData = P14Element::where('lesson_id', '=', $lesson_id)->get();
+        $elementData = P14SentencePattern::where('lesson_id', '=', $lesson_id)->get();
         $cnt = count($elementData);
         $nounArr = array();
         $clauseArr = array();
@@ -30,12 +30,9 @@ class P14Controller extends Controller
                 // $nounArr[$i] = $clauseArr[$i][1];
             }
 
-            return view("P14", compact(['elementData', 'open', 'nounArr', 'close', 'cnt'])); 
+            return view("activities.P14", compact(['elementData', 'open', 'nounArr', 'close', 'cnt'])); 
         } else {
-            return view("P14", compact('elementData'));
+            return view("activities.P14", compact('elementData'));
         }
-
-        
-        
     }
 }

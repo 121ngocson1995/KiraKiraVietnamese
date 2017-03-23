@@ -28,13 +28,13 @@ class CreateLessonsTable extends Migration
             $table->integer('added_by')->unsigned();
             $table->foreign('added_by')
                 ->references('id')
-                ->on('administrators')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('last_updated_by')->unsigned();
             $table->foreign('last_updated_by')
                 ->references('id')
-                ->on('administrators')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P1Element;
+use App\P1WordMemorize;
 
 
 class P1Controller extends Controller
@@ -15,16 +15,16 @@ class P1Controller extends Controller
 		$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = P1Element::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = P1WordMemorize::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 		$firstLineNumber;
 
 		if ($cnt != 0)
 		{
 			$firstLineNumber = $elementData[0]->lineNo;
-			return view("P1ani", compact(['elementData', 'firstLineNumber']));
+			return view("activities.P1ani", compact(['elementData', 'firstLineNumber']));
 		} else {
-			return view("P1ani", compact('elementData'));
+			return view("activities.P1ani", compact('elementData'));
 		}
 	}
 	

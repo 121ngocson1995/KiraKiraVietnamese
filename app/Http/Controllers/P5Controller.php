@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\P5Element;
+use App\P5DialogueMemorize;
 
 class P5Controller extends Controller
 {
@@ -14,7 +14,7 @@ class P5Controller extends Controller
 		$lesson_id= 1;
 
     		// Lấy dữ liệu từ db
-		$elementData = P5Element::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
+		$elementData = P5DialogueMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
 		for ($i=0; $i<$cnt; $i++){
 			$contentArr[$i] = explode( "|", $elementData[$i]->dialog);
@@ -22,6 +22,6 @@ class P5Controller extends Controller
 		for ($i=0; $i<$cnt; $i++){
 			$audioArr[$i] = $elementData[$i]->audio;
 		}
-		return view("P5", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
+		return view("activities.P5", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
 	}  
 }
