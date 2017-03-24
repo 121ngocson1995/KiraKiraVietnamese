@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('/about', 'AboutController@load');
+Route::get('/lessons', 'AboutController@load');
 
 /*
 |--------------------------------------------------------------------------

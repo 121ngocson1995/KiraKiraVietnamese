@@ -209,12 +209,12 @@
 			var node = document.createElement("button");
 			var textNode = document.createTextNode('D'+(i+1));
 			node.setAttribute('id', i);
-			node.setAttribute('autocomplete', 'off');
 			node.setAttribute('type', 'button');
 			node.setAttribute('class', 'btn btn-primary');
+			node.setAttribute('onclick', 'JavaScript: chooseD(this)');
+			node.appendChild(textNode);
 			if (i != dialogNow  ) {
 				node.setAttribute('disabled', 'true');
-					node.setAttribute('onclick', 'JavaScript: chooseD(this)');
 			}
 
 			document.getElementById("btn-group").appendChild(node);
@@ -340,7 +340,7 @@
 </script>
 <div id="btn-group" class="btn-group">
 	@for ($i = 0; $i < count($dialogCnt); $i++)
-	<button id="{{$i}}" autocomplete="off" type="button" 
+	<button id="{{$i}}" type="button" 
 	@if ($i > 0)
 	disabled="true" 
 	@endif class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i+1}}</button>

@@ -1,11 +1,8 @@
-@extends('layouts.app')
+@extends('activities.layout.activityLayout')
 
-@section('content')
+@section('actContent')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 
 <style>
 	#page-content-wrapper {
@@ -13,6 +10,33 @@
 	}
 	body {
 		background: #75D1F5;
+	}
+	#btnStart, #btnRestart {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		z-index: 1;
+	}
+	#btnStart p, #btnRestart p {
+		position: absolute;
+		color: #33ccff;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1;
+	}
+	.flexContainer p {
+		position: absolute;
+		width: 100%;
+		color: #33ccff;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 1;
+	}
+	#startBtn, #restartBtn {
+	    width: 400px;
+	    max-width: 40%;
+		margin: auto;
 	}
 	#result {
 		font-weight: 300;
@@ -56,6 +80,7 @@
 		padding-top: 20px;
 	}
 	.wordSpan {
+		opacity: 0;
 		cursor: pointer;
 	}
 	.wordSpan:hover {
@@ -90,9 +115,11 @@
 <div id="wordGroup" class="" style="text-align: center; padding-bottom: 20px;">
 	@foreach ($textRender as $text)
 		<div class="wordSpan" style="display: inline-block;">
-			<p id="{{ $text['id'] }}" class="tbn word" style="position: absolute; color: #30A782; opacity: 0; font-size: 1.5em;">{{ $text['word'] }}</p>
-			<div class="btnBg">
-				<img class="wordCloud" style="width: 100%; height: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/wordCloud.svg') }}" alt="start button">
+			<div class="flexContainer" style="display: flex">
+				<p id="{{ $text['id'] }}" class="tbn word" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['word'] }}</p>
+				<div class="btnBg">
+					<img class="wordCloud" style="width: 100%; max-width: 150px;" src="{{ asset('img/testAnimate/wordCloud.svg') }}" alt="start button">
+				</div>
 			</div>
 		</div>
 	@endforeach
@@ -100,13 +127,13 @@
 
 <div id="controlBtn" style="text-align: center;">
 	<div id="btnStart">
-		<p id="pStart" style="position: absolute; color: #33ccff; display: none; z-index: 1"><i class="fa fa-play fa-4x"></i></p>
+		<p id="pStart" style="display: none;"><i class="fa fa-play fa-4x"></i></p>
 		<div id="startBtn" class="btnBg">
 			<img id="imgStart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
 		</div>
 	</div>
 	<div id="btnRestart" style="display: none;">
-		<p id="pRestart" style="position: absolute; color: #33ccff; z-index: 1"><i class="fa fa-refresh fa-4x"></i></p>
+		<p id="pRestart"><i class="fa fa-refresh fa-4x"></i></p>
 		<div id="restartBtn" class="btnBg">
 			<img id="imgRestart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower2.svg') }}" alt="restart button">
 		</div>
@@ -134,11 +161,6 @@
 	}, 2000);
 
 	imagesLoaded( document.getElementById('imgStart'), function() {
-		$('#pStart').position({
-			my: "center",
-			at: "center",
-			of: $('#startBtn')
-		});
 		$('#pStart').show();
 		var tl = new TimelineMax();
 		tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
@@ -147,32 +169,8 @@
 	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
-	$('.wordCloud').each(function() {
-		var word = $(this).get();
-		imagesLoaded( word, function() {
-			var p = $(word).parent().parent().find('p')[0];
-			$(p).position({
-				my: "center",
-				at: "center",
-				of: $(word)
-			});
-			$(p).css('opacity', 1);
-		});
-	});
-	TweenMax.staggerFrom('.wordSpan', 0.5, {opacity:0, scale:0, delay:0.5}, 0.2);
-
-	window.onresize = function() {
-		$('#pStart').position({
-			my: "center",
-			at: "center",
-			of: $('#startBtn')
-		});
-		$('#pRestart').position({
-			my: "center",
-			at: "center",
-			of: $('#restartBtn')
-		});
-	}
+	TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
+	TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
 
 	$('#pStart').click(function() {
 		start();
@@ -293,13 +291,8 @@
 		$("#btnRestart").prop("disabled", false);
 		$("#btnRestart").show();
 
-		$('#pRestart').position({
-			my: "center",
-			at: "center",
-			of: $('#restartBtn')
-		});
 		var tl = new TimelineMax();
-		tl.to('#imgRestart', 30, {rotation:-371.8181818, repeat:-1, ease: Power0.easeNone});
+		tl.to('#imgRestart', 30, {rotation:-720, repeat:-1, ease: Power2.easeInOut, yoyo:true});
 		var scoreText = $('#scoreText');
 		tlFinalScore = new TimelineMax();
 		tlFinalScore.to(scoreText, 2, {text:"Final score: "})

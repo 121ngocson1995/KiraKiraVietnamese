@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('activities.layout.activityLayout')
 
-@section('title')
+@section('actContent')
 <link href='//fonts.googleapis.com/css?family=Dekko' rel='stylesheet'>
 <link href='//fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
 <style>
@@ -28,9 +28,7 @@
 	<h1>Ghi nhớ các mẫu câu sau</h1>
 </div>
 <hr>
-@stop
 
-@section('content1')
 <body class='wallpaper'>
 {{-- <table align="center" class="content">
 

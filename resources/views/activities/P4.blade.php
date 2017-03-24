@@ -1,19 +1,19 @@
-		@extends('layout')
+@extends('activities.layout.activityLayout')
 
-		@section('title')
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
-		<h1 style="font-size: 400%" align="center">- Bài 4: Nghe và tìm câu đúng</h1>
-		<style type="text/css">
-			.btn-Choose{
-				border: 1px solid #0e0101;
-				border-radius: 100%;
-				width: 20px;
-				height: 20px;
-				background-color: #e88b8b;
-			}
+@section('actContent')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
+<h1 style="font-size: 400%" align="center">- Bài 4: Nghe và tìm câu đúng</h1>
+<style type="text/css">
+	.btn-Choose{
+		border: 1px solid #0e0101;
+		border-radius: 100%;
+		width: 20px;
+		height: 20px;
+		background-color: #e88b8b;
+	}
 
-			body {
+	body {
 
 		/*background: url(http://localhost:8000/img/testAnimate/p2bg.svg) no-repeat center bottom fixed;
 		background-size: cover;*/
@@ -29,13 +29,7 @@
 		color: red;
 		font-size: 2em;
 	}
-	.table_content{
-		position: relative;
-		width: auto;
-		margin-bottom: 22px;
-		left: 25%;
-		padding: 20px;
-	}
+
 </style>
 <hr>
 
@@ -74,15 +68,13 @@
 	// }
 
 </script>
-@stop
 
-@section('content1')
 <div style="text-align: center; height: 70px">
 	<div id="container" style="display: inline-block;"></div>
 </div>
 <div class="row">
-	<div  class="col-sm-9 col-md-6 col-lg-8">
-		<table id="content_id" class="table table-hover table_content "  align="center">
+	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
+		<table  class="table table-hover"  align="center">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			<tr>
 				<td><button autocomplete="off" class="btn-Choose btn-notChosen" disabled="true" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
@@ -90,7 +82,9 @@
 			</tr>
 			@endfor
 		</table>
-		<div style="text-align: center; position: relative;	text-align: center;	left: 25%;">
+	</div>
+	<div class="col-sm-3 col-md-6 col-lg-4">
+		<div style="text-align: center;">
 			<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
 			<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
 			<span id="timer" style="font-size: 70px"></span>
@@ -98,19 +92,20 @@
 			<div id="sampleGroup"></div>
 			<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
 		</div>
+
 		<div id="result" style="text-align: center; display: none;">
 			<span id="scoreText">Score: </span>
 			<span id="correct"></span>
 			<span id="total"></span>
 		</div>
 	</div>
-	
-
-	<div class="col-sm-3 col-md-6 col-lg-4"></div>
 </div>
 <div id="audio_content"></div>
-
-
+<div class="row">
+	<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
+	<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
+</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                           
 <script src="{{ asset('js/progressbar.js') }}"></script>
 <script>
 	var docBar;

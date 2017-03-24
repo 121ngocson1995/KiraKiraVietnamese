@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <script src="https://use.fontawesome.com/45e03a14ce.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
@@ -207,8 +208,27 @@
     .header_bar {
         border-radius: 0;
     }
-    .header_bar .navbar-brand {
-        height: 70px;
+    .navbar-brand.title {
+        display: none;
+    }
+    @media screen and (min-width: 768px) {
+        .navbar-header {
+            max-width: calc(100% - 250px);
+            overflow-x: hidden;
+        }
+        .navbar-brand {
+            /*height: 70px;*/
+            /*width: 90%;*/
+            overflow-x: visible;
+            white-space: nowrap;
+        }
+    }
+    @media screen and (max-width: 761px) {
+        .navbar-brand {
+            max-width: calc(100% - 100px);
+            overflow-x: hidden;
+            white-space: nowrap;
+        }
     }
     .header_bar main {
         margin-top: 0px;
@@ -515,6 +535,8 @@
         bottom: 2px;
         -webkit-transition: all .35s ease-in-out;
     }
+
+    @yield('header')
 </style>
 </head>
 <body>
@@ -533,19 +555,19 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active navbtn" role="presentation"><a href="/">Home</a></li>
-                    <li role="presentation" class="navbtn"><a href="/about">Lessons</a></li>
-                    <li role="presentation" class="navbtn"><a href="#">Guide</a></li>
+                    <li role="presentation" class="{{ strcmp(\Request::path(), '/') == 0 ? 'active' : '' }} navbtn"><a href="/">Home</a></li>
+                    <li role="presentation" class="{{ strcmp(\Request::path(), 'lessons') == 0 ? 'active' : '' }} navbtn"><a href="/lessons">Lessons</a></li>
+                    {{-- <li role="presentation" class="{{ strcmp(\Request::path(), '/') == 0 ? 'active' }} navbtn"><a href="#">Guide</a></li> --}}
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li role="presentation" class="navbtn"><a href="{{ url('/login') }}">Login</a></li>
-                        <li role="presentation" class="navbtn"><a href="{{ url('/register') }}">Register</a></li>
+                        <li role="presentation" class="{{ strcmp(\Request::path(), 'login') == 0 ? 'active' : '' }} navbtn"><a href="{{ url('/login') }}">Login</a></li>
+                        <li role="presentation" class="{{ strcmp(\Request::path(), 'register') == 0 ? 'active' : '' }} navbtn"><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> <span class="caret"></span><img src="{{ asset('img/avatar_2x.png') }}" class="dropdown-image"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                 <li role="presentation"><a href="#">Settings</a></li>
-                                <li role="presentation"><a href="#">Payments</a></li>
+                                {{-- <li role="presentation"><a href="#">Payments</a></li> --}}
                                 <li role="presentation" class="active"><a href="{{ url('/logout') }}" 
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Logout</a></li>
@@ -583,18 +605,11 @@
 
     </div>
 
-    @yield('body')
     <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
-        @yield('content')
-        <div class="tooltip" style="display: none;">
-            <a>
-                <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
-            </a>
-            <span class="tooltiptext">
-                @yield('description')
-            </span>
-        </div>
+        @yield('body')
     </div>
+
+    @yield('extension')
 
     <script>
         window.onresize = function() {
