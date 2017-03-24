@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('activities.layout.activityLayout')
 
-@section('title')
+@section('actContent')
 <h1 style="font-size: 300%" align="center">Situations Page</h1>
 <style>
 	.img {
@@ -49,9 +49,7 @@
 		document.getElementById("thumbnail").setAttribute('src', '{{ URL::asset('') }}' + path + '?' + new Date().getTime());
 	}
 </script>
-@stop
 
-@section('content1')
 <div style="margin: 10px; text-align: center;">
 	<div class="btn-group">
 		@for ($i = 1; $i <= $cnt; $i++)

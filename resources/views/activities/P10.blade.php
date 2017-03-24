@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('activities.layout.activityLayout')
 
-@section('content')
+@section('actContent')
+
 <link rel="stylesheet" href="{{ asset('css/smiley.css') }}">
 <style>
 	.fullscreenDiv {
@@ -37,7 +38,7 @@
 		transform: translate(-50%, -50%);*/
 		text-align: center;
 		display: none;
-		padding-top: 10%;
+		padding-top: 5%;
 	}
 	html>body #sortable span {
 		padding: 6px 15px;

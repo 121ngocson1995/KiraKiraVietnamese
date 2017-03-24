@@ -1,7 +1,7 @@
-@extends('layout')
+@extends('activities.layout.activityLayout')
 
-@section('title')
-<h1 style="font-size: 400%" align="center">- Bài 7: Nghe và nhắc lại bài hội thoại</h1>
+@section('actContent')
+
 <style type="text/css">
 	.dialogDiv{
 		display: inline-block;
@@ -260,9 +260,6 @@
 </script>
 <script src="{{ asset('js/recorder.js') }}"></script>
 
-@stop
-
-@section('content1')
 <div id="btn-NextAct">
 	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
 	<span id="locationNext"></span>

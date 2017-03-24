@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('activities.layout.activityLayout')
 
-@section('content')
+@section('actContent')
 
 <div class="col-md-6 col-lg-6" style="text-align: center; vertical-align: middle; float: right; height: 85vh">
 	<div>

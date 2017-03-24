@@ -22,6 +22,7 @@ class CreateSituationsTable extends Migration
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->string('thumbnail');
             $table->text('dialog');
             $table->string('audio');
             $table->timestamps();

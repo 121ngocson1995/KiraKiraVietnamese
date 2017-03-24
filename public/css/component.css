@@ -245,12 +245,6 @@ section p {
 	transform: translateY(-50%);
 }
 
-@media screen and (max-width: 65em) {
-	body {
-		font-size: 85%;
-	}
-}
-
 @media screen and (max-width: 60em) {
 
 

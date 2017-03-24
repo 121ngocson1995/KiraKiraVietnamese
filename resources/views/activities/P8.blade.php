@@ -1,7 +1,6 @@
-@extends('layout')
+@extends('activities.layout.activityLayout')
 
-@section('title')
-<h1 style="font-size: 400%" align="center">- Bài 8: Đọc và điền vào chỗ trống</h1>
+@section('actContent')
 
 <hr>
 
@@ -55,8 +54,7 @@
 		z-index: 1;
 	}
 </style>
-@stop
-@section('content1')
+
 <script langauge="JavaScript">
 	var elementData = <?php echo json_encode($elementData); ?>;
 	var dialogCnt = <?php echo json_encode($dialogCnt); ?>;

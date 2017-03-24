@@ -1,7 +1,6 @@
+@extends('activities.layout.activityLayout')
 
-@extends('layout')
-
-@section('title')
+@section('actContent')
 <link href='//fonts.googleapis.com/css?family=Dekko' rel='stylesheet'>
 <link href='//fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
 <link href='//fonts.googleapis.com/css?family=Alice' rel='stylesheet'>
@@ -72,9 +71,6 @@
 		document.getElementById("title_id").appendChild(node);
 	}
 </script>
-@stop
-
-@section('content1')
 
 <body class='wallpaper'>
 	<div class="content">

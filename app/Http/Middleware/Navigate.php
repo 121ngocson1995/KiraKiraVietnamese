@@ -29,11 +29,11 @@ class Navigate
                 $checkExist = true;
             }
             if ($checkExist) {
-                for ($i=0; $i < count($lessonAct); $i++) { 
+                for ($i=0; $i < count($lessonAct); $i++) {
                     if ($lessonAct[$i]->name == $activity) {
                         if ($i == 0) {
                             $preAct = false;
-                            return;
+                            return $next($request);
                         }else{
                             $preAct = $lessonAct[$i-1];
                         }
@@ -47,10 +47,10 @@ class Navigate
                             $nextAct->name = $lessonAct[$i+1]->name;
                         }
                     }
-                } 
+                }
                 $request->attributes->add(['preAct' => $preAct, 'nextAct' => $nextAct]);
             }
-            return $next($request);
         }
+        return $next($request);
     }
 }

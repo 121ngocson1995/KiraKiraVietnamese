@@ -1,8 +1,6 @@
- @extends('layout')
+@extends('activities.layout.activityLayout')
 
- @section('title')
- <h1 style="font-size: 400%" align="center">- Bài 5: Nghe phát âm đoạn thoại và nhắc lại </h1>
-
+@section('actContent')
  <hr>
  <script type="text/javascript">
  	function playWord(audioPath) {
@@ -12,9 +10,7 @@
 		auRecord.play();
 	} 
  </script>
- @stop
-
- @section('content1')
+ 
  <div class="row">
  	<div id="content_id" class="col-sm-9 col-md-6 col-lg-8">
  	<audio id="sample"></audio>

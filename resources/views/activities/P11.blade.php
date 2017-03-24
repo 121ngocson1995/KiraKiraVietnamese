@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('activities.layout.activityLayout')
 
-@section('content')
+@section('actContent')
 <link rel="stylesheet" href="{{ asset('css/hover.css') }}">
 <link rel="stylesheet" href="{{ asset('css/smiley.css') }}">
 <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}">
