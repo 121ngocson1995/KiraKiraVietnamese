@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('body')
+    @php
+        // dd(\Request::get('lessons'));
+    @endphp
 
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
@@ -61,17 +64,17 @@
         <div class="container">
             <div class="panel-group" role="tablist" aria-multiselectable="true" id="accordion-1">
                 
-                @for($i=0; $i<$lessonCnt; $i++)
+                @foreach (\Request::get('lessons') as $lesson)
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab">
-                            <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" href="#accordion-1 .item-{{$i+1}}">Lesson {{ $i+1 }}</a></h4>
+                            <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" href="#accordion-1 .item-{{ $lesson->lessonNo }}">Lesson {{ $lesson->lessonNo }}</a></h4>
                         </div>
-                        <div class="panel-collapse collapse in item-{{$i+1}}" role="tabpanel">
+                        <div class="panel-collapse collapse in item-{{ $lesson->lessonNo }}" role="tabpanel">
                             <div class="panel-body">
-                                <span> {{$descripArr[$i]}} </span>
+                                <span> {{ $lesson->description }} </span>
                                 <div class="row">
-                                <div class="col-md-12 btn-group">
-                                    <div class="btn-group" role="group">
+                                <div class="col-md-12 btn-group" role="group">
+                                    {{-- <div class="btn-group">
                                         @php
                                             $j = 1;
                                         @endphp
@@ -108,13 +111,20 @@
                                         <button class="btn btn-info" type="button"><a href="{{ url('/lesson'.$j.'/extensions') }}" style = "color: white; text-decoration: none;"  >Extension</a></button>
 
                                     </div>
-                                </div>
+                                </div> --}}
+
+                                @foreach ($lesson->activity as $activity)
+                                    @php
+                                        // dd($activity);
+                                    @endphp
+                                    <div style=" margin: 0.5em 2em"><button class="btn btn-info" style="width: 100%;" type="button"><a href="/lesson{{ $lesson->lessonNo }}/{{ $activity->name }}" style = "font-size: 1.2em; font-weight: 600; color: white; text-decoration: none;"  >{{ $activity->content }}</a></button></div>
+                                @endforeach
                                 </div>
                             </div>
                             
                         </div>                   
                     </div>
-                @endfor 
+                @endforeach
 
             </div>
         </div>

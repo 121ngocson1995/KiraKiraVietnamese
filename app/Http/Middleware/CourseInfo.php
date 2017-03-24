@@ -29,6 +29,7 @@ class CourseInfo
             $currentLesson = new \stdClass;
             $currentLesson->lessonNo = $lesson->lessonNo;
             $currentLesson->name = $lesson->lesson_name;
+            $currentLesson->description = $lesson->description;
             $currentLesson->author = $lesson->author;
 
             $activity = [];
