@@ -76,7 +76,7 @@
         <div class="col-md-5 image"><img src="{{ asset('img/1.gif') }}"></div>
         <div class="col-md-7 right">
             <h3>Practices </h3>
-            <p>You can horn your skills by taking part in our numerous practices. Your progress and score will be saved for you to measure your development.</p>
+            <p>You can hone your skills by taking part in our numerous practices. Your progress and score will be saved for you to measure your development.</p>
         </div>
     </div>
     <div class="row wehave">
