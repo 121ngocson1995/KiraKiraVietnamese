@@ -189,13 +189,15 @@
 			<span id="total"></span>
 		</div>
 		<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="changeSentence(curQuestion, false)" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain resultSpace" role="button" onclick="changeSentence(curQuestion+1, true)" style="display: none;">Next<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain resultSpace" role="button" onclick="changeSentence(curQuestion+1, true)" style="display: none;"><span>Next</span><i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 	</div>
 </div>
 
 <script>
 	var correctNo = 0;
 	var totalQuestion = 0;
+	var currentNo = 0;
+	var totalNo = parseInt(<?php echo count($elementData); ?>);
 
 	window.onresize = function() {
 		$('.dropWord').each(function() {
@@ -366,6 +368,12 @@
 			document.getElementById('happy').checked = true;
 		});
 		$('.score').addClass('resultSpace');
+
+		if (currentNo == totalNo - 1) {
+			$('#nextBtn > span').html('Redo');
+		} else {
+			$('#nextBtn > span').html('Next');
+		}
 	}
 
 	function showWrong() {
@@ -432,6 +440,11 @@
 		var draggable = document.getElementById('draggable');
 		emptyDiv(draggable);
 
+		if (index == totalNo) {
+			index = 0;
+			currentNo = 0;
+		}
+
 		shuffleWords(index);
 		for (var i = 0; i < elementData[index].length; i++) {
 			var newDrop = document.createElement('div');
@@ -453,6 +466,7 @@
 			if (isNext) {
 				correctNo = 0;
 				totalQuestion = 0;
+				currentNo++;
 				$('.score').removeClass('resultSpace');
 			}
 		});
