@@ -188,7 +188,7 @@
 		for (var i = 0; i < dialogAnswer.length; i++) {
 			for (var j = 0; j < dialogAnswer[i]['answer'].length; j++) {
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
-					var node = document.createElement("span");
+					var node = document.createElement("div");
 					node.setAttribute('draggable', 'true');
 					node.setAttribute('class', 'dragWord ui-state-default');
 					node.setAttribute('id', (dialogNow)+','+dialogAnswer[i]['lineNo']+','+j);
@@ -362,7 +362,7 @@
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+		<div id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
 		@endif
 		@endfor	
 		@endfor
@@ -375,10 +375,10 @@
 			$curLine = explode('*', $elementData[$i]->line);
 			$index = 0;
 			@endphp
-			<div style="font-size: 25px; padding: 15px">
+			<div style="font-size: 25px; padding: 15px; margin: 15px;">
 				@for ($j = 0; $j < count($curLine) ; $j++)
 				@if ($index != count($curLine)-1)
-				{{$curLine[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style="width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; font-weight: 500" ondragenter="return false;"
+				{{$curLine[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" style=" width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; font-weight: 500" ondragenter="return false;"
 				ondragover="return false;" ondrop="drop(this,event)"></div>
 				@php
 				$index++;

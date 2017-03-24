@@ -18,12 +18,41 @@
 		font-size: 25px;
 		color: black;
 		transition: background 0.8s;
+		display: inline-block;
 	}
 	.dragWord:hover {
 		cursor: move;
 	}
 	.dragWord:active {
 		background: gold;
+	}
+	#btn-group{
+		position: relative;
+		left: 45%;
+	}
+	#content_id{
+		position: relative;
+		left: 30%;
+		width: auto;
+		max-width: 530px;
+	}
+	#answer_id{
+		text-align: center;
+		width: auto;
+		padding: 10px;
+		height: auto;
+		background-color:white;
+	}
+	#btn-Start{
+		position: fixed;
+		top: 50%;
+		left: 45%;
+		width: 200px;
+		height: 70px;
+		border-radius: 15px;
+		font-size: 21px;
+		border: 1px solid;
+		z-index: 1;
 	}
 </style>
 @stop
@@ -148,7 +177,7 @@
 			var index = 0;
 			for (var k = 0; k < curline.length; k++) {
 				if (index != curline.length-1) {
-					// console.log(curline[k]);
+					
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curline[k]);
 					dialogNode.setAttribute('style', 'width: 100px; height: 30px; background-color:#e6ffee; display: inline-block; ');
@@ -181,7 +210,7 @@
 		for (var i = 0; i < dialogAnswer.length; i++) {
 			for (var j = 0; j < dialogAnswer[i]['answer'].length; j++) {
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
-					var node = document.createElement("span");
+					var node = document.createElement("div");
 					node.setAttribute('draggable', 'true');
 					node.setAttribute('class', 'dragWord ui-state-default');
 					node.setAttribute('id', (dialogNow)+','+dialogAnswer[i]['lineNo']+','+j);
@@ -263,7 +292,7 @@
 				rightAnswer = elementData[i]['answer'];
 			}
 		}
-		console.log(rightAnswer, answerText);
+		
 		if (rightAnswer[answerOrder].localeCompare(answerText) == 0) {
 			element.innerHTML = answerText;
 			element.setAttribute("class", "sqr");
@@ -333,7 +362,7 @@
 				checkFinish[i]['finish'] = true;
 			}
 		}
-		$("#answer_id").find("span").removeAttr("draggable");
+		$("#answer_id").find("div").removeAttr("draggable");
 		$('#btn-Next').show();
 	}
 </script> 
@@ -347,9 +376,9 @@
 	@endfor
 </div>
 <br>
-<button type="button" id="btn-Start" class="btn btn-info" onclick="JavaScript: showPractice()">Start practice</button>
+<button type="button" id="btn-Start" class="btn btn-info" onclick="JavaScript: showPractice()" style="">Start practice</button>
 <div id="content" style=" filter: blur(12px); transition: 3s">
-	<div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
+	<div id="answer_id"  >
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -362,12 +391,12 @@
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<span id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</span>
+		<div id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}" ondragstart="javascript: drag(event)" draggable="true" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
 		@endif
 		@endfor	
 		@endfor
 	</div>
-	<div class="row">
+	<div class="row" style="position: relative;">
 		<div id="content_id" class="col-sm-7 col-md-7 col-lg-7">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			@if ($elementData[$i]->dialogNo == 0)

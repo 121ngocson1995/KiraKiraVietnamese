@@ -163,7 +163,6 @@
     this.each(function() {
       plugin = $.data(this, "plugin_" + pluginName);
       // if (!plugin) {
-        console.log('1');
         plugin = new Plugin(this, options);
         $.data(this, "plugin_" + pluginName, plugin);
       // }
