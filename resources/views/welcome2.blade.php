@@ -50,15 +50,15 @@
 <div class="features">
     <div class="row">
         <div class="col-sm-4 feature"><img src="{{ asset('img/chat.svg') }}">
-            <h3>Learn </h3>
+            <h3>Learn</h3>
             <p class="text-center feature">Get to know Vietnamese with easy-to-grasp lessons</p>
         </div>
         <div class="col-sm-4 feature"><img src="{{ asset('img/airplane.svg') }}">
-            <h3>Pratice </h3>
+            <h3>Practice</h3>
             <p class="text-center feature">Skyrocket your language skills with exclusively designed activities</p>
         </div>
         <div class="col-sm-4 feature"><img src="{{ asset('img/profits.svg') }}">
-            <h3>Advance </h3>
+            <h3>Advance</h3>
             <p class="text-center feature">Know you're being better after spending time to learn with us</p>
         </div>
     </div>
@@ -76,7 +76,7 @@
         <div class="col-md-5 image"><img src="{{ asset('img/1.gif') }}"></div>
         <div class="col-md-7 right">
             <h3>Practices </h3>
-            <p>You can horn your skills by take part in our numerous pratices, Your progress and score will be saved for you to measure your development.</p>
+            <p>You can horn your skills by taking part in our numerous practices. Your progress and score will be saved for you to measure your development.</p>
         </div>
     </div>
     <div class="row wehave">

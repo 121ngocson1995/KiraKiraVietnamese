@@ -536,8 +536,10 @@
         -webkit-transition: all .35s ease-in-out;
     }
 
-    @yield('header')
 </style>
+
+@yield('header')
+    
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">

@@ -2,7 +2,6 @@
 
 @section('actContent')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <style>
 	body {
 		background: url({{ asset('img/testAnimate/bg.svg') }}) no-repeat center bottom fixed;

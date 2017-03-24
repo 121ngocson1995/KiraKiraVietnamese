@@ -29,7 +29,7 @@
 		for (var i = 0; i < dialogArr[contentNow].length; i++) {
 			editContent(dialogArr[contentNow][i]);
 		}
-		editThumbnail(elementData[contentNow].image);
+		editThumbnail(elementData[contentNow].thumbnail);
 		editAudio(elementData[contentNow].audio);
 		document.getElementById("audio").load();
 	}
@@ -42,11 +42,11 @@
 	}
 
 	function editAudio(path) {
-		document.getElementById("audio_id").setAttribute('src', '{{ URL::asset('') }}' + path);
+		document.getElementById("audio").setAttribute('src', '{{ asset('') }}' + path);
 	}
 
 	function editThumbnail(path) {
-		document.getElementById("thumbnail").setAttribute('src', '{{ URL::asset('') }}' + path + '?' + new Date().getTime());
+		document.getElementById("thumbnail").setAttribute('src', '{{ asset('') }}' + path + '?' + new Date().getTime());
 	}
 </script>
 
@@ -62,7 +62,7 @@
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image" style="text-align: center;">
 		<div>
-			<img id="thumbnail" class="img" src="{{ asset('Situation_img/hinh.png') }}">
+			<img id="thumbnail" class="img" src="{{ asset($elementData[0]->thumbnail) }}">
 		</div>
 		<div>
 			<audio id="audio" controls>
