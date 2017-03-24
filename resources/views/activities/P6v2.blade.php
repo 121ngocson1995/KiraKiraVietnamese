@@ -70,7 +70,7 @@
 		box-shadow: -7px 7px 5px rgba(102, 102, 153, 0.3);
 		transition: background-color 0.4s, transform 0.4s;
 	}
-	.imgCross, .imgCheck {
+	.imgCross, .imgCheck, .imgCheckWrong {
 		/*position: absolute;*/
 		color: #33ccff;
 		/*margin-left: 3%;*/
@@ -80,10 +80,10 @@
 		z-index: 1;
 		transition: all 0.4s;
 	}
-	.imgCheck {
+	.imgCheck, .imgCheckWrong {
 		transform: scale(0.65, 0.65);
 	}
-	.crossWrap, .checkWrap {
+	.crossWrap, .checkWrap, .checkWrongWrap {
 		position: absolute;
 		overflow: hidden;
 		width: 0;
@@ -110,10 +110,10 @@
 		background-color: red !important;
 		border-color: red !important;
 	}
-	.tada.infinite {
+	/*.result {
 		-moz-animation-delay: 4s;
 		-webkit-animation-delay: 4s;
-	}
+	}*/
 	/*.result {
 		padding: 10px;
 		border: none;
@@ -130,6 +130,7 @@
 </style>
 
 <script type="text/javascript">
+	var originalData = <?php echo json_encode($elementData); ?>;
 	var elementData = <?php echo json_encode($elementData); ?>;
 	var cnt = <?php echo json_encode($cnt); ?>;
 	var currentQuestion = 0;
@@ -146,13 +147,25 @@
 	}
 
 	function switchQuestion(questionId) {
+
 		var btnNext = document.getElementsByClassName('btnNext')[0];
-		btnNext.className += ' inv';
+		$(btnNext).addClass('inv');
 
-		var tl = new TimelineMax();
-		tl.staggerTo('.answerLineItem', 0, {className:"+=animated hinge"}, 0.2);
+		if (questionId == 0) {
+			showPaper();
+			$('.btnNext').click(function () {
+				console.log(this);
+				next(this);
+			});
+		} else {
+			var tl = new TimelineMax();
+			tl.staggerTo('.answerLineItem', 0, {className:"+=animated hinge"}, 0.2);
+			$('.answerLineItem').last().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				showPaper();
+			});
+		}
 
-		$('.answerLineItem').last().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+		function showPaper() {
 			currentQuestion = questionId;
 
 			if (currentQuestion == lastQuestion) {
@@ -205,6 +218,14 @@
 				imgCheck.src = '{{ asset('img/P6/check.svg') }}';
 				checkWrap.appendChild(imgCheck);
 				answerFlex.appendChild(checkWrap);
+
+				var checkWrongWrap = document.createElement('div');
+				checkWrongWrap.className = 'checkWrongWrap';
+				var imgCheckWrong  = document.createElement('img');
+				imgCheckWrong.className = 'imgCheckWrong';
+				imgCheckWrong.src = '{{ asset('img/P6/checkWrong.svg') }}';
+				checkWrongWrap.appendChild(imgCheckWrong);
+				answerFlex.appendChild(checkWrongWrap);
 
 				button.push(document.createElement('button'));
 				button[i].id = questionId;
@@ -262,7 +283,7 @@
 			function() {
 				$(this).removeClass('pop');
 			});
-		});
+		}
 	}
 
 	function checkAnswer(button) {
@@ -315,6 +336,10 @@
 							if ($(this).hasClass('correctAnswer')) {
 								TweenMax.fromTo($(this).parent().find('.checkWrap'), 0.35, {css:{width:0, height:0}}, {css:{width:100, height:'initial'}});
 							}
+						} else {
+							if ($(this).hasClass('correctAnswer')) {
+								TweenMax.fromTo($(this).parent().find('.checkWrongWrap'), 0.35, {css:{width:0, height:0}}, {css:{width:100, height:'initial'}});
+							}
 						}
 					} else if (qName == "wrongAnswer1") {
 						elementData[parseInt($(this).attr('id'))].answers.wrongAnswer1.chosen = true;
@@ -346,14 +371,31 @@
 	}
 
 	function showResult() {
+		var btnNext = document.getElementsByClassName('btnNext')[0];
+		// btnNext.innerHTML = 'Redo';
+		// btnNext.disabled = false;
+		// $('.answerLineItem').css('opacity', 0);
+		// $(btnNext).click(function() {
+		// 	$('#qText').fadeIn(600);
+		// 	$('#result').fadeOut(600);
+		// 	elementData = originalData;
+		// 	currentQuestion = 0;
+		// 	questionsDone = 0;
+		// 	correctAnswerNo = 0;
+		// 	switchQuestion(0);
+		// });
+
+		$('.answerLineItem').css('opacity', 0);
+		$(btnNext).css('opacity', 0);
+		btnNext.disabled = true;
 		var result = document.createElement("div");
-		result.className = 'result animated';
+		result.className = 'score result';
 		result.innerHTML = '' + correctAnswerNo + '/' + (lastQuestion + 1) + ' correct';
+		$('#result').empty();
 		document.getElementById("result").appendChild(result);
 		$('#qText').fadeOut(600, function () {
-			$('#result > div').addClass('zoomIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-				$('#result > div').removeClass('zoomIn').addClass('tada infinite');
-			});
+			$('#result').fadeIn(600);
+			// $('.score').addClass('animated zoomIn');
 		});
 	}
 </script>
@@ -401,6 +443,9 @@
 				<div class="checkWrap">
 					<img class="imgCheck" src="{{ asset('img/P6/check.svg') }}" alt="answer paper">
 				</div>
+				<div class="checkWrongWrap">
+					<img class="imgCheckWrong" src="{{ asset('img/P6/checkWrong.svg') }}" alt="answer paper">
+				</div>
 				<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[0] }}" class="btn-answer {{ strcmp($elementData[0]->answerOrder[0], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["chosen"] == true ? " chosen" : "" }}">
 					{{ $elementData[0]->answers[$elementData[0]->answerOrder[0]]["content"] }}
 				</button>
@@ -417,6 +462,9 @@
 				<div class="checkWrap">
 					<img class="imgCheck" src="{{ asset('img/P6/check.svg') }}" alt="answer paper">
 				</div>
+				<div class="checkWrongWrap">
+					<img class="imgCheckWrong" src="{{ asset('img/P6/checkWrong.svg') }}" alt="answer paper">
+				</div>
 				<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[1] }}" class="btn-answer {{ strcmp($elementData[0]->answerOrder[1], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["chosen"] == true ? " chosen" : "" }}">
 					{{ $elementData[0]->answers[$elementData[0]->answerOrder[1]]["content"] }}
 				</button>
@@ -430,6 +478,9 @@
 				<div class="checkWrap">
 					<img class="imgCheck" src="{{ asset('img/P6/check.svg') }}" alt="answer paper">
 				</div>
+				<div class="checkWrongWrap">
+					<img class="imgCheckWrong" src="{{ asset('img/P6/checkWrong.svg') }}" alt="answer paper">
+				</div>
 				<button autocomplete="off" id="0" name="{{ $elementData[0]->answerOrder[2] }}" class="btn-answer {{ strcmp($elementData[0]->answerOrder[2], 'correctAnswer') == 0 ? " correctAnswer" : "wrongAnswer" }} {{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["chosen"] == true ? " chosen" : "" }}">
 					{{ $elementData[0]->answers[$elementData[0]->answerOrder[2]]["content"] }}
 				</button>
@@ -438,11 +489,15 @@
 	</div>
 
 	<div style="text-align: center">
-		<button autocomplete="off" class="btn btn-warning btnNext inv" onclick="next(this)" disabled>Next</button>
+		<button autocomplete="off" class="btn btn-warning btnNext inv" disabled>Next</button>
 	</div>
 </div>
 
 <script>
+	$('.btnNext').click(function () {
+		next(this);
+	});
+
 	$('.btn-answer').click(function () {
 		checkAnswer(this);
 	});

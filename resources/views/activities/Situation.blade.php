@@ -42,11 +42,26 @@
 	}
 
 	function editAudio(path) {
+		var audioHolder = document.getElementById('audioHolder');
+		while (audioHolder.firstChild) {
+			audioHolder.removeChild(audioHolder.firstChild);
+		}
+		var audio = document.createElement('audio');
+		audio.src = '{{ asset('') }}' + path;
+		audio.setAttribute('controls', '');
+		audioHolder.appendChild(audio);
 		document.getElementById("audio").setAttribute('src', '{{ asset('') }}' + path);
 	}
 
 	function editThumbnail(path) {
-		document.getElementById("thumbnail").setAttribute('src', '{{ asset('') }}' + path + '?' + new Date().getTime());
+		var thumbnailHolder = document.getElementById('thumbnailHolder');
+		while (thumbnailHolder.firstChild) {
+			thumbnailHolder.removeChild(thumbnailHolder.firstChild);
+		}
+		var img = document.createElement('img');
+		img.className = 'img';
+		img.src = '{{ asset('') }}' + path;
+		thumbnailHolder.appendChild(img);
 	}
 </script>
 
@@ -62,13 +77,16 @@
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image" style="text-align: center;">
 		<div>
-			<img id="thumbnail" class="img" src="{{ asset($elementData[0]->thumbnail) }}">
+			<div id="thumbnailHolder">
+				<img id="thumbnail" class="img" src="{{ asset($elementData[0]->thumbnail) }}">
+			</div>
 		</div>
 		<div>
-			<audio id="audio" controls>
-			<source id="audio_id" src="{{ URL::asset($elementData[0]->audio) }}" type="audio/mpeg">
-				Your browser does not support the audio element.
-			</audio>
+			<div id="audioHolder">
+				<audio id="audio" controls src="{{ asset($elementData[0]->audio) }}" type="audio/mpeg">
+					Your browser does not support the audio element.
+				</audio>
+			</div>
 		</div>
 	</div>
 	<div class="col-sm-3 col-sm-pull-4 paragraph" style="text-align: center; height: 100%">

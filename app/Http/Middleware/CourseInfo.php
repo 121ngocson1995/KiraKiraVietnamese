@@ -36,7 +36,7 @@ class CourseInfo
             if ($lesson->situations()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'situations';
-                $currentActivity->content = 'Situation';
+                $currentActivity->content = 'Situations';
                 $activity[] = $currentActivity;
             }
 

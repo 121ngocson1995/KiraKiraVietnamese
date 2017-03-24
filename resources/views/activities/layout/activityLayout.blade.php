@@ -212,18 +212,6 @@
 
 @section('extension')
 
-<div id="btn-NextAct">
-	<i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
-	<span id="locationNext"></span>
-</div>
 
-<script type="text/javascript">
-	var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
-	$('#locationNext').html(nextAct['name']);
-	$('#btn-NextAct').hide();
-	$('#btn-NextAct').click(function(){
-		window.location.href="/"+nextAct['link']; 
-	});
-</script>
 
 @stop
