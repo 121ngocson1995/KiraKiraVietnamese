@@ -342,6 +342,7 @@
 		}
 
 		for (var i = 0; i < blankBlockList.length; i++) {
+			blankBlockList[i].removeAttribute("ondrop");
 			var data = blankBlockList[i].id.split(',');
 			blankBlockList[i].innerHTML = dialogAnswer[data[0]]['answer'][data[1]];
 			blankBlockList[i].setAttribute('style', 'width: auto; height: auto; background-color:#ffc2b3; display: inline-block; ')
@@ -395,7 +396,7 @@
 		@endfor
 	</div>
 	<div class="row" style="position: relative;">
-		<div id="content_id" class="col-sm-7 col-md-7 col-lg-7">
+		<div id="content_id" class="col-sm-6 col-md-6 col-lg-6">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			@if ($elementData[$i]->dialogNo == 0)
 			@php
@@ -417,7 +418,7 @@
 			@endif
 			@endfor
 		</div>
-		<div class="col-sm-5 col-md-5 col-lg-5"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
+		<div class="col-sm-6 col-md-6 col-lg-6"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
 			<div id="countdown"></div>
 		</div>
 	</div>
