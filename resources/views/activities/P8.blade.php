@@ -524,7 +524,9 @@ onmousedown="return false;">
 							j = i;
 						}
 					}
-					console.log(elementData[j]);
+
+					console.log(elementData);
+					console.log('j = ' + j);
 					console.log(rightAnswer);
 					if(element.text() == rightAnswer[answerOrder]){ 
 						return true;
