@@ -485,7 +485,6 @@ onmousedown="return false;">
 		$(".dragWord").draggable({
 			create: function(){
 				$(this).data('position',$(this).position());
-				$(this).data('answerText',$(this).innerHTML());
 			},
 			cursor:'move',
 			drag: function(){
