@@ -512,6 +512,8 @@ onmousedown="return false;">
 					var answerOrder = data[1];
 					var rightAnswer;
 
+					var j;
+
 					for (var i = 0; i < elementData.length; i++) {
 						// console.log('i = ' + i);
 						// console.log(elementData[i]);
@@ -519,10 +521,11 @@ onmousedown="return false;">
 						// console.log(lineNo);
 						if (elementData[i]['dialogNo'] == dialogNow && elementData[i]['lineNo'] == lineNo ) {
 							rightAnswer = elementData[i]['answer'];
+							j = i;
 						}
 					}
+					console.log(elementData[j]);
 					console.log(rightAnswer);
-					console.log(answerOrder);
 					if(element.text() == rightAnswer[answerOrder]){ 
 						return true;
 					}
