@@ -513,11 +513,13 @@ onmousedown="return false;">
 					var rightAnswer;
 
 					for (var i = 0; i < elementData.length; i++) {
-						console.log('i = ' + i);
-						console.log(elementData[i]);
-						console.log(dialogNow);
-						console.log(lineNo);
+						// console.log('i = ' + i);
+						// console.log(elementData[i]);
+						// console.log(dialogNow);
+						// console.log(lineNo);
 						if (elementData[i]['dialogNo'] == dialogNow && elementData[i]['lineNo'] == lineNo ) {
+							console.log(elementData);
+							console.log('i = ' + i);
 							rightAnswer = elementData[i]['answer'];
 						}
 					}
