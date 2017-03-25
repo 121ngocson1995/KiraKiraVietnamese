@@ -117,7 +117,7 @@
                                     @php
                                         // dd($activity);
                                     @endphp
-                                    <div style=" margin: 0.5em 2em"><button class="btn btn-info" style="width: 100%;" type="button"><a href="/lesson{{ $lesson->lessonNo }}/{{ $activity->name }}" style = "font-size: 1.2em; font-weight: 600; color: white; text-decoration: none;"  >{{ $activity->content }}</a></button></div>
+                                    <div style=" margin: 0.5em 2em"><a class="btn btn-info" href="/lesson{{ $lesson->lessonNo }}/{{ $activity->name }}" style = "width: 100%;font-size: 1.2em; font-weight: 600; color: white; text-decoration: none;"  >{{ $activity->content }}</a></div>
                                 @endforeach
                                 </div>
                             </div>
