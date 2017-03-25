@@ -1,92 +1,190 @@
-@extends('activities.layout.activityLayout')
 
-@section('actContent')
-<link href='//fonts.googleapis.com/css?family=Dekko' rel='stylesheet'>
-<link href='//fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
-<link href='//fonts.googleapis.com/css?family=Alice' rel='stylesheet'>
-<style>
-	.header {
-		
-    	background-color: rgba(153, 194, 255, 0.4);
-		padding: 5px;
-		border-bottom: solid 2px #cccccc;
-		border-radius: 25px;
-		text-align: center;
-		font-size: 400px;
-		font-family: 'Alice';
-		font-weight: 900;
-	}
-	.wallpaper {
-		background-image:url('P12_img/bg.jpg');
-		background-color:#ccccff;
-	}
-	.content {
-		font-family: 'Space Mono';
-		font-size: 18px;
-	}
-</style>
+@extends('layout')
 
-<div class='header'>
-	<h1>Mở rộng</h1> 
-	
-</div>
-	<h3 class="content" align="right">
-		<button type="button" class="btn btn-primary" onclick="JavaScript: next()">Next</button>
-	</h3>
-<hr>
-<script language="JavaScript">
-	var contentNow = 0;
-	var contentArr = <?php echo json_encode($contentArr); ?>;
-	var titleArr = <?php echo json_encode($titleArr); ?>;
-	function next(){
-		while (document.getElementById("content_id").firstChild) {
-			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
-		}
-		if(contentNow < contentArr.length-1){
-			contentNow = parseInt(contentNow) + 1;
-		}else{
-			window.alert("Bạn đã hoàn thành bài tập rồi");
-		}
-		for (var i = 0; i < contentArr[contentNow].length; i++) {
-			editContent(contentArr[contentNow][i]);
-		}
+@section('content')
 
-		while (document.getElementById("title_id").firstChild) {
-			document.getElementById("title_id").removeChild(document.getElementById("title_id").firstChild);
-		}
-		editTitle(titleArr[contentNow]);
-		
-	}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
 
-	function editContent(text) {
-		var node = document.createElement("div");
-		var textnode = document.createTextNode(text);
-		node.appendChild(textnode);
-		document.getElementById("content_id").appendChild(node);
-	}
-	function editTitle(text) {
-		var node = document.createElement("p");
-		var textnode = document.createTextNode(text);
-		node.appendChild(textnode);
-		document.getElementById("title_id").appendChild(node);
+		$('a.panel').click(function() {
+
+			$('a.panel').removeClass('selected');
+			$(this).addClass('selected');
+
+			current = $(this);
+
+			$('#wrapper').scrollTo($(this).attr('href'), 800);
+
+			return false;
+		});
+
+		$(window).resize(function() {
+			resizePanel();
+		});
+
+	});
+
+	function resizePanel() {
+
+		width = $(window).width();
+		height = $(window).height();
+
+		mask_width = width * $('.part').length;
+
+		$('#debug').html(width + ' ' + height + ' ' + mask_width);
+
+		$('#wrapper, .part').css({
+			width: width,
+			height: height
+		});
+		$('#mask').css({
+			width: mask_width,
+			height: height
+		});
+		$('#wrapper').scrollTo($('a.selected').attr('href'), 0);
+
 	}
 </script>
 
-<body class='wallpaper'>
-	<div class="content">
-		<h3 id="title_id" align="center">{{ $titleArr[0]}}</h3>
-	</div>
-	<table align="center" class="content" id="content_id">
-		@for ($i = 0; $i < count($contentArr[0]) ; $i++)
-		<tr>
-			<td>{{ $contentArr[0][$i]}}</td>
-		</tr>
-		@endfor
-	</table>
-</body>
+<link rel="stylesheet" href="{{ asset('exten_assets/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('exten_assets/css/styles.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 
-@stop
 
-@section('description')
-In this activity,...
+<div id="wrapper">
+  <div id="mask">
+
+    <div id="part1" class="part">
+
+    	<a name="part1"></a>
+    	<div class="content">
+    		
+    		<div id="promo_extend">
+    			<div class="jumbotron extend">
+    				<div class="row" style="padding-top: 40px;">
+    					<div class="col-md-4 col-md-offset-4">
+    						<h1>Mở rộng</h1>
+    					</div>
+    				</div>
+    				<div class="row" style="text-align: center; padding-top: 12px;">
+    					<div class="col-md-12 title_button">
+    						<div class="btn-group" role="group">
+    							@for($i=0; $i<$cnt; $i++)
+    							<button class="btn btn-default" type="button"><a href="#part{{$i+1}}">{{ $typeArr[$i] }}</a></button>
+    							@endfor
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+    		<div class="img_body">
+    			<div class="container">
+    				<div class="row">
+    					<div class="col-md-12 carousel fix">
+    						<div class="row title_row">
+    							<div class="col-md-12">
+    								<h2>Hình ảnh đất nước - con người Việt Nam</h2>
+    							</div>
+    						</div>
+    						<div class="carousel slide" data-ride="carousel" id="carousel-1">
+    							<div class="carousel-inner" role="listbox">
+    								<div class="item"><img src="{{ asset('exten_assets/img/bando.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/2003.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/cotco.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/2005.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/2006.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/2007.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item"><img src="{{ asset('exten_assets/img/2008.jpg') }}" alt="Slide Image" class="center-block"></div>
+    								<div class="item active"><img src="{{ asset('exten_assets/img/donglua.jpg') }}" alt="Slide Image" class="center-block"></div>
+    							</div>
+    							<div class="control"><a class="left carousel-control" href="#carousel-1" role="button" data-slide="prev"><i class="glyphicon glyphicon-chevron-left itemstyle"></i><span class="sr-only">Previous</span></a><a class="right carousel-control .control-site"
+    								href="#carousel-1" role="button" data-slide="next"><i class="glyphicon glyphicon-chevron-right itemstyle"></i><span class="sr-only">Next</span></a>
+    							</div>
+    							<ol class="carousel-indicators">
+    								<li data-target="#carousel-1" data-slide-to="0"></li>
+    								<li data-target="#carousel-1" data-slide-to="1"></li>
+    								<li data-target="#carousel-1" data-slide-to="2"></li>
+    								<li data-target="#carousel-1" data-slide-to="3"></li>
+    								<li data-target="#carousel-1" data-slide-to="4"></li>
+    								<li data-target="#carousel-1" data-slide-to="5"></li>
+    								<li data-target="#carousel-1" data-slide-to="6"></li>
+    								<li data-target="#carousel-1" data-slide-to="7" class="active"></li>
+    							</ol>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+    	</div>
+
+    </div>
+
+    @for($i=1; $i<$cnt; $i++)
+    <div id="part{{$i+1}}" class="part">
+    	<a name="part{{$i+1}}"></a>
+    	<div class="content">part{{$i+1}} 
+    		<div id="promo_extend">
+    			<div class="jumbotron extend">
+    				<div class="row" style="padding-top: 40px;">
+    					<div class="col-md-4 col-md-offset-4">
+    						<h1>Mở rộng</h1>
+    					</div>
+    				</div>
+    				<div class="row" style="text-align: center; padding-top: 12px">
+    					<div class="col-md-12 title_button">
+    						<div class="btn-group" role="group">
+    							@for($j=0; $j<$cnt; $j++)
+    							<button class="btn btn-default" type="button"><a href="#part{{$j+1}}" class="panel">{{ $typeArr[$j] }}</a></button>
+    							@endfor
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+    		<div class="content_body">
+    			<div class="container">
+    				<div class="row">
+    					<div class="col-md-12 carousel fix">
+    						<div class="row title_row">
+    							<div class="col-md-12">
+    							<h2>{{ $titleArr[$i] }}</h2>
+    							</div>
+    						</div>
+    						<div class="row">
+    							<div class="col-md-12">
+    								<div class="table-responsive">
+    									<table class="table">
+    										<thead>
+    											<tr></tr>
+    										</thead>
+    										<tbody class="extendtable">
+    											@for ($k = 0; $k < count($contentArr[$i]) ; $k++)
+    											<tr>
+    												<td>{{ $contentArr[$i][$k]}}</td>
+    											</tr>
+    											@endfor
+    										</tbody>
+    									</table>
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+    	</div>
+
+    </div>
+    @endfor
+  </div>
+</div>
+
+{{--     <script src="{{ asset('exten_assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('exten_assets/bootstrap/js/bootstrap.min.js') }}"></script> --}}
+
 @stop
