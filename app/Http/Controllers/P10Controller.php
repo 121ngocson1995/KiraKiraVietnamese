@@ -53,6 +53,6 @@ class P10Controller extends Controller
 			} while ( $currentOrder === $initOrder );
 		}
 
-		return view("activities.P10", compact('elementData'));
+		return view("activities.P10v2", compact('elementData'));
 	}
 }

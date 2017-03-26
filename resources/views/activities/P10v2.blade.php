@@ -1,9 +1,12 @@
 @extends('activities.layout.activityLayout')
 
-@section('actContent')
+@section('header-more')
 
 <link rel="stylesheet" href="{{ asset('css/smiley.css') }}">
 <style>
+	body {
+		background-color: #7EE8D6;
+	}
 	.fullscreenDiv {
 		width: 100%;
 		height: auto;
@@ -24,6 +27,7 @@
 		/*top: 32%;
 		left: 50%;*/
 		/*transform: translate(-50%, -50%);*/
+		opacity: 0;
 	}
 	#droppable {
 		position: relative;
@@ -78,8 +82,9 @@
 		font-size: 30px;
 		text-align: center;
 		border-radius: 4px;
-		background: rgba(0, 153, 255, .2);
+		background: rgba(0, 153, 255, .8);
 		margin: 5px;
+		opacity: 0;
 	}
 	.dropWord span {
 		position: relative;
@@ -100,6 +105,7 @@
 			width: 40px;
 			height: 40px;
 			font-size: 20px;
+			opacity: 0;
 		}
 	}
 	.result {
@@ -146,29 +152,48 @@
 	    position: relative;
 	    top: 50px;
 	}
+	#cloud {
+		-webkit-animation-duration: 60s;
+		-webkit-animation-delay: 10s;
+		-webkit-animation-iteration-count: infinite;
+		-moz-animation-duration: 60s;
+		-moz-animation-delay: 10s;
+		-moz-animation-iteration-count: infinite;
+	}
 </style>
 
-{{-- <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('css/component.css') }}"> --}}
+
+@stop
+
+@section('actContent')
+
 <script>
 	var elementData = <?php echo json_encode($elementData); ?>;
 	var curQuestion = 0;
 </script>
 
+<div id="background">
+	<img id="sun" style="position: fixed; width: 80%; top: 0; left: 50%; transform: translateX(-50%); opacity: 0; z-index: -1" src="{{ asset('img/P10/bg-sun.svg') }}" alt="">
+	<img id="cloud" style="position: fixed; width: 110%; bottom: 5%; z-index: -1" src="{{ asset('img/P10/bg-cloud.svg') }}" alt="">
+	<img id="land" style="position: fixed; width: 100%; bottom: -50%; z-index: -1" src="{{ asset('img/P10/bg-land.svg') }}" alt="">
+</div>
+
 <div class='fullscreenDiv'>
 
 	<div id="questionHolder" class="col-xs-12">
-		<div id="draggable">
+		<div id="draggable" style="z-index: 20">
 			@foreach ($elementData[0] as $elementValue)
-				<div id="{{ $elementValue->correctOrder }}" class="dragWord"><span>{{ $elementValue->word }}</span></div>
+			<div id="{{ $elementValue->correctOrder }}" class="dragWord"><span>{{ $elementValue->word }}</span></div>
 			@endforeach
 		</div>
 		<div id="droppable">
 			@for ($i = 0; $i < count($elementData[0]); $i++)
-				<div class="dropWord"></div>
+			<div class="dropWord"></div>
 			@endfor
 		</div>
-</div>
+	</div>
 </div>
 <div id="resultContainer">
 
@@ -198,6 +223,24 @@
 	var totalQuestion = 0;
 	var currentNo = 0;
 	var totalNo = parseInt(<?php echo count($elementData); ?>);
+
+	TweenMax.from('#land', 1, {scale:1, y:300,  ease:Elastic.easeOut});
+	TweenMax.from('#cloud', 1, {scale:1, y:300, delay:1, ease:Elastic.easeOut});
+	TweenMax.from('#sun', 1, {scale:1, y:300, delay:2, ease:Bounce.easeOut})
+	TweenMax.set('#sun', {opacity:1, delay:2});
+	setTimeout(function() {
+		var tl = new TimelineMax();
+		$('#draggable').addClass('animated bounceInDown').css('opacity', 1).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+			console.log('ready');
+			TweenMax.staggerFromTo('.dropWord', 0.4, {x:-50, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+			TweenMax.set('.dropWord',{className:"+=pinch"});
+		});
+
+		var tl = new TimelineMax();
+		tl.to('#sun', 300, {rotation:360, repeat:-1, ease:Power0.easeNone});
+
+		$('#cloud').addClass('animated shake infinite');
+	}, 2000);
 
 	window.onresize = function() {
 		$('.dropWord').each(function() {
@@ -277,6 +320,7 @@
 						lastDrag.css('background', '#e6e6e6');
 						ui.draggable.css('background', 'initial');
 						lastDrag.removeData('curDrop');
+						$(lastDrag).css('color', 'initial');
 					}
 				} else {
 					$(ui.draggable.data('curDrop')).removeData('curDrag');
@@ -305,6 +349,8 @@
 				$('.dropWord').each(function() {
 					rePosition($(this), $(this).data('curDrag'));
 				})
+
+				$(ui.draggable).css('color', 'white');
 			}
 		});
 	}
@@ -446,9 +492,6 @@
 		var draggable = document.getElementById('draggable');
 		emptyDiv(draggable);
 
-		$('.fullscreenDiv').css('top', '65px');
-		$('.fullscreenDiv').css('bottom', 0);
-
 		if (index == totalNo) {
 			index = 0;
 			currentNo = 0;
@@ -468,9 +511,17 @@
 		}
 
 		$('#resultContainer').fadeOut(500, function() {
+			$('.fullscreenDiv').css('top', '65px');
+			$('.fullscreenDiv').css('bottom', 0);
+
 			$('#draggable').fadeIn(500);
 			$('#droppable').fadeIn(500);
 			document.getElementById('normal').checked = true;
+
+			$('#draggable').css('opacity', 1).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				TweenMax.staggerFromTo('.dropWord', 0.4, {x:-50, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+				TweenMax.set('.dropWord',{className:"+=pinch"});
+			});
 			
 			if (isNext) {
 				correctNo = 0;
@@ -518,6 +569,17 @@
 			div.removeChild(div.firstChild);
 		}
 	}
+
+	$(document).ready(function() {
+		// var tl = new TimelineMax();
+		// $('#draggable').addClass('animated bounceInDown').css('opacity', 1).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+		// 	tl.staggerFromTo('.dropWord', 0.4, {x:-50, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2)
+		// 	  .set('.dropWord',{className:"+=pinch"});
+		// });
+
+		// var tl = new TimelineMax();
+		// tl.to('#sun', 300, {rotation:360, repeat:-1, ease:Power0.easeNone});
+	})
 </script>
 
 @stop
