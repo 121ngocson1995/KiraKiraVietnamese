@@ -199,7 +199,7 @@
 					
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curline[k]);
-					dialogNode.setAttribute('id',dialogline[j]['answer'][k]+"-question");
+					dialogNode.setAttribute('id',dialogline[j]['answer'][k].replace(/ /g,"")+"-question");
 					dialogNode.setAttribute('class','blank-sqr dropWord');
 					node.appendChild(textNode);
 
@@ -227,7 +227,7 @@
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
 					var node = document.createElement("div");
 					node.setAttribute('class', 'dragWord ui-state-default');
-					node.setAttribute('id', dialogAnswer[i]['answer'][j]);
+					node.setAttribute('id', dialogAnswer[i]['answer'][j].replace(/ /g,""));
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 					node.appendChild(textnode);
 					document.getElementById("answer_id").appendChild(node);
@@ -355,11 +355,11 @@
 
 			$(this).text(data.replace("-question", ""));
 			$(this).removeClass('blank-sqr');
-			// $(this).droppable('destroy');
+			$(this).droppable('destroy');
 			$(this).addClass('notChoose-sqr');
 		});
 		$('.dragWord').each(function(){
-			// $(this).draggable('destroy');
+			$(this).draggable('destroy');
 			$(this).css('background', 'transparent');
 		});
 		for (var i = 0; i < dialogNow; i++) {
@@ -406,7 +406,7 @@ onmousedown="return false;">
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<div id="{{$dialogAnswer[$i]->answer[$j]}}"  class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
+		<div id="{{str_replace(' ', '', $dialogAnswer[$i]->answer[$j])}}"  class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
 		@endif
 		@endfor	
 		@endfor
@@ -511,6 +511,7 @@ onmousedown="return false;">
 			var dropTarget = $(this);
 			var data = dropTarget.attr('id');
 			var answer_id = data.replace('-question', "");
+			answer_id = answer_id.replace(/ /g,"");
 			console.log(answer_id);
 
 			$(this).droppable({
