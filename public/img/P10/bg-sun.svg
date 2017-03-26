@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="OBJECTS" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="900.66px" height="900.66px" viewBox="0 0 900.66 900.66" enable-background="new 0 0 900.66 900.66" xml:space="preserve">
+<g>
+	<g>
+		<g opacity="0.4">
+			<g>
+				<polygon fill="#FFF2C2" points="470.104,336 430.557,336 410.33,0 490.33,0 				"/>
+				<polygon fill="#FFF2C2" points="470.104,564.66 430.557,564.66 410.33,900.66 490.33,900.66 				"/>
+				<polygon fill="#FFF2C2" points="336,430.557 336,470.104 0,490.33 0,410.33 				"/>
+				<polygon fill="#FFF2C2" points="564.66,430.557 564.66,470.104 900.66,490.33 900.66,410.33 				"/>
+			</g>
+			<g>
+				<polygon fill="#FFF2C2" points="383.469,355.505 355.505,383.469 103.615,160.184 160.184,103.615 				"/>
+				<polygon fill="#FFF2C2" points="545.156,517.191 517.192,545.156 740.477,797.046 797.045,740.477 				"/>
+				<polygon fill="#FFF2C2" points="355.505,517.191 383.469,545.156 160.184,797.046 103.615,740.478 				"/>
+				<polygon fill="#FFF2C2" points="517.192,355.505 545.156,383.469 797.045,160.184 740.478,103.615 				"/>
+			</g>
+			<g>
+				<polygon fill="#FFF2C2" points="424.846,337.137 388.311,352.271 241.041,49.587 314.951,18.973 				"/>
+				<polygon fill="#FFF2C2" points="512.352,548.391 475.814,563.523 585.709,881.688 659.619,851.072 				"/>
+				<polygon fill="#FFF2C2" points="337.137,475.813 352.27,512.351 49.587,659.619 18.973,585.708 				"/>
+				<polygon fill="#FFF2C2" points="548.391,388.31 563.524,424.846 881.688,314.951 851.072,241.041 				"/>
+			</g>
+			<g>
+				<polygon fill="#FFF2C2" points="352.271,388.31 337.137,424.848 18.973,314.952 49.588,241.041 				"/>
+				<polygon fill="#FFF2C2" points="563.525,475.813 548.392,512.351 851.072,659.619 881.688,585.709 				"/>
+				<polygon fill="#FFF2C2" points="388.311,548.391 424.848,563.523 314.953,881.689 241.041,851.074 				"/>
+				<polygon fill="#FFF2C2" points="475.814,337.137 512.352,352.271 659.619,49.587 585.709,18.973 				"/>
+			</g>
+		</g>
+		<g>
+			<circle fill="#FFC900" cx="450.33" cy="450.33" r="140"/>
+			<radialGradient id="SVGID_1_" cx="450.3301" cy="450.3301" r="140" gradientUnits="userSpaceOnUse">
+				<stop  offset="0.2919" style="stop-color:#F7C000;stop-opacity:0"/>
+				<stop  offset="0.548" style="stop-color:#F8BC0F;stop-opacity:0.3617"/>
+				<stop  offset="1" style="stop-color:#F9B233"/>
+			</radialGradient>
+			<circle fill="url(#SVGID_1_)" cx="450.33" cy="450.33" r="140"/>
+		</g>
+	</g>
+</g>
+</svg>
