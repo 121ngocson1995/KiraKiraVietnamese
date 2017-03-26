@@ -76,6 +76,7 @@
 			editContent(i);
 			editAudio(i);
 		}
+		$('#playRec-btn').hide();
 	}
 	function editContent(index) {
 		var node = document.createElement("div");

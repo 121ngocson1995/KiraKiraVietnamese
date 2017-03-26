@@ -203,42 +203,60 @@
 </script>
 
 <script>
-	var sentenceTime = 0;
-	var sentenceNo = 0;
+
+	var wordTime = 0;
+	var wordNo = 0;
+
+
 	var sampleGroup = document.getElementById('sampleGroup');
-	for (var i = 0; i < soundList.length; i++) {
+		for (var i = 0; i < soundList.length; i++) {
 		var audioFile = document.createElement("audio");
 		// audioFile.src = elementData[i].audio;
 		audioFile.id = 'audio' + soundList[i]['id'];
 		audioFile.innerHTML  = "<source src='" + "{{ URL::asset('') }}" + soundList[i]['audio']+"' type='audio/mp3'>";
 		sampleGroup.appendChild(audioFile);
-		sentenceNo++;
-		if (i != soundList.length - 1) {
-			audioFile.addEventListener('loadedmetadata', function() {
-				sentenceTime += this.duration;
-			});
+
+
+		if (!isNaN(audioFile.duration)) {
+			checkTickLoad(this.duration);
 		} else {
 			audioFile.addEventListener('loadedmetadata', function() {
-				sentenceTime += this.duration;
-				
-				var totalTime = sentenceTime + sentenceNo * document.getElementById('tick').duration;
-				docBar = new ProgressBar.Line("#container", {
-					strokeWidth: 4,
-					duration: totalTime * 1000,
-					color: '#FFEA82',
-					trailColor: '#eee',
-					trailWidth: 1,
-					svgStyle: {width: '100%', height: '100%'},
-					from: {color: '#ED6A5A'},
-					to: {color: '#1affa3'},
-					step: (state, bar) => {
-						bar.path.setAttribute('stroke', state.color);
-					}
-				});
-				docBar.set(1);
+				checkTickLoad(this.duration);
 			});
 		}
 	}
-	
+
+	function checkTickLoad(duration) {
+		wordNo++;
+		wordTime += duration;
+
+		if (wordNo == soundList.length) {
+			var tick = document.getElementById('tick');
+			if (!isNaN(tick.duration)) {
+				buildProgressBar(wordTime + wordNo * tick.duration);
+			} else {
+				tick.addEventListener('loadedmetadata', function() {
+					buildProgressBar(wordTime + wordNo * this.duration);
+				});
+			}
+		}
+	}
+
+	function buildProgressBar(totalTime) {
+		docBar = new ProgressBar.Line("#container", {
+			strokeWidth: 4,
+			duration: totalTime * 1000,
+			color: '#FFEA82',
+			trailColor: '#eee',
+			trailWidth: 1,
+			svgStyle: {width: '100%', height: '100%'},
+			from: {color: '#ED6A5A'},
+			to: {color: '#1affa3'},
+			step: (state, bar) => {
+				bar.path.setAttribute('stroke', state.color);
+			}
+		});
+		docBar.set(1);
+	}
 </script>
 @stop
