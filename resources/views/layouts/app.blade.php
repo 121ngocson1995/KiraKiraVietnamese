@@ -41,6 +41,7 @@
         height: 100%;
     }
     body {
+        font-family: "Open Sans",sans-serif;
         height: calc(100% - 65px);
     }
     #container {
@@ -198,9 +199,6 @@
     .tooltip:hover .tooltiptext {
         visibility: visible;
         opacity: 1;
-    }
-    body {
-        font-family: "Open Sans",sans-serif;
     }
     #activity_menu {
         border-right: none;

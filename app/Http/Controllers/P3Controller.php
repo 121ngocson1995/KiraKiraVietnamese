@@ -16,6 +16,6 @@ class P3Controller extends Controller
 		// Lấy dữ liệu từ db
 		$elementData = P3SentenceMemorize::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
-		return view("activities.P3v2", compact(['elementData', 'cnt']));
+		return view("activities.P3", compact(['elementData', 'cnt']));
 	}
 }

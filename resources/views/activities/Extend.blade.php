@@ -55,7 +55,6 @@
     }
 </script>
 
-<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('exten_assets/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 
