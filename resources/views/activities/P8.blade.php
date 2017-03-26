@@ -3,6 +3,7 @@
 @section('actContent')
 
 <hr>
+
 <style type="text/css">
 	.ui-state-highlight {
 		padding: 6px 15px;
@@ -95,9 +96,7 @@
 	var rightAnswerCnt = 0; 
 	var checkQuestion = true;
 	var countdown;
-	var inProgress = false;
 	for (var i = 0; i < dialogCnt.length; i++) {
-
 		checkFinish.push({dialogNo:(i), finish:false});
 	}
 
@@ -123,7 +122,6 @@
 				showResult();
 			}
 		});
-		$('#btn-Next').hide();
 	}
 
 	function chooseD(element){
@@ -169,10 +167,7 @@
 			} 
 			checkQuestion = false;
 		}else{
-			// $(".dropWord").droppable("destroy");
-			// $(".dropWord").droppable("option","accept","*");
 			edit(elementData, dialogNow, dialogCnt);
-			// $(".dragWord").draggable();
 			initDroppable();
 		}
 
@@ -196,10 +191,10 @@
 			var index = 0;
 			for (var k = 0; k < curline.length; k++) {
 				if (index != curline.length-1) {
-					
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curline[k]);
-					dialogNode.setAttribute('id',dialogline[j]['answer'][k].replace(/ /g,"")+"-question");
+					dialogNode.setAttribute('id',"d"+dialogNow+"line"+j+"question"+k);
+					dialogNode.setAttribute('data-answer-content', dialogline[j]['answer'][k]);
 					dialogNode.setAttribute('class','blank-sqr dropWord');
 					node.appendChild(textNode);
 
@@ -227,12 +222,12 @@
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
 					var node = document.createElement("div");
 					node.setAttribute('class', 'dragWord ui-state-default');
-					node.setAttribute('id', dialogAnswer[i]['answer'][j].replace(/ /g,""));
+					node.setAttribute('id', "d"+dialogNow+"line"+i+"answer"+j);
+					node.setAttribute('data-answer-content', dialogAnswer[i]['answer'][j]);
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 					node.appendChild(textnode);
 					document.getElementById("answer_id").appendChild(node);
 				}
-
 			}
 		}
 	}
@@ -288,7 +283,6 @@
 
 	// function drag(event) {
 	// 	event.dataTransfer.setData("Text", event.target.getAttribute("id"));
-	// 	document.documentElement.scrollTop = document.documentElement.scrollTop + scrollSpeed;
 	// }
 
 	// function drop(element, event) {
@@ -351,9 +345,9 @@
 		var blankBlockList =  document.getElementsByClassName("blank-sqr");
 
 		$('.blank-sqr').each(function(){
-			var data = $(this).attr('id');
+			var data = $(this).attr('data-answer-content');
 
-			$(this).text(data.replace("-question", ""));
+			$(this).text(data);
 			$(this).removeClass('blank-sqr');
 			$(this).droppable('destroy');
 			$(this).addClass('notChoose-sqr');
@@ -376,9 +370,8 @@
 				checkFinish[i]['finish'] = true;
 			}
 		}
-		$("#answer_id").find("div").removeAttr("draggable");
-		$('#btn-Next').show();
 	}
+
 </script> 
 <div style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on" onselectstart="return false;" 
 onmousedown="return false;">
@@ -406,7 +399,7 @@ onmousedown="return false;">
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<div id="{{str_replace(' ', '', $dialogAnswer[$i]->answer[$j])}}"  class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
+		<div id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
 		@endif
 		@endfor	
 		@endfor
@@ -422,7 +415,7 @@ onmousedown="return false;">
 			<div style="font-size: 25px; padding: 15px">
 				@for ($j = 0; $j < count($curline) ; $j++)
 				@if ($index != count($curline)-1)
-				{{$curline[$j]}}<div id="{{$elementData[$i]->answer[$j]}}-question" class="blank-sqr dropWord"></div>
+				{{$curline[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
 				@php
 				$index++;
 				@endphp
@@ -511,12 +504,19 @@ onmousedown="return false;">
 
 		$('.dropWord').each(function() {
 			var dropTarget = $(this);
-			var data = dropTarget.attr('id');
-			var answer_id = data.replace('-question', "");
-			answer_id = answer_id.replace(/ /g,"");
+			var answer_content = dropTarget.attr('data-answer-content');
+			var answer_class = dropTarget.attr('id');
+			answer_class = " " + answer_class;
+			var answer_div = $("#answer_id").find("div"); 
+			for (var i = 0; i < answer_div.length; i++) {
+				if (answer_div[i].getAttribute('data-answer-content') == answer_content) {
+					answer_div[i].className += answer_class;
+				}
+			}
+			answer_class = answer_class.replace(" ","");
 
 			$(this).droppable({
-				accept:'#'+answer_id,
+				accept: '.'+answer_class,
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
 					var dropTarget = $(this);
@@ -535,9 +535,7 @@ onmousedown="return false;">
 					});
 					
 
-					var targetId = ui.draggable.attr('id');
-					var answerText = document.getElementById(targetId).innerHTML;
-					console.log(answer_id.localeCompare(targetId));
+					var answerText = ui.draggable.attr('data-answer-content');
 					dropTarget.text(answerText);
 					dropTarget.attr("class", "sqr");
 					ui.draggable.remove();
