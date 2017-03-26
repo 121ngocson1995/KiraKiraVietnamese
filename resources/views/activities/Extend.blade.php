@@ -66,9 +66,9 @@
                             
                         </div>
                     </div>
-                    <div class="row" style="text-align: center; padding-top: 12px;">
+                    <div class="row" style="text-align: center; padding-top: 12px; padding-bottom: 44px">
                         <div class="col-md-12 title_button">
-                            <div class="btn-group" role="group" style="padding-top: 46px;">
+                            <div class="btn-group" role="group" style="">
                                 @for($i=0; $i<$cnt; $i++)
                                 <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" type="button">{{ $typeArr[$i] }}</button></a>
                                 @endfor
@@ -132,9 +132,9 @@
                             
                         </div>
                     </div>
-                    <div class="row" style="text-align: center; padding-top: 12px">
+                    <div class="row" style="text-align: center; padding-top: 12px; padding-bottom: 44px">
                         <div class="col-md-12 title_button">
-                            <div class="btn-group" role="group" style="padding-top: 46px">
+                            <div class="btn-group" role="group">
                                 @for($j=0; $j<$cnt; $j++)
                                 <a href="#part{{$j+1}}" class="panelt" ><button class="btn btn-default" type="button">{{ $typeArr[$j] }}</button></a>
                                 @endfor
