@@ -169,7 +169,10 @@
 			} 
 			checkQuestion = false;
 		}else{
+			// $(".dropWord").droppable("destroy");
+			// $(".dropWord").droppable("option","accept","*");
 			edit(elementData, dialogNow, dialogCnt);
+			// $(".dragWord").draggable();
 			initDroppable();
 		}
 
@@ -196,7 +199,7 @@
 					
 					var dialogNode = document.createElement("div");
 					textNode = document.createTextNode(curline[k]);
-					dialogNode.setAttribute('id',dialogline[j]['lineNo']+','+k);
+					dialogNode.setAttribute('id',dialogline[j]['answer'][k]+"-question");
 					dialogNode.setAttribute('class','blank-sqr dropWord');
 					node.appendChild(textNode);
 
@@ -224,7 +227,7 @@
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
 					var node = document.createElement("div");
 					node.setAttribute('class', 'dragWord ui-state-default');
-					node.setAttribute('id', (dialogNow)+','+dialogAnswer[i]['lineNo']+','+j);
+					node.setAttribute('id', dialogAnswer[i]['answer'][j]);
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 					node.appendChild(textnode);
 					document.getElementById("answer_id").appendChild(node);
@@ -346,24 +349,17 @@
 		rightAnswerCnt = 0;
 
 		var blankBlockList =  document.getElementsByClassName("blank-sqr");
-		var dialogAnswer = new Array();
-		for (i=0; i < elementData.length ; i++) { 
-			if (elementData[i]['dialogNo'] == dialogNow) {
-				dialogAnswer.push(elementData[i]);
-			}
-		}
 
 		$('.blank-sqr').each(function(){
-			var data = $(this).attr('id').split(',');
-			var notChoose_id = dialogNow+","+data[0]+","+data[1];
+			var data = $(this).attr('id');
 
-			$(this).text(dialogAnswer[data[0]]['answer'][data[1]]);
+			$(this).text(data.replace("-question", ""));
 			$(this).removeClass('blank-sqr');
-			$(this).droppable('destroy');
+			// $(this).droppable('destroy');
 			$(this).addClass('notChoose-sqr');
 		});
 		$('.dragWord').each(function(){
-			$(this).draggable('destroy');
+			// $(this).draggable('destroy');
 			$(this).css('background', 'transparent');
 		});
 		for (var i = 0; i < dialogNow; i++) {
@@ -410,7 +406,7 @@ onmousedown="return false;">
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<div id="0,{{$dialogAnswer[$i]->lineNo}},{{$j}}"  class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
+		<div id="{{$dialogAnswer[$i]->answer[$j]}}"  class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
 		@endif
 		@endfor	
 		@endfor
@@ -426,7 +422,7 @@ onmousedown="return false;">
 			<div style="font-size: 25px; padding: 15px">
 				@for ($j = 0; $j < count($curline) ; $j++)
 				@if ($index != count($curline)-1)
-				{{$curline[$j]}}<div id="{{$elementData[$i]->lineNo}},{{$j}}" class="blank-sqr dropWord"></div>
+				{{$curline[$j]}}<div id="{{$elementData[$i]->answer[$j]}}-question" class="blank-sqr dropWord"></div>
 				@php
 				$index++;
 				@endphp
@@ -471,6 +467,11 @@ onmousedown="return false;">
 </script>
 
 <script>
+	function test() {
+		/* change position of draggable element along with drop target */
+		countdown.stop();
+		showResult();
+	}
 	var correctNo = 0;
 	var totalQuestion = 0;
 
@@ -482,6 +483,10 @@ onmousedown="return false;">
 
 
 	function initDroppable() {
+		// $('.dropWord').each(function() {
+		// 	console.log($(this));
+		// });
+		$('.dropWord').droppable('disable');
 		$(".dragWord").draggable({
 			create: function(){
 				$(this).data('position',$(this).position());
@@ -503,36 +508,13 @@ onmousedown="return false;">
 		});
 
 		$('.dropWord').each(function() {
+			var dropTarget = $(this);
+			var data = dropTarget.attr('id');
+			var answer_id = data.replace('-question', "");
+			console.log(answer_id);
+
 			$(this).droppable({
-
-				accept:function(element) { 
-					var dropTarget = $(this);
-					var data = dropTarget.attr('id').split(',');
-					var lineNo = data[0];
-					var answerOrder = data[1];
-					var rightAnswer;
-
-					var j;
-
-					for (var i = 0; i < elementData.length; i++) {
-						// console.log('i = ' + i);
-						// console.log(elementData[i]);
-						// console.log(dialogNow);
-						// console.log(lineNo);
-						if (elementData[i]['dialogNo'] == dialogNow && elementData[i]['lineNo'] == lineNo ) {
-							rightAnswer = elementData[i]['answer'];
-							j = i;
-						}
-					}
-
-					console.log(elementData);
-					console.log('j = ' + j);
-					console.log(rightAnswer);
-					if(element.text() == rightAnswer[answerOrder]){ 
-						return true;
-					}
-				},
-
+				accept:'#'+answer_id,
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
 					var dropTarget = $(this);
@@ -549,23 +531,20 @@ onmousedown="return false;">
 							}, 200);
 						}
 					});
+					
 
 					var targetId = ui.draggable.attr('id');
 					var answerText = document.getElementById(targetId).innerHTML;
-					
+					console.log(answer_id.localeCompare(targetId));
 					dropTarget.text(answerText);
 					dropTarget.attr("class", "sqr");
-					document.getElementById(targetId).remove();
+					ui.draggable.remove();
 					rightAnswerCnt++;
 
 					if (checkAnswer(elementData , rightAnswerCnt)) {
-						$('#btn-Next').show();
 						countdown.stop();
 						showResult();
 					}
-
-					
-					
 
 					$('.dropWord').each(function() {
 						rePosition($(this), $(this).data('curDrag'));
@@ -590,22 +569,5 @@ onmousedown="return false;">
 			});
 		}
 	}
-
-	$( function() {
-		$( "#draggable, #draggable-nonvalid" ).draggable();
-		$( "#droppable" ).droppable({
-			accept: "#draggable",
-			classes: {
-				"ui-droppable-active": "ui-state-active",
-				"ui-droppable-hover": "ui-state-hover"
-			},
-			drop: function( event, ui ) {
-				$( this )
-				.addClass( "ui-state-highlight" )
-				.find( "p" )
-				.html( "Dropped!" );
-			}
-		});
-	} );
 </script>
 @stop
