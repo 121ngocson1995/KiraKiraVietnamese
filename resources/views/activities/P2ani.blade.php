@@ -1,6 +1,6 @@
 @extends('activities.layout.activityLayout')
 
-@section('actContent')
+@section('header-more')
 
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
 
@@ -102,6 +102,10 @@
 		margin-left: 0.15em;
 	}
 </style>
+
+@stop
+
+@section('actContent')
 
 <div id="background"{{--  style="text-align: center --}}">
 	<img id="cloudBottom" style="position: fixed; left: -6%; bottom: -4%; width: 103%" src="{{ asset('img/testAnimate/cloudBottom.svg') }}" alt="" style="bottom: 0">
