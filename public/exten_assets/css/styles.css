@@ -5,8 +5,8 @@ div.col-md-4.col-md-offset-4{
 div.jumbotron.extend{
   color:white;
   background-color:rgba(255,255,255,0);
-  padding-top:48px;
-  padding-bottom:36px;
+  padding-top:52px;
+  padding-bottom:20px;
 }
 
 #promo_extend{
@@ -15,14 +15,18 @@ div.jumbotron.extend{
   padding-bottom:1px;
 }
 
+div.jumbotron.extend h1{
+  font-size: 48px;
+  font-family:serif;
+}
+
 img.center-block{
   margin:0 auto;
 }
 
 h2{
-  font-size:12px;
   text-align:center;
-  font-size:37px;
+  font-size:32px;
   font-family:serif;
   font-weight:700;
 }
@@ -114,6 +118,8 @@ table.table{
   position: absolute;
   top: 0;
   left: 0;
+  margin-top: 65px;
+  margin-bottom: 0px;
   /*background-color: #ccc;*/
   overflow: hidden;
 }
@@ -132,17 +138,16 @@ table.table{
 }
 
 .content {
- /* width: 400px;
+/*  width: 400px;
   height: 300px;
-  top: 20%;*/
+  top: 20%;
   margin: 0 auto;
   background-color: #aaa;
-  position: relative;
+  position: relative;*/
 }
 
 .selected {
-  background: #fff;
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .clear {
