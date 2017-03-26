@@ -1,6 +1,6 @@
 @extends('activities.layout.activityLayout')
 
-@section('actContent')
+@section('header-more')
 
 <style>
 	body {
@@ -24,7 +24,7 @@
 	}*/
 	#problems {
 		display: flex;
-		align-items: center;
+		/*align-items: center;*/
 		text-align: center;
 		z-index: 1;
 		opacity: 0;
@@ -34,8 +34,9 @@
 		color: white;
 		font-family: 'Patrick Hand', cursive;
 		font-size: 2.5em;
+		top: 50%;
 		left: 50%;
-		transform: translate(-50%,-5%);
+		transform: translate(-50%,-55%);
 		z-index: 1;
 	}
 	#problems #result {
@@ -128,6 +129,10 @@
 		cursor: default;
 	}*/
 </style>
+
+@stop
+
+@section('actContent')
 
 <script type="text/javascript">
 	var originalData = <?php echo json_encode($elementData); ?>;
