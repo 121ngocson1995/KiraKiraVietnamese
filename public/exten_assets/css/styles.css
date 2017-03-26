@@ -132,9 +132,9 @@ table.table{
 }
 
 .content {
-  width: 400px;
+ /* width: 400px;
   height: 300px;
-  top: 20%;
+  top: 20%;*/
   margin: 0 auto;
   background-color: #aaa;
   position: relative;

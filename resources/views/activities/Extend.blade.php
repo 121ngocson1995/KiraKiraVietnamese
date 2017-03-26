@@ -1,7 +1,6 @@
+@extends('activities.layout.activityLayout')
 
-@extends('layout')
-
-@section('content')
+@section('actContent')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
 <script type="text/javascript">
@@ -184,7 +183,5 @@
   </div>
 </div>
 
-{{--     <script src="{{ asset('exten_assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('exten_assets/bootstrap/js/bootstrap.min.js') }}"></script> --}}
 
 @stop

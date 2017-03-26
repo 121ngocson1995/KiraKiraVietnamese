@@ -25,12 +25,12 @@ class ExtendController extends Controller
 			{
 				$titleArr[] = $key->title;
 			} 
-			$typeArr = ['Image', 'Song', 'Poem','Rdm', 'Idioms', 'Play'];
+			$typeArr = ['Image', 'Song', 'Poem','Riddle', 'Idioms', 'Play'];
 
 		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 
 
-		} else {
-			return view("activities.Extend", compact(['elementData']));
-		}
+	} else {
+		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 
 	}
+}
 }
