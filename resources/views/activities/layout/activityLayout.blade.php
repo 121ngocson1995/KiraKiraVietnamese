@@ -2,8 +2,8 @@
 
 @section('header')
 
-<link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('css/component.css') }}" />
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}" /> --}}
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/component.css') }}" /> --}}
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 <link rel="stylesheet" href="{{ asset('css/preload/Icomoon/style.css') }}">
 <link rel="stylesheet" href="{{ asset('css/preload/main.css') }}">
