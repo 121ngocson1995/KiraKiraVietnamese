@@ -9,10 +9,9 @@
 		padding: 5px;
 		border-bottom: solid 2px #cccccc;
 		border-radius: 25px;
-		text-align: center;
-		font-size: 400px;
+		text-align: center;	
 		font-family: 'Dekko';
-		font-weight: 900;
+
 	}
 	.wallpaper {
 		background-image:url('P12_img/bg.jpg');
