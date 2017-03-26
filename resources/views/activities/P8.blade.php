@@ -444,8 +444,7 @@ onmousedown="return false;">
 	<div id="result" style="text-align: center;"></div>
 </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>    
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+
 <script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
 	countdown = $("#countdown").countdown360({
@@ -486,8 +485,11 @@ onmousedown="return false;">
 		// $('.dropWord').each(function() {
 		// 	console.log($(this));
 		// });
-		$('.dropWord').droppable('disable');
 		$(".dragWord").draggable({
+			// scroll: true,
+			// scrollSensitivity: 20,
+			// scrollSpeed: 20,
+			// cursor: "crosshair", cursorAt: { top: 50, left: 50 },
 			create: function(){
 				$(this).data('position',$(this).position());
 			},
@@ -512,7 +514,6 @@ onmousedown="return false;">
 			var data = dropTarget.attr('id');
 			var answer_id = data.replace('-question', "");
 			answer_id = answer_id.replace(/ /g,"");
-			console.log(answer_id);
 
 			$(this).droppable({
 				accept:'#'+answer_id,
