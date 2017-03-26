@@ -31,9 +31,9 @@
 	}
 	#content_id{
 		position: relative;
-		left: 30%;
+		left: 27%;
 		width: auto;
-		max-width: 530px;
+		max-width: 870px;
 	}
 	#answer_id{
 		text-align: center;
@@ -56,7 +56,7 @@
 	.blank-sqr{
 		border: 1px solid;
 		border-radius: 9px;
-		width: 100px;
+		width: 200px;
 		height: 45px;
 		background-color: #e6ffee;
 		display: inline-block;
