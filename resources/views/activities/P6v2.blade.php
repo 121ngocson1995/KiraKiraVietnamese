@@ -24,7 +24,7 @@
 	}*/
 	#problems {
 		display: flex;
-		/*align-items: center;*/
+		align-items: center;
 		text-align: center;
 		z-index: 1;
 		opacity: 0;
@@ -34,9 +34,8 @@
 		color: white;
 		font-family: 'Patrick Hand', cursive;
 		font-size: 2.5em;
-		top: 50%;
 		left: 50%;
-		transform: translate(-50%,-55%);
+		transform: translate(-50%,-5%);
 		z-index: 1;
 	}
 	#problems #result {
