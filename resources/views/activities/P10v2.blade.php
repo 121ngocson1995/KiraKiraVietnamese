@@ -153,12 +153,45 @@
 	    top: 50px;
 	}
 	#cloud {
-		-webkit-animation-duration: 60s;
-		-webkit-animation-delay: 10s;
+		-webkit-animation-duration: 500s;
+		-webkit-animation-delay: 0s;
 		-webkit-animation-iteration-count: infinite;
-		-moz-animation-duration: 60s;
-		-moz-animation-delay: 10s;
+		-moz-animation-duration: 500s;
+		-moz-animation-delay: 0s;
 		-moz-animation-iteration-count: infinite;
+	}
+	@-webkit-keyframes shake {
+		from, to {
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+		}
+
+		10%, 30%, 50%, 70%, 90% {
+			-webkit-transform: translate3d(-150px, 0, 0);
+			transform: translate3d(-150px, 0, 0);
+		}
+
+		20%, 40%, 60%, 80% {
+			-webkit-transform: translate3d(150px, 0, 0);
+			transform: translate3d(150px, 0, 0);
+		}
+	}
+
+	@keyframes shake {
+		from, to {
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+		}
+
+		10%, 30%, 50%, 70%, 90% {
+			-webkit-transform: translate3d(-150px, 0, 0);
+			transform: translate3d(-150px, 0, 0);
+		}
+
+		20%, 40%, 60%, 80% {
+			-webkit-transform: translate3d(150px, 0, 0);
+			transform: translate3d(150px, 0, 0);
+		}
 	}
 </style>
 
@@ -176,7 +209,7 @@
 
 <div id="background">
 	<img id="sun" style="position: fixed; width: 80%; top: 0; left: 50%; transform: translateX(-50%); opacity: 0; z-index: -1" src="{{ asset('img/P10/bg-sun.svg') }}" alt="">
-	<img id="cloud" style="position: fixed; width: 110%; bottom: 5%; z-index: -1" src="{{ asset('img/P10/bg-cloud.svg') }}" alt="">
+	<img id="cloud" style="position: fixed; width: 130%; left: -15%; bottom: 5%; z-index: -1" src="{{ asset('img/P10/bg-cloud.svg') }}" alt="">
 	<img id="land" style="position: fixed; width: 100%; bottom: -50%; z-index: -1" src="{{ asset('img/P10/bg-land.svg') }}" alt="">
 </div>
 
