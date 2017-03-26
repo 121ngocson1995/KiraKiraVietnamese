@@ -127,7 +127,7 @@ table.table{
 
 #mask {
   width: 500%;
-  height: 100%;
+  /*height: 100%;*/
   /*background-color: #eee;*/
 }
 
@@ -153,4 +153,7 @@ table.table{
 
 .clear {
   clear: both;
+}
+#wrapper, .part, #mask {
+  height: 700px;
 }

@@ -26,6 +26,14 @@
             $('#wrapper').scrollTo($(this).attr('href'), 800);
             return false;
         });
+        width = $(window).width();
+        mask_width = width * $('.part').length;
+        $('#wrapper, .part').css({
+            width: width,
+        });
+        $('#mask').css({
+            width: mask_width,
+        });
         $(window).resize(function() {
             resizePanelt();
         });
