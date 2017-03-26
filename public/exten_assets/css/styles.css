@@ -76,7 +76,7 @@ tbody.extendtable{
 }
 
 div.col-md-12.carousel.fix{
-  height:650px;
+  height:700px;
   display:block;
 }
 
@@ -118,10 +118,11 @@ table.table{
   position: absolute;
   top: 0;
   left: 0;
-  margin-top: 65px;
+  margin-top: 265px;
   margin-bottom: 0px;
   /*background-color: #ccc;*/
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 #mask {
