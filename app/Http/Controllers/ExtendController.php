@@ -20,6 +20,7 @@ class ExtendController extends Controller
 		{
 			for ($i=0; $i<$cnt; $i++){
 				$contentArr[$i] = explode( "|", $elementData[$i]->content);
+				$thumbArr[$i] = explode( "|", $elementData[$i]->thumbnail);
 			}
 			foreach ($elementData as $key) 
 			{
@@ -27,10 +28,13 @@ class ExtendController extends Controller
 			} 
 			$typeArr = ['Image', 'Song', 'Poem','Riddle', 'Idioms', 'Play'];
 
-		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 
+		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'titleArr', 'typeArr', 'cnt'])); 
 
 	} else {
 		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 
 	}
 }
 }
+
+
+

@@ -1,0 +1,159 @@
+div.col-md-4.col-md-offset-4{
+  text-align:center;
+}
+
+div.jumbotron.extend{
+  color:white;
+  background-color:rgba(255,255,255,0);
+  padding-top:52px;
+  padding-bottom:20px;
+}
+
+#promo_extend{
+  background:url(../../exten/img/re-1006.jpg);
+  background-size:cover;
+  padding-bottom:1px;
+}
+
+div.jumbotron.extend h1{
+  font-size: 48px;
+  font-family:serif;
+}
+
+img.center-block{
+  margin:0 auto;
+}
+
+h2{
+  text-align:center;
+  font-size:32px;
+  font-family:serif;
+  font-weight:700;
+}
+
+.itemstyle{
+  font-size:28px;
+  color:rgb(10,174,225);
+}
+
+div.img_body{
+  background:url(../../exten/img/preview.jpg);
+  background-size:cover;
+}
+
+div.content_body{
+  background:url(../../exten/img/preview.jpg);
+  background-size:cover;
+}
+
+div.col-md-12.carousel{
+  padding-bottom:64px;
+  padding-top:24px;
+}
+
+i.glyphicon.glyphicon-step-forward{
+  font-size:48px;
+  color:rgb(10,174,225);
+}
+
+i.glyphicon.glyphicon-step-backward{
+  font-size:48px;
+  color:rgb(10,174,225);
+}
+
+div.col-md-3.icon_right{
+  text-align:right;
+}
+
+div.row.title_row{
+  padding-bottom:30px;
+}
+
+tbody.extendtable{
+  text-align:center;
+  font-size:24px;
+  font-family:sans-serif;
+}
+
+div.col-md-12.carousel.fix{
+  height:700px;
+  display:block;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{
+  border-top:0px solid #ddd;
+}
+
+table.table{
+  width:auto;
+  text-align:left;
+}
+
+tr{
+  text-align:left;
+}
+
+div.table-responsive{
+  text-align:center;
+  display:flex;
+}
+
+table.table{
+  left:50%;
+  position:absolute;
+  transform:translateX(-50%);
+}
+
+/*body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+*/
+#wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 265px;
+  margin-bottom: 0px;
+  /*background-color: #ccc;*/
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+#mask {
+  width: 500%;
+  /*height: 100%;*/
+  /*background-color: #eee;*/
+}
+
+.part {
+  width: 20%;
+  height: 100%;
+  float: left;
+/*  background-color: #ddd;*/
+}
+
+.content {
+/*  width: 400px;
+  height: 300px;
+  top: 20%;
+  margin: 0 auto;
+  background-color: #aaa;
+  position: relative;*/
+}
+
+.selected {
+    font-weight: 700;
+}
+
+.clear {
+  clear: both;
+}
+#wrapper, .part, #mask {
+  height: 700px;
+}
