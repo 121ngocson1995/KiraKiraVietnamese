@@ -26,6 +26,16 @@ INSERT INTO `roles` VALUES (0,'learner','small pry',NULL,NULL,NULL),(100,'Super 
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `lessons`
+--
+
+LOCK TABLES `lessons` WRITE;
+/*!40000 ALTER TABLE `lessons` DISABLE KEYS */;
+INSERT INTO `lessons` VALUES (1,1,1,'Hello','You will learn about various ways to greet people.','Trung NL',1,1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `lessons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `users`
 --
 
@@ -41,18 +51,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (1,'','First course','abc',8,'Trung NL',1,1,NULL,NULL,NULL);
+INSERT INTO `courses` VALUES (1,'','First course','Today, Vietnamese people have set foot and settled all around the world. That\'s a wonderful thing. However, after generations and generations, the language has faded away among those living overseas. This course aims to provide to small children the basic knowledge of Vietnamese language as well as Vietnamese culture.',8,'Trung NL',1,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `lessons`
---
-
-LOCK TABLES `lessons` WRITE;
-/*!40000 ALTER TABLE `lessons` DISABLE KEYS */;
-INSERT INTO `lessons` VALUES (1,1,1,'Hello','First lesson','Trung NL',1,1,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `lessons` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -61,7 +61,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `extensions` WRITE;
 /*!40000 ALTER TABLE `extensions` DISABLE KEYS */;
-INSERT INTO `extensions` VALUES (1,1,1,0,'Hình ảnh đất nước, con người','demo',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,2,1,'Bài hát dành cho em','Con cò bé bé|Nó đậu cành tre|Đi không hỏi mẹ|Biết đi đường nào|Khi đi em hỏi|Khi về em chào|Miệng em chúm chím mẹ có yêu không nào',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,1,3,2,'Em đọc thơ','Đi đến nơi nào|Lời chào đi trước|Lời chào dẫn bước|Chẳng sợ lạc nhà|Lời chào kết bạn|Con đường bớt xa',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,1,4,3,'Thành ngữ - Tục ngữ - Ca dao','Lời chào cao hơn mâm cỗ',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,1,5,4,'Thử đoán nào?','Con gì mào đỏ|Lông mượt như tơ|Sáng sớm tinh mơ|Gọi người thức dậy?',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,1,6,5,'Cùng chơi các bạn ơi!','Chi chi chành chành|Cái đanh thổi lửa|Con ngựa đứt cương|Ba Vương ngũ Đế|Bắt dế đi tìm...|Ù à ù ập...',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `extensions` VALUES (1,1,1,0,'Hình ảnh đất nước, con người','demo',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,2,1,'Bài hát dành cho em','Con cò bé bé|Nó đậu cành tre|Đi không hỏi mẹ|Biết đi đường nào|Khi đi em hỏi|Khi về em chào|Miệng em chúm chím|Mẹ có yêu không nào',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,1,3,2,'Em đọc thơ','Đi đến nơi nào|Lời chào đi trước|Lời chào dẫn bước|Chẳng sợ lạc nhà|Lời chào kết bạn|Con đường bớt xa',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,1,4,3,'Thành ngữ - Tục ngữ - Ca dao','Lời chào cao hơn mâm cỗ',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,1,5,4,'Thử đoán nào?','Con gì mào đỏ|Lông mượt như tơ|Sáng sớm tinh mơ|Gọi người thức dậy?',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,1,6,5,'Cùng chơi các bạn ơi!','Chi chi chành chành|Cái đanh thổi lửa|Con ngựa đứt cương|Ba Vương ngũ Đế|Bắt dế đi tìm...|Ù à ù ập...',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `extensions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p12_group_interactions` WRITE;
 /*!40000 ALTER TABLE `p12_group_interactions` DISABLE KEYS */;
-INSERT INTO `p12_group_interactions` VALUES (1,1,'Tương tác nhóm','Các nhóm nhỏ trong lớp cùng nhau chuẩn bị và thực hành trong nhóm phần tự giới thiệu về mình. Sau đó các nhóm cùng nhau chỉnh sửa một bài chung và cử một bạn đại diện thay mặt nhóm tự giới th','',NULL,NULL,NULL);
+INSERT INTO `p12_group_interactions` VALUES (1,1,'Tương tác nhóm','Các nhóm nhỏ trong lớp cùng nhau chuẩn bị và thực hành trong nhóm phần tự giới thiệu về mình. Sau đó các nhóm cùng nhau chỉnh sửa một bài chung và cử một bạn đại diện thay mặt nhóm tự giới thiệu trước toàn lớp.','',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p12_group_interactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p1_word_memorizes` WRITE;
 /*!40000 ALTER TABLE `p1_word_memorizes` DISABLE KEYS */;
-INSERT INTO `p1_word_memorizes` VALUES (1,1,1,1,'Chào','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(2,1,1,2,'Bạn','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(3,1,1,3,'Anh','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(4,1,1,4,'Chị','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(5,1,1,5,'Cô','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(6,1,1,6,'Chú','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(7,1,2,1,'Bác','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(8,1,2,2,'Ông','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(9,1,2,3,'Bà','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(10,1,2,4,'Tôi','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(11,1,2,5,'Em','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(12,1,2,6,'Cháu','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(13,1,3,1,'Tê','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(14,1,3,2,'Tuổi','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(15,1,3,3,'Các','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(16,1,3,4,'À','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(17,1,3,5,'Dạ','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL),(18,1,3,6,'Là','/audio/vie-1-1-1-3.mp3',NULL,NULL,NULL);
+INSERT INTO `p1_word_memorizes` VALUES (1,1,1,1,'Chào','/audio/P1/lesson1/1-chao.mp3',NULL,NULL,NULL),(2,1,1,2,'Bạn','/audio/P1/lesson1/2-ban.mp3',NULL,NULL,NULL),(3,1,1,3,'Anh','/audio/P1/lesson1/3-anh.mp3',NULL,NULL,NULL),(4,1,1,4,'Chị','/audio/P1/lesson1/4-chi.mp3',NULL,NULL,NULL),(5,1,1,5,'Cô','/audio/P1/lesson1/5-co.mp3',NULL,NULL,NULL),(6,1,1,6,'Chú','/audio/P1/lesson1/6-chu.mp3',NULL,NULL,NULL),(7,1,2,1,'Bác','/audio/P1/lesson1/7-bac.mp3',NULL,NULL,NULL),(8,1,2,2,'Ông','/audio/P1/lesson1/8-ong.mp3',NULL,NULL,NULL),(9,1,2,3,'Bà','/audio/P1/lesson1/9-ba.mp3',NULL,NULL,NULL),(10,1,2,4,'Tôi','/audio/P1/lesson1/10-toi.mp3',NULL,NULL,NULL),(11,1,2,5,'Em','/audio/P1/lesson1/11-em.mp3',NULL,NULL,NULL),(12,1,2,6,'Cháu','/audio/P1/lesson1/12-chau.mp3',NULL,NULL,NULL),(13,1,3,1,'Tê','/audio/P1/lesson1/13-ten.mp3',NULL,NULL,NULL),(14,1,3,2,'Tuổi','/audio/P1/lesson1/14-tuoi.mp3',NULL,NULL,NULL),(15,1,3,3,'Các','/audio/P1/lesson1/15-cac.mp3',NULL,NULL,NULL),(16,1,3,4,'À','/audio/P1/lesson1/16-a.mp3',NULL,NULL,NULL),(17,1,3,5,'Ạ','/audio/P1/lesson1/17-a.mp3',NULL,NULL,NULL),(18,1,3,6,'Là','/audio/P1/lesson1/18-da.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p1_word_memorizes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +171,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p6_dialogue_multiple_choices` WRITE;
 /*!40000 ALTER TABLE `p6_dialogue_multiple_choices` DISABLE KEYS */;
-INSERT INTO `p6_dialogue_multiple_choices` VALUES (1,1,1,'- Chào bác. | - Chào...','cháu','anh','em',NULL,NULL,NULL),(2,1,2,'- Chào em. | - Chào...','bác','bạn','em',NULL,NULL,NULL),(3,1,3,'- Chào bạn. | - Chào...','bạn','chị','em',NULL,NULL,NULL),(4,1,4,'- Bạn tên là gì? | ... tên là Trung Anh','tôi','cháu','em',NULL,NULL,NULL),(5,1,5,'- Cháu tên là gì? | ... tên là Trung Anh.','cháu','em','anh',NULL,NULL,NULL),(6,1,6,'- Em... tuổi? | - Em 7 tuổi.','bao nhiêu','tên','là',NULL,NULL,NULL);
+INSERT INTO `p6_dialogue_multiple_choices` VALUES (1,1,1,'- Chào bác. | - Chào...','cháu','anh','em',NULL,NULL,NULL),(2,1,2,'- Chào em. | - Chào...','anh','bạn','em',NULL,NULL,NULL),(3,1,3,'- Chào bạn. | - Chào...','bạn','chị','em',NULL,NULL,NULL),(4,1,4,'- Bạn tên là gì? | -... tên là Trung Anh','tôi','cháu','em',NULL,NULL,NULL),(5,1,5,'- Cháu tên là gì? | -... tên là Trung Anh.','cháu','em','anh',NULL,NULL,NULL),(6,1,6,'- Em... tuổi? | - Em 7 tuổi.','bao nhiêu','tên','là',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p6_dialogue_multiple_choices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +191,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p8_conversation_fill_words` WRITE;
 /*!40000 ALTER TABLE `p8_conversation_fill_words` DISABLE KEYS */;
-INSERT INTO `p8_conversation_fill_words` VALUES (1,1,0,0,'– Chào *!','bạn',NULL,NULL,NULL),(13,1,0,1,'- * bạn!','Chào',NULL,NULL,NULL),(14,1,0,2,'- Tôi * là Trung Anh.','tên',NULL,NULL,NULL),(15,1,0,3,'Bạn tên * gì?','là',NULL,NULL,NULL),(16,1,0,4,'- * tên là Lan. Tôi 7 tuổi.','Tôi',NULL,NULL,NULL),(17,1,0,5,'- Tôi * 7 tuổi.','cũng',NULL,NULL,NULL),(18,1,0,6,'Tôi là *.Còn *?','học sinh,bạn',NULL,NULL,NULL),(19,1,0,7,'-Tôi * là học sinh.','cũng',NULL,NULL,NULL),(20,1,1,0,'- Chào *.','bác',NULL,NULL,NULL),(21,1,1,1,'- Chào cháu.',NULL,NULL,NULL,NULL),(22,1,1,2,'- * tên là gì ?','Cháu',NULL,NULL,NULL),(23,1,1,3,'- *, * tên là Trung Anh ạ','Dạ, cháu',NULL,NULL,NULL),(24,1,1,4,'- Cháu * tuổi ?','bao nhiêu',NULL,NULL,NULL),(25,1,1,5,'- * 9 * ạ. Cháu * học sinh.','Cháu,tuổi,là',NULL,NULL,NULL),(40,1,2,0,'- Chào chị.',NULL,NULL,NULL,NULL),(41,1,2,1,'- Chào *.','em',NULL,NULL,NULL),(42,1,2,2,' Em * là gì ?','tên',NULL,NULL,NULL),(43,1,2,3,'- * tên * Nam ạ.','Em,là',NULL,NULL,NULL),(44,1,2,4,'- Em * tuổi ?','mấy',NULL,NULL,NULL),(45,1,2,5,'- Em chín * ạ.','tuổi',NULL,NULL,NULL),(46,1,2,6,'- Em là *.','học sinh',NULL,NULL,NULL);
+INSERT INTO `p8_conversation_fill_words` VALUES (1,1,0,0,'– Chào *!','bạn',NULL,NULL,NULL),(13,1,0,1,'- * bạn!','Chào',NULL,NULL,NULL),(14,1,0,2,'- Tôi * là Trung Anh.','tên',NULL,NULL,NULL),(15,1,0,3,'Bạn tên * gì?','là',NULL,NULL,NULL),(16,1,0,4,'- * tên là Lan. Tôi 7 tuổi.','Tôi',NULL,NULL,NULL),(17,1,0,5,'- Tôi * 7 tuổi.','cũng',NULL,NULL,NULL),(18,1,0,6,'Tôi là *.Còn *?','học sinh,bạn',NULL,NULL,NULL),(19,1,0,7,'-Tôi * là học sinh.','cũng',NULL,NULL,NULL),(20,1,1,0,'- Chào *.','bác',NULL,NULL,NULL),(21,1,1,1,'- Chào cháu.',NULL,NULL,NULL,NULL),(22,1,1,2,'- * tên là gì ?','Cháu',NULL,NULL,NULL),(23,1,1,3,'- *, * tên là Trung Anh ạ','Dạ,cháu',NULL,NULL,NULL),(24,1,1,4,'- Cháu * tuổi ?','bao nhiêu',NULL,NULL,NULL),(25,1,1,5,'- * 9 * ạ. Cháu * học sinh.','Cháu,tuổi,là',NULL,NULL,NULL),(40,1,2,0,'- Chào chị.',NULL,NULL,NULL,NULL),(41,1,2,1,'- Chào *.','em',NULL,NULL,NULL),(42,1,2,2,' Em * là gì ?','tên',NULL,NULL,NULL),(43,1,2,3,'- * tên * Nam ạ.','Em,là',NULL,NULL,NULL),(44,1,2,4,'- Em * tuổi ?','mấy',NULL,NULL,NULL),(45,1,2,5,'- Em chín * ạ.','tuổi',NULL,NULL,NULL),(46,1,2,6,'- Em là *.','học sinh',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p8_conversation_fill_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p9_conversation_fill_sentences` WRITE;
 /*!40000 ALTER TABLE `p9_conversation_fill_sentences` DISABLE KEYS */;
-INSERT INTO `p9_conversation_fill_sentences` VALUES (1,1,1,1,'– Chào bạn !',NULL,NULL,NULL,NULL),(2,1,1,2,'– *','Chào bạn.',NULL,NULL,NULL),(3,1,1,3,'- Tôi tên là Trung Anh. Còn bạn ?',NULL,NULL,NULL,NULL),(4,1,1,4,'– *','Tôi tên là Nam.',NULL,NULL,NULL),(5,1,1,5,'Tôi 7 tuổi. Tôi là học sinh. *','Còn bạn ?',NULL,NULL,NULL),(6,1,1,6,'– *','Tôi cũng là học sinh.',NULL,NULL,NULL),(7,1,2,1,'-  Chào anh.',NULL,NULL,NULL,NULL),(8,1,2,2,'– *','Chào em.',NULL,NULL,NULL),(9,1,2,3,'*','Em tên là gì ?',NULL,NULL,NULL),(10,1,2,4,'- Em tên là Trung Anh ạ.',NULL,NULL,NULL,NULL),(11,1,2,5,'– *','Em bao nhiêu tuổi ?',NULL,NULL,NULL),(12,1,2,6,'- Em 9 tuổi ạ.',NULL,NULL,NULL,NULL),(13,1,2,7,'– *','Em là học sinh à ?',NULL,NULL,NULL),(14,1,2,8,'- Vâng, em là học sinh ạ.',NULL,NULL,NULL,NULL);
+INSERT INTO `p9_conversation_fill_sentences` VALUES (1,1,0,0,'– Chào bạn !',NULL,NULL,NULL,NULL),(2,1,0,1,'– *','Chào bạn.',NULL,NULL,NULL),(3,1,0,2,'- Tôi tên là Trung Anh. Còn bạn ?',NULL,NULL,NULL,NULL),(4,1,0,3,'– *','Tôi tên là Nam.',NULL,NULL,NULL),(5,1,0,4,'Tôi 7 tuổi. Tôi là học sinh. *','Còn bạn ?',NULL,NULL,NULL),(6,1,0,5,'– *','Tôi cũng là học sinh.',NULL,NULL,NULL),(7,1,1,0,'-  Chào anh.',NULL,NULL,NULL,NULL),(8,1,1,1,'– *','Chào em.',NULL,NULL,NULL),(9,1,1,2,'*','Em tên là gì ?',NULL,NULL,NULL),(10,1,1,3,'- Em tên là Trung Anh ạ.',NULL,NULL,NULL,NULL),(11,1,1,4,'– *','Em bao nhiêu tuổi ?',NULL,NULL,NULL),(12,1,1,5,'- Em 9 tuổi ạ.',NULL,NULL,NULL,NULL),(13,1,1,6,'– *','Em là học sinh à ?',NULL,NULL,NULL),(14,1,1,7,'- Vâng, em là học sinh ạ.',NULL,NULL,NULL,NULL),(15,1,2,0,'- *','Chào bác ạ.',NULL,NULL,NULL),(16,1,2,1,'- Chào cháu.',NULL,NULL,NULL,NULL),(17,1,2,2,'- *','Cháu tên là gì.',NULL,NULL,NULL),(18,1,2,3,'- Cháu tên là Trung Anh ạ.',NULL,NULL,NULL,NULL),(19,1,2,4,'- *','Cháu mấy tuổi rồi ?',NULL,NULL,NULL),(20,1,2,5,'- Cháu 9 tuổi ạ.',NULL,NULL,NULL,NULL),(21,1,2,6,' *','Cháu là học sinh.',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p9_conversation_fill_sentences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `situations` WRITE;
 /*!40000 ALTER TABLE `situations` DISABLE KEYS */;
-INSERT INTO `situations` VALUES (1,1,1,'Chào các bạn.|Tôi tên là Trung Anh.|Tôi 9 tuổi.|Tôi là học sinh.','',NULL,NULL,NULL),(2,2,1,'- Chào bạn, bạn tên là gì?|- Tôi tên là Nam.|- Bạn bao nhiêu tuổi?|- Tôi 9 tuổi.|- Tôi là học sinh.','',NULL,NULL,NULL),(3,3,1,'Chào anh.|Em tên là Trung Anh.|Em 9 tuổi.|Em là học sinh.','',NULL,NULL,NULL),(4,4,1,'- Chào em, em tên là gì?|- Em tên là Trung Anh.|- Em bao nhiêu tuổi?|- Em 9 tuổi ạ, em là học sinh.','',NULL,NULL,NULL),(5,5,1,'Chào bác.|Cháu tên là Trung Anh.|Cháu 9 tuổi.|Cháu là học sinh.','',NULL,NULL,NULL),(6,6,1,'- Chào cháu, cháu tên là gì?|Cháu tên là Trung Anh ạ.|- Cháu mấy tuổi?|- Dạ, cháu 9 tuổi ạ, cháu là học sinh.','',NULL,NULL,NULL),(7,7,1,'Còn bạn?|Bạn tên là gì?|Bạn bao nhiêu tuổi?|Bạn là học sinh à?','',NULL,NULL,NULL),(8,8,1,'Tôi à?|Tôi tên là...|Tôi... tuổi.|Tôi là học sinh.','',NULL,NULL,NULL);
+INSERT INTO `situations` VALUES (1,1,1,'Situation_img/hinh.png','Chào các bạn.|Tôi tên là Trung Anh.|Tôi 9 tuổi.|Tôi là học sinh.','audio/Situation/lesson1/01-B01-S01.mp3',NULL,NULL,NULL),(2,2,1,'Situation_img/hinh1.png','- Chào bạn, bạn tên là gì?|- Tôi tên là Nam.|- Bạn bao nhiêu tuổi?|- Tôi 9 tuổi.|- Tôi là học sinh.','audio/Situation/lesson1/02-B01-S02.mp3',NULL,NULL,NULL),(3,3,1,'Situation_img/hinh.png','Chào anh.|Em tên là Trung Anh.|Em 9 tuổi.|Em là học sinh.','audio/Situation/lesson1/03-B01-S03.mp3',NULL,NULL,NULL),(4,4,1,'Situation_img/hinh1.png','- Chào em, em tên là gì?|- Em tên là Trung Anh.|- Em bao nhiêu tuổi?|- Em 9 tuổi ạ, em là học sinh.','audio/Situation/lesson1/04-B01-S04.mp3',NULL,NULL,NULL),(5,5,1,'Situation_img/hinh.png','Chào bác.|Cháu tên là Trung Anh.|Cháu 9 tuổi.|Cháu là học sinh.','audio/Situation/lesson1/05-B01-S05.mp3',NULL,NULL,NULL),(6,6,1,'Situation_img/hinh1.png','- Chào cháu, cháu tên là gì?|Cháu tên là Trung Anh ạ.|- Cháu mấy tuổi?|- Dạ, cháu 9 tuổi ạ, cháu là học sinh.','audio/Situation/lesson1/06-B01-S06.mp3',NULL,NULL,NULL),(7,7,1,'Situation_img/hinh.png','Còn bạn?|Bạn tên là gì?|Bạn bao nhiêu tuổi?|Bạn là học sinh à?','audio/Situation/lesson1/07-B01-S07.mp3',NULL,NULL,NULL),(8,8,1,'Situation_img/hinh1.png','Tôi à?|Tôi tên là...|Tôi... tuổi.|Tôi là học sinh.','audio/Situation/lesson1/08-B01-S08.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `situations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -233,4 +233,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-23 11:23:36
+-- Dump completed on 2017-03-29 15:44:57
