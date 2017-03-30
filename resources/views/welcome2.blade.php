@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-7 get-it">
                     <h1>Start your learning today</h1>
-                    <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                    <p>Every step needs a stable ground, walking on the road of knowledge is no exception. If you ever wondered from where to begin your journey, we're your answer.</p>
                     <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="#">Start your first lesson<i class="fa fa-graduation-cap"></i></a><a class="btn btn-success btn-lg margin-sm" role="button" href="/login">Login<i class="fa fa-sign-in fa fa-sign-in"></i></a></p>
                 </div>
             </div>
@@ -65,13 +65,13 @@
 </div>
 <div class="container-fluid about">
     <h1 class="text-center">We have...</h1>
-    <div class="row wehave">
+    {{-- <div class="row wehave">
         <div class="col-md-5 col-md-push-7 image"><img src="{{ asset('img/1.gif') }}"></div>
         <div class="col-md-7 col-md-pull-5 left">
             <h3>Situations </h3>
             <p>Each lesson provides multiple situations which can create a momentum for you to get the feel of the topic</p>
         </div>
-    </div>
+    </div> --}}
     <div class="row wehave">
         <div class="col-md-5 image"><img src="{{ asset('img/1.gif') }}"></div>
         <div class="col-md-7 right">
@@ -95,7 +95,7 @@
         </div>
         <div class="col-sm-7 col-sm-pull-5 author_info">
             <h2 class="author_info">Ph.D Lan Trung Nguyen</h2>
-            <p class="author_info">Lorem ipsum dolor sit amet, cum mucius aliquip graecis cu, no persius scripserit pro, vix habemus atomorum consequat et. Soluta epicurei accusamus duo ne. Te vitae labore qui, maiorum constituto pri eu. Nisl veri posidonium et vel. </p>
+            <p class="author_info">Ph.D Lan Trung Nguyen, currently holding the position of Vice-principal of the University of Languages and International Studies, is well known for his vast knowledge of international languages as well as his enormous contribution to the work of preserving and developing the national language, Vietnamese.</p>
         </div>
     </div>
 </div>
@@ -108,7 +108,7 @@
         </div>
         <div class="col-md-4 col-sm-6 footer-contacts">
             <div><i class="fa fa-phone footer-contacts-icon"></i>
-                <p class="footer-center-info email text-left">+84123456789 </p>
+                <p class="footer-center-info email text-left">+84123456789</p>
             </div>
             <div><i class="fa fa-envelope footer-contacts-icon"></i>
                 <p> <a href="#" target="_blank">support@kirakira.com</a></p>
@@ -116,12 +116,12 @@
         </div>
         <div class="clearfix visible-sm-block"></div>
         <div class="col-md-4 footer-about">
-            <h4>About the company</h4>
-            <p> Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
-            </p>
+            <h4>Connect to us</h4>
+            {{-- <p> Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+            </p> --}}
             <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
         </div>
     </div>
 </footer>
 
-@stop()
+@stop

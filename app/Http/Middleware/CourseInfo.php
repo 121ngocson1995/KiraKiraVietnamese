@@ -34,6 +34,8 @@ class CourseInfo
 
             $activity = [];
 
+            $practiceNo = 0;
+
             if ($lesson->situations()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'situations';
@@ -44,98 +46,98 @@ class CourseInfo
             if ($lesson->p1()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p1';
-                $currentActivity->content = 'Listen to words and repeat';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to words and repeat';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p2()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p2';
-                $currentActivity->content = 'Listen and find the correct words';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct words';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p3()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p3';
-                $currentActivity->content = 'Listen to sentences and repeat';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to sentences and repeat';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p4()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p4';
-                $currentActivity->content = 'Listen and find the correct sentences';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct sentences';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p5()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p5';
-                $currentActivity->content = 'Listen to dialogues and repeat';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to dialogues and repeat';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p6()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p6';
-                $currentActivity->content = 'Choose the correct answer';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Choose the correct answer';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p7()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p7';
-                $currentActivity->content = 'Practice speaking after dialogues';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Practice speaking after dialogues';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p8()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p8';
-                $currentActivity->content = 'Fill in the blanks';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Fill in the blanks';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p9()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p9';
-                $currentActivity->content = 'Complete the dialogues';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Complete the dialogues';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p10()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p10';
-                $currentActivity->content = 'Arrange words in correct order';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Arrange words in correct order';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p11()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p11';
-                $currentActivity->content = 'Arrange sentences in correct order';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Arrange sentences in correct order';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p12()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p12';
-                $currentActivity->content = 'Group activity';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Group activity';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p13()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p13';
-                $currentActivity->content = 'Texts';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Texts';
                 $activity[] = $currentActivity;
             }
 
             if ($lesson->p14()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'p14';
-                $currentActivity->content = 'Learn by heart the grammars';
+                $currentActivity->content = 'Practice ' . ++$practiceNo . ': Learn by heart the grammars';
                 $activity[] = $currentActivity;
             }
 
