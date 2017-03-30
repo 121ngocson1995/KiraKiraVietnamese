@@ -32,7 +32,7 @@ class Navigate
                 for ($i=0; $i < count($lessonAct); $i++) {
                     if ($lessonAct[$i]->name == $activity) {
                         if ($i == 0) {
-                            $preAct->link = "/lessons";
+                            $preAct->link = "lessons";
                             $preAct->name = "View all lessons";
                         } else if ($i > 0 && strcmp($lessonAct[$i-1]->name, "situations") == 0) {
                             $preAct->link = "lesson".$lessonNo."/".$lessonAct[$i-1]->name;
@@ -43,7 +43,7 @@ class Navigate
                         }
 
                         if ($i == count($lessonAct)-1) {
-                            $nextAct->link = "/lessons";
+                            $nextAct->link = "lessons";
                             $nextAct->name = "View all lessons";
                         } else if ($i < count($lessonAct)-1 && strcmp($lessonAct[$i+1]->name, "extensions") == 0) {
                             $nextAct->link = "lesson".$lessonNo."/".$lessonAct[$i+1]->name;

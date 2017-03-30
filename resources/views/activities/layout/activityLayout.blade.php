@@ -39,7 +39,7 @@
 	#btn-PreAct {
 		position: fixed;
 		left: 0;
-		bottom: 50%;
+		top: 45%;
 		background-color: bisque;
 		width: auto;
 		text-align: center;
