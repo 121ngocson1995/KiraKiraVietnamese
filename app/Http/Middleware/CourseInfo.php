@@ -142,7 +142,7 @@ class CourseInfo
             if ($lesson->extensions()->exists()) {
                 $currentActivity = new \stdClass;
                 $currentActivity->name = 'extensions';
-                $currentActivity->content = 'Extensions';
+                $currentActivity->content = 'Language and Culture';
                 $activity[] = $currentActivity;
             }
 

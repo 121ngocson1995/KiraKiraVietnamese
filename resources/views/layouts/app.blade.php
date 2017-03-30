@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'KiraKiraVietnamese') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
     <!-- Scripts -->
     <script>
@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -124,34 +124,6 @@
     .wrongWord, .wrongWord:hover {
         color: white;
         background: red;
-    }
-
-    /*btn-NextAct*/
-    #btn-NextAct, #btn-PreAct {
-        position: fixed;
-        right: 0;
-        bottom: 50%;
-        background-color: bisque;
-        width: auto;
-        text-align: center;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border: 1px solid #d8b9b9;
-        border-radius: 20px;
-        color: rgb(69, 130, 236);
-        transition-duration: 1s;
-        transform: translateX( calc(100% - 90px) );
-    }
-    #btn-NextAct:hover, #btn-PreAct:hover {
-        transform: translateX( 0 ) !important;
-    }
-    .fa.fa-arrow-right.fa-4x{
-        margin-right: 5px;
-    }
-    .movOut{
-        transform: none;
     }
 
     /* Tooltip */

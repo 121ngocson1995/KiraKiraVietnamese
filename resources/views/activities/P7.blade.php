@@ -8,30 +8,6 @@
 		width: 100px;
 		text-align: right;
 	}
-
-	#btn-NextAct, #btn-PreAct {
-		position: fixed;
-		right: 0;
-		bottom: 50%;
-		background-color: bisque;
-		width: auto;
-		text-align: center;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 20px;
-		padding-right: 20px;
-		border: 1px solid #d8b9b9;
-		border-radius: 20px;
-		color: rgb(69, 130, 236);
-		transition-duration: 1s;
-		transform: translateX( calc(100% - 90px) );
-	}
-	#btn-NextAct:hover, #btn-PreAct:hover {
-		transform: translateX( 0 ) !important;
-	}
-	.fa.fa-arrow-right.fa-4x{
-		margin-right: 5px;
-	}
 	.movOut{
 		transform: none;
 	}
@@ -304,14 +280,5 @@
 		<div id="right" class="img_right col-sm-6 col-md-6 col-lg-6" ></div>
 		<div id="wrong" class="img_wrong col-sm-6 col-md-6 col-lg-6" ></div>
 	</div>
-
-	<script type="text/javascript">
-		var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
-		$('#locationNext').html(nextAct['name']);
-		$('#btn-NextAct').hide();
-		$('#btn-NextAct').click(function(){
-			window.location.href="http://localhost:8000/lesson1/"+nextAct['name']; 
-		});
-	</script>
 
 	@stop

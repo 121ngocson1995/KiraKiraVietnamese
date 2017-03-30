@@ -5,104 +5,67 @@
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}" /> --}}
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/component.css') }}" /> --}}
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('css/preload/Icomoon/style.css') }}">
-<link rel="stylesheet" href="{{ asset('css/preload/main.css') }}">
-<script src="{{ asset('js/modernizr.custom.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
-{{-- <script src="{{ asset('js/waypoints.min.js') }}"></script> --}}
 
 <style>
-#loading{
-	background-color: #374140;
-	height: 100%;
-	width: 100%;
-	position: fixed;
-	z-index: 1;
-	margin-top: 0px;
-	top: 0px;
-}
-#loading-center{
-	width: 100%;
-	height: 100%;
-	position: relative;
-}
-#loading-center-absolute {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	height: 150px;
-	width: 150px;
-	margin-top: -75px;
-	margin-left: -75px;
-}
-.object{
-	width: 20px;
-	height: 20px;
-	background-color: #FFF;
-	float: left;
-	margin-right: 20px;
-	margin-top: 65px;
-	-moz-border-radius: 50% 50% 50% 50%;
-	-webkit-border-radius: 50% 50% 50% 50%;
-	border-radius: 50% 50% 50% 50%;
-}
-
-#object_one {	
-	-webkit-animation: object_one 1.5s infinite;
-	animation: object_one 1.5s infinite;
-}
-#object_two {
-	-webkit-animation: object_two 1.5s infinite;
-	animation: object_two 1.5s infinite;
-	-webkit-animation-delay: 0.25s; 
-	animation-delay: 0.25s;
-}
-#object_three {
-	-webkit-animation: object_three 1.5s infinite;
-	animation: object_three 1.5s infinite;
-	-webkit-animation-delay: 0.5s;
-	animation-delay: 0.5s;
-	
-}
-
-@-webkit-keyframes object_one {
-	75% { -webkit-transform: scale(0); }
-}
-
-@keyframes object_one {
-	75% { 
-		transform: scale(0);
-		-webkit-transform: scale(0);
+	/*btn-NextAct*/
+	#btn-NextAct {
+		position: fixed;
+		right: 0;
+		top: 45%;
+		background-color: bisque;
+		width: auto;
+		text-align: center;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 15px;
+		padding-right: 60px;
+		border: 1px solid #d8b9b9;
+		border-radius: 20px;
+		cursor: pointer;
+		color: rgb(69, 130, 236);
+		transition-duration: 1s;
+		transform: translateX( calc(100% - 50px) );
+		opacity: 0.5;
 	}
-}
-
-@-webkit-keyframes object_two {
-	75% { -webkit-transform: scale(0); }
-}
-
-@keyframes object_two {
-	75% { 
-		transform: scale(0);
-		-webkit-transform:  scale(0);
+	#btn-NextAct:hover {
+		transform: translateX( 45px ) !important;
+		box-shadow: 0px 0px 20px rgb(255, 255, 255);
+		opacity: 1;
 	}
-}
 
-@-webkit-keyframes object_three {
-	75% { -webkit-transform: scale(0); }
-}
-
-@keyframes object_three {
-	75% { 
-		transform: scale(0);
-		-webkit-transform: scale(0);
+	/*btn-PreAct*/
+	#btn-PreAct {
+		position: fixed;
+		left: 0;
+		bottom: 50%;
+		background-color: bisque;
+		width: auto;
+		text-align: center;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 60px;
+		padding-right: 15px;
+		border: 1px solid #d8b9b9;
+		border-radius: 20px;
+		cursor: pointer;
+		color: rgb(69, 130, 236);
+		transition-duration: 1s;
+		transform: translateX( calc(50px - 100%) );
+		opacity: 0.5;
 	}
-}
-
-.navbar-brand.title {
-	display: block;
-}
+	#btn-PreAct:hover {
+		transform: translateX( -45px ) !important;
+		box-shadow: 0px 0px 20px rgb(255, 255, 255);
+		opacity: 1;
+	}
+	.fa.fa-arrow-right.fa-4x{
+		margin-right: 5px;
+	}
+	.navbar-brand.title {
+		display: block;
+	}
 </style>
 
 @yield('header-more')
@@ -189,29 +152,33 @@
 
 </script>
 
-{{-- <div id="loading">
-	<div id="loading-center">
-		<div id="loading-center-absolute">
-			<div class="object" id="object_one"></div>
-			<div class="object" id="object_two"></div>
-			<div class="object" id="object_three"></div>
-		</div>
-	</div>
-</div> --}}
-
-
 @yield('actContent')
-
-{{-- <script type="text/javascript">
-	$(document).ready(function() {
-		$("#loading").fadeOut(500);
-	})
-</script> --}}
 
 @stop
 
 @section('extension')
 
+<div id="btn-PreAct" style="font-size: 2em">
+	<span id="locationPre">{{ strcmp(\Request::get('preAct')->name, 'View all lessons') == 0 || strcmp(\Request::get('preAct')->name, 'Situations') == 0 ? \Request::get('preAct')->name : 'Previous practice' }}</span>
+	<i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
 
+<div id="btn-NextAct" style="font-size: 2em">
+	<i class="fa fa-arrow-right" aria-hidden="true"></i>
+	<span id="locationNext">{{ strcmp(\Request::get('nextAct')->name, 'View all lessons') == 0 || strcmp(\Request::get('nextAct')->name, 'Language and Culture') == 0 ? \Request::get('nextAct')->name : 'Next practice' }}</span>
+</div>
+
+<script type="text/javascript">
+	var preAct = <?php echo json_encode(\Request::get('preAct')); ?>;
+	var nextAct = <?php echo json_encode(\Request::get('nextAct')); ?>;
+	// $('#locationNext').html(nextAct['name']);
+	// $('#btn-NextAct').hide();
+	$('#btn-PreAct').click(function(){
+		window.location.href="/"+preAct['link'];
+	});
+	$('#btn-NextAct').click(function(){
+		window.location.href="/"+nextAct['link'];
+	});
+</script>
 
 @stop
