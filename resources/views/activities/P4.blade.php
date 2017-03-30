@@ -1,13 +1,10 @@
 @extends('activities.layout.activityLayout')
 
 @section('header-more')
+<script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
 <style type="text/css">
 	.btn-Choose{
-		border: 1px solid #0e0101;
-		border-radius: 100%;
-		width: 20px;
-		height: 20px;
-		background-color: #e88b8b;
+		cursor: pointer;
 	}
 	body {
 		/*background: url(http://localhost:8000/img/testAnimate/p2bg.svg) no-repeat center bottom fixed;
@@ -71,7 +68,6 @@
 @stop
 
 @section('actContent')
-<h1 style="font-size: 400%" align="center">- Bài 4: Nghe và tìm câu đúng</h1>
 <div style="text-align: center; height: 70px">
 	<div id="container" style="display: inline-block;"></div>
 </div>
@@ -80,14 +76,14 @@
 		<table id="content_id" class="table table-hover table_content "  align="center">
 			@for ($i = 0; $i < count($elementData) ; $i++)
 			<tr>
-				<td><button autocomplete="off" class="btn-Choose btn-notChosen" disabled="true" type="button" id="{{$elementData[$i]['id']}}"  onclick="chooseWord(this)"></button></td>
+				<td><i data-id="{{$elementData[$i]['id']}}" disable="true" class="fa fa-hand-o-right fa-2x btn-Choose btn-notChosen" aria-hidden="true" ></i></td>
 				<td><span id="sentence{{$elementData[$i]['id']}}">{{$elementData[$i]['sentence']}}</span></td>				
 			</tr>
 			@endfor
 		</table>
 		<div style="text-align: center; position: relative;	text-align: center;	left: 25%;">
-			<button autocomplete="off" id="btnStart" onclick="start()">Start</button>
-			<button autocomplete="off" id="btnRestart" onclick="start()" style="display: none;">Redo</button>
+			<i id="btnStart" class="fa fa-play fa-4x" aria-hidden="true"></i>
+			<i id="btnRestart" style="display: none;" class="fa fa-undo fa-4x" aria-hidden="true"></i>
 			<span id="timer" style="font-size: 70px"></span>
 			<span id="addedTime" style="font-size: 40px; color: grey"></span>
 			<div id="sampleGroup"></div>
@@ -111,38 +107,40 @@
 	var docBar;
 	var playingSample = -1;
 	var tlFinalScore;
-	function chooseWord(button) {
-		if ('audio' + $(button).attr("id") == playingSample) {
-			correctChoice(document.getElementById("sentence"+$(button).attr("id")),button);
-		} else {
-			wrongChoice(document.getElementById("sentence"+$(button).attr("id")));
-		}
-	}
-	function correctChoice(sentence, button) {
+	function correctChoice(sentence, icon) {
+		$('.fa-times').removeClass("fa-times").addClass("fa-hand-o-right");
 		$(sentence).removeClass("notChosen");
 		$(sentence).addClass("correctWord");
-		$(button).removeClass("btn-notChosen");
-		$(button).prop("disabled", true);
-		$(".btn-notChosen").prop("disabled", true);
+		$(icon).removeClass("btn-notChosen");
+		$(icon).removeClass("fa-hand-o-right");
+		$(icon).addClass("fa-check");
+		$(icon).unbind();
+		$(icon).css('cursor', 'not-allowed');
+		$(".btn-notChosen").unbind();
 		$(".wrongWord").removeClass("wrongWord").addClass("notChosen");
 		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
 	}
-	function wrongChoice(sentence) {
+	function wrongChoice(sentence, icon) {
 		$(sentence).removeClass("notChosen");
 		$(sentence).addClass("wrongWord");
+		$(icon).removeClass("fa-hand-o-right");
+		$(icon).addClass("fa fa-times fa-2x");
 	}
+	$('#btnStart').click(function() {
+		start();
+		$('#btnStart').unbind();
+		});
+
 	function start() {
 		chooseIndex = 0;
 		if(tlFinalScore) {
 			tlFinalScore.seek(0).pause();
 		}
-		$("#content_id").find("button").prop("disabled", false);
+		$("#content_id").find("i").attr('class', 'fa fa-hand-o-right fa-2x btn-Choose btn-notChosen');
 		$("#content_id").find("span").removeClass("wrongWord").removeClass("correctWord").addClass("notChosen");
 		initScore();
 		playSample(0);
 		startProgress();
-		$("#btnStart").prop("disabled", true);
-		$("#btnRestart").prop("disabled", true);
 		$("#btnStart").hide();
 		$("#btnRestart").hide();
 		// startCountdown();
@@ -157,6 +155,7 @@
 		}
 	}
 	function changeScore(text, to) {
+		console.log(to);
 		var text = $('#'+text);
 		var box = text.parent();
 		var tl = new TimelineMax();
@@ -170,7 +169,13 @@
 			showResult();
 			return;
 		}
-		$(".btn-notChosen").prop("disabled", false);
+		$('.btn-notChosen').click(function() {
+			if ('audio' + $(this).attr("data-id") == playingSample) {
+				correctChoice(document.getElementById("sentence"+$(this).attr("data-id")),this);
+			} else {
+				wrongChoice(document.getElementById("sentence"+$(this).attr("data-id")),this);
+			}
+		});
 		$(".wrongWord").removeClass("wrongWord").addClass("notChosen");
 		chooseIndex++;
 		$('#sampleGroup').children().eq(index)[0].play();
@@ -190,15 +195,16 @@
 	}
 	function showResult() {
 		$(".notChosen").removeClass("notChosen").addClass("wrongWord");
-		$("#content_id").find("button").prop("disabled", true);
+		$(".fa-hand-o-right").removeClass("fa-hand-o-right").addClass("fa-times");
 		var scoreText = $('#scoreText');
 		tlFinalScore = new TimelineMax();
 		tlFinalScore.to(scoreText, 2, {text:"Final score: "})
 		.to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
 		.to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
-		$("#btnRestart").prop("disabled", false);
+		$('#btnRestart').click(function() {
+			start();
+		});
 		$("#btnRestart").show();
-		$('#btn-NextAct').show();
 	}
 </script>
 
@@ -209,7 +215,7 @@
 
 
 	var sampleGroup = document.getElementById('sampleGroup');
-		for (var i = 0; i < soundList.length; i++) {
+	for (var i = 0; i < soundList.length; i++) {
 		var audioFile = document.createElement("audio");
 		// audioFile.src = elementData[i].audio;
 		audioFile.id = 'audio' + soundList[i]['id'];
@@ -258,5 +264,9 @@
 		});
 		docBar.set(1);
 	}
+	// imagesLoaded( document.getElementById('btnRestart'), function() {
+	// 	var tl = new TimelineMax();
+	// 	tl.to('#btnRestart', 30, {rotation:500, repeat:-1, ease: Power0.easeNone});
+	// });
 </script>
 @stop
