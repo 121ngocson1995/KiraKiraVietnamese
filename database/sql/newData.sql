@@ -16,36 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (0,'learner','small pry',NULL,NULL,NULL),(100,'Super Administrator','bad ass',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `lessons`
---
-
-LOCK TABLES `lessons` WRITE;
-/*!40000 ALTER TABLE `lessons` DISABLE KEYS */;
-INSERT INTO `lessons` VALUES (1,1,1,'Hello','You will learn about various ways to greet people.','Trung NL',1,1,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `lessons` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'sondn','Son','Doan','sondn@gmail.com',1,'12345678','1995-12-01','publicimgavatar_2x.png',NULL,'VN',1,NULL,NULL,NULL,NULL),(2,'あの','あの日','あの','あの',NULL,'12345678','1995-12-01','あの',NULL,'VB',1,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `courses`
 --
 
@@ -63,6 +33,16 @@ LOCK TABLES `extensions` WRITE;
 /*!40000 ALTER TABLE `extensions` DISABLE KEYS */;
 INSERT INTO `extensions` VALUES (1,1,1,0,'Hình ảnh đất nước, con người','demo',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,2,1,'Bài hát dành cho em','Con cò bé bé|Nó đậu cành tre|Đi không hỏi mẹ|Biết đi đường nào|Khi đi em hỏi|Khi về em chào|Miệng em chúm chím|Mẹ có yêu không nào',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,1,3,2,'Em đọc thơ','Đi đến nơi nào|Lời chào đi trước|Lời chào dẫn bước|Chẳng sợ lạc nhà|Lời chào kết bạn|Con đường bớt xa',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,1,4,3,'Thành ngữ - Tục ngữ - Ca dao','Lời chào cao hơn mâm cỗ',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,1,5,4,'Thử đoán nào?','Con gì mào đỏ|Lông mượt như tơ|Sáng sớm tinh mơ|Gọi người thức dậy?',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,1,6,5,'Cùng chơi các bạn ơi!','Chi chi chành chành|Cái đanh thổi lửa|Con ngựa đứt cương|Ba Vương ngũ Đế|Bắt dế đi tìm...|Ù à ù ập...',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `extensions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `lessons`
+--
+
+LOCK TABLES `lessons` WRITE;
+/*!40000 ALTER TABLE `lessons` DISABLE KEYS */;
+INSERT INTO `lessons` VALUES (1,1,1,'Hello','You will learn about various ways to greet people.','Trung NL',1,1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `lessons` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -121,7 +101,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p1_word_memorizes` WRITE;
 /*!40000 ALTER TABLE `p1_word_memorizes` DISABLE KEYS */;
-INSERT INTO `p1_word_memorizes` VALUES (1,1,1,1,'Chào','/audio/P1/lesson1/1-chao.mp3',NULL,NULL,NULL),(2,1,1,2,'Bạn','/audio/P1/lesson1/2-ban.mp3',NULL,NULL,NULL),(3,1,1,3,'Anh','/audio/P1/lesson1/3-anh.mp3',NULL,NULL,NULL),(4,1,1,4,'Chị','/audio/P1/lesson1/4-chi.mp3',NULL,NULL,NULL),(5,1,1,5,'Cô','/audio/P1/lesson1/5-co.mp3',NULL,NULL,NULL),(6,1,1,6,'Chú','/audio/P1/lesson1/6-chu.mp3',NULL,NULL,NULL),(7,1,2,1,'Bác','/audio/P1/lesson1/7-bac.mp3',NULL,NULL,NULL),(8,1,2,2,'Ông','/audio/P1/lesson1/8-ong.mp3',NULL,NULL,NULL),(9,1,2,3,'Bà','/audio/P1/lesson1/9-ba.mp3',NULL,NULL,NULL),(10,1,2,4,'Tôi','/audio/P1/lesson1/10-toi.mp3',NULL,NULL,NULL),(11,1,2,5,'Em','/audio/P1/lesson1/11-em.mp3',NULL,NULL,NULL),(12,1,2,6,'Cháu','/audio/P1/lesson1/12-chau.mp3',NULL,NULL,NULL),(13,1,3,1,'Tê','/audio/P1/lesson1/13-ten.mp3',NULL,NULL,NULL),(14,1,3,2,'Tuổi','/audio/P1/lesson1/14-tuoi.mp3',NULL,NULL,NULL),(15,1,3,3,'Các','/audio/P1/lesson1/15-cac.mp3',NULL,NULL,NULL),(16,1,3,4,'À','/audio/P1/lesson1/16-a.mp3',NULL,NULL,NULL),(17,1,3,5,'Ạ','/audio/P1/lesson1/17-a.mp3',NULL,NULL,NULL),(18,1,3,6,'Là','/audio/P1/lesson1/18-da.mp3',NULL,NULL,NULL);
+INSERT INTO `p1_word_memorizes` VALUES (1,1,1,1,'Chào','/audio/P1/lesson1/1-chao.mp3',NULL,NULL,NULL),(2,1,1,2,'Bạn','/audio/P1/lesson1/2-ban.mp3',NULL,NULL,NULL),(3,1,1,3,'Anh','/audio/P1/lesson1/3-anh.mp3',NULL,NULL,NULL),(4,1,1,4,'Chị','/audio/P1/lesson1/4-chi.mp3',NULL,NULL,NULL),(5,1,1,5,'Cô','/audio/P1/lesson1/5-co.mp3',NULL,NULL,NULL),(6,1,1,6,'Chú','/audio/P1/lesson1/6-chu.mp3',NULL,NULL,NULL),(7,1,2,1,'Bác','/audio/P1/lesson1/7-bac.mp3',NULL,NULL,NULL),(8,1,2,2,'Ông','/audio/P1/lesson1/8-ong.mp3',NULL,NULL,NULL),(9,1,2,3,'Bà','/audio/P1/lesson1/9-ba.mp3',NULL,NULL,NULL),(10,1,2,4,'Tôi','/audio/P1/lesson1/10-toi.mp3',NULL,NULL,NULL),(11,1,2,5,'Em','/audio/P1/lesson1/11-em.mp3',NULL,NULL,NULL),(12,1,2,6,'Cháu','/audio/P1/lesson1/12-chau.mp3',NULL,NULL,NULL),(13,1,3,1,'Tên','/audio/P1/lesson1/13-ten.mp3',NULL,NULL,NULL),(14,1,3,2,'Tuổi','/audio/P1/lesson1/14-tuoi.mp3',NULL,NULL,NULL),(15,1,3,3,'Các','/audio/P1/lesson1/15-cac.mp3',NULL,NULL,NULL),(16,1,3,4,'À','/audio/P1/lesson1/16-a.mp3',NULL,NULL,NULL),(17,1,3,5,'Ạ','/audio/P1/lesson1/17-a.mp3',NULL,NULL,NULL),(18,1,3,6,'Là','/audio/P1/lesson1/18-da.mp3',NULL,NULL,NULL),(19,1,3,5,'Bao nhiêu','/audio/P1/lesson1/18-da.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p1_word_memorizes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +121,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p3_sentence_memorizes` WRITE;
 /*!40000 ALTER TABLE `p3_sentence_memorizes` DISABLE KEYS */;
-INSERT INTO `p3_sentence_memorizes` VALUES (1,1,1,'Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn Chào bạn','/audio/vie-1-1-1-1.mp3',NULL,NULL,NULL),(2,1,2,'Chào anh.','/audio/vie-1-1-1-1.mp3',NULL,NULL,NULL),(3,1,3,'Chào chị.','/audio/vie-1-1-1-1.mp3',NULL,NULL,NULL),(4,1,4,'Chào em.','/audio/vie-1-1-1-1.mp3',NULL,NULL,NULL),(5,1,5,'Chào cô.','/audio/vie-1-1-1-1.mp3',NULL,NULL,NULL),(6,1,6,'Chào chú.','/audio/vie-1-1-1-1.mp3','0000-00-00 00:00:00',NULL,NULL);
+INSERT INTO `p3_sentence_memorizes` VALUES (1,1,1,'Chào bạn.','/audio/P3/lesson1/1-chao-ban.mp3',NULL,NULL,NULL),(2,1,2,'Chào anh.','/audio/P3/lesson1/2-chao-anh.mp3',NULL,NULL,NULL),(3,1,3,'Chào chị.','/audio/P3/lesson1/3-chao-chi.mp3',NULL,NULL,NULL),(4,1,4,'Bạn tên là gì?','/audio/P3/lesson1/4-ban-ten-la-gi.mp3',NULL,NULL,NULL),(5,1,5,'Tôi tên là Nam.','/audio/P3/lesson1/5-toi-ten-la-nam.mp3',NULL,NULL,NULL),(6,1,6,'Bạn bao nhiêu tuổi?','/audio/P3/lesson1/6-ban-bao-nhieu-tuoi.mp3',NULL,NULL,NULL),(13,1,7,'Tôi mười tuổi.','/audio/P3/lesson1/7-toi-muoi-tuoi.mp3',NULL,NULL,NULL),(14,1,8,'Còn tôi, tôi chín tuổi.','/audio/P3/lesson1/8-con-toi-toi-chin-tuoi.mp3',NULL,NULL,NULL),(15,1,9,'Cháu mấy tuổi rồi?','/audio/P3/lesson1/9-chau-may-tuoi-roi.mp3',NULL,NULL,NULL),(16,1,10,'Dạ, cháu chín tuổi ạ.','/audio/P3/lesson1/10-da-chau-chin-tuoi-a.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p3_sentence_memorizes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +131,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `p4_sentence_recognizes` WRITE;
 /*!40000 ALTER TABLE `p4_sentence_recognizes` DISABLE KEYS */;
-INSERT INTO `p4_sentence_recognizes` VALUES (1,1,0,'Tôi là học sinh.','audio/P4/audio_1_0.mp3',NULL,NULL,NULL),(2,1,1,'Còn tôi, tôi sáu tuổi.','audio/P4/audio_1_1.mp3',NULL,NULL,NULL),(3,1,2,'Tôi bảy tuổi, còn bạn?','audio/P4/audio_1_2.mp3',NULL,NULL,NULL),(4,1,3,'Tôi à, tôi tên là Sa.','audio/P4/audio_1_3.mp3',NULL,NULL,NULL),(5,1,4,'Tôi cũng là học sinh','audio/P4/audio_1_4.mp3',NULL,NULL,NULL),(6,1,5,'Bạn tên là gì?','audio/P4/audio_1_5.mp3',NULL,NULL,NULL),(7,1,6,'Cháu tên là gì?','audio/P4/audio_1_6.mp3',NULL,NULL,NULL),(8,1,7,'Cháu là học sinh à?','audio/P4/audio_1_7.mp3',NULL,NULL,NULL),(9,1,8,'Dạ, cháu là học sinh ạ','audio/P4/audio_1_8.mp3',NULL,NULL,NULL);
+INSERT INTO `p4_sentence_recognizes` VALUES (1,1,0,'Tôi là học sinh.','audio/P4/audio_1_0.mp3',NULL,NULL,NULL),(2,1,1,'Em chín tuổi.','audio/P4/audio_1_1.mp3',NULL,NULL,NULL),(3,1,2,'Em mấy tuổi rồi ?','audio/P4/audio_1_2.mp3',NULL,NULL,NULL),(4,1,3,'Tôi tên là Nam.','audio/P4/audio_1_3.mp3',NULL,NULL,NULL),(5,1,4,'Bạn tên là gì?','audio/P4/audio_1_4.mp3',NULL,NULL,NULL),(6,1,5,'Tôi à, tôi tên là Hoa.','audio/P4/audio_1_5.mp3',NULL,NULL,NULL),(7,1,6,'Còn tôi, tôi tên là Lan.','audio/P4/audio_1_6.mp3',NULL,NULL,NULL),(8,1,7,'Cháu là học sinh à?','audio/P4/audio_1_7.mp3',NULL,NULL,NULL),(9,1,8,'Dạ, cháu là học sinh ạ','audio/P4/audio_1_8.mp3',NULL,NULL,NULL),(10,1,9,'Cháu bao nhiêu tuổi ?','audio/P4/audio_1_9.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `p4_sentence_recognizes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,6 +195,16 @@ LOCK TABLES `results` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (0,'learner','small pry',NULL,NULL,NULL),(100,'Super Administrator','bad ass',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `situations`
 --
 
@@ -222,6 +212,16 @@ LOCK TABLES `situations` WRITE;
 /*!40000 ALTER TABLE `situations` DISABLE KEYS */;
 INSERT INTO `situations` VALUES (1,1,1,'Situation_img/hinh.png','Chào các bạn.|Tôi tên là Trung Anh.|Tôi 9 tuổi.|Tôi là học sinh.','audio/Situation/lesson1/01-B01-S01.mp3',NULL,NULL,NULL),(2,2,1,'Situation_img/hinh1.png','- Chào bạn, bạn tên là gì?|- Tôi tên là Nam.|- Bạn bao nhiêu tuổi?|- Tôi 9 tuổi.|- Tôi là học sinh.','audio/Situation/lesson1/02-B01-S02.mp3',NULL,NULL,NULL),(3,3,1,'Situation_img/hinh.png','Chào anh.|Em tên là Trung Anh.|Em 9 tuổi.|Em là học sinh.','audio/Situation/lesson1/03-B01-S03.mp3',NULL,NULL,NULL),(4,4,1,'Situation_img/hinh1.png','- Chào em, em tên là gì?|- Em tên là Trung Anh.|- Em bao nhiêu tuổi?|- Em 9 tuổi ạ, em là học sinh.','audio/Situation/lesson1/04-B01-S04.mp3',NULL,NULL,NULL),(5,5,1,'Situation_img/hinh.png','Chào bác.|Cháu tên là Trung Anh.|Cháu 9 tuổi.|Cháu là học sinh.','audio/Situation/lesson1/05-B01-S05.mp3',NULL,NULL,NULL),(6,6,1,'Situation_img/hinh1.png','- Chào cháu, cháu tên là gì?|Cháu tên là Trung Anh ạ.|- Cháu mấy tuổi?|- Dạ, cháu 9 tuổi ạ, cháu là học sinh.','audio/Situation/lesson1/06-B01-S06.mp3',NULL,NULL,NULL),(7,7,1,'Situation_img/hinh.png','Còn bạn?|Bạn tên là gì?|Bạn bao nhiêu tuổi?|Bạn là học sinh à?','audio/Situation/lesson1/07-B01-S07.mp3',NULL,NULL,NULL),(8,8,1,'Situation_img/hinh1.png','Tôi à?|Tôi tên là...|Tôi... tuổi.|Tôi là học sinh.','audio/Situation/lesson1/08-B01-S08.mp3',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `situations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'sondn','Son','Doan','sondn@gmail.com',1,'12345678','1995-12-01','publicimgavatar_2x.png',NULL,'VN',1,NULL,NULL,NULL,NULL),(2,'あの','あの日','あの','あの',NULL,'12345678','1995-12-01','あの',NULL,'VB',1,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -233,4 +233,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-29 15:44:57
+-- Dump completed on 2017-03-31  4:18:02

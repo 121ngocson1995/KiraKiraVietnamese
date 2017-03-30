@@ -9,24 +9,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
 
 <style>
-	/*btn-NextAct*/
-	#btn-NextAct {
+	#btn-NextAct, #btn-PreAct {
 		position: fixed;
-		right: 0;
 		top: 45%;
 		background-color: bisque;
 		width: auto;
 		text-align: center;
 		padding-top: 5px;
 		padding-bottom: 5px;
-		padding-left: 15px;
-		padding-right: 60px;
 		border: 1px solid #d8b9b9;
 		border-radius: 20px;
 		cursor: pointer;
 		color: rgb(69, 130, 236);
 		transition-duration: 1s;
-		transform: translateX( calc(100% - 50px) );
 		opacity: 0.5;
 	}
 	#btn-NextAct:hover {
@@ -35,33 +30,28 @@
 		opacity: 1;
 	}
 
+	/*btn-NextAct*/
+	#btn-NextAct {
+		right: 0;
+		padding-left: 15px;
+		padding-right: 60px;
+		transform: translateX( calc(100% - 50px) );
+	}
 	/*btn-PreAct*/
 	#btn-PreAct {
-		position: fixed;
 		left: 0;
-		top: 45%;
-		background-color: bisque;
-		width: auto;
-		text-align: center;
-		padding-top: 5px;
-		padding-bottom: 5px;
 		padding-left: 60px;
 		padding-right: 15px;
-		border: 1px solid #d8b9b9;
-		border-radius: 20px;
-		cursor: pointer;
-		color: rgb(69, 130, 236);
-		transition-duration: 1s;
 		transform: translateX( calc(50px - 100%) );
-		opacity: 0.5;
 	}
 	#btn-PreAct:hover {
 		transform: translateX( -45px ) !important;
 		box-shadow: 0px 0px 20px rgb(255, 255, 255);
 		opacity: 1;
 	}
-	.fa.fa-arrow-right.fa-4x{
-		margin-right: 5px;
+	.fa.fa-arrow-right, .fa.fa-arrow-right {
+		margin-right: 0;
+		margin-left: 0;
 	}
 	.navbar-brand.title {
 		display: block;

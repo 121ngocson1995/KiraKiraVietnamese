@@ -1,8 +1,7 @@
 @extends('activities.layout.activityLayout')
 
-@section('actContent')
+@section('header-more')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <style>
 	body {
 		background: url({{ asset('img/testAnimate/bg.svg') }}) no-repeat center bottom fixed;
@@ -82,56 +81,55 @@
 		filter: drop-shadow( 0px 0px 10px blue );
 	}
 	.wordWrap {
-		width: 90px;
+		/*width: 90px;*/
 		height: 40px;
-		line-height: 40px;
+		/*line-height: 40px;*/
 		display: inline-block;
 		margin: 5px;
 		text-align: center;
-		background: url({{ asset('img/testAnimate/board.svg') }});
+		{{-- background: url({{ asset('img/testAnimate/board.svg') }}); --}}
 		cursor: pointer;
 	}
-	span.word {
+	.word {
 		display: inline-block;
 		vertical-align: middle;
 		line-height: normal;
 		font-weight: 600;
 		font-family: Cambria;
-		font-size: 1.2em;
+		font-size: 1.3em;
 		color: white;
 		cursor: pointer;
+	}
+	.flexContainer p {
+		position: absolute;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 1;
+	}
+	#alert {
+		display: none;
+		position: fixed;
+		text-align: center;
+		padding: 10px;
+		font-size: 1.4em;
+		background: rgba(140, 140, 140, 0.9);
+		color: white;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 </style>
 
-{{-- <div class="col-md-6 col-lg-6" style="text-align: center; vertical-align: middle; float: right; height: 85vh">
-	<div>
-		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/sample_replay.svg') }}" onclick="toggleSample(this); /*startProgress('progressSample')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click a word on the left to hear sample!">
-		<input type="image" class="startRecord controlBtn" id="playSample" src="{{ asset('img/icons/rec_startRecording.svg') }}" onclick="toggleRecord(this); /*startProgress('progressRecord')*/" alt="Submit" width="130" height="130">
-		<input type="image" class="controlBtn" id="playSample" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="$('#record')[0].pause(); $('#record')[0].currentTime = 0; $('#record')[0].play(); /*startProgress('progressPlayback')*/" alt="Submit" width="130" height="130" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
-	</div>
+@stop
 
-	<div>
-		<audio id="sample" onpause="imgToReplay()" onplay="imgToPause()"></audio>
-		<audio id="record"></audio>
-	</div>
-</div>
-<div class="col-md-6 col-lg-6" style="float: left;">
+@section('actContent')
 
-		@foreach ($elementData as $elementValue)
-
-			<div class="wordLine" style="text-align: center;">
-				<button class="btn playWord" style="font-size: 14px; padding: 2px 10px; width: 500px; white-space: normal;" onclick="playWord('{{ $elementValue->audio }}')">{{ $elementValue->sentence }}</button>
-			</div>
-		@endforeach
-
-</div> --}}
-
-
-
-
-
-
+@php
+	// dd($elementData);
+@endphp
 
 <div class="play">
 	<img class="fillable" src="{{ asset('img/testAnimate/play.png') }}" id="playSample">
@@ -150,12 +148,26 @@
 
 <div class="col-md-6" style="margin-top: 30px">
 
-		@foreach ($elementData as $dummyValue)
-			<div class="wordLine" style="text-align: center;">
-				<div class="wordWrap"><span id="{{ $dummyValue->audio }}" class="word">{{ $dummyValue->sentence }}</span></div>
+	<div class="wordLine" style="text-align: center; width: 100%">
+
+		@foreach ($elementData as $elementValue)
+
+			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
+				<div class="flexContainer" style="display: flex; height: 100%;">
+					<p class="tbn word" style="position: absolute;">{{ $elementValue->sentence }}</p>
+					<div class="btnBg" style="height: 100%;">
+						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->sentence)) . '.svg') }}" alt="start button">
+					</div>
+				</div>
 			</div>
 		@endforeach
 
+	</div>
+
+</div>
+
+<div id="alert">
+	To record your voice, first click on the record sign at the middle.
 </div>
 
 <script>
@@ -184,19 +196,39 @@
 	TweenMax.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2);
 </script>
 
-
-
-
-
 <script>
 	var audio_context;
 	var recorder;
 	var tl;
 
+	var busyPlay, busyReplay, busyRecord, 
+		enabledPlay, enabledReplay, enabledRecord, 
+		disabledPlay, disabledReplay, disabledRecord;
+	function preloadImage() {
+		busyPlay = new Image();
+		busyPlay.src = '{{ asset('img/testAnimate/play-blu.png') }}';
+		busyReplay = new Image();
+		busyReplay.src = '{{ asset('img/testAnimate/replay-blu.png') }}';
+		busyRecord = new Image();
+		busyRecord.src = '{{ asset('img/testAnimate/record-blu.png') }}';
+		enabledPlay = new Image();
+		enabledPlay.src = '{{ asset('img/testAnimate/play.png') }}';
+		enabledReplay = new Image();
+		enabledReplay.src = '{{ asset('img/testAnimate/replay.png') }}';
+		enabledRecord = new Image();
+		enabledRecord.src = '{{ asset('img/testAnimate/record.png') }}';
+		disabledPlay = new Image();
+		disabledPlay.src = '{{ asset('img/testAnimate/play-red.png') }}';
+		disabledReplay = new Image();
+		disabledReplay.src = '{{ asset('img/testAnimate/replay-red.png') }}';
+		disabledRecord = new Image();
+		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
+	}
+
 	function playWord(button) {
 		var audio = document.getElementById("sample");
 
-		audio.src = button.children[0].id;
+		audio.src = button.id;
 		audio.play();
 
 		var duration = 1;
@@ -214,36 +246,173 @@
 
 		function complete(tl) {
 			tl.restart();
-			
 		}
 
 		function doNothing() {}
+
+		document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
+			setTimeout(function() {
+				this.removeEventListener('loadedmetadata', toEnableBtn);
+
+				enableControl('play');
+				enableControl('replay');
+				enableControl('record');
+			}, $('#sample')[0].duration*1000);
+		});
+
+		disableControl('play');
+		disableControl('replay');
+		disableControl('record');
 	}
 
 	function playSample(button) {
+		var firstWord = !$('#sample').attr('src');
+
+		if ( firstWord ) {
+			var audio = document.getElementById("sample");
+			audio.src = document.getElementsByClassName('wordWrap')[0].id;
+
+			var duration = 1;
+			var button = document.getElementsByClassName('wordWrap')[0];
+			if(tl) {
+				tl.seek(0).pause();
+			}
+			tl = new TimelineMax({
+				onComplete:complete,
+				onCompleteParams:['{self}']});
+			TweenMax.to(button, duration / 4, {y:-20, ease:Power2.easeOut});
+			TweenMax.to(button, duration / 2, {y:0, ease:Bounce.easeOut, delay:duration / 4});
+			setTimeout(function() {
+				tl.to(button, duration / 4, {y:-20, ease:Power2.easeOut}, 1).to(button, duration / 2, {y:0, ease:Bounce.easeOut});
+			}, 1040);
+
+			function complete(tl) {
+				tl.restart();
+			}
+
+			function doNothing() {}
+		}
+
 		$('#sample')[0].pause();
 		$('#sample')[0].currentTime = 0;
 		$('#sample')[0].play();
 
 		$('.play').addClass('red');
-		$(".play").unbind('click');
-		setTimeout(function() {
-			$('.play').removeClass('red');
-			$(".play").bind('click', function(){ playSample(this); });
-		}, $('#sample')[0].duration*1000);
+
+		if (firstWord) {
+			document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
+				setTimeout(function() {
+					this.removeEventListener('loadedmetadata', toEnableBtn);
+					$('.play').removeClass('red');
+
+					enableControl('play');
+					enableControl('replay');
+					enableControl('record');
+				}, $('#sample')[0].duration*1000);
+			});
+		} else {
+			setTimeout(function() {
+				$('.play').removeClass('red');
+
+				enableControl('play');
+				enableControl('replay');
+				enableControl('record');
+			}, $('#sample')[0].duration*1000);
+		}
+
+		busyControl('play');
+		disableControl('replay');
+		disableControl('record');
 	}
 
 	function playRecord() {
-		$('#auRecord')[0].pause();
-		$('#auRecord')[0].currentTime = 0;
-		$('#auRecord')[0].play();
+		if ( $('#auRecord').attr('src') ) {
+			$('#auRecord')[0].pause();
+			$('#auRecord')[0].currentTime = 0;
+			$('#auRecord')[0].play();
 
-		$('.replay').addClass('red');
-		$(".replay").unbind('click');
-		setTimeout(function() {
-			$('.replay').removeClass('red');
-			$(".replay").bind('click', function(){ playRecord(); });
-		}, $('#auRecord')[0].duration*1000);
+			$('.replay').addClass('red');
+			setTimeout(function() {
+				$('.replay').removeClass('red');
+
+				enableControl('play');
+				enableControl('replay');
+				enableControl('record');
+			}, $('#auRecord')[0].duration*1000);
+
+			busyControl('replay');
+			disableControl('play');
+			disableControl('record');
+		} else {
+			$('#alert').fadeIn(600);
+
+			setTimeout(function() {
+				$('.record').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+					$('.record').removeClass('animated flash');
+					$('#alert').fadeOut(600);
+				});
+			}, 500);
+		}
+	}
+
+	function disableControl(control) {
+		controlHolder = document.getElementsByClassName(control)[0];
+		while (controlHolder.firstChild) {
+			controlHolder.removeChild(controlHolder.firstChild);
+		}
+
+		if (control == 'play') {
+			controlHolder.appendChild(disabledPlay);
+			$('.play').unbind('click');
+		} else if (control == 'replay') {
+			controlHolder.appendChild(disabledReplay);
+			$('.replay').unbind('click');
+		} else if (control == 'record') {
+			controlHolder.appendChild(disabledRecord);
+			$('.record').unbind('click');
+		}
+	}
+
+	function enableControl(control) {
+		controlHolder = document.getElementsByClassName(control)[0];
+		while (controlHolder.firstChild) {
+			controlHolder.removeChild(controlHolder.firstChild);
+		}
+
+		if (control == 'play') {
+			controlHolder.appendChild(enabledPlay);
+			$('.play').click(function() {
+				playSample(this);
+			});
+		} else if (control == 'replay') {
+			controlHolder.appendChild(enabledReplay);
+			$('.replay').click(function() {
+				playRecord();
+			});
+		} else if (control == 'record') {
+			controlHolder.appendChild(enabledRecord);
+			$('.record').click(function() {
+				startRecording(this);
+			});
+		}
+	}
+
+	function busyControl(control) {
+		controlHolder = document.getElementsByClassName(control)[0];
+		while (controlHolder.firstChild) {
+			controlHolder.removeChild(controlHolder.firstChild);
+		}
+
+		if (control == 'play') {
+			controlHolder.appendChild(busyPlay);
+			$('.play').unbind('click');
+		} else if (control == 'replay') {
+			controlHolder.appendChild(busyReplay);
+			$('.replay').unbind('click');
+		} else if (control == 'record') {
+			controlHolder.appendChild(busyRecord);
+			$('.record').unbind('click');
+		}
 	}
 
 	function startUserMedia(stream) {
@@ -255,7 +424,6 @@
 	function startRecording(button) {
 		recorder && recorder.record();
 		$('.record').addClass('red');
-		$(".record").unbind('click');
 
 		setTimeout(function() {
 			recorder && recorder.stop();
@@ -266,8 +434,15 @@
 
 			$('#playRecord').show();
 			$('.record').removeClass('red');
-			$(".record").bind('click', function(){ startRecording(this); });
+
+			enableControl('play');
+			enableControl('replay');
+			enableControl('record');
 		}, 3000);
+
+		busyControl('record');
+		disableControl('play');
+		disableControl('replay');
 	}
 
 	function createMedia() {
@@ -277,7 +452,6 @@
 
 			auRecord.src = url;
 			localStorage.setItem("record", url);
-			console.log(url);
 		});
 	}
 
@@ -320,22 +494,25 @@
 			window.URL = window.URL || window.webkitURL;
 
 			audio_context = new AudioContext;
-			console.log('Audio context set up.');
-			console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+			// console.log('Audio context set up.');
+			// console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
 		} catch (e) {
 			alert('No web audio support in this browser!');
 		}
-
 
 		navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
 			window.alert('No live audio input: ' + e);
 		});
 
 		$(document).ready(function(){
-		    $('[data-toggle="tooltip"]').tooltip("show");   
+			preloadImage();
 		});
 	};
 </script>
 <script src="{{ asset('js/recorder.js') }}"></script>
 
-@stop()
+@stop
+
+@section('description')
+	In this activity, you can click on the button on the left to hear the sample recording, use controls on the right to replay sample, practive your pronunciation by recording and listening to your own voice.
+@stop
