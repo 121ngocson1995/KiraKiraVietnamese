@@ -67,7 +67,7 @@
     <div class="jumbotron extend">
         <div class="row" style="text-align: center; padding-top: 12px; padding-bottom: 44px">
             <div class="col-md-12 title_button">
-                <div class="btn-group" role="group" style="">
+                <div class="btn-group" role="group" style="padding-top: 24px;">
                     @for($i=0; $i<$cnt; $i++)
                     <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" type="button">S{{ $i+1 }}</button></a>
                     @endfor
@@ -83,10 +83,10 @@
         <a name="part1"></a>
         <div class="content">
         	<div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image">
-        		<div id="thumbnailHolder">
+        		<div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
         			<img id="thumbnail" class="img" src="{{ asset($elementData[0]->thumbnail) }}">
         		</div>
-        		<div id="audioHolder">
+        		<div id="audioHolder" style="text-align: center;">
         			<audio id="audio" controls src="{{ asset($elementData[0]->audio) }}" type="audio/mpeg">
         				Your browser does not support the audio element.
         			</audio>
@@ -116,11 +116,11 @@
                 <a href="#part{{$i}}" class="panelt" ></a>
  				
                 <div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image">
-                	<div id="thumbnailHolder">
+                	<div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
                 		<img id="thumbnail" class="img" src="{{ asset($elementData[$i]->thumbnail) }}">
                 	</div>
                 
-                	<div id="audioHolder">
+                	<div id="audioHolder" style="text-align: center;">
                			<audio id="audio" controls src="{{ asset($elementData[$i]->audio) }}" type="audio/mpeg">
                				Your browser does not support the audio element.
                			</audio>
