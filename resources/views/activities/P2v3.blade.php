@@ -3,6 +3,7 @@
 @section('header-more')
 
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('js/jquery.countdown360.js') }}"></script>
 
 <style>
 	#page-content-wrapper {
@@ -15,6 +16,14 @@
 		display: flex;
 		align-items: center;
 		text-align: center;
+		z-index: 1;
+	}
+	#countdown {
+		align-items: center;
+		text-align: center;
+		z-index: 1;
+	}
+	#countdown > canvas {
 		z-index: 1;
 	}
 	#btnStart p, #btnRestart p {
@@ -75,7 +84,7 @@
 		margin-top: 20px;
 	}
 	#wordGroup {
-		max-height: calc(100% - 250px);
+		max-height: calc(100% - 370px);
 		overflow-y: scroll;
 		padding-top: 20px;
 	}
@@ -112,11 +121,11 @@
 	<img id="cloudTop" style="position: fixed; left: -3%; bottom: -4%; width: 106%" src="{{ asset('img/testAnimate/cloudTop.svg') }}" alt="" style="bottom: 0">
 </div>
 
-<div style="text-align: center;">
+<div style="text-align: center; height: 70px; margin-bottom: 2%; display: none;">
 	<div id="container" style="display: inline-block;"></div>
 </div>
 
-<div id="wordGroup" class="" style="text-align: center; padding-bottom: 120px;">
+<div id="wordGroup" class="" style="text-align: center; padding-bottom: 20px;">
 	@foreach ($textRender as $text)
 		<div class="wordSpan" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
@@ -142,8 +151,9 @@
 			<img id="imgRestart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower2.svg') }}" alt="restart button">
 		</div>
 	</div>
-	<span id="timer" style="font-size: 70px"></span>
-	<span id="addedTime" style="font-size: 40px; color: grey"></span>
+	<div id="countdown"></div>
+	{{-- <span id="timer" style="font-size: 70px"></span>
+	<span id="addedTime" style="font-size: 40px; color: grey"></span> --}}
 	<div id="sampleGroup"></div>
 	<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
 </div>
@@ -152,11 +162,6 @@
 	<span id="scoreText">Score: </span>
 	<span id="correct"></span>
 	<span id="total"></span>
-</div>
-
-<div>
-	<audio id="correct_sound" src="{{ asset('audio/correct_sound.mp3') }}"></audio>
-	<audio id="wrong_sound" src="{{ asset('audio/wrong_sound.wav') }}"></audio>
 </div>
 
 <script src="{{ asset('js/progressbar.js') }}"></script>
@@ -218,17 +223,11 @@
 		$(".p2wrongWord").removeClass("p2wrongWord").addClass("notChosen");
 		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
 		$(button).unbind('click');
-		$('#correct_sound')[0].pause();
-		$('#correct_sound')[0].currentTime = 0;
-		$('#correct_sound')[0].play();
 	}
 
 	function wrongChoice(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("p2wrongWord");
-		$('#wrong_sound')[0].pause();
-		$('#wrong_sound')[0].currentTime = 0;
-		$('#wrong_sound')[0].play();
 	}
 
 	function start() {
@@ -247,7 +246,8 @@
 
 		initScore();
 		playSample(0);
-		startProgress();
+		// startProgress();
+		buildCountdown(totalTimeCount);
 
 		$("#btnStart").prop("disabled", true);
 		$("#btnRestart").prop("disabled", true);
@@ -337,6 +337,8 @@
 		}
 	}
 
+	var totalTimeCount;
+
 	function checkTickLoad(duration) {
 		wordNo++;
 		wordTime += duration;
@@ -344,10 +346,12 @@
 		if (wordNo == elementData.length) {
 			var tick = document.getElementById('tick');
 			if (!isNaN(tick.duration)) {
-				buildProgressBar(wordTime + wordNo * tick.duration);
+				totalTimeCount = wordTime + wordNo * tick.duration;
+				buildProgressBar(totalTimeCount);
 			} else {
 				tick.addEventListener('loadedmetadata', function() {
-					buildProgressBar(wordTime + wordNo * this.duration);
+					totalTimeCount = wordTime + wordNo * tick.duration;
+					buildProgressBar(totalTimeCount);
 				});
 			}
 		}
@@ -370,6 +374,24 @@
 		docBar.set(1);
 	}
 	
+	function buildCountdown(totalTime) {
+		countdown = $("#countdown").countdown360({
+			radius      : 80,
+			seconds     : Math.round(totalTime),
+			fontColor   : '#FFFFFF',
+			autostart   : true,
+			onComplete  : function (){
+				// showResult();
+			}
+		});
+	}
+
+	function showPractice(){
+		initDroppable();
+		$("#content").attr("style", "transition: 1s;");
+		$("#btn-Start").remove();
+		countdown.start();
+	}
 </script>
 
 @stop()
