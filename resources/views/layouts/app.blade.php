@@ -565,7 +565,7 @@
 
             @foreach (\Request::get('lessons') as $lesson)
                 <div>
-                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson expandLesson">Lesson {{ $lesson->lessonNo }}: {{ $lesson->name }}</a>{{-- <a href="#" class="expandLesson"><i class="fa fa-caret-right" aria-hidden="true"></i></a> --}}
+                    <a href="#" id="lesson{{ $lesson->lessonNo }}" class="lesson expandLesson">Lesson {{ $lesson->lessonNo }}: {{ $lesson->name }}</a>
                 </div>
             @endforeach
 

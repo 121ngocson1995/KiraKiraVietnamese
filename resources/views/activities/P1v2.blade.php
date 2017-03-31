@@ -127,6 +127,9 @@
 
 @section('actContent')
 
+<div class="play">
+	<img class="fillable" src="{{ asset('img/testAnimate/play.png') }}" id="playSample">
+</div>
 <div class="replay">
 	<img class="fillable" src="{{ asset('img/testAnimate/replay.png') }}" id="playSample">
 </div>
@@ -140,15 +143,26 @@
 </div>
 
 <div class="col-md-6" style="margin-top: 30px">
+	@php
+		$currentlineNumber = $firstLineNumber;
+	@endphp
 
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
+			@if ($elementValue->lineNumber > $currentlineNumber)
+				@php
+					$currentlineNumber = $elementValue->lineNumber;
+				@endphp
+
+				</div><div class="wordLine" style="text-align: center; width: 100%">
+			@endif
+
 			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn word" style="position: absolute;">{{ $elementValue->sentence }}</p>
+					<p class="tbn word" style="position: absolute;">{{ $elementValue->word }}</p>
 					<div class="btnBg" style="height: 100%;">
-						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->sentence)) . '.svg') }}" alt="start button">
+						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->word)) . '.svg') }}" alt="start button">
 					</div>
 				</div>
 			</div>
@@ -163,6 +177,10 @@
 </div>
 
 <script>
+	$('.play').click(function() {
+		playSample(this);
+	});
+
 	$('.replay').click(function() {
 		playRecord();
 	});
@@ -177,8 +195,10 @@
 </script>
 
 <script>
-	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
-	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
+	// TweenMax.from('.replay', 2, {opacity:0, scale:0, y:-500, ease:Elastic.easeOut}, 2);
+	TweenMax.from('.play', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
+	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
+	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.6, ease:Elastic.easeOut});
 	TweenMax.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2);
 </script>
 
@@ -191,14 +211,20 @@
 		enabledPlay, enabledReplay, enabledRecord, 
 		disabledPlay, disabledReplay, disabledRecord;
 	function preloadImage() {
+		busyPlay = new Image();
+		busyPlay.src = '{{ asset('img/testAnimate/play-blu.png') }}';
 		busyReplay = new Image();
 		busyReplay.src = '{{ asset('img/testAnimate/replay-blu.png') }}';
 		busyRecord = new Image();
 		busyRecord.src = '{{ asset('img/testAnimate/record-blu.png') }}';
+		enabledPlay = new Image();
+		enabledPlay.src = '{{ asset('img/testAnimate/play.png') }}';
 		enabledReplay = new Image();
 		enabledReplay.src = '{{ asset('img/testAnimate/replay.png') }}';
 		enabledRecord = new Image();
 		enabledRecord.src = '{{ asset('img/testAnimate/record.png') }}';
+		disabledPlay = new Image();
+		disabledPlay.src = '{{ asset('img/testAnimate/play-red.png') }}';
 		disabledReplay = new Image();
 		disabledReplay.src = '{{ asset('img/testAnimate/replay-red.png') }}';
 		disabledRecord = new Image();
@@ -234,11 +260,73 @@
 			setTimeout(function() {
 				document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
 
+				enableControl('play');
 				enableControl('replay');
 				enableControl('record');
 			}, $('#sample')[0].duration*1000);
 		});
 
+		disableControl('play');
+		disableControl('replay');
+		disableControl('record');
+	}
+
+	function playSample(button) {
+		var firstWord = !$('#sample').attr('src');
+
+		if ( firstWord ) {
+			var audio = document.getElementById("sample");
+			audio.src = document.getElementsByClassName('wordWrap')[0].id;
+
+			var duration = 1;
+			var button = document.getElementsByClassName('wordWrap')[0];
+			if(tl) {
+				tl.seek(0).pause();
+			}
+			tl = new TimelineMax({
+				onComplete:complete,
+				onCompleteParams:['{self}']});
+			TweenMax.to(button, duration / 4, {y:-20, ease:Power2.easeOut});
+			TweenMax.to(button, duration / 2, {y:0, ease:Bounce.easeOut, delay:duration / 4});
+			setTimeout(function() {
+				tl.to(button, duration / 4, {y:-20, ease:Power2.easeOut}, 1).to(button, duration / 2, {y:0, ease:Bounce.easeOut});
+			}, 1040);
+
+			function complete(tl) {
+				tl.restart();
+			}
+
+			function doNothing() {}
+		}
+
+		$('#sample')[0].pause();
+		$('#sample')[0].currentTime = 0;
+		$('#sample')[0].play();
+
+		$('.play').addClass('red');
+
+		if (firstWord) {
+			document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
+				setTimeout(function() {
+					document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
+					$('.play').removeClass('red');
+
+					enableControl('play');
+					enableControl('replay');
+					enableControl('record');
+				}, $('#sample')[0].duration*1000);
+			});
+		} else {
+			setTimeout(function() {
+				$('.play').removeClass('red');
+
+				enableControl('play');
+				enableControl('replay');
+				enableControl('record');
+			}, $('#sample')[0].duration*1000);
+		}
+
+		busyControl('play');
 		disableControl('replay');
 		disableControl('record');
 	}
@@ -253,14 +341,14 @@
 			setTimeout(function() {
 				$('.replay').removeClass('red');
 
+				enableControl('play');
 				enableControl('replay');
 				enableControl('record');
-				enableControl('wordWrap');
 			}, $('#auRecord')[0].duration*1000);
 
 			busyControl('replay');
+			disableControl('play');
 			disableControl('record');
-			disableControl('wordWrap');
 		} else {
 			$('#alert').fadeIn(600);
 
@@ -274,11 +362,9 @@
 	}
 
 	function disableControl(control) {
-		if (control != 'wordWrap') {
-			controlHolder = document.getElementsByClassName(control)[0];
-			while (controlHolder.firstChild) {
-				controlHolder.removeChild(controlHolder.firstChild);
-			}
+		controlHolder = document.getElementsByClassName(control)[0];
+		while (controlHolder.firstChild) {
+			controlHolder.removeChild(controlHolder.firstChild);
 		}
 
 		if (control == 'play') {
@@ -290,17 +376,13 @@
 		} else if (control == 'record') {
 			controlHolder.appendChild(disabledRecord);
 			$('.record').unbind('click');
-		} else if (control == 'wordWrap') {
-			$('.wordWrap').unbind('click');
 		}
 	}
 
 	function enableControl(control) {
-		if (control != 'wordWrap') {
-			controlHolder = document.getElementsByClassName(control)[0];
-			while (controlHolder.firstChild) {
-				controlHolder.removeChild(controlHolder.firstChild);
-			}
+		controlHolder = document.getElementsByClassName(control)[0];
+		while (controlHolder.firstChild) {
+			controlHolder.removeChild(controlHolder.firstChild);
 		}
 
 		if (control == 'play') {
@@ -317,10 +399,6 @@
 			controlHolder.appendChild(enabledRecord);
 			$('.record').click(function() {
 				startRecording(this);
-			});
-		} else if (control == 'wordWrap') {
-			$('.wordWrap').click(function() {
-				playWord(this);
 			});
 		}
 	}
@@ -363,14 +441,14 @@
 			$('#playRecord').show();
 			$('.record').removeClass('red');
 
+			enableControl('play');
 			enableControl('replay');
 			enableControl('record');
-			enableControl('wordWrap');
 		}, 3000);
 
 		busyControl('record');
+		disableControl('play');
 		disableControl('replay');
-		disableControl('wordWrap');
 	}
 
 	function createMedia() {

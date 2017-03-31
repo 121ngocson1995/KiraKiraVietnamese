@@ -50,16 +50,16 @@
 <div class="features">
     <div class="row">
         <div class="col-sm-4 feature"><img src="{{ asset('img/chat.svg') }}">
-            <h3>Learn</h3>
-            <p class="text-center feature">Get to know Vietnamese with easy-to-grasp lessons</p>
+            <h3>Situations</h3>
+            <p class="text-center feature">Get to know Vietnamese with realistic situations</p>
         </div>
         <div class="col-sm-4 feature"><img src="{{ asset('img/airplane.svg') }}">
-            <h3>Practice</h3>
+            <h3>Practices</h3>
             <p class="text-center feature">Skyrocket your language skills with exclusively designed activities</p>
         </div>
         <div class="col-sm-4 feature"><img src="{{ asset('img/profits.svg') }}">
-            <h3>Advance</h3>
-            <p class="text-center feature">Know you're being better after spending time to learn with us</p>
+            <h3>Extensions</h3>
+            <p class="text-center feature">Boost your knowledge with our specially designed articles about Vietnamese language and culture</p>
         </div>
     </div>
 </div>

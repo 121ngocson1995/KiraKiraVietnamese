@@ -2,11 +2,10 @@
 
 @section('header')
 
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}" /> --}}
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/component.css') }}" /> --}}
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/tooltip-classic.css') }}" />
 
 <style>
 	#btn-NextAct, #btn-PreAct {
@@ -156,6 +155,32 @@
 <div id="btn-NextAct" style="font-size: 2em">
 	<i class="fa fa-arrow-right" aria-hidden="true"></i>
 	<span id="locationNext">{{ strcmp(\Request::get('nextAct')->name, 'View all lessons') == 0 || strcmp(\Request::get('nextAct')->name, 'Language and Culture') == 0 ? \Request::get('nextAct')->name : 'Next practice' }}</span>
+</div>
+
+{{-- <div class="tooltip">
+    <a href="">
+        <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
+    </a>
+    <span class="tooltiptext">
+        @yield('description')
+    </span>
+</div> --}}
+
+<div>
+	<span class="tooltip tooltip-effect-2">
+		<div class="tooltip-item">
+			<img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
+		</div>
+		<span class="tooltip-content">
+			<img src="{{ asset('img/bulb.svg') }}"/>
+			<span class="tooltip-text">
+				<span id="tooltip-vi">@yield('actDescription-vi')</span>
+				<hr>
+				<span id="tooltip-vi">@yield('actDescription-en')</span>
+			</span>
+		</span>
+		<div style="clear: both;"></div>
+	</span>
 </div>
 
 <script type="text/javascript">

@@ -30,8 +30,6 @@ class P2Controller extends Controller
 		shuffle($textRender);
 		$elementData = $elementData->shuffle();
 
-		// dd($elementData);
-
-		return view("activities.P2ani", compact(['elementData', 'textRender']));
+		return view("activities.P2v2", compact(['elementData', 'textRender']));
 	}
 }

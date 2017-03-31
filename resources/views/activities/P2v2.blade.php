@@ -372,4 +372,12 @@
 	
 </script>
 
-@stop()
+@stop
+
+@section('actDescription-vi')
+	Tích chuột vào START để bắt đầu nghe. Máy sẽ đọc mỗi từ 2 lần. Nghe và tích chuột vào từ tương ứng
+@stop
+
+@section('actDescription-en')
+	Click START to begin. The computer will read each word twice. Listen and click on appropriate wor
+@stop
