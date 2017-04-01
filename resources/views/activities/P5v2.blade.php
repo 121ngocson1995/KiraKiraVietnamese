@@ -91,7 +91,7 @@
 		cursor: pointer;
 	}
 	.word {
-		display: inline-block;
+		/*display: inline-block;*/
 		vertical-align: middle;
 		line-height: normal;
 		font-weight: 600;
@@ -100,7 +100,7 @@
 		color: white;
 		cursor: pointer;
 	}
-	.flexContainer p {
+	.wrapLine {
 		position: absolute;
 		width: 100%;
 		top: 50%;
@@ -145,14 +145,17 @@
 		@foreach ($elementData as $elementValue)
 			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->dialog }}</p>
+					<div class="wrapLine">
+						@foreach (explode( "|", $elementValue->dialog) as $line)
+							<p class="tbn word">{{ $line }}</p>
+						@endforeach
+					</div>
 					<div class="btnBg" style="height: 100%;">
 						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->dialog)) . '.svg') }}" alt="start button">
 					</div>
 				</div>
 			</div>
 		@endforeach
-		<div class="clearfix"></div>
 
 	</div>
 
