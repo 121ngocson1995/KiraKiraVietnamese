@@ -155,9 +155,9 @@
 				</div><div class="wordLine" style="text-align: center; width: 100%">
 			@endif
 
-			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
+			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->word }}</p>
+					<p class="tbn word">{{ $elementValue->word }}</p>
 					<div class="btnBg" style="height: 100%;">
 						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->word)) . '.svg') }}" alt="start button">
 					</div>
@@ -219,7 +219,7 @@
 	function playWord(button) {
 		var audio = document.getElementById("sample");
 
-		audio.src = button.id;
+		audio.src = '{{ asset('') }}' + button.getAttribute('data-audio-source');
 		audio.play();
 
 		var duration = 1;

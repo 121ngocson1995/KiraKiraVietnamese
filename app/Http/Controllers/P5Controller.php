@@ -16,12 +16,12 @@ class P5Controller extends Controller
     		// Lấy dữ liệu từ db
 		$elementData = P5DialogueMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
-		for ($i=0; $i<$cnt; $i++){
-			$contentArr[$i] = explode( "|", $elementData[$i]->dialog);
-		}
-		for ($i=0; $i<$cnt; $i++){
-			$audioArr[$i] = $elementData[$i]->audio;
-		}
-		return view("activities.P5", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
+		// for ($i=0; $i<$cnt; $i++){
+		// 	$contentArr[$i] = explode( "|", $elementData[$i]->dialog);
+		// }
+		// for ($i=0; $i<$cnt; $i++){
+		// 	$audioArr[$i] = $elementData[$i]->audio;
+		// }
+		return view("activities.P5v2", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
 	}  
 }

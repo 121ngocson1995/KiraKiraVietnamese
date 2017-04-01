@@ -94,6 +94,7 @@
 		/*display: inline-block;*/
 		vertical-align: middle;
 		line-height: normal;
+		margin: 6px;
 		font-weight: 600;
 		font-family: Cambria;
 		font-size: 1.3em;
@@ -143,7 +144,7 @@
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
-			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
+			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 110px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
 					<div class="wrapLine">
 						@foreach (explode( "|", $elementValue->dialog) as $line)
@@ -151,7 +152,16 @@
 						@endforeach
 					</div>
 					<div class="btnBg" style="height: 100%;">
-						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->dialog)) . '.svg') }}" alt="start button">
+						@php
+							$longestWordCnt = 0;
+							foreach (explode( "|", $elementValue->dialog) as $line) {
+								$lineWordCnt = count(explode(' ', trim(str_replace('-', '', $line))));
+								if ($lineWordCnt > $longestWordCnt) {
+									$longestWordCnt = $lineWordCnt;
+								}
+							}
+						@endphp
+						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/P5/newboard2-' . $lineWordCnt . '.svg') }}" alt="start button">
 					</div>
 				</div>
 			</div>
@@ -211,7 +221,7 @@
 	function playWord(button) {
 		var audio = document.getElementById("sample");
 
-		audio.src = button.id;
+		audio.src = '{{ asset('') }}' + button.getAttribute('data-audio-source');
 		audio.play();
 
 		var duration = 1;
