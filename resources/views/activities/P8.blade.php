@@ -115,7 +115,7 @@
 		$("#countdown").empty();
 		countdown = $("#countdown").countdown360({
 			radius      : 80,
-			seconds     : getDialogAnswer(elementData, dialogNow)*5,
+			seconds     : 60,
 			fontColor   : '#FFFFFF',
 			autostart   : true,
 			onComplete  : function (){
@@ -384,8 +384,7 @@ onmousedown="return false;">
 	@endfor
 </div>
 <br>
-<button type="button" id="btn-Start" class="btn btn-info" onclick="JavaScript: showPractice()" style="">Start practice</button>
-<div id="content" style=" filter: blur(12px); transition: 3s">
+<div id="content">
 	<div id="answer_id"  >
 		@php
 		$dialogAnswer = array();
@@ -442,7 +441,7 @@ onmousedown="return false;">
 <script type="text/javascript" charset="utf-8">
 	countdown = $("#countdown").countdown360({
 		radius      : 80,
-		seconds     : getDialogAnswer(elementData, dialogNow)*5,
+		seconds     : 60,
 		fontColor   : '#FFFFFF',
 		autostart   : false,
 		onComplete  : function (){
@@ -450,20 +449,15 @@ onmousedown="return false;">
 		}
 	});
 
-	function showPractice(){
+	window.onload = function() {
 		initDroppable();
-		$("#content").attr("style", "transition: 1s;");
-		$("#btn-Start").remove();
 		countdown.start();
 	}
+	
+	
 </script>
 
 <script>
-	function test() {
-		/* change position of draggable element along with drop target */
-		countdown.stop();
-		showResult();
-	}
 	var correctNo = 0;
 	var totalQuestion = 0;
 

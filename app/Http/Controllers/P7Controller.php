@@ -18,7 +18,6 @@ class P7Controller extends Controller
 		$cnt = count($elementData);
 		$dialogCnt = array();
 		$contentArr = array();
-		$audioArr = array();
 		for ($i=0; $i<$cnt; $i++){
 			$dup = false;
 			for ($j=0; $j < count($dialogCnt) ; $j++) { 
@@ -30,17 +29,18 @@ class P7Controller extends Controller
 				array_push($dialogCnt, $elementData[$i]->dialogNo);
 			}
 		}
+		$audioArr = array();
 		for ($i=0; $i<count($dialogCnt); $i++){
-			$contentArr[$i] = array();
-			$audioArr[$i] = array();
+			
 			for ($j=0; $j < count($elementData) ; $j++) { 
 				if ($elementData[$j]['dialogNo'] == $dialogCnt[$i]) {
-					$lineParts = explode('|', $elementData[$j]['line']);
-					array_push($contentArr[$i], $lineParts);
-					array_push($audioArr[$i], $elementData[$j]['audio']);
+					$lineParts = explode('|', $elementData[$j]['dialogue']);
+					array_push($contentArr, $lineParts);
 				}
 			}
+			array_push($audioArr, $elementData[$i]['audio']);
 		}
+	
 		return view("activities.P7", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 }
