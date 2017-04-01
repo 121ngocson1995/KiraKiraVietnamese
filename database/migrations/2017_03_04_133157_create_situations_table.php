@@ -24,6 +24,7 @@ class CreateSituationsTable extends Migration
                 ->onDelete('cascade');
             $table->string('thumbnail');
             $table->text('dialog');
+            $table->text('dialog_translate');
             $table->string('audio');
             $table->timestamps();
             $table->softDeletes();

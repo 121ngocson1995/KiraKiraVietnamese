@@ -4,7 +4,7 @@
 
 <style>
 	body {
-		background: url({{ asset('img/testAnimate/bg.svg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P3/bg.svg') }}) no-repeat center bottom fixed;
 		background-size: cover;
 	}
 	.replay {

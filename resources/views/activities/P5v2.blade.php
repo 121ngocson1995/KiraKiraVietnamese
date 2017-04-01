@@ -4,7 +4,7 @@
 
 <style>
 	body {
-		background: url({{ asset('img/P1/bg.svg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P5/bg.svg') }}) no-repeat center bottom fixed;
 		background-size: cover;
 	}
 	.replay {
@@ -140,30 +140,19 @@
 </div>
 
 <div class="col-md-7" style="margin-top: 30px">
-	@php
-		$currentlineNumber = $firstLineNumber;
-	@endphp
-
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
-			@if ($elementValue->lineNumber > $currentlineNumber)
-				@php
-					$currentlineNumber = $elementValue->lineNumber;
-				@endphp
-
-				</div><div class="wordLine" style="text-align: center; width: 100%">
-			@endif
-
 			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->word }}</p>
+					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->dialog }}</p>
 					<div class="btnBg" style="height: 100%;">
-						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->word)) . '.svg') }}" alt="start button">
+						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->dialog)) . '.svg') }}" alt="start button">
 					</div>
 				</div>
 			</div>
 		@endforeach
+		<div class="clearfix"></div>
 
 	</div>
 

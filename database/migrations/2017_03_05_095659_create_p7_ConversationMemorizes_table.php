@@ -22,7 +22,7 @@ class CreateP7ConversationMemorizesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->tinyInteger('dialogNo')->unsigned();
-            $table->string('dialogue');
+            $table->text('dialogue');
             $table->string('audio');
             $table->timestamps();
             $table->softDeletes();

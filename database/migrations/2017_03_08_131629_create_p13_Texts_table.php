@@ -21,9 +21,9 @@ class CreateP13TextsTable extends Migration
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('note')->nullable();
-            $table->mediumText('content');
-            $table->string('audio');
+            $table->string('note');
+            $table->string('note_translate');
+            $table->text('content');
             $table->timestamps();
             $table->softDeletes();
         });

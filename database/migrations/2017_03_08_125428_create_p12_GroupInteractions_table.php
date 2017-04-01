@@ -22,8 +22,8 @@ class CreateP12GroupInteractionsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('title')->nullable();
-            $table->mediumText('content');
-            $table->string('audio');
+            $table->text('content');
+            $table->text('content_translate');
             $table->timestamps();
             $table->softDeletes();
         });
