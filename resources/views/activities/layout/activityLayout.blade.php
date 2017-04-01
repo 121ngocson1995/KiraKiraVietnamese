@@ -6,8 +6,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/tooltip-classic.css') }}" />
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script:700" rel="stylesheet">
 
 <style>
+	.writtenFont {
+		font-family: 'Dancing Script', cursive !important;
+		/*font-size: xx-large !important;*/
+	}
 	#btn-NextAct, #btn-PreAct {
 		position: fixed;
 		top: 45%;
@@ -139,6 +144,54 @@
 		});
 	}
 
+	function correctSFX() {
+		$('#correct_sound')[0].pause();
+		$('#correct_sound')[0].currentTime = 0;
+		$('#wrong_sound')[0].pause();
+		$('#wrong_sound')[0].currentTime = 0;
+		$('#correct_sound2')[0].pause();
+		$('#correct_sound2')[0].currentTime = 0;
+		$('#wrong_sound2')[0].pause();
+		$('#wrong_sound2')[0].currentTime = 0;
+		$('#correct_sound')[0].play();
+	}
+
+	function wrongSFX() {
+		$('#correct_sound')[0].pause();
+		$('#correct_sound')[0].currentTime = 0;
+		$('#wrong_sound')[0].pause();
+		$('#wrong_sound')[0].currentTime = 0;
+		$('#correct_sound2')[0].pause();
+		$('#correct_sound2')[0].currentTime = 0;
+		$('#wrong_sound2')[0].pause();
+		$('#wrong_sound2')[0].currentTime = 0;
+		$('#wrong_sound')[0].play();
+	}
+
+	function correctSFX2() {
+		$('#correct_sound')[0].pause();
+		$('#correct_sound')[0].currentTime = 0;
+		$('#wrong_sound')[0].pause();
+		$('#wrong_sound')[0].currentTime = 0;
+		$('#correct_sound2')[0].pause();
+		$('#correct_sound2')[0].currentTime = 0;
+		$('#wrong_sound2')[0].pause();
+		$('#wrong_sound2')[0].currentTime = 0;
+		$('#correct_sound2')[0].play();
+	}
+
+	function wrongSFX2() {
+		$('#correct_sound')[0].pause();
+		$('#correct_sound')[0].currentTime = 0;
+		$('#wrong_sound')[0].pause();
+		$('#wrong_sound')[0].currentTime = 0;
+		$('#correct_sound2')[0].pause();
+		$('#correct_sound2')[0].currentTime = 0;
+		$('#wrong_sound2')[0].pause();
+		$('#wrong_sound2')[0].currentTime = 0;
+		$('#wrong_sound2')[0].play();
+	}
+
 </script>
 
 @yield('actContent')
@@ -155,6 +208,13 @@
 <div id="btn-NextAct" style="font-size: 2em">
 	<i class="fa fa-arrow-right" aria-hidden="true"></i>
 	<span id="locationNext">{{ strcmp(\Request::get('nextAct')->name, 'View all lessons') == 0 || strcmp(\Request::get('nextAct')->name, 'Language and Culture') == 0 ? \Request::get('nextAct')->name : 'Next practice' }}</span>
+</div>
+
+<div>
+	<audio id="correct_sound" src="{{ asset('audio/correct_sound.mp3') }}"></audio>
+	<audio id="correct_sound2" src="{{ asset('audio/correct_sound2.mp3') }}"></audio>
+	<audio id="wrong_sound" src="{{ asset('audio/wrong_sound.mp3') }}"></audio>
+	<audio id="wrong_sound2" src="{{ asset('audio/wrong_sound2.mp3') }}"></audio>
 </div>
 
 {{-- <div class="tooltip">

@@ -68,7 +68,13 @@
 		background: url({{ asset('img/P6/paper.svg') }});
 		background-size: cover;
 		box-shadow: -7px 7px 5px rgba(102, 102, 153, 0.3);
-		transition: background-color 0.4s, transform 0.4s;
+		transition: all 0.4s;
+	}
+	.btn-answer.correctAnswer.chosen {
+		box-shadow: -7px 7px 5px rgba(102, 102, 153, 0.3), inset 0 0 500px rgba(102, 255, 194, 0.7);
+	}
+	.btn-answer.wrongAnswer.chosen {
+		box-shadow: -7px 7px 5px rgba(102, 102, 153, 0.3), inset 0 0 500px rgb(255, 128, 128);
 	}
 	.imgCross, .imgCheck, .imgCheckWrong {
 		/*position: absolute;*/
@@ -299,6 +305,7 @@
 			}
 
 			markBtn('.btn-answer', true);
+			correctSFX2();
 
 			correctAnswerNo++;
 			questionsDone++;
@@ -314,6 +321,7 @@
 			}
 
 			markBtn(button, false);
+			wrongSFX2();
 
 			if ($('.chosen').length == 2) {
 

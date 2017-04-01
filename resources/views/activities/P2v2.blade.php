@@ -218,17 +218,13 @@
 		$(".p2wrongWord").removeClass("p2wrongWord").addClass("notChosen");
 		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
 		$(button).unbind('click');
-		$('#correct_sound')[0].pause();
-		$('#correct_sound')[0].currentTime = 0;
-		$('#correct_sound')[0].play();
+		correctSFX();
 	}
 
 	function wrongChoice(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("p2wrongWord");
-		$('#wrong_sound')[0].pause();
-		$('#wrong_sound')[0].currentTime = 0;
-		$('#wrong_sound')[0].play();
+		wrongSFX();
 	}
 
 	function start() {

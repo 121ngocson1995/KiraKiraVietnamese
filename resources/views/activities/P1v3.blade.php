@@ -139,7 +139,7 @@
 	<audio id="auRecord"></audio>
 </div>
 
-<div class="col-md-6" style="margin-top: 30px">
+<div class="col-md-7" style="margin-top: 30px">
 	@php
 		$currentlineNumber = $firstLineNumber;
 	@endphp
@@ -157,7 +157,7 @@
 
 			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn word" style="position: absolute;">{{ $elementValue->word }}</p>
+					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->word }}</p>
 					<div class="btnBg" style="height: 100%;">
 						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->word)) . '.svg') }}" alt="start button">
 					</div>

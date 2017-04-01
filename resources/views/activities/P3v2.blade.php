@@ -139,20 +139,20 @@
 	<audio id="auRecord"></audio>
 </div>
 
-<div class="col-md-6" style="margin-top: 30px">
-
+<div class="col-md-7" style="margin-top: 30px">
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
 			<div class="wordWrap" id="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn word" style="position: absolute;">{{ $elementValue->sentence }}</p>
+					<p class="tbn writtenFont word" style="position: absolute; font-size: xx-large !important;">{{ $elementValue->sentence }}</p>
 					<div class="btnBg" style="height: 100%;">
 						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->sentence)) . '.svg') }}" alt="start button">
 					</div>
 				</div>
 			</div>
 		@endforeach
+		<div class="clearfix"></div>
 
 	</div>
 
@@ -441,6 +441,10 @@
 
 @stop
 
-@section('description')
-	In this activity, you can click on the button on the left to hear the sample recording, use controls on the right to replay sample, practive your pronunciation by recording and listening to your own voice.
+@section('actDescription-vi')
+	Rê chuột vào các từ và tích chuột để nghe từ
+@stop
+
+@section('actDescription-en')
+	Click the word to listen
 @stop

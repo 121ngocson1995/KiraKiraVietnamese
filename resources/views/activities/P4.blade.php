@@ -87,7 +87,7 @@
 			<span id="timer" style="font-size: 70px"></span>
 			<span id="addedTime" style="font-size: 40px; color: grey"></span>
 			<div id="sampleGroup"></div>
-			<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
+			<audio id="tick" src="{{ asset('audio/tick.mp3') }}"></audio>
 		</div>
 		<div id="result" style="text-align: center; display: none;">
 			<span id="scoreText">Score: </span>
