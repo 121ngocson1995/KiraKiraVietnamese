@@ -147,3 +147,11 @@
 </div>
 
 @stop
+
+@section('actDescription-vi')
+    Tìm hiểu về các cuộc đối thoại hàng ngày.
+@stop
+
+@section('actDescription-en')
+    Get to know how everyday conversation is.
+@stop

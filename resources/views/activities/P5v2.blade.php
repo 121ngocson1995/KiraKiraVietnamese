@@ -455,9 +455,9 @@
 @stop
 
 @section('actDescription-vi')
-	Rê chuột vào các từ và tích chuột để nghe từ
+	Rê chuột vào các đoạn thoại và tích chuột để nghe đoạn thoại.
 @stop
 
 @section('actDescription-en')
-	Click the word to listen
+	Click the dialogue to listen.
 @stop

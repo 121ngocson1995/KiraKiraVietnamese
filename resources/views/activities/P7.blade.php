@@ -247,3 +247,11 @@
 	<input type="image" class="controlBtn" id="playRecord" src="{{ asset('img/icons/rec_playback2.svg') }}" onclick="playRecord()" alt="Submit" width="25%" height="25%" data-toggle="tooltip" data-placement="bottom" title="Click the middle button to record your voice!">
 </div>
 @stop
+
+@section('actDescription-vi')
+	Rê chuột vào D1, D2, D3, D4, D5, D6 và tích chuột để nghe và luyện tập nói theo bài hội thoại.
+@stop
+
+@section('actDescription-en')
+	Click D1, D2, D3, D4, D5, D6 to listen the dialogue and practice.
+@stop

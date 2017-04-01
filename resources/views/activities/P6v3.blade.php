@@ -539,3 +539,11 @@
 	}
 </script>
 @stop
+
+@section('actDescription-vi')
+	Lựa chọn một trong 3 đáp án, rê chuột vào đó và tích chuột.
+@stop
+
+@section('actDescription-en')
+	To choose 1 option from the total of 3, click on each option.
+@stop

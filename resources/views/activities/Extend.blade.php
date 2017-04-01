@@ -150,5 +150,12 @@
   </div>
 </div>
 
+@stop
 
+@section('actDescription-vi')
+    Đọc để tìm hiểu bản sắc văn hoá Việt Nam.
+@stop
+
+@section('actDescription-en')
+    Read to explore the culture of Vietnam.
 @stop

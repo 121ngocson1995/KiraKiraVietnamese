@@ -77,6 +77,10 @@
 </body>
 @stop
 
-@section('description')
-In this activity,...
+@section('actDescription-vi')
+	Ghi nhớ các mẫu câu được cho bên trên.
+@stop
+
+@section('actDescription-en')
+	Memorize the given sentence pattern.
 @stop

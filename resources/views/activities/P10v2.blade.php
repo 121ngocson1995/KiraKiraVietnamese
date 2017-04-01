@@ -616,3 +616,11 @@
 </script>
 
 @stop
+
+@section('actDescription-vi')
+	Sắp xếp lại trật tự từ trong câu bằng cách kéo các từ thả vào trong các ô trống.
+@stop
+
+@section('actDescription-en')
+	To reorder the words, hold the words and then move to the appropriate space below.
+@stop

@@ -442,9 +442,9 @@
 @stop
 
 @section('actDescription-vi')
-	Rê chuột vào các từ và tích chuột để nghe từ
+	Rê chuột vào các câu và tích chuột để nghe câu.
 @stop
 
 @section('actDescription-en')
-	Click the word to listen
+	Click the sentence to listen.
 @stop

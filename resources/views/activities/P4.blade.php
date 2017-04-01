@@ -270,3 +270,11 @@
 	// });
 </script>
 @stop
+
+@section('actDescription-vi')
+	Tích chuột vào START để bắt đầu nghe. Máy sẽ đọc mỗi câu 2 lần. Nghe và tích chuột vào câu tương ứng.
+@stop
+
+@section('actDescription-en')
+	Click START to begin. The computer will read each sentence twice. Listen and click on appropriate sentence.
+@stop

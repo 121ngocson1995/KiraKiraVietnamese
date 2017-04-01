@@ -403,6 +403,10 @@
 
 @stop
 
-@section('description')
-	In this activity, drag and drop sentences from the left box to the right one so that they makes a dialog.
+@section('actDescription-vi')
+	Sắp xếp lại trình tự bài hội thoại bằng cách tích chuột vào câu và bỏ sang các ô trống phía bên phải.
+@stop
+
+@section('actDescription-en')
+	To reorder the dialogue, click on the sentence and then move to the appropriate box on the right.
 @stop

@@ -565,3 +565,11 @@ onmousedown="return false;">
 	}
 </script>
 @stop
+
+@section('actDescription-vi')
+	Lựa chọn từ thích hợp rồi kéo thả vào chỗ trống.
+@stop
+
+@section('actDescription-en')
+	Find the appropriate word, hold the word and then move to the appropriate space.
+@stop

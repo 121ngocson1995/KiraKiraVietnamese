@@ -40,6 +40,10 @@
 </body>
 @stop
 
-@section('description')
-In this activity,...
+@section('actDescription-vi')
+	Chuẩn bị nội dung như hướng dẫn; đọc và ghi âm lại bằng cách bấm nút ghi âm ở phía dưới.
+@stop
+
+@section('actDescription-en')
+	Follow the guideline, read and record your own voice by clicking the record button at the bottom.
 @stop

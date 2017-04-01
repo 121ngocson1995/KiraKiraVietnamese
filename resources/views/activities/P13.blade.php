@@ -44,6 +44,10 @@
 
 @stop
 
-@section('description')
-In this activity,...
+@section('actDescription-vi')
+	Ghi nhớ bài đọc và viết một bài đọc với chủ đề cho sẵn.
+@stop
+
+@section('actDescription-en')
+	Memorize the text and write a short paragraph with the given topic.
 @stop

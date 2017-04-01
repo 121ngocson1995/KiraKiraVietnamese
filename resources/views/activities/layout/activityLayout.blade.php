@@ -236,7 +236,7 @@
 			<span class="tooltip-text">
 				<span id="tooltip-vi">@yield('actDescription-vi')</span>
 				<hr>
-				<span id="tooltip-vi">@yield('actDescription-en')</span>
+				<span id="tooltip-en">@yield('actDescription-en')</span>
 			</span>
 		</span>
 		<div style="clear: both;"></div>
