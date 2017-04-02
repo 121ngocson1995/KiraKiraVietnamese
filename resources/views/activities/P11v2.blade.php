@@ -23,11 +23,12 @@
 		/*display: inline-block;*/
 		border-radius: 4px;
 		border: 1px solid transparent;
-		min-height:55px;
+		color: firebrick;
+		min-height:50px;
 		width: 80%;
 		max-width: 400px;
 		white-space: normal;
-		padding: 6px 10px;
+		padding: 3px 10px;
 		margin: 10px 10px;
 		text-align: center;
 		background: #e6e6e6;
@@ -48,7 +49,7 @@
 		/*display: inline-block;*/
 		width: 80%;
 		max-width: 400px;
-		height: 55px;
+		height: 50px;
 		font-size: 30px;
 		text-align: center;
 		border-radius: 4px;
@@ -165,8 +166,10 @@
 </script>
 
 <div id="background">
-	<div style="position: fixed; width: 80%; bottom: -64%; left: 50%; transform: translateX(-40%); opacity: 1; z-index: -1">
-		<img id="sun" style="width: 100%;" src="{{ asset('img/P11/bg-sun.svg') }}" alt="">
+	<div id="sunPositionHolder" style="position: fixed; width: 80%; bottom: -64%; left: 50%; transform: translateX(-40%); z-index: -1">
+		<div id="sunMoveHolder" style="opacity: 0;">
+			<img id="sun" class="sunRotate" style="width: 100%;" src="{{ asset('img/P11/bg-sun.svg') }}" alt="">
+		</div>
 	</div>
 	{{-- <img id="cloud" style="position: fixed; width: 130%; left: -15%; bottom: 5%; z-index: -1" src="{{ asset('img/P11/bg-cloud.svg') }}" alt=""> --}}
 	<img id="land" style="position: fixed; width: 100%; bottom: 0; z-index: -1" src="{{ asset('img/P11/bg-land.svg') }}" alt="">
@@ -217,13 +220,10 @@
 
 	var sunTimeline = new TimelineMax();
 	sunTimeline.from('#land', 1, {scale:1, y:300,  ease:Elastic.easeOut})
-			   .fromTo('#sun', 4, {y:300, opacity: 0}, {y:0, opacity: 1, clearProps:"transform", ease:Power1.easeOut})
-			   .set('#sun', {className: '+= sunRotate'});
+			   .fromTo('#sunMoveHolder', 4, {y:300, opacity: 0}, {y:0, opacity: 1, clearProps:"transform", ease:Power1.easeOut});
 	setTimeout(function() {
-		var tl = new TimelineMax();
 		TweenMax.staggerFromTo('.dragSentence', 0.5, {x:-150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
 		TweenMax.staggerFromTo('.dropSentence', 0.5, {x:150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
-		// TweenMax.set('.dropWord',{className:"+=pinch"});
 	}, 2000);
 
 	window.onresize = function() {
@@ -438,8 +438,10 @@
 			$('.fullscreenDiv').css('top', '65px');
 			$('.fullscreenDiv').css('bottom', 0);
 
-			$('#draggable').fadeIn(500);
-			$('#droppable').fadeIn(500);
+			$('#draggable').show();
+			$('#droppable').show();
+			TweenMax.staggerFromTo('.dragSentence', 0.5, {x:-150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+			TweenMax.staggerFromTo('.dropSentence', 0.5, {x:150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
 			document.getElementById('normal').checked = true;
 		});
 
