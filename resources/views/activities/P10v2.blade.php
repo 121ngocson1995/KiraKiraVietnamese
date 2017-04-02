@@ -214,7 +214,6 @@
 </div>
 
 <div class='fullscreenDiv'>
-
 	<div id="questionHolder" class="col-xs-12">
 		<div id="draggable" style="z-index: 20">
 			@foreach ($elementData[0] as $elementValue)
@@ -264,7 +263,6 @@
 	setTimeout(function() {
 		var tl = new TimelineMax();
 		$('#draggable').addClass('animated bounceInDown').css('opacity', 1).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-			console.log('ready');
 			TweenMax.staggerFromTo('.dropWord', 0.4, {x:-50, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
 			TweenMax.set('.dropWord',{className:"+=pinch"});
 		});

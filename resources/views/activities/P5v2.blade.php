@@ -379,7 +379,7 @@
 			enableControl('replay');
 			enableControl('record');
 			enableControl('wordWrap');
-		}, 3000);
+		}, 10000);
 
 		busyControl('record');
 		disableControl('replay');
