@@ -92,15 +92,6 @@ div.row.store{
   }
 }
 
-
-/*body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-*/
 #wrapper {
   width: 100%;
   height: 100%;
@@ -114,6 +105,7 @@ div.row.store{
   overflow-y: auto;
 }
 
+
 #mask {
   width: 500%;
   /*height: 100%;*/
@@ -124,7 +116,9 @@ div.row.store{
   width: 20%;
   height: 100%;
   float: left;
-/*  background-color: #ddd;*/
+  /*background:url(../../Situation_img/Test01.jpg);*/
+  background-size:cover;
+  background-color: #c9fcfc;
 }
 
 .content {
@@ -148,7 +142,7 @@ div.row.store{
 }
 
 
-@media (max-width:766px) {
+@media (max-width:700px) {
   .img {
     height:150px;
     width: inherit;
@@ -158,9 +152,10 @@ div.row.store{
 }
 
 .img {
-  height:250px;
+  height:300px;
   width: inherit;
   padding-top: 24px;
+  padding: 24px;
 }
 .paragraph p {
   font-weight: 600;
