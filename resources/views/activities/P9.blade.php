@@ -5,7 +5,22 @@
 <hr>
 
 <style type="text/css">
-	.ui-state-highlight {
+	body {
+		background: url({{ asset('img/P9/forest.svg') }}) no-repeat center bottom fixed;
+		background-size: cover;
+		text-decoration-color: white;
+	}
+	.flexContainer p {
+		position: absolute;
+		width: 100%;
+		color: #33ccff;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 1;
+		color: #e0f5ee;
+	}
+	/*.ui-state-highlight {
 		padding: 6px 15px;
 	}
 	.dragWord {
@@ -18,43 +33,32 @@
 		color: black;
 		transition: background 0.8s;
 		display: inline-block;
-	}
+	}*/
 	.dragWord:hover {
-		cursor: move;
+		cursor: pointer;
 	}
-	.dragWord:active {
+	/*.dragWord:active {
 		background: gold;
-	}
+	}*/
 	#btn-group{
 		position: relative;
 		left: 45%;
 	}
 	#content_id{
 		position: relative;
-		left: 27%;
-		width: auto;
-		max-width: 870px;
+		left: 4%;
+		width: 685px;
+		text-align: left
 	}
-	#answer_id{
+	/*#answer_id{
 		text-align: center;
 		width: auto;
 		padding: 10px;
 		height: auto;
 		background-color:white;
-	}
-	#btn-Start{
-		position: fixed;
-		top: 50%;
-		left: 45%;
-		width: 200px;
-		height: 70px;
-		border-radius: 15px;
-		font-size: 21px;
-		border: 1px solid;
-		z-index: 1;
-	}
+	}*/
 	.blank-sqr{
-		border: 1px solid;
+		/*border: 1px solid;*/
 		border-radius: 9px;
 		width: 200px;
 		height: 45px;
@@ -73,6 +77,12 @@
 		display: inline-block;
 		font-weight: 500;
 		transition: 1s;
+	}
+	#wordGroup {
+		max-height: calc(100% - 250px);
+		/*		overflow-y: scroll;*/
+		padding-top: 20px;
+		width:  480px;
 	}
 	.notChoose-sqr{
 		height: calc(100% + 10px);
@@ -104,8 +114,8 @@
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 		}
-		while (document.getElementById("answer_id").firstChild) {
-			document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
+		while (document.getElementById("wordGroup").firstChild) {
+			document.getElementById("wordGroup").removeChild(document.getElementById("wordGroup").firstChild);
 		}
 		editContent(elementData, dialogNow);
 		editAnswer(elementData, dialogNow);
@@ -141,11 +151,12 @@
 			}
 		}
 		if (questionDone) {
+			$("#countdown").empty();
 			while (document.getElementById("content_id").firstChild) {
 				document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
 			}
-			while (document.getElementById("answer_id").firstChild) {
-				document.getElementById("answer_id").removeChild(document.getElementById("answer_id").firstChild);
+			while (document.getElementById("wordGroup").firstChild) {
+				document.getElementById("wordGroup").removeChild(document.getElementById("wordGroup").firstChild);
 			}
 			for (var i = 0; i < elementData.length; i++) {
 				if (elementData[i]['dialogNo'] == dialogNow) {
@@ -160,7 +171,7 @@
 				}
 
 				var node = document.createElement("div");
-				node.setAttribute('style', 'font-size: 25px; padding: 15px');	
+				node.setAttribute('style', 'font-size: 33px; padding: 15px');	
 				textNode = document.createTextNode(sentence);
 				node.appendChild(textNode);
 				document.getElementById("content_id").appendChild(node);
@@ -169,7 +180,6 @@
 		}else{
 			edit(elementData, dialogNow, dialogCnt);
 			initDroppable();
-			console.log('almost done');
 		}
 		
 	}
@@ -187,7 +197,7 @@
 		}
 		for (var j = 0; j < dialogSentence.length; j++) {
 			var node = document.createElement("div");
-			node.setAttribute('style', 'font-size: 25px; padding: 15px');
+			node.setAttribute('style', 'font-size: 33px; padding: 15px');
 			curLine = dialogSentence[j]['line'].split("*");
 			var index = 0;
 			for (var k = 0; k < curLine.length; k++) {
@@ -221,13 +231,40 @@
 		for (var i = 0; i < dialogAnswer.length; i++) {
 			for (var j = 0; j < dialogAnswer[i]['answer'].length; j++) {
 				if (dialogAnswer[i]['answer'][j].localeCompare("") != 0) {
-					var node = document.createElement("div");
-					node.setAttribute('class', 'dragWord ui-state-default');
-					node.setAttribute('id', "d"+dialogNow+"line"+i+"answer"+j);
-					node.setAttribute('data-answer-content', dialogAnswer[i]['answer'][j]);
+					var src = "img/P9/wood"+dialogAnswer[i]['answer'][j].split(" ").length+".svg"
+					var node_wordSpan = document.createElement("div");
+					node_wordSpan.setAttribute('class', 'wordSpan dragWord');
+					node_wordSpan.setAttribute('id', "d"+dialogNow+"line"+i+"answer"+j);
+					node_wordSpan.setAttribute('data-answer-content', dialogAnswer[i]['answer'][j]);
+					node_wordSpan.setAttribute('style', "display: inline-block;");
+
+					var node_flexContainer = document.createElement("div");
+					node_flexContainer.setAttribute('class', 'flexContainer');
+					node_flexContainer.setAttribute('style', "display: flex;");
+
+					var node_p = document.createElement("p");
+					node_p.setAttribute('class', 'tbn word ui-state-default');
+					node_p.setAttribute('style', " opacity: 0; font-size: 1.8em;");
+
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
-					node.appendChild(textnode);
-					document.getElementById("answer_id").appendChild(node);
+
+					node_p.appendChild(textnode);
+
+					var node_btnBg = document.createElement("div");
+					node_btnBg.setAttribute("class", "btnBg");
+
+					var node_img = document.createElement("img");
+					node_img.setAttribute("class", "wordCloud");
+					node_img.setAttribute('style', " opacity: 0; width: 100%; margin: 10px;");
+					node_img.setAttribute('src', "{{ asset('') }}"+src);
+					node_img.setAttribute('alt', "start button");
+
+					node_btnBg.appendChild(node_img);
+					node_flexContainer.appendChild(node_p);
+					node_flexContainer.appendChild(node_btnBg);
+					
+					node_wordSpan.appendChild(node_flexContainer);
+					document.getElementById("wordGroup").appendChild(node_wordSpan);
 				}
 			}
 		}
@@ -249,7 +286,6 @@
 				node.setAttribute('disabled', 'true');
 				node.setAttribute('onclick', 'JavaScript: chooseD(this)');
 			}
-
 			document.getElementById("btn-group").appendChild(node);
 		}
 
@@ -337,6 +373,7 @@
 
 	function showResult() {
 		var result = document.createElement("span");
+		result.setAttribute('style','font-size:30px;');
 		result.className = 'result';
 		result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
 		document.getElementById("result").appendChild(result);
@@ -385,8 +422,8 @@ onmousedown="return false;">
 	@endfor
 </div>
 <br>
-<div id="content" >
-	<div id="answer_id" style="width: auto; padding: 10px; height: 100px; background-color:white;">
+<div id="content" style="position: absolute;  left: 1%; display: -webkit-flex; display: flex;">
+	<div id="wordGroup" style="width: 460px; text-align: center; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;">
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -399,49 +436,54 @@ onmousedown="return false;">
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<div id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" class="dragWord ui-state-default">{{$dialogAnswer[$i]->answer[$j]}}</div>
+		<div class="wordSpan dragWord" id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
+			<div class="flexContainer" style="display: flex">
+				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.8em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
+				<div class="btnBg">
+					<img class="wordCloud" style="opacity: 0; width: 100%; margin: 10px;" src="{{ asset('img/P9/wood' . count(explode(' ', $dialogAnswer[$i]->answer[$j])) . '.svg') }}" alt="start button">
+				</div>
+			</div>
+		</div>
 		@endif
 		@endfor	
 		@endfor
 	</div>
-	<div class="row" style="position: relative;">
-		<div id="content_id" class="col-sm-6 col-md-6 col-lg-6">
-			@for ($i = 0; $i < count($elementData) ; $i++)
-			@if ($elementData[$i]->dialogNo == 0)
+	<div id="content_id" style="color:#237145; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1; text-align:left;" >
+		@for ($i = 0; $i < count($elementData) ; $i++)
+		@if ($elementData[$i]->dialogNo == 0)
+		@php
+		$curLine = explode('*', $elementData[$i]->line);
+		$index = 0;
+		@endphp
+		<div style="font-size: 35px; padding: 15px">
+			@for ($j = 0; $j < count($curLine) ; $j++)
+			@if ($index != count($curLine)-1)
+			{{$curLine[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
 			@php
-			$curLine = explode('*', $elementData[$i]->line);
-			$index = 0;
+			$index++;
 			@endphp
-			<div style="font-size: 25px; padding: 15px">
-				@for ($j = 0; $j < count($curLine) ; $j++)
-				@if ($index != count($curLine)-1)
-				{{$curLine[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
-				@php
-				$index++;
-				@endphp
-				@else
-				{{$curLine[$j]}}
-				@endif
-				@endfor
-			</div>
+			@else
+			{{$curLine[$j]}}
 			@endif
 			@endfor
 		</div>
-		<div class="col-sm-6 col-md-6 col-lg-6"  style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px">
-			<div id="countdown"></div>
-		</div>
+		@endif
+		@endfor
+	</div>
+	<div style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
+		<div id="countdown"></div>
+		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
 </div>
+
 {{-- <button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button> --}}
-<div>
-	<div id="result" style="text-align: center;"></div>
-</div>
+
 </div>
 
 <script src="{{ asset('js/jquery.countdown360.js') }}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
 	countdown = $("#countdown").countdown360({
-		radius      : 80,
+		radius      : 100,
 		seconds     : 60,
 		fontColor   : '#FFFFFF',
 		autostart   : false,
@@ -471,6 +513,13 @@ onmousedown="return false;">
 		// $('.dropWord').each(function() {
 		// 	console.log($(this));
 		// });
+		// $('.wordCloud').each(function() {
+		// 	$(this).css('width', )
+		// }
+		TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
+		TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
+		$('.tbn').css('opacity','1');
+		$('.wordCloud').css('opacity','1');
 		$(".dragWord").draggable({
 			// scroll: true,
 			// scrollSensitivity: 20,
@@ -480,9 +529,9 @@ onmousedown="return false;">
 				$(this).data('position',$(this).position());
 			},
 			cursor:'move',
-			drag: function(){
-				$(this).css('background', 'gold');
-			},
+			// drag: function(){
+			// 	$(this).css('background', 'gold');
+			// },
 			// cursorAt: { left: Math.floor(this.width / 2), top: Math.floor(this.height / 2) },
 			// start:function(){$(this).stop(true,true)},
 			revert: 'invalid',
@@ -500,10 +549,10 @@ onmousedown="return false;">
 			var answer_content = dropTarget.attr('data-answer-content');
 			var answer_class = dropTarget.attr('id');
 			answer_class = " " + answer_class;
-			var answer_div = $("#answer_id").find("div"); 
-			for (var i = 0; i < answer_div.length; i++) {
-				if (answer_div[i].getAttribute('data-answer-content') == answer_content) {
-					answer_div[i].className += answer_class;
+			var answer_node = $("#wordGroup").find(".dragWord");
+			for (var i = 0; i < answer_node.length; i++) {
+				if (answer_node[i].getAttribute('data-answer-content') == answer_content) {
+					answer_node[i].className += answer_class;
 				}
 			}
 			answer_class = answer_class.replace(" ","");
@@ -513,7 +562,7 @@ onmousedown="return false;">
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
 					var dropTarget = $(this);
-					dropTarget.css('width', ui.draggable.css('width'));
+					// dropTarget.css('width', ui.draggable.css('width'));
 
 					ui.draggable.position({
 						my: "center",
@@ -566,9 +615,9 @@ onmousedown="return false;">
 @stop
 
 @section('actDescription-vi')
-	Tìm các câu hợp lý rồi kéo thả vào chỗ trống.
+Tìm các câu hợp lý rồi kéo thả vào chỗ trống.
 @stop
 
 @section('actDescription-en')
-	Find the appropriate sentence; hold the sentence and then move to the right space
+Find the appropriate sentence; hold the sentence and then move to the right space
 @stop

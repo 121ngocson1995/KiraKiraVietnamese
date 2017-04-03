@@ -6,7 +6,7 @@
 
 <style type="text/css">
 	body {
-		background: url({{ asset('img/seaBackGround.svg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P8/seaBackGround.svg') }}) no-repeat center bottom fixed;
 		background-size: cover;
 		text-decoration-color: white;
 	}
@@ -42,7 +42,6 @@
 		position: relative;
 		left: 13%;
 		width: 530px;
-		max-width: 530px;
 		color: mediumblue;
 		text-align: left;
 	}
@@ -238,7 +237,7 @@
 
 					var node_p = document.createElement("p");
 					node_p.setAttribute('class', 'tbn word ui-state-default');
-					node_p.setAttribute('style', " opacity: 1; font-size: 1.8em;");
+					node_p.setAttribute('style', " opacity: 0; font-size: 1.8em;");
 
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 
@@ -249,7 +248,7 @@
 
 					var node_img = document.createElement("img");
 					node_img.setAttribute("class", "wordCloud");
-					node_img.setAttribute('style', " width: 100%; max-width: 210px;");
+					node_img.setAttribute('style', " opacity: 0; width: 100%; max-width: 210px;");
 					node_img.setAttribute('src', "{{ asset('img/P8/seashell.svg') }}");
 					node_img.setAttribute('alt', "start button");
 
@@ -366,6 +365,7 @@
 
 	function showResult() {
 		var result = document.createElement("span");
+		result.setAttribute('style','font-size:25px;');
 		result.className = 'result';
 		result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
 		document.getElementById("result").appendChild(result);
@@ -430,9 +430,9 @@ onmousedown="return false;">
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
 		<div class="wordSpan dragWord" id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
-				<p class="tbn word ui-state-default"  style=" opacity: 1; font-size: 1.8em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
+				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.8em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="width: 100%; max-width: 210px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 100%; max-width: 210px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -464,7 +464,7 @@ onmousedown="return false;">
 	</div>
 	<div style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
 		<div id="countdown" ></div>
-		<div id="result" style="text-align: center; "></div>
+		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
 </div>
 {{-- <button type="button" id="btn-Next" class="btn btn-primary" style=" display: none; "  onclick="JavaScript: next()">Next</button> --}}
@@ -509,6 +509,8 @@ onmousedown="return false;">
 		// });
 		TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
 		TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
+		$('.tbn').css('opacity','1');
+		$('.wordCloud').css('opacity','1');
 		$(".dragWord").draggable({
 			// scroll: true,
 			// scrollSensitivity: 20,
@@ -549,8 +551,7 @@ onmousedown="return false;">
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
 					var dropTarget = $(this);
-					// dropTarget.css('width', ui.draggable.css('width'));
-					console.log(ui.draggable.css('width'));
+					dropTarget.css('width', ui.draggable.css('width'));
 					ui.draggable.position({
 						my: "center",
 						at: "center",
@@ -602,9 +603,9 @@ onmousedown="return false;">
 @stop
 
 @section('actDescription-vi')
-	Lựa chọn từ thích hợp rồi kéo thả vào chỗ trống.
+Lựa chọn từ thích hợp rồi kéo thả vào chỗ trống.
 @stop
 
 @section('actDescription-en')
-	Find the appropriate word, hold the word and then move to the appropriate space.
+Find the appropriate word, hold the word and then move to the appropriate space.
 @stop

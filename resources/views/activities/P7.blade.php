@@ -101,7 +101,7 @@
 
 				$('#playRecord').show();
 			}
-		}, 30000);
+		}, 60000);
 	}
 
 	function stopRecording(button) {
