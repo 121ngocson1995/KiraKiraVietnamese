@@ -170,16 +170,16 @@
 			transform: rotate(360deg);
 		}
 	}
-	.row.dragdrop {
+	#element {
 		position: relative;
 	}
 	@media screen and (min-width: 768px) and (min-height: 666px) {
-		.row.dragdrop {
+		#element {
 			top: calc(100% - 600px);
 		}
 	}
-	@media screen and (min-width: 768px) and (min-height: 700px) {
-		.row.dragdrop {
+	@media screen and (min-width: 768px) and (min-height: 750px) {
+		#element {
 			top: 85px;
 		}
 	}
@@ -247,15 +247,15 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row help">
-		<div id="btnHelp">
-			<div id="helpBtn">
-				<div class="btnBg">
-					<img id="imgHelp" style="width: 100%; max-width: 220px;" src="{{ asset('img/P11/cloud.svg') }}" alt="show answer">
-				</div>
-				<div id="angel" style="display: none; z-index: 30">
-					<img d="imgAngel" src="{{ asset('img/P11/angel.svg') }}" alt="angel">
+		<div class="row help">
+			<div id="btnHelp">
+				<div id="helpBtn">
+					<div class="btnBg">
+						<img id="imgHelp" style="width: 100%; max-width: 220px;" src="{{ asset('img/P11/cloud.svg') }}" alt="show answer">
+					</div>
+					<div id="angel" style="display: none; z-index: 30">
+						<img d="imgAngel" src="{{ asset('img/P11/angel.svg') }}" alt="angel">
+					</div>
 				</div>
 			</div>
 		</div>
