@@ -13,7 +13,7 @@
 	.flexContainer p {
 		position: absolute;
 		width: 100%;
-		color: #33ccff;
+		color: #30ccff;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%,-50%);
@@ -68,7 +68,7 @@
 		border-radius: 9px;
 		padding: 0px 15px;
 		margin: 1px 5px;
-		background-color:#33ff33;
+		background-color:#30ff30;
 		display: inline-block;
 		font-weight: 500;
 		transition: 1s;
@@ -165,7 +165,7 @@
 				}
 
 				var node = document.createElement("div");
-				node.setAttribute('style', 'font-size: 33px; padding: 15px');	
+				node.setAttribute('style', 'font-size: 30px; padding: 15px');	
 				textNode = document.createTextNode(line);
 				node.appendChild(textNode);
 				document.getElementById("content_id").appendChild(node);
@@ -191,7 +191,7 @@
 		}
 		for (var j = 0; j < dialogline.length; j++) {
 			var node = document.createElement("div");
-			node.setAttribute('style', 'font-size: 33px; padding: 15px');
+			node.setAttribute('style', 'font-size: 30px; padding: 15px');
 			curline = dialogline[j]['line'].split("*");
 			var index = 0;
 			for (var k = 0; k < curline.length; k++) {
@@ -415,7 +415,7 @@ onmousedown="return false;">
 </div>
 <br>
 <div id="content" style="position: absolute;  left: 10%; display: -webkit-flex; display: flex;">
-	<div id="wordGroup" style="width: 460px; text-align: center; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;">
+	<div id="wordGroup" class="col-sm-4" style="width: 460px; text-align: center; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;">
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -428,11 +428,11 @@ onmousedown="return false;">
 		@for ($i = 0; $i < count($dialogAnswer) ; $i++)
 		@for ($j = 0; $j < count($dialogAnswer[$i]->answer) ; $j++)
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
-		<div class="wordSpan dragWord" id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
+		<div class="wordSpan dragWord " id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
 				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.8em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="opacity: 0; width: 100%; max-width: 210px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 100%; max-width: 180px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -440,14 +440,14 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" style="-webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1; text-align:left;" >
+	<div id="content_id" class="col-sm-4" style="-webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1; text-align:left;" >
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
 		$curline = explode('*', $elementData[$i]->line);
 		$index = 0;
 		@endphp
-		<div style="font-size: 33px; padding: 15px">
+		<div style="font-size: 30px; padding: 15px">
 			@for ($j = 0; $j < count($curline) ; $j++)
 			@if ($index != count($curline)-1)
 			{{$curline[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
@@ -462,7 +462,7 @@ onmousedown="return false;">
 		@endif
 		@endfor
 	</div>
-	<div style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
+	<div class="col-sm-4" style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
 		<div id="countdown" ></div>
 		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
