@@ -27,6 +27,7 @@
 		color: rgb(69, 130, 236);
 		transition-duration: 1s;
 		opacity: 0.5;
+		z-index: 1000;
 	}
 	#btn-NextAct:hover {
 		transform: translateX( 45px ) !important;

@@ -34,8 +34,8 @@
 		z-index: 1;
 	}
 	#startBtn, #restartBtn {
-	    width: 400px;
-	    max-width: 40%;
+		width: 400px;
+		max-width: 40%;
 		margin: auto;
 	}
 	#result {

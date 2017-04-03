@@ -6,9 +6,12 @@
 <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}">
 <style>
 	body {
+		margin: 0;
 		background: -moz-linear-gradient(top, rgb(152,168,192) 0%, rgb(206,192,140) 25%, rgb(206,193,36) 74%, rgb(214,203,145) 100%);
 		background: -webkit-linear-gradient(top, rgb(152,168,192) 0%,rgb(206,192,140) 25%,rgb(206,193,36) 74%,rgb(214,203,145) 100%);
 		background: linear-gradient(to bottom, rgb(152,168,192) 0%,rgb(206,192,140) 25%,rgb(206,193,36) 74%,rgb(214,203,145) 100%);
+		background-repeat: no-repeat;
+	    background-attachment: fixed;
 	}
 	.fullscreenDiv {
 		width: 100%;
@@ -24,11 +27,11 @@
 		border-radius: 4px;
 		border: 1px solid transparent;
 		color: firebrick;
-		min-height:50px;
+		min-height:45px;
 		width: 80%;
 		max-width: 400px;
 		white-space: normal;
-		padding: 3px 10px;
+		padding: 2px 10px;
 		margin: 10px 10px;
 		text-align: center;
 		background: #e6e6e6;
@@ -49,7 +52,7 @@
 		/*display: inline-block;*/
 		width: 80%;
 		max-width: 400px;
-		height: 50px;
+		height: 45px;
 		font-size: 30px;
 		text-align: center;
 		border-radius: 4px;
@@ -64,6 +67,28 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		/*padding: 0 20px;*/
+	}
+	#btnHelp {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		z-index: 1;
+	}
+	#helpBtn {
+		opacity: 0;
+		margin: auto;
+	}
+	#angel {
+		position: absolute;
+		left: 50%;
+		height: 120px;
+		    transform: translate(30%, -140%);
+	}
+	#angel img {
+		height: 100%;
+	}
+	#helpBtn, #angel {
+		cursor: pointer;
 	}
 	.dropPulse {
 		-webkit-animation-name: hvr-pulse-grow;
@@ -136,23 +161,51 @@
 	@-webkit-keyframes sunRotate {
 		100% {
 			-webkit-transform: rotate(360deg);
-			transform: rotate(360deg);	
+			transform: rotate(360deg);
 		}
 	}
 	@keyframes sunRotate {
 		100% {
 			-webkit-transform: rotate(360deg);
-			transform: rotate(360deg);	
+			transform: rotate(360deg);
 		}
 	}
-	@media screen and (min-width: 768px) and (min-height: 616px) {
-		.col-sm-6 {
-			top: calc(100% - 550px);
+	.row.dragdrop {
+		position: relative;
+	}
+	@media screen and (min-width: 768px) and (min-height: 666px) {
+		.row.dragdrop {
+			top: calc(100% - 600px);
 		}
 	}
 	@media screen and (min-width: 768px) and (min-height: 700px) {
-		.col-sm-6 {
+		.row.dragdrop {
 			top: 85px;
+		}
+	}
+	#tryAgainBtn2Holder {
+		position: absolute;
+		top: 50%;
+		right: 10%;
+	}
+	#tryAgainBtn2 {
+		transform: translateY(-50%);
+	}
+	.dragGroup {
+		text-align: right;
+		text-align: -webkit-right;
+	}
+	.dropGroup {
+		text-align: left;
+		text-align: -webkit-left;
+	}
+	@media screen and (max-width: 767px) {
+		.dragSentence, .dropSentence {
+			width: 90%;
+		}
+		.dragGroup, .dropGroup {
+			text-align: center;
+			text-align: -webkit-center;
 		}
 	}
 </style>
@@ -172,22 +225,39 @@
 		</div>
 	</div>
 	{{-- <img id="cloud" style="position: fixed; width: 130%; left: -15%; bottom: 5%; z-index: -1" src="{{ asset('img/P11/bg-cloud.svg') }}" alt=""> --}}
-	<img id="land" style="position: fixed; width: 100%; bottom: 0; z-index: -1" src="{{ asset('img/P11/bg-land.svg') }}" alt="">
+	<img id="land" style="position: fixed; width: 101%; bottom: 0; z-index: -1" src="{{ asset('img/P11/bg-land.svg') }}" alt="">
 </div>
 
 <div class='fullscreenDiv'>
-	<div class="col-sm-6" style="text-align: right; text-align: -webkit-right; z-index: 20;">
-		<div id="draggable">
-			@foreach ($elementData as $elementValue)
-			<div id="{{ $elementValue->correctOrder }}" class="dragSentence"><span>{{ $elementValue->sentence }}</span></div>
-			@endforeach
+	<div id="element">
+		<div class="row dragdrop">
+			<div class="col-sm-6 dragGroup" style="z-index: 20;">
+				<div id="draggable">
+					@foreach ($elementData as $elementValue)
+					<div id="{{ $elementValue->correctOrder }}" class="dragSentence"><span>{{ $elementValue->sentence }}</span></div>
+					@endforeach
+				</div>
+				<div id="tryAgainBtn2Holder" style="display: none;"><a id="tryAgainBtn2" class="btn tryAgain" role="button" onclick="redo()">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a></div>
+			</div>
+			<div class="col-sm-6 dropGroup">
+				<div id="droppable">
+					@for ($i = 0; $i < count($elementData); $i++)
+					<div class="dropSentence"></div>
+					@endfor
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-6" style="">
-		<div id="droppable">
-			@for ($i = 0; $i < count($elementData); $i++)
-			<div class="dropSentence"></div>
-			@endfor
+	<div class="row help">
+		<div id="btnHelp">
+			<div id="helpBtn">
+				<div class="btnBg">
+					<img id="imgHelp" style="width: 100%; max-width: 220px;" src="{{ asset('img/P11/cloud.svg') }}" alt="show answer">
+				</div>
+				<div id="angel" style="display: none; z-index: 30">
+					<img d="imgAngel" src="{{ asset('img/P11/angel.svg') }}" alt="angel">
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -201,14 +271,14 @@
 		</div>
 		<div class="mouth"></div>
 	</div>
-	<div class="{{-- hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a --}}">
+	<div>
 		<div class="btn tryAgain score">
 			<span id="scoreText">Score: </span>
 			<span id="correct"></span>
 			<span id="total"></span>
 		</div>
-		<a id="tryAgainBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="redo()" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
-		<a id="nextBtn" class="{{-- hi-icon --}}btn tryAgain" role="button" onclick="redo()" style="display: none;">Do it once more<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
+		<a id="tryAgainBtn" class="btn tryAgain" role="button" onclick="redo()" style="display: none;">Try again<i class="fa fa-repeat faa-spin animated faa-slow" style="vertical-align: middle;"></i></a>
+		<a id="nextBtn" class="btn tryAgain" role="button" onclick="redo()" style="display: none;">Do it once more<i class="fa fa-forward faa-horizontal animated faa-slow" style="vertical-align: middle;"></i></a>
 	</div>
 </div>
 
@@ -224,6 +294,7 @@
 	setTimeout(function() {
 		TweenMax.staggerFromTo('.dragSentence', 0.5, {x:-150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
 		TweenMax.staggerFromTo('.dropSentence', 0.5, {x:150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+		TweenLite.set('#helpBtn', {opacity: 1, className:'+=animated zoomIn', delay: 1.5});
 	}, 2000);
 
 	window.onresize = function() {
@@ -235,6 +306,96 @@
 
 	window.onload = function() {
 		initDroppable();
+	}
+
+	$('#helpBtn').click(function() {
+		help();
+	});
+
+	$('#helpBtn').on( "mouseenter", function() {
+		$('#angel').show();
+		TweenLite.from('#angel img', 1, {x:150, y:50, opacity: 0});
+	})
+				 .on( "mouseleave", function() {
+		$('#angel').hide();
+		TweenLite.set('#angel img', {x:0, y:0, opacity: 1});
+	});
+
+	$('#angel').click(function() {
+		help();
+	});
+
+	function help() {
+		$('#helpBtn').fadeOut(500);
+
+		var revert = false;
+
+		/* revert all dragSentence objects to their original positions */
+		$('.dropSentence').each(function() {
+			if ($(this).data('curDrag')) {
+				var lastDrag = $(this).data('curDrag');
+
+				lastDrag.css('transition', '1s');
+				lastDrag.css('top', 0);
+				lastDrag.css('left', 0);
+				lastDrag.removeData('curDrop');
+				$(this).removeData('curDrag');
+
+				setTimeout(function() {
+					lastDrag.css('transition', '');
+				}, 1000);
+
+				revert = true;
+			}
+		});
+
+		/* Move all dragSentence objects to their correct positions */
+
+		var correctAnswer = <?php echo json_encode($correctAnswer); ?>;
+		var timeout = revert ? 1500 : 0;
+
+		setTimeout(function() {
+			reposition(0, 700);
+		}, timeout);
+
+		function reposition(i, timeout) {
+			loopDrag:
+			for (var j = 0; j < $('.dragSentence').length; j++) {
+				if($($('.dragSentence')[j]).find('span').html() == correctAnswer[i] && !$($('.dragSentence')[j]).hasClass('ordered')) {
+					
+					var dragSentence = $('.dragSentence')[j];
+
+					$(dragSentence).position({
+						my: "center",
+						at: "center",
+						of: $('.dropSentence')[i],
+						using: function(pos) {
+							$(this).animate(pos, timeout, "swing");
+						}
+					});
+					$($('.dropSentence')[i]).css('height', $(dragSentence).css('height'));
+
+					$(dragSentence).addClass('ordered');
+					break loopDrag;
+				}
+			}
+
+			if (i < correctAnswer.length) {
+				setTimeout(function() {
+					reposition(++i, 500);
+				}, timeout);
+			} else {
+				setTimeout(function() {
+					$('#tryAgainBtn2Holder').show();
+					$('#tryAgainBtn2Holder').addClass('animated rotateIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+						$(this).removeClass('animated rotateIn');
+					});
+				}, 500);
+				return;
+			}
+		}
+
+		totalQuestion++;
 	}
 
 	function initDroppable() {
@@ -375,6 +536,8 @@
 					allCorrect = false;
 				}
 			}
+		
+			$('#helpBtn').fadeOut(500);
 
 			if (allCorrect == true) {
 				showScore(true);
@@ -435,14 +598,15 @@
 		}
 
 		$('#resultContainer').fadeOut(500, function() {
-			$('.fullscreenDiv').css('top', '65px');
-			$('.fullscreenDiv').css('bottom', 0);
-
-			$('#draggable').show();
-			$('#droppable').show();
-			TweenMax.staggerFromTo('.dragSentence', 0.5, {x:-150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
-			TweenMax.staggerFromTo('.dropSentence', 0.5, {x:150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
-			document.getElementById('normal').checked = true;
+			console.log($('#tryAgainBtn2Holder:visible'));
+			if ($('#tryAgainBtn2Holder').is(':visible')) {
+				$('#tryAgainBtn2Holder').addClass('animated rotateOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+					$(this).removeClass('animated rotateOut').hide();
+					showQuestion();
+				});
+			} else {
+				showQuestion();
+			}
 		});
 
 		if ($('#tryAgainBtn').css('display') != 'none') {
@@ -454,6 +618,18 @@
 		}
 
 		initDroppable();
+
+		function showQuestion() {
+			$('.fullscreenDiv').css('top', '65px');
+			$('.fullscreenDiv').css('bottom', 0);
+
+			$('#draggable').show();
+			$('#droppable').show();
+			TweenMax.staggerFromTo('.dragSentence', 0.5, {x:-150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+			TweenMax.staggerFromTo('.dropSentence', 0.5, {x:150, y:50, opacity:0}, {x:0, y:0, opacity:1, clearProps:"transform"}, 0.2);
+			TweenLite.set('#helpBtn', {display: '', opacity: 1, className:'+=animated zoomIn', delay: 1.5});
+			document.getElementById('normal').checked = true;
+		}
 	}
 
 	function shuffleSentence() {
