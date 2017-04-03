@@ -6,7 +6,7 @@
 
 <style type="text/css">
 	body {
-		background: url({{ asset('img/P8/seaBackGround.svg') }}) no-repeat center bottom fixed;
+		background: url({{asset('img/P8/seaBackGround.svg')}}) no-repeat center bottom fixed;
 		background-size: cover;
 		text-decoration-color: white;
 	}
@@ -39,9 +39,7 @@
 		left: 45%;
 	}
 	#content_id{
-		position: relative;
-		left: 13%;
-		width: 530px;
+		padding-left: 2%;
 		color: mediumblue;
 		text-align: left;
 	}
@@ -74,10 +72,8 @@
 		transition: 1s;
 	}
 	#wordGroup {
-		max-height: calc(100% - 250px);
 		/*		overflow-y: scroll;*/
 		padding-top: 20px;
-		width:  425px;
 	}
 	.notChoose-sqr{
 		height: calc(100% + 10px);
@@ -414,8 +410,8 @@ onmousedown="return false;">
 	@endfor
 </div>
 <br>
-<div id="content" style="position: absolute;  left: 10%; display: -webkit-flex; display: flex;">
-	<div id="wordGroup" class="col-sm-4" style="width: 460px; text-align: center; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;">
+<div id="content" style="padding: 0 5%;">
+	<div id="wordGroup" class="col-sm-4" style=" text-align: center;">
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -440,7 +436,7 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" class="col-sm-4" style="-webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1; text-align:left;" >
+	<div id="content_id" class="col-sm-5" style=" text-align:left;" >
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
@@ -462,7 +458,7 @@ onmousedown="return false;">
 		@endif
 		@endfor
 	</div>
-	<div class="col-sm-4" style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
+	<div class="col-sm-3" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px " >
 		<div id="countdown" ></div>
 		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
