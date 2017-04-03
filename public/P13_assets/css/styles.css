@@ -1,0 +1,181 @@
+/*#promo2{
+  text-align:left;
+  background:url(../../P13_assets/img/OK2UMA0.jpg);
+  background-size:cover;
+}
+*/
+div.row.practice{
+  margin-left:0;
+  margin-right:0;
+  padding-left:initial;
+}
+
+ #promo2{
+    /*padding-top: 120px;*/
+    padding-top: 12%;
+    margin-top:100px;
+  }
+
+@media (max-width:1199px) {
+  #promo2{
+    padding:20px;
+    margin-top:100px;
+  }
+}
+
+#promo2 .jumbotron.practice{
+  background-color:rgba(238,224,224,0.25);
+  background-size:cover;
+  margin:0 auto;
+  color:white;
+  text-align:center;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  max-width: 800px;
+  border-radius: 25px;
+}
+
+@media (max-width:991px) {
+  #promo2 .jumbotron.practice{
+    padding:20px;
+  }
+}
+
+body{
+  font-family:Arial, Helvertica, sans-sarif;
+}
+
+
+/*@font-face {
+    font-family: 'Sketch Block';
+    src: url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.eot');
+    src: url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.woff') format('woff'),
+         url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.ttf') format('truetype'),
+         url('http://tangledindesign.com/codepen/fonts/sketch_block-webfont.svg#SketchBlockBold') format('svg');
+}*/
+
+/*@font-face {
+    font-family: 'Museo 700';
+    src: url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.eot');
+    src: url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.woff') format('woff'),
+         url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.ttf') format('truetype'),
+         url('http://tangledindesign.com/codepen/fonts/Museo700-Regular-webfont.svg#SketchBlockBold') format('svg');
+}
+
+@font-face {
+    font-family: 'CallunaRegular';
+    src: url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.eot');
+    src: url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.woff') format('woff'),
+         url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.ttf') format('truetype'),
+         url('http://tangledindesign.com/codepen/fonts/Calluna-Regular-webfont.svg#CallunaRegular') format('svg');
+}
+*/
+.prac-grey-section{
+  background:url(../../P13_assets/img/p13.svg);
+  background-size: cover;
+  margin-top: -17%;
+  padding-bottom:24px;
+  text-align:center;
+  padding:60px 0;
+  height: 1200px;
+  color: #fff;
+}
+
+
+/*  body {
+    background:url(../../P13_assets/img/p13.jpg);
+    background-size: cover;
+    color: #fff;
+  }
+*/
+  .container2 {
+    width: 590px;
+    margin: 60px auto;
+    position: relative;
+  }
+
+  blockquote {
+    width: 565px;
+    font: 2em CallunaRegular;
+    letter-spacing: .075em;
+    float: left;
+    padding: 60px 0 60px 25px;
+    margin: 0;
+    border-top: 2px dotted #858585;
+    border-bottom: 2px dotted #858585;
+   /* -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);*/
+  }
+
+  .container2:before {
+    content: "“";
+    font-size: 13em;
+    position: absolute;
+    left: -100px;
+    color: white;
+  }
+
+  .container2:after {
+    content: "”";
+    font-size: 13em;
+    position: absolute;
+    right: -100px;
+    top: 150px;
+    color: white;
+  }
+
+  blockquote:first-line {
+    font: 1.5em "Sketch Block";
+    color: #fff79e;
+  }
+
+/*  blockquote:first-letter {
+    font-size: 2.9em;
+    text-transform: lowercase;
+    float: left;
+    line-height: .52em;
+    margin-right: -18px;
+    position: relative;
+    z-index: 1;
+  }
+*/
+  blockquote strong:first-child {
+    margin-left: 8px;
+    letter-spacing: 0;
+  }
+
+  blockquote strong:last-child {
+    font: 2em "Museo 700";
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  blockquote em {
+    border-bottom: 2px dotted #858585;
+  }
+
+  blockquote + b {
+    float: right;
+    margin-top: 10px;
+    font: 1.6em CallunaRegular;
+    letter-spacing: .15em;
+  }
+
+  blockquote + b:first-letter {
+    color: #fff79e;
+    font-size: 1.3em;
+    font-style: italic;
+    letter-spacing: .25em;
+  }
+
+  @-moz-document url-prefix() { 
+
+    blockquote:first-letter {
+      margin-top: -29px;
+    }
+
+  }
+

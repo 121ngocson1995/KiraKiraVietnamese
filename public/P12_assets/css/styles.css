@@ -1,0 +1,47 @@
+#promo3{
+  text-align:left;
+  background:url(../../P12_assets/img/p1203.jpg);
+  background-size:cover;
+  margin-top: -5%;
+
+}
+
+div.row.p12{
+  margin-left:0;
+  margin-right:0;
+  padding-left:initial;
+}
+
+@media (max-width:1199px) {
+  #promo3{
+    padding:20px;
+    margin-top:100px;
+  }
+}
+
+#promo3 .jumbotron.p12{
+  background-color:rgba(238,224,224,0);
+  background-size:cover;
+  margin:0 auto;
+  color:white;
+  text-align:center;
+  max-width:900px;
+  padding-top:15%;
+  padding-bottom: 40%;
+  /*padding-bottom:35%;*/
+}
+
+#promo3 .jumbotron p {
+  font-size: 32px;
+}
+
+@media (max-width:991px) {
+  #promo3 .jumbotron.practice{
+    padding:15px;
+  }
+}
+
+body{
+  font-family:Arial, Helvertica, sans-sarif;
+}
+

@@ -1,53 +1,42 @@
 @extends('activities.layout.activityLayout')
 
 @section('actContent')
-<link href='//fonts.googleapis.com/css?family=Dekko' rel='stylesheet'>
-<link href='//fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
-<style>
-	.header {
-		
-    	background-color: rgba(153, 194, 255, 0.4);
-		padding: 5px;
-		border-bottom: solid 2px #cccccc;
-		border-radius: 25px;
-		text-align: center;
-		font-family: 'Dekko';
-	}
-	.wallpaper {
-		background-image:url('P12_img/bg.jpg');
-		background-color:#ccccff;
-	}
-	.content {
-		font-family: 'Space Mono';
-		font-size: 18px;
-	}
-</style>
 
-<div class='header'>
-	<h1>Bài khóa</h1>
-	<h3>
-	   	@foreach ($noteArr as $key)
-			<span>{{ $key }}</span><br>
-		@endforeach	
-	</h3>
-</div>
-<hr>
+<link rel="stylesheet" href="{{ asset('P13_assets/css/styles.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 
-<body class='wallpaper'>
-	<div class='content'>
-		@foreach ($elementData as $value)
-			<span>{{ $value->content }}</span>
-		@endforeach
+
+
+
+<div class="prac-grey-section">
+
+	<div id="promo2">
+		<div class="jumbotron practice">
+			<div class="container">
+				<div class="row practice">
+					<div class="col-md-12 practice">
+						@foreach ($noteArr as $key)
+						<p style="font-size: 32px;">{{ $key }}</p>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-</body>
+
+
+	<article class="container2">
+		<blockquote>
+			@foreach ($elementData as $value)
+			{{ $value->content }}
+			@endforeach
+		</blockquote>
+	</article>
+</div>
+
 
 @stop
 
-@section('actDescription-vi')
-	Ghi nhớ bài đọc và viết một bài đọc với chủ đề cho sẵn.
-@stop
-
-@section('actDescription-en')
-	Memorize the text and write a short paragraph with the given topic.
+@section('description')
+In this activity,...
 @stop
