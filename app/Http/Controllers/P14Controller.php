@@ -18,6 +18,7 @@ class P14Controller extends Controller
         $cnt = count($elementData);
         $nounArr = array();
         $clauseArr = array();
+        $cntRow = $cnt/2;
 
         if ($cnt != 0){
             for ($i=0; $i<$cnt; $i++){
@@ -29,8 +30,8 @@ class P14Controller extends Controller
                 $close[$i] = $clauseArr[$i][2];
                 // $nounArr[$i] = $clauseArr[$i][1];
             }
-
-            return view("activities.P14", compact(['elementData', 'open', 'nounArr', 'close', 'cnt'])); 
+            // dd($open[10], $nounArr[10], $close[10]);
+            return view("activities.P14", compact(['elementData', 'open', 'nounArr', 'close', 'cnt', 'cntRow'])); 
         } else {
             return view("activities.P14", compact('elementData'));
         }
