@@ -443,7 +443,7 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" style="color:#237145; text-align:left;"  class="col-sm-4">
+	<div id="content_id" style="color:#1a6039; text-align:left;"  class="col-sm-4">
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
