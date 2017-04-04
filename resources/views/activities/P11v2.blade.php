@@ -196,7 +196,7 @@
 		text-align: -webkit-right;
 	}
 	.dropGroup {
-		text-align: left;
+		text-align: -moz-left;
 		text-align: -webkit-left;
 	}
 	@media screen and (max-width: 767px) {
@@ -204,7 +204,7 @@
 			width: 90%;
 		}
 		.dragGroup, .dropGroup {
-			text-align: center;
+			text-align: -moz-center;
 			text-align: -webkit-center;
 		}
 	}

@@ -64,8 +64,11 @@
 	.dragWord:hover {
 		cursor: move;
 	}
-	.dragWord:active {
+	.dragWord.gold {
 		background: gold;
+	}
+	.dragWord.initial {
+		background: initial;
 	}
 	.dragWord span {
 		position: relative;
@@ -289,14 +292,17 @@
 				$(this).data('position',$(this).position());
 			},
 			cursor:'move',
-			drag: function(){
-				$(this).css('background', 'gold');
-			},
 			// cursorAt: { left: Math.floor(this.width / 2), top: Math.floor(this.height / 2) },
 			// start:function(){$(this).stop(true,true)},
-			revert: 'invalid',
+			revert: function(is_valid_drop) {
+				if(!is_valid_drop){
+					$(this).removeClass('gold');
+					return true;
+				}
+			},
 			start:function(){
 				$(this).stop(true,true);
+				$(this).removeClass('initial').addClass('gold');
 			},
 			stack: ".dragWord"
 		});
@@ -348,8 +354,8 @@
 					} else {
 						lastDrag.css('top', 0);
 						lastDrag.css('left', 0);
-						lastDrag.css('background', '#e6e6e6');
-						ui.draggable.css('background', 'initial');
+						lastDrag.removeClass('gold initial');
+						ui.draggable.removeClass('gold').addClass('initial');
 						lastDrag.removeData('curDrop');
 						$(lastDrag).css('color', 'initial');
 					}
@@ -368,7 +374,7 @@
 					using: function(pos) {
 						$(this).animate(pos, 200, "linear");
 						setTimeout(function() {
-							ui.draggable.css('background', 'initial');
+							ui.draggable.removeClass('gold').addClass('initial');
 						}, 200);
 					}
 				});
