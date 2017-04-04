@@ -192,7 +192,7 @@
 		transform: translateY(-50%);
 	}
 	.dragGroup {
-		text-align: right;
+		text-align: -moz-right;
 		text-align: -webkit-right;
 	}
 	.dropGroup {
@@ -327,6 +327,7 @@
 
 	function help() {
 		$('#helpBtn').fadeOut(500);
+		$('.dragSentence').draggable('destroy');
 
 		var revert = false;
 
