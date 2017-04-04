@@ -368,7 +368,6 @@
 
 	function showResult() {
 		var result = document.createElement("span");
-		$('#content_id').removeClass('animated bounceIn');
 		result.setAttribute('style','font-size:30px;');
 		result.className = 'result';
 		result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
@@ -444,7 +443,7 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" style="opacity: 0; color:#1a6039; text-align:left;"  class="col-sm-4">
+	<div id="content_id" style="color:#1a6039; text-align:left;"  class="col-sm-4">
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
@@ -512,9 +511,6 @@ onmousedown="return false;">
 		// $('.wordCloud').each(function() {
 		// 	$(this).css('width', )
 		// }
-		$('#content_id').css('opacity','1').addClass('animated bounceIn');
-
-		
 		TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
 		TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
 		$('.tbn').css('opacity','1');

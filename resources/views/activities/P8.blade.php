@@ -233,7 +233,7 @@
 
 					var node_p = document.createElement("p");
 					node_p.setAttribute('class', 'tbn word ui-state-default');
-					node_p.setAttribute('style', " opacity: 0; font-size: 1.3em;");
+					node_p.setAttribute('style', " opacity: 0; font-size: 1.8em;");
 
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 
@@ -361,7 +361,6 @@
 
 	function showResult() {
 		var result = document.createElement("span");
-		$('#content_id').removeClass('animated bounceIn');
 		result.setAttribute('style','font-size:25px;');
 		result.className = 'result';
 		result.innerHTML = 'You are ' + (rightAnswerCnt / getDialogAnswer(elementData, dialogNow) * 100).toFixed(2) + '% correct <br> (' + rightAnswerCnt + '/' + getDialogAnswer(elementData, dialogNow) + ')';
@@ -506,7 +505,6 @@ onmousedown="return false;">
 		// });
 		TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
 		TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
-		$('#content_id').css('opacity','1').addClass('animated bounceIn');
 		$('.tbn').css('opacity','1');
 		$('.wordCloud').css('opacity','1');
 		$(".dragWord").draggable({
