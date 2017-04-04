@@ -65,7 +65,7 @@
 		cursor: move;
 	}
 	.dragWord.gold {
-		background: gold;
+		background: gold !important;
 	}
 	.dragWord.initial {
 		background: initial;
@@ -302,7 +302,7 @@
 			},
 			start:function(){
 				$(this).stop(true,true);
-				$(this).removeClass('initial').addClass('gold');
+				$(this).addClass('gold');
 			},
 			stack: ".dragWord"
 		});
