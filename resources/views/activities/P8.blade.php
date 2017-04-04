@@ -161,7 +161,7 @@
 				}
 
 				var node = document.createElement("div");
-				node.setAttribute('style', 'font-size: 30px; padding: 15px');	
+				node.setAttribute('style', 'font-size: 1.3em; padding: 15px');	
 				textNode = document.createTextNode(line);
 				node.appendChild(textNode);
 				document.getElementById("content_id").appendChild(node);
@@ -187,7 +187,7 @@
 		}
 		for (var j = 0; j < dialogline.length; j++) {
 			var node = document.createElement("div");
-			node.setAttribute('style', 'font-size: 30px; padding: 15px');
+			node.setAttribute('style', 'font-size: 1.3em; padding: 15px');
 			curline = dialogline[j]['line'].split("*");
 			var index = 0;
 			for (var k = 0; k < curline.length; k++) {
@@ -244,7 +244,7 @@
 
 					var node_img = document.createElement("img");
 					node_img.setAttribute("class", "wordCloud");
-					node_img.setAttribute('style', " opacity: 0; width: 100%; max-width: 210px;");
+					node_img.setAttribute('style', " opacity: 0; width: 85%; max-width: 160px;");
 					node_img.setAttribute('src', "{{ asset('img/P8/seashell.svg') }}");
 					node_img.setAttribute('alt', "start button");
 
@@ -426,9 +426,9 @@ onmousedown="return false;">
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
 		<div class="wordSpan dragWord " id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
-				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.8em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
+				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.3em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="opacity: 0; width: 100%; max-width: 180px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 85%; max-width: 160px;" src="{{ asset('img/P8/seashell.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -443,7 +443,7 @@ onmousedown="return false;">
 		$curline = explode('*', $elementData[$i]->line);
 		$index = 0;
 		@endphp
-		<div style="font-size: 30px; padding: 15px">
+		<div style="font-size: 1.3em; padding: 15px">
 			@for ($j = 0; $j < count($curline) ; $j++)
 			@if ($index != count($curline)-1)
 			{{$curline[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
@@ -565,6 +565,7 @@ onmousedown="return false;">
 					dropTarget.text(answerText);
 					dropTarget.attr("class", "sqr");
 					ui.draggable.remove();
+					dropTarget.droppable('destroy');
 					rightAnswerCnt++;
 
 					if (checkAnswer(elementData , rightAnswerCnt)) {
