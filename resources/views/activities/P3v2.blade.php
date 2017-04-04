@@ -94,9 +94,8 @@
 		display: inline-block;
 		vertical-align: middle;
 		line-height: normal;
-		font-weight: 600;
-		font-family: Cambria;
-		font-size: 1.3em;
+		font-weight: 500;
+		font-size: 2em;
 		color: white;
 		cursor: pointer;
 	}
@@ -145,7 +144,7 @@
 		@foreach ($elementData as $elementValue)
 			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn word">{{ $elementValue->sentence }}</p>
+					<p class="tbn word writtenFont">{{ $elementValue->sentence }}</p>
 					<div class="btnBg" style="height: 100%;">
 						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->sentence)) . '.svg') }}" alt="start button">
 					</div>

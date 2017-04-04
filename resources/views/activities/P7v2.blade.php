@@ -4,8 +4,12 @@
 
 <style>
 	body {
-		background: url({{ asset('img/P1/bg.svg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P7/bg.svg') }}) no-repeat center bottom fixed;
 		background-size: cover;
+	}
+	.flexContainer {
+		display: flex;
+		height: 100%;
 	}
 	.replay {
 		position: fixed;
@@ -81,31 +85,28 @@
 		filter: drop-shadow( 0px 0px 10px blue );
 	}
 	.wordWrap {
-		/*width: 90px;*/
-		height: 40px;
-		/*line-height: 40px;*/
-		display: inline-block;
+		display: inline-flex;
 		margin: 5px;
 		text-align: center;
-		{{-- background: url({{ asset('img/testAnimate/board.svg') }}); --}}
 		cursor: pointer;
 	}
 	.word {
-		display: inline-block;
-		vertical-align: middle;
-		line-height: normal;
 		font-weight: 500;
-		font-size: 2em;
+		font-size: 1.6em;
 		color: white;
 		cursor: pointer;
 	}
-	.flexContainer p {
+	.wrapLine {
 		position: absolute;
+		padding: 2em;
 		width: 100%;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%,-50%);
 		z-index: 1;
+	}
+	.line {
+		width: 100%;
 	}
 	#alert {
 		display: none;
@@ -119,7 +120,108 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
+	.spkerDiv{
+		font-style: italic;
+		text-align: right;
+	}
+	.diaDiv{
+		text-align: left;
+	}
+	.initDisplayBoard {
+		display: inline-block;
+	}
+	.dialogBtn {
+		width: 80px;
+		height: 40px;
+		margin: 5px;
+		border: 2px solid green;
+		border-radius: 30px;
+		background: white;
+		color: green;
+		font-size: 1.3em;
+		font-weight: 600;
+		overflow: hidden;
+		display: inline-block;
+		position: relative;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		transition: all 0.5s;
+	}
 
+	.dialogBtn span {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: block;
+		opacity: 1;
+		left: 0;
+		top: 0;
+		padding-top: 3px;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		text-align: center;
+		-webkit-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+		-webkit-transition: all 0.5s cubic-bezier(0.05, 0.06, 0.05, 0.95);
+		transition: all 0.5s cubic-bezier(0.05, 0.06, 0.05, 0.95);
+		box-shadow: none;
+	}
+	.dialogBtn span span:nth-of-type(1) { top: 0px; }
+	.dialogBtn span span:nth-of-type(2) { top: 40px; }
+	.dialogBtn span span:nth-of-type(3) { top: 80px; }
+	.dialogBtn:hover > span {
+		top: -80px;
+	}
+	.dialogBtn.selected {
+		background: green !important;
+		color: white !important;
+	}
+	@media screen and (max-width: 991px) {
+		.col-md-7 {
+			overflow-y: scroll;
+			max-height: calc(100% - 350px);
+		}
+	}
+
+	@-webkit-keyframes flipOutY {
+	  from {
+	    -webkit-transform: perspective(400px);
+	    transform: perspective(400px);
+	  }
+
+	  30% {
+	    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+	    transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+	    opacity: 1;
+	  }
+
+	  to {
+	    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+	    transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+	    opacity: 0;
+	  }
+	}
+
+	@keyframes flipOutY {
+	  from {
+	    -webkit-transform: perspective(400px);
+	    transform: perspective(400px);
+	  }
+
+	  30% {
+	    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+	    transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+	    opacity: 1;
+	  }
+
+	  to {
+	    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+	    transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+	    opacity: 0;
+	  }
+	}
 </style>
 
 @stop
@@ -139,33 +241,38 @@
 </div>
 
 <div class="col-md-7" style="margin-top: 30px">
-	@php
-		$currentlineNumber = $firstLineNumber;
-	@endphp
+	<div id="chooseDHolder" style="text-align: center; display: none;">
 
+		@for ($i = 0; $i < count($dialogCnt); $i++)
+			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseD(this)">
+				<span> 
+					<span>D{{$i+1}}</span>
+					<span>D{{$i+1}}</span>
+					<span>D{{$i+1}}</span>
+				</span>
+			</button>
+		@endfor
+	</div>
 	<div class="wordLine" style="text-align: center; width: 100%">
-
-		@foreach ($elementData as $elementValue)
-			@if ($elementValue->lineNumber > $currentlineNumber)
-				@php
-					$currentlineNumber = $elementValue->lineNumber;
-				@endphp
-
-				</div><div class="wordLine" style="text-align: center; width: 100%">
-			@endif
-
-			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
-				<div class="flexContainer" style="display: flex; height: 100%;">
-					<p class="tbn word writtenFont">{{ $elementValue->word }}</p>
-					<div class="btnBg" style="height: 100%;">
-						<img class="wordCloud" style="height: 100%; " src="{{ asset('img/testAnimate/newboard' . count(explode(' ', $elementValue->word)) . '.svg') }}" alt="start button">
+		<div class="wordWrap" style="display: none;">
+			<div class="flexContainer">
+				<div class="wrapLine">
+					@foreach (explode( "|", $elementData[0]->dialogue) as $line)
+					<div class="line">
+						@php
+						$lineContent = explode('*', $line);
+						@endphp
+						<div class="tbn word writtenFont spkerDiv col-xs-4">{{ $lineContent[0]}}</div>
+						<div class="tbn word writtenFont diaDiv col-xs-8">{{ $lineContent[1]}}</div>
 					</div>
+					@endforeach
+				</div>
+				<div class="btnBg">
+					<img class="wordCloud" style="height: 100%; " src="{{ asset('img/P7/newboard1.svg') }}" alt="start button">
 				</div>
 			</div>
-		@endforeach
-
+		</div>
 	</div>
-
 </div>
 
 <div id="alert">
@@ -184,12 +291,26 @@
 	$('.wordWrap').click(function() {
 		playWord(this);
 	});
-</script>
 
-<script>
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
-	TweenMax.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2);
+	setTimeout(function() {
+		$('#chooseDHolder').addClass('animated fadeInDownBig').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+
+			$('.dialogBtn').first().addClass('selected').prop('disabled', true);
+			setTimeout(function() {
+				$('.wordWrap').addClass('animated flipInY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function play() {
+
+					$('.wordWrap').css('display', 'inline-block');
+					$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
+					setTimeout(function() {
+						$('.wordWrap').click();
+					}, 600);
+
+				});
+			}, 300);
+		});
+	}, 800);
 </script>
 
 <script>
@@ -215,39 +336,71 @@
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
 
+	function chooseD(button){
+		$('.dialogBtn').removeClass('selected').prop('disabled', false);
+		$(button).addClass('selected').prop('disabled', true);
+
+		var dialogNow = button.getAttribute('data-dialogNo');
+		
+		var elementData = <?php echo json_encode($elementData); ?>;
+		editContent(elementData[dialogNow]);
+		editAudio(elementData[dialogNow]);
+	}
+
+	function editContent(element) {
+		$('.wordWrap').removeClass('pulse').addClass('flipOutY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+
+			while (document.getElementsByClassName("wrapLine")[0].firstChild) {
+				document.getElementsByClassName("wrapLine")[0].removeChild(document.getElementsByClassName("wrapLine")[0].firstChild);
+			}
+
+			var lines = element.dialogue.split('|');
+			for (var i = 0; i < lines.length; i++) {
+				var line = document.createElement('div');
+				line.className = 'line';
+
+				var lineContent = lines[i].split('*');
+
+				var spkerDiv = document.createElement('div');
+				spkerDiv.className = 'tbn word writtenFont spkerDiv col-xs-4';
+				spkerDiv.innerHTML = lineContent[0];
+				line.appendChild(spkerDiv);
+
+				var diaDiv = document.createElement('div');
+				diaDiv.className = 'tbn word writtenFont diaDiv col-xs-8';
+				diaDiv.innerHTML = lineContent[1];
+				line.appendChild(diaDiv);
+
+				document.getElementsByClassName("wrapLine")[0].appendChild(line);
+			}
+
+			$('.wordWrap').removeClass('flipOutY').addClass('flipInY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function play() {
+
+				$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
+					setTimeout(function() {
+						$('.wordWrap').click();
+					}, 600);
+			});
+		});
+	}
+
+	function editAudio(element) {
+		document.getElementById('sample').setAttribute('src', '{{ asset('') }}' + element.audio);
+		document.getElementById('sample').load();
+	}
+
 	function playWord(button) {
+		$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
 		var audio = document.getElementById("sample");
 
-		audio.src = '{{ asset('') }}' + button.getAttribute('data-audio-source');
-		audio.play();
+		$('#sample')[0].pause();
+		$('#sample')[0].currentTime = 0;
+		$('#sample')[0].play();
 
-		var duration = 1;
-		if(tl) {
-			tl.seek(0).pause();
-		}
-		tl = new TimelineMax({
-			onComplete:complete,
-			onCompleteParams:['{self}']});
-		TweenMax.to(button, duration / 4, {y:-20, ease:Power2.easeOut});
-		TweenMax.to(button, duration / 2, {y:0, ease:Bounce.easeOut, delay:duration / 4});
 		setTimeout(function() {
-			tl.to(button, duration / 4, {y:-20, ease:Power2.easeOut}, 1).to(button, duration / 2, {y:0, ease:Bounce.easeOut});
-		}, 1040);
-
-		function complete(tl) {
-			tl.restart();
-		}
-
-		function doNothing() {}
-
-		document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
-			setTimeout(function() {
-				document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
-
-				enableControl('replay');
-				enableControl('record');
-			}, $('#sample')[0].duration*1000);
-		});
+			enableControl('replay');
+			enableControl('record');
+		}, $('#sample')[0].duration*1000);
 
 		disableControl('replay');
 		disableControl('record');
@@ -277,7 +430,10 @@
 			setTimeout(function() {
 				$('.record').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 					$('.record').removeClass('animated flash');
-					$('#alert').fadeOut(600);
+
+					setTimeout(function() {
+						$('#alert').fadeOut(600);
+					}, 1000);
 				});
 			}, 500);
 		}
@@ -376,7 +532,7 @@
 			enableControl('replay');
 			enableControl('record');
 			enableControl('wordWrap');
-		}, 3000);
+		}, 30000);
 
 		busyControl('record');
 		disableControl('replay');
@@ -432,8 +588,6 @@
 			window.URL = window.URL || window.webkitURL;
 
 			audio_context = new AudioContext;
-			// console.log('Audio context set up.');
-			// console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
 		} catch (e) {
 			alert('No web audio support in this browser!');
 		}
@@ -443,6 +597,10 @@
 		});
 
 		$(document).ready(function(){
+			var elementData = <?php echo json_encode($elementData); ?>;
+			document.getElementById('sample').setAttribute('src', '{{ asset('') }}' + elementData[0].audio);
+			document.getElementById('sample').load();
+
 			preloadImage();
 		});
 	};
@@ -452,9 +610,9 @@
 @stop
 
 @section('actDescription-vi')
-	Rê chuột vào các từ và tích chuột để nghe từ.
+	Rê chuột vào D1, D2, D3, D4, D5, D6 và tích chuột để nghe và luyện tập nói theo bài hội thoại.
 @stop
 
 @section('actDescription-en')
-	Click the word to listen.
+	Click D1, D2, D3, D4, D5, D6 to listen the dialogue and practice.
 @stop

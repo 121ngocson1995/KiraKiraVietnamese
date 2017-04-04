@@ -223,7 +223,8 @@
 
 <div class="btn-group">
 	@for ($i = 0; $i < count($dialogCnt); $i++)
-	<button id="{{$i}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">D{{$i+1}}</button>
+	<button id="{{$i}}" type="button" class="btn btn-primary" onclick="JavaScript: chooseD(this)">
+	</button>
 	@endfor
 </div>
 <div id="content_id" >

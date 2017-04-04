@@ -84,7 +84,7 @@
 		/*width: 90px;*/
 		height: 40px;
 		/*line-height: 40px;*/
-		display: inline-block;
+		display: inline-flex;
 		margin: 5px;
 		text-align: center;
 		{{-- background: url({{ asset('img/testAnimate/board.svg') }}); --}}
@@ -94,10 +94,9 @@
 		/*display: inline-block;*/
 		vertical-align: middle;
 		line-height: normal;
-		margin: 6px;
-		font-weight: 600;
-		font-family: Cambria;
-		font-size: 1.3em;
+		margin: 0;
+		font-weight: 500;
+		font-size: 1.8em;
 		color: white;
 		cursor: pointer;
 	}
@@ -108,6 +107,7 @@
 		left: 50%;
 		transform: translate(-50%,-50%);
 		z-index: 1;
+		padding: 0.6em;
 	}
 	#alert {
 		display: none;
@@ -121,7 +121,12 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-
+	@media screen and (max-width: 991px) {
+		.col-md-7 {
+			overflow-y: scroll;
+			max-height: calc(100% - 350px);
+		}
+	}
 </style>
 
 @stop
@@ -144,11 +149,11 @@
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
-			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 110px;">
+			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="height: 110px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">
 					<div class="wrapLine">
 						@foreach (explode( "|", $elementValue->dialog) as $line)
-							<p class="tbn word">{{ $line }}</p>
+							<p class="tbn word writtenFont">{{ $line }}</p>
 						@endforeach
 					</div>
 					<div class="btnBg" style="height: 100%;">
@@ -187,12 +192,12 @@
 	$('.wordWrap').click(function() {
 		playWord(this);
 	});
-</script>
 
-<script>
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
-	TweenMax.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2);
+	var wordWrap = new TimelineMax();
+	wordWrap.staggerFrom('.wordWrap', 0.5, {opacity:0, y:100, rotation:120, scale:2, delay:0.5}, 0.2)
+			.set('.wordWrap', {display:'inline-block'});
 </script>
 
 <script>
@@ -435,8 +440,6 @@
 			window.URL = window.URL || window.webkitURL;
 
 			audio_context = new AudioContext;
-			// console.log('Audio context set up.');
-			// console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
 		} catch (e) {
 			alert('No web audio support in this browser!');
 		}

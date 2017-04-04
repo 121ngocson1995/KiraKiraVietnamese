@@ -10,7 +10,7 @@
 
 <style>
 	.writtenFont {
-		font-family: 'Dancing Script', cursive !important;
+		font-family: 'Patrick Hand', cursive;
 		/*font-size: xx-large !important;*/
 	}
 	#btn-NextAct, #btn-PreAct {

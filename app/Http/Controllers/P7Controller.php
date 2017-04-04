@@ -41,6 +41,6 @@ class P7Controller extends Controller
 			array_push($audioArr, $elementData[$i]['audio']);
 		}
 	
-		return view("activities.P7", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
+		return view("activities.P7v2", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 }
