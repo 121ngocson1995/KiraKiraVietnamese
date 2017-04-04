@@ -46,8 +46,6 @@
 	}
 	#content_id{
 		position: relative;
-		left: 4%;
-		width: 685px;
 		text-align: left
 	}
 	/*#answer_id{
@@ -79,10 +77,7 @@
 		transition: 1s;
 	}
 	#wordGroup {
-		max-height: calc(100% - 250px);
-		/*		overflow-y: scroll;*/
 		padding-top: 20px;
-		width:  480px;
 	}
 	.notChoose-sqr{
 		height: calc(100% + 10px);
@@ -422,8 +417,8 @@ onmousedown="return false;">
 	@endfor
 </div>
 <br>
-<div id="content" style="position: absolute;  left: 1%; display: -webkit-flex; display: flex;">
-	<div id="wordGroup" style="width: 460px; text-align: center; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;">
+<div id="content" >
+	<div id="wordGroup" style="text-align: center;"  class="col-sm-4">
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -448,7 +443,7 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" style="color:#237145; -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1; text-align:left;" >
+	<div id="content_id" style="color:#237145; text-align:left;"  class="col-sm-4">
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
@@ -470,7 +465,7 @@ onmousedown="return false;">
 		@endif
 		@endfor
 	</div>
-	<div style="position: relative; left: 30%;" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px -webkit-flex: 1;  /* Safari 6.1+ */ -ms-flex: 1;  /* IE 10 */ flex: 1;" >
+	<div style="position: relative;" style="text-align: center;"  class="col-sm-4">
 		<div id="countdown"></div>
 		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
