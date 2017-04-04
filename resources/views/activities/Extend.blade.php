@@ -2,6 +2,14 @@
 
 @section('actContent')
 
+<style type="text/css">
+    .partName {
+        padding-top: 24px;
+        font-weight: 500;
+        font-size: 20px;
+    }
+</style>
+
 <div id="promo_extend">
     <div class="jumbotron extend">
         <div class="row" style="text-align: center; padding-top: 12px; padding-bottom: 44px">
@@ -77,12 +85,12 @@
                             </div>
                             <div class="carousel slide" data-ride="carousel" id="carousel-1">
                                 <div class="carousel-inner" role="listbox">
-                                    <div class="item active"><img src="{{ asset('exten/img/bando.jpg') }}" alt="Slide Image" class="center-block"></div>
-                                    <div class="item"><img src="{{ asset('exten/img/quocki.png') }}" alt="Slide Image" class="center-block"></div>
-                                    <div class="item"><img src="{{ asset('exten/img/thaprua.jpg') }}" alt="Slide Image" class="center-block"></div>
-                                    <div class="item"><img src="{{ asset('exten/img/halong.jpg') }}" alt="Slide Image" class="center-block"></div>
-                                    <div class="item"><img src="{{ asset('exten/img/nhatre.jpg') }}" alt="Slide Image" class="center-block"></div>
-                                    <div class="item"><img src="{{ asset('exten/img/donglua.jpg') }}" alt="Slide Image" class="center-block"></div>
+                                    <div class="item active"><img src="{{ asset('exten/img/bando.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Bản đồ Việt Nam</p></div>
+                                    <div class="item"><img src="{{ asset('exten/img/quocki.png') }}" alt="Slide Image" class="center-block"><p class="partName">Quốc kỳ</p></div>
+                                    <div class="item"><img src="{{ asset('exten/img/thaprua.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Tháp Rùa</p></div>
+                                    <div class="item"><img src="{{ asset('exten/img/halong.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Vịnh Hạ Long</p></div>
+                                    <div class="item"><img src="{{ asset('exten/img/nhatre.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Nhà Trẻ</p></div>
+                                    <div class="item"><img src="{{ asset('exten/img/donglua.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Cánh đồng lúa</p></div>
                                 </div>
                                 <div class="control"><a class="left carousel-control" href="#carousel-1" role="button" data-slide="prev"><span class="sr-only">Previous</span></a><a class="right carousel-control .control-site"
                                     href="#carousel-1" role="button" data-slide="next"><span class="sr-only">Next</span></a>
