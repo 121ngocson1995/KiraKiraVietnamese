@@ -27,9 +27,18 @@ img.center-block{
 h2{
   text-align:center;
   font-size:32px;
-  font-family:serif;
+  font-family:'Patrick Hand', cursive;
+  letter-spacing: .075em;
   font-weight:700;
 }
+
+h3{
+  text-align: right;
+  font-size:24px;
+  font-family:'Patrick Hand', cursive;
+  letter-spacing: .075em;
+}
+
 
 .itemstyle{
   font-size:28px;
@@ -72,7 +81,8 @@ div.row.title_row{
 tbody.extendtable{
   text-align:center;
   font-size:24px;
-  font-family:sans-serif;
+  font-family:'Patrick Hand', cursive;
+  letter-spacing: .075em;
 }
 
 div.col-md-12.carousel.fix{
@@ -157,3 +167,4 @@ table.table{
 #wrapper, .part, #mask {
   height: 700px;
 }
+

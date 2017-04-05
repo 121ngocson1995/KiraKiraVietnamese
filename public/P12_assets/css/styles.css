@@ -19,13 +19,17 @@ div.row.p12{
   }
 }
 
+#promo3 div.img {
+  
+}
+
 #promo3 .jumbotron.p12{
-  background-color:rgba(238,224,224,0);
-  background-size:cover;
+  /*background: url(../../img/P6/board.svg);
+  background-size:cover;*/
   margin:0 auto;
   color:white;
   text-align:center;
-  max-width:900px;
+  /*max-width:900px;*/
   padding-top:15%;
   padding-bottom: 40%;
   /*padding-bottom:35%;*/

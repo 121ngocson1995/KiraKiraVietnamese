@@ -113,7 +113,45 @@
 
     </div>
 
-    @for($i=1; $i<$cnt; $i++)
+    <div id="part2" class="part">
+        <a name="part2"></a>
+        <div class="content">
+            <a href="#part1" class="panelt" ></a>
+            <div class="content_body">
+                <div class="container">
+                    <div class="col-md-12 carousel fix">
+                        <div>
+                            <h2>{{ $titleArr[1] }}</h2>
+                        </div>                       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody class="extendtable">
+                                        <td style="font-weight: 700;">Mẹ yêu không nào</td>
+                                        @for ($k = 0; $k < count($contentArr[1]) ; $k++)
+                                        <tr>
+                                            <td>{{ $contentArr[1][$k]}}</td>
+                                        </tr>
+                                        @endfor
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div style="padding-top: 40%;">
+                            <h3>Composer: Lê Xuân Thọ</h3>
+                            <h3>Pianist: Nguyễn Thành</h3>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>     
+    </div>
+
+
+    @for($i=2; $i<$cnt; $i++)
         <div id="part{{$i+1}}" class="part">
             <a name="part{{$i+1}}"></a>
             <div class="content">
@@ -131,9 +169,6 @@
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table class="table">
-                                                <thead>
-                                                    <tr></tr>
-                                                </thead>
                                                 <tbody class="extendtable">
                                                     @for ($k = 0; $k < count($contentArr[$i]) ; $k++)
                                                     <tr>

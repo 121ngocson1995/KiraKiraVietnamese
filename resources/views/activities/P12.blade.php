@@ -95,7 +95,7 @@
 		-webkit-filter: drop-shadow( 0px 0px 10px blue );
 		filter: drop-shadow( 0px 0px 10px blue );
 	}
-	.wordWrap {
+	.wordWrap2 {
 		display: inline-flex;
 		margin: 5px;
 		text-align: center;
@@ -215,17 +215,16 @@
 </div>
 
 <div class="col-md-7" style="margin-top: 10%;">
-
 	<div class="wordLine" style="text-align: center; width: 100%">
-		<div class="wordWrap"{{--  style="display: none;" --}}>
+		<div class="wordWrap2" {{--  style="display: none;" --}}>
 			<div class="flexContainer">
 				<div class="wrapLine">
 					@foreach ($elementData as $key)
 					<p>{{ $key->content }}</p>
 					@endforeach
 				</div>
-				<div class="btnBg">
-					<img class="wordCloud" src="{{ asset('img/P7/newboard1.svg') }}" alt="start button">
+				<div>
+					<img class="wordCloud" src="{{ asset('img/P7/newboard1.svg') }}">
 				</div>
 			</div>
 		</div>
@@ -245,9 +244,9 @@
 		startRecording(this);
 	});
 
-	$('.wordWrap').click(function() {
-		playWord(this);
-	});
+	// $('.wordWrap').click(function() {
+	// 	playWord(this);
+	// });
 
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
@@ -346,22 +345,22 @@
 		document.getElementById('sample').load();
 	}
 
-	function playWord(button) {
-		$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
-		var audio = document.getElementById("sample");
+	// function playWord(button) {
+	// 	$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
+	// 	var audio = document.getElementById("sample");
 
-		$('#sample')[0].pause();
-		$('#sample')[0].currentTime = 0;
-		$('#sample')[0].play();
+	// 	$('#sample')[0].pause();
+	// 	$('#sample')[0].currentTime = 0;
+	// 	$('#sample')[0].play();
 
-		setTimeout(function() {
-			enableControl('replay');
-			enableControl('record');
-		}, $('#sample')[0].duration*1000);
+	// 	setTimeout(function() {
+	// 		enableControl('replay');
+	// 		enableControl('record');
+	// 	}, $('#sample')[0].duration*1000);
 
-		disableControl('replay');
-		disableControl('record');
-	}
+	// 	disableControl('replay');
+	// 	disableControl('record');
+	// }
 
 	function playRecord() {
 		if ( $('#auRecord').attr('src') ) {
