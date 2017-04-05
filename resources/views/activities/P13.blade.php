@@ -5,8 +5,12 @@
 <link rel="stylesheet" href="{{ asset('P13_assets/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 
-
-
+<style>
+	body {
+		background: url({{ asset('P13_assets/img/p13.svg') }}) no-repeat center center fixed;
+		background-size: cover;
+	}
+</style>
 
 <div class="prac-grey-section">
 
@@ -16,7 +20,7 @@
 				<div class="row practice">
 					<div class="col-md-12 practice">
 						@foreach ($noteArr as $key)
-						<p style="font-size: 32px;">{{ $key }}</p>
+						<p>{{ $key }}</p>
 						@endforeach
 					</div>
 				</div>
