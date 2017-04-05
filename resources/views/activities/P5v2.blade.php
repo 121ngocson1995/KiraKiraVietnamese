@@ -464,8 +464,12 @@
 
 @section('actDescription-vi')
 	Rê chuột vào các đoạn thoại và tích chuột để nghe đoạn thoại.
+	<br>
+	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm.
 @stop
 
 @section('actDescription-en')
 	Click the dialogue to listen.
+	<br>
+	Record your own voice by clicking the microphone button.
 @stop

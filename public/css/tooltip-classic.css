@@ -54,8 +54,8 @@
 	line-height: 1.4;
 	box-shadow: -5px -5px 15px rgba(48,54,61,0.2);
 	background: -moz-linear-gradient(left, rgb(64,150,238) 0%, rgb(32,122,178) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left, rgb(64,150,238) 0%,rgb(32,122,178) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgb(64,150,238) 0%,rgb(32,122,178) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	background: -webkit-linear-gradient(left, rgb(64,150,238) 0%,rgb(32,122,178) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgb(64,150,238) 0%,rgb(32,122,178) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	opacity: 0;
 	cursor: default;
 	pointer-events: none;
@@ -115,7 +115,7 @@ background: linear-gradient(to right, rgb(64,150,238) 0%,rgb(32,122,178) 100%); 
 	display: inline-block;
 	padding: 1.31em 1.21em 1.21em 0;
 	color: #fff;*/
-	font-size: 1.8em;
+	font-size: 1.6em;
 	line-height: 1.35;
 	display: block;
 	padding: 1.31em 1.21em 1.21em 0;
