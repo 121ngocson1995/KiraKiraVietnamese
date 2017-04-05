@@ -39,6 +39,12 @@
     font-size: 2em;
   }
 
+  td {
+    font-size: 32px;
+    font-family: 'Patrick Hand', cursive;
+    color: white;
+  }
+
 </style>
 
 <script language="JavaScript">
@@ -128,7 +134,7 @@
                   <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" data-index="{{$i}}" onclick="setIndex(this)" type="button">S{{ $i+1 }}</button></a>
                   @endfor
               </div>
-              <div id="controlBtn" style="text-align: center;padding-top: 8px;">
+              <div id="controlBtn" style="text-align: center;padding-top: 16px; padding-bottom: 16px;">
                 <div id="btnStart">
                   <p id="pStart" {{-- style="display: none;" --}}><i style="max-width: 50px;" class="fa fa-play fa-2x" onclick="toggleSample(this);" ></i></p>
                   <div id="startBtn" class="btnBg">
@@ -160,7 +166,7 @@
           <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px; height: 100%">
               <table class="table">
                <tbody class="extendtable">
-                @for ($j = 0; $j < count($dialogArr[0]) ; $j++)
+                @for ($j = 0; $j < count($dialogArr[0]) ; $j++)_
                 <tr>
                  <td>{{ $dialogArr[0][$j]}}</td>
              </tr>
