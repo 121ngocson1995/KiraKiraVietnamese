@@ -79,6 +79,24 @@
 	#wordGroup {
 		padding-top: 20px;
 	}
+	.btn,.btn[disabled]{
+		margin: 10px;
+		border: 2px solid;
+		border-radius: 30px;
+		width: 80px;
+		height: 40px;
+		background-color: white;
+		color: green;
+		opacity: 1;
+	}
+	.btn:hover{
+		background-color: green;
+		color: white;
+	}
+	.btn[disabled]:hover{
+		background-color: green;
+		color: white;
+	}
 	.notChoose-sqr{
 		height: calc(100% + 10px);
 		text-align: center;
@@ -120,7 +138,7 @@
 		$("#countdown").empty();
 		countdown = $("#countdown").countdown360({
 			radius      : 80,
-			seconds     : 60,
+			seconds     : 30,
 			fontColor   : '#FFFFFF',
 			autostart   : true,
 			onComplete  : function (){
@@ -408,12 +426,12 @@
 </script>
 <div style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on" onselectstart="return false;" 
 onmousedown="return false;">
-<div id="btn-group" class="btn-group">
+<div id="btn-group" >
 	@for ($i = 0; $i < count($dialogCnt); $i++)
 	<button id="{{$i}}" type="button" 
 	@if ($i > 0)
 	disabled="true" 
-	@endif class="btn btn-primary" autocomplete="off" >D{{$i+1}}</button>
+	@endif class="btn btn-primary " autocomplete="off" >D{{$i+1}}</button>
 	@endfor
 </div>
 <br>
@@ -479,7 +497,7 @@ onmousedown="return false;">
 <script type="text/javascript" charset="utf-8">
 	countdown = $("#countdown").countdown360({
 		radius      : 100,
-		seconds     : 60,
+		seconds     : 30,
 		fontColor   : '#FFFFFF',
 		autostart   : false,
 		onComplete  : function (){

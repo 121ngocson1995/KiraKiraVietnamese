@@ -32,6 +32,9 @@ Route::get('/lessons', 'AboutController@load');
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
 // Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+Route::get('/test', function () {
+	return view('test');
+});
 Route::get('/lesson1/p1', 'P1Controller@load');
 Route::get('/lesson1/p2', 'P2Controller@load');
 Route::get('/lesson1/p3', 'P3Controller@load');
