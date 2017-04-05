@@ -247,7 +247,7 @@
 
 					var node_p = document.createElement("p");
 					node_p.setAttribute('class', 'tbn word ui-state-default');
-					node_p.setAttribute('style', " opacity: 0; font-size: 1.8em;");
+					node_p.setAttribute('style', " opacity: 0; font-size: 1.3em;");
 
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 
