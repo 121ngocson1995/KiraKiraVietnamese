@@ -106,12 +106,23 @@ div.row.practice{
 
   .container2:after {
     content: "”";
+    font-size: 13em;
+    position: absolute;
+    right: -100px;
+    top: 150px;
+    color: white;
+  }
+
+  @media (max-width:768px) {
+   .container2:after {
+    content: "”";
     font-size: 5em;
     position: absolute;
     right: -30px;
     top: 191px;
     color: white;
   }
+}
 
   blockquote strong:first-child {
     margin-left: 8px;
