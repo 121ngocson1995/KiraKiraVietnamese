@@ -134,7 +134,7 @@
                   <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" data-index="{{$i}}" onclick="setIndex(this)" type="button">S{{ $i+1 }}</button></a>
                   @endfor
               </div>
-              <div id="controlBtn" style="text-align: center;padding-top: 16px; padding-bottom: 16px;">
+              <div id="controlBtn" style="text-align: center;padding-top: 8px;" >
                 <div id="btnStart">
                   <p id="pStart" ><i style="max-width: 50px;" class="fa fa-play fa-2x" onclick="toggleSample(this);" ></i></p>
                   <div id="startBtn" class="btnBg">
