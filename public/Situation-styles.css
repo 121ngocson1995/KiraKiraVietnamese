@@ -93,11 +93,7 @@ div.row.store{
 
 #wrapper {
   width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
   left: 0;
-  margin-top: 265px;
   margin-bottom: 0px;
   overflow-x: auto;
   overflow-y: auto;
@@ -115,7 +111,6 @@ body {
 
 .part {
   width: 20%;
-  height: 100%;
   float: left;
   
 }
@@ -126,9 +121,6 @@ body {
 
 .clear {
   clear: both;
-}
-#wrapper, .part, #mask {
-  height: 700px;
 }
 
 
