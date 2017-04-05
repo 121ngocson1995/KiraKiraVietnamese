@@ -80,28 +80,32 @@
                         <div class="col-md-12 carousel fix">
                             <div class="row title_row">
                                 <div class="col-md-12">
-                                    <h2>Hình ảnh đất nước - con người Việt Nam</h2>
+                                    <h2>{{ $titleArr[0] }}</h2>
                                 </div>
                             </div>
                             <div class="carousel slide" data-ride="carousel" id="carousel-1">
                                 <div class="carousel-inner" role="listbox">
-                                    <div class="item active"><img src="{{ asset('exten/img/bando.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Bản đồ Việt Nam</p></div>
-                                    <div class="item"><img src="{{ asset('exten/img/quocki.png') }}" alt="Slide Image" class="center-block"><p class="partName">Quốc kỳ</p></div>
-                                    <div class="item"><img src="{{ asset('exten/img/thaprua.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Tháp Rùa</p></div>
-                                    <div class="item"><img src="{{ asset('exten/img/halong.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Vịnh Hạ Long</p></div>
-                                    <div class="item"><img src="{{ asset('exten/img/nhatre.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Nhà Trẻ</p></div>
-                                    <div class="item"><img src="{{ asset('exten/img/donglua.jpg') }}" alt="Slide Image" class="center-block"><p class="partName">Cánh đồng lúa</p></div>
+                                    <div class="item active">
+                                    <img src="{{  asset($imgArr[0]) }}" alt="Slide Image" class="center-block">
+                                        <p class="partName"> {{ $imgNameArr[0] }} </p>
+                                    </div>
+
+                                    @for($i=1; $i<count($imgArr); $i++)
+                                    <div class="item">
+                                        <img src="{{  asset($imgArr[$i]) }}" alt="Slide Image" class="center-block">
+                                        <p class="partName"> {{ $imgNameArr[$i] }} </p>
+                                    </div>
+                                    @endfor
+
                                 </div>
                                 <div class="control"><a class="left carousel-control" href="#carousel-1" role="button" data-slide="prev"><span class="sr-only">Previous</span></a><a class="right carousel-control .control-site"
                                     href="#carousel-1" role="button" data-slide="next"><span class="sr-only">Next</span></a>
                                 </div>
                                 <ol class="carousel-indicators">
                                     <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carousel-1" data-slide-to="1"></li>
-                                    <li data-target="#carousel-1" data-slide-to="2"></li>
-                                    <li data-target="#carousel-1" data-slide-to="3"></li>
-                                    <li data-target="#carousel-1" data-slide-to="4"></li>
-                                    <li data-target="#carousel-1" data-slide-to="5"></li>           
+                                    @for($i=1; $i<count($imgArr); $i++)
+                                    <li data-target="#carousel-1" data-slide-to="{{$i}}"></li>
+                                    @endfor     
                                 </ol>
                             </div>
                         </div>
