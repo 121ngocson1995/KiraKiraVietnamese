@@ -71,6 +71,20 @@
 		font-weight: 500;
 		transition: 1s;
 	}
+	.btn,.btn[disabled]{
+		margin: 10px;
+		border: 2px solid;
+		border-radius: 30px;
+		width: 80px;
+		height: 40px;
+		background-color: white;
+		color: cornflowerblue;
+		opacity: 1;
+	}
+	.btn:hover,.btn[disabled]:hover{
+		background-color: cornflowerblue;
+		color: white;
+	}
 	#wordGroup {
 		/*		overflow-y: scroll;*/
 		padding-top: 20px;
@@ -401,7 +415,7 @@
 </script> 
 <div style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" unselectable="on" onselectstart="return false;" 
 onmousedown="return false;">
-<div id="btn-group" class="btn-group">
+<div id="btn-group">
 	@for ($i = 0; $i < count($dialogCnt); $i++)
 	<button id="{{$i}}" type="button" 
 	@if ($i > 0)
