@@ -228,13 +228,6 @@
 
 @section('actContent')
 
-<div class="replay">
-	<img class="fillable" src="{{ asset('img/testAnimate/replay.png') }}" id="playSample">
-</div>
-<div class="record">
-	<img class="fillable" src="{{ asset('img/testAnimate/record.png') }}" id="record">
-</div>
-
 <div>
 	<audio id="sample"></audio>
 	<audio id="auRecord"></audio>
@@ -275,19 +268,16 @@
 	</div>
 </div>
 
-<div id="alert">
-	To record your voice, first click on the record sign at the middle.
+<div class="replay">
+	<img class="fillable" src="{{ asset('img/testAnimate/replay.png') }}" id="playSample">
+</div>
+<div class="record toRecord">
+	<img class="fillable" src="{{ asset('img/testAnimate/record.png') }}" id="record">
 </div>
 
+<div id="alert"></div>
+
 <script>
-	$('.replay').click(function() {
-		playRecord();
-	});
-
-	$('.record').click(function() {
-		startRecording(this);
-	});
-
 	$('.wordWrap').click(function() {
 		playWord(this);
 	});
@@ -325,7 +315,7 @@
 		busyReplay = new Image();
 		busyReplay.src = '{{ asset('img/testAnimate/replay-blu.png') }}';
 		busyRecord = new Image();
-		busyRecord.src = '{{ asset('img/testAnimate/record-blu.png') }}';
+		busyRecord.src = '{{ asset('img/P7/pause.png') }}';
 		enabledReplay = new Image();
 		enabledReplay.src = '{{ asset('img/testAnimate/replay.png') }}';
 		enabledRecord = new Image();
@@ -389,15 +379,20 @@
 		document.getElementById('sample').load();
 	}
 
-	function playWord(button) {
+	var playWordTimeout;
+
+	function playWord(button) { 
 		$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
-		var audio = document.getElementById("sample");
+		var audio = document.getElementById("sample"); 
 
 		$('#sample')[0].pause();
 		$('#sample')[0].currentTime = 0;
 		$('#sample')[0].play();
 
-		setTimeout(function() {
+		if (playWordTimeout) {
+			clearTimeout(playWordTimeout);
+		}
+		playWordTimeout = setTimeout(function() {
 			enableControl('replay');
 			enableControl('record');
 		}, $('#sample')[0].duration*1000);
@@ -425,6 +420,7 @@
 			disableControl('record');
 			disableControl('wordWrap');
 		} else {
+			document.getElementById('alert').innerHTML = 'To record your voice, first click on the record sign at the middle.';
 			$('#alert').fadeIn(600);
 
 			setTimeout(function() {
@@ -447,10 +443,7 @@
 			}
 		}
 
-		if (control == 'play') {
-			controlHolder.appendChild(disabledPlay);
-			$('.play').unbind('click');
-		} else if (control == 'replay') {
+		if (control == 'replay') {
 			controlHolder.appendChild(disabledReplay);
 			$('.replay').unbind('click');
 		} else if (control == 'record') {
@@ -469,19 +462,15 @@
 			}
 		}
 
-		if (control == 'play') {
-			controlHolder.appendChild(enabledPlay);
-			$('.play').click(function() {
-				playSample(this);
-			});
-		} else if (control == 'replay') {
+		if (control == 'replay') {
 			controlHolder.appendChild(enabledReplay);
 			$('.replay').click(function() {
 				playRecord();
 			});
 		} else if (control == 'record') {
 			controlHolder.appendChild(enabledRecord);
-			$('.record').click(function() {
+			$('.record').unbind('click');
+			$('.record').removeClass('toPause').addClass('toRecord').click(function() {
 				startRecording(this);
 			});
 		} else if (control == 'wordWrap') {
@@ -497,15 +486,15 @@
 			controlHolder.removeChild(controlHolder.firstChild);
 		}
 
-		if (control == 'play') {
-			controlHolder.appendChild(busyPlay);
-			$('.play').unbind('click');
-		} else if (control == 'replay') {
+		if (control == 'replay') {
 			controlHolder.appendChild(busyReplay);
 			$('.replay').unbind('click');
 		} else if (control == 'record') {
 			controlHolder.appendChild(busyRecord);
 			$('.record').unbind('click');
+			$('.record').click(function() {
+				stopRecording(this);
+			});
 		}
 	}
 
@@ -517,26 +506,46 @@
 
 	function startRecording(button) {
 		recorder && recorder.record();
-		$('.record').addClass('red');
+		$('.record').removeClass('toRecord').addClass('red toPause');
 
 		setTimeout(function() {
-			recorder && recorder.stop();
-
-			createMedia();
-
-			recorder.clear();
-
-			$('#playRecord').show();
-			$('.record').removeClass('red');
-
-			enableControl('replay');
-			enableControl('record');
-			enableControl('wordWrap');
-		}, 30000);
+			if($('.record').hasClass('toPause')) {
+				stopRecording(button);
+			}
+		}, 60000);
 
 		busyControl('record');
 		disableControl('replay');
 		disableControl('wordWrap');
+
+		document.getElementById('alert').innerHTML = "Once you're done, click the record button again to stop recording";
+		$('#alert').fadeIn(600);
+
+		setTimeout(function() {
+			$('.record').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				$('.record').removeClass('animated flash');
+
+				setTimeout(function() {
+					$('#alert').fadeOut(600);
+				}, 1000);
+			});
+		}, 500);
+	}
+
+	function stopRecording(button) {
+		recorder && recorder.stop();
+
+		createMedia();
+
+		recorder.clear();
+
+		$('.record').removeClass('red toPause').addClass('toRecord');
+
+		enableControl('replay');
+		enableControl('record');
+		enableControl('wordWrap');
+
+
 	}
 
 	function createMedia() {

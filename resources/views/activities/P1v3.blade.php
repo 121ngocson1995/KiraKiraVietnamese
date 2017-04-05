@@ -215,6 +215,8 @@
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
 
+	var playWordTimeout;
+
 	function playWord(button) {
 		var audio = document.getElementById("sample");
 
@@ -241,7 +243,10 @@
 		function doNothing() {}
 
 		document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
-			setTimeout(function() {
+			if (playWordTimeout) {
+				clearTimeout(playWordTimeout);
+			}
+			playWordTimeout = setTimeout(function() {
 				document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
 
 				enableControl('replay');
