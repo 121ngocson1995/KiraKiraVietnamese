@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Extension;
+use App\LanguageCulture;
 
 class ExtendController extends Controller
 {
@@ -14,7 +14,7 @@ class ExtendController extends Controller
 		$lesson_id= 1;
 
 		// Lấy dữ liệu từ db
-		$elementData = Extension::where('lesson_id', '=', $lesson_id)->get();
+		$elementData = LanguageCulture::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 		if ($cnt != 0)
 		{

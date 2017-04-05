@@ -146,8 +146,16 @@ class Lesson extends Model
     /**
      * Get the Extensions belongs to the lesson.
      */
-    public function extensions()
+    public function languageCultures()
     {
-        return $this->hasMany('App\Extension');
+        return $this->hasMany('App\LanguageCulture');
+    }
+
+    /**
+     * Get the Extensions belongs to the lesson.
+     */
+    public function lessonNotes()
+    {
+        return $this->hasMany('App\LessonNote');
     }
 }

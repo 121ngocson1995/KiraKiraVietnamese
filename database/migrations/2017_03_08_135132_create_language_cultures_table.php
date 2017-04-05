@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExtensionsTable extends Migration
+class CreateLanguageCulturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateExtensionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('extensions', function (Blueprint $table) {
+        Schema::create('language_cultures', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
             $table->foreign('lesson_id')
@@ -33,10 +33,14 @@ class CreateExtensionsTable extends Migration
                 */
             $table->string('title')->nullable();
             $table->mediumText('content');
-            $table->string('audio')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->string('audio')->nullable();
             $table->string('video')->nullable();
-            $table->string('answer')->nullable();
+            $table->text('slideshow_caption')->nullable();
+            $table->text('slideshow_images')->nullable();
+            $table->string('song_composer')->nullable();
+            $table->string('song_performer')->nullable();
+            $table->string('riddle_answer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -50,6 +54,6 @@ class CreateExtensionsTable extends Migration
     public function down()
     {
         $table->dropForeign(['lesson_id']);
-        Schema::dropIfExists('extensions');
+        Schema::dropIfExists('language_cultures');
     }
 }

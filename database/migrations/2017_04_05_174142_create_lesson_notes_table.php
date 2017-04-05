@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResultsTable extends Migration
+class CreateLessonNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,27 +13,16 @@ class CreateResultsTable extends Migration
      */
     public function up()
     {
-        Schema::create('results', function (Blueprint $table) {
+        Schema::create('lesson_notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('learner')->unsigned();
-            $table->foreign('learner')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->integer('lesson_id')->unsigned();
             $table->foreign('lesson_id')
                 ->references('id')
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->double('P2_point');
-            $table->double('P4_point');
-            $table->double('P6_point');
-            $table->double('P8_point');
-            $table->double('P9_point');
-            $table->double('P10_point');
-            $table->double('P11_point');
+            $table->tinyInteger('noteNo')->unsigned();
+            $table->mediumText('content');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -46,8 +35,7 @@ class CreateResultsTable extends Migration
      */
     public function down()
     {
-        $table->dropForeign(['learner']);
         $table->dropForeign(['lesson_id']);
-        Schema::dropIfExists('results');
+        Schema::dropIfExists('lesson_notes');
     }
 }

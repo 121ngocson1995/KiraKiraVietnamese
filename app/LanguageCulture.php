@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Extension extends Model
+class LanguageCulture extends Model
 {
     /**
 	 * Get the parent lesson.
