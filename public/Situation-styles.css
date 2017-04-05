@@ -8,12 +8,6 @@ div.jumbotron.extend{
   padding-bottom:12px;
 }
 
-/*#promo_extend{
-  background:url(../../exten/img/re-1006.jpg);
-  background-size:cover;
-  padding-bottom:1px;
-}
-*/
 div.jumbotron.extend h1{
   font-size: 48px;
   font-family:serif;
@@ -99,7 +93,6 @@ div.row.store{
   left: 0;
   margin-top: 265px;
   margin-bottom: 0px;
-  /*background-color: #ccc;*/
   overflow-x: auto;
   overflow-y: auto;
 }
@@ -107,8 +100,6 @@ div.row.store{
 
 #mask {
   width: 500%;
-  /*height: 100%;*/
-  /*background-color: #eee;*/
 }
 
 body {
@@ -121,15 +112,6 @@ body {
   height: 100%;
   float: left;
   
-}
-
-.content {
-/*  width: 400px;
-  height: 300px;
-  top: 20%;
-  margin: 0 auto;
-  background-color: #aaa;
-  position: relative;*/
 }
 
 .selected {

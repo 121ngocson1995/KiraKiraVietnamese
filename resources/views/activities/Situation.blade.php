@@ -136,7 +136,7 @@
               </div>
               <div id="controlBtn" style="text-align: center;padding-top: 16px; padding-bottom: 16px;">
                 <div id="btnStart">
-                  <p id="pStart" {{-- style="display: none;" --}}><i style="max-width: 50px;" class="fa fa-play fa-2x" onclick="toggleSample(this);" ></i></p>
+                  <p id="pStart" ><i style="max-width: 50px;" class="fa fa-play fa-2x" onclick="toggleSample(this);" ></i></p>
                   <div id="startBtn" class="btnBg">
                     <img id="imgStart" style="width: 50%; max-width: 100px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
                   </div>
@@ -166,7 +166,7 @@
           <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px; height: 100%">
               <table class="table">
                <tbody class="extendtable">
-                @for ($j = 0; $j < count($dialogArr[0]) ; $j++)_
+                @for ($j = 0; $j < count($dialogArr[0]) ; $j++)
                 <tr>
                  <td>{{ $dialogArr[0][$j]}}</td>
              </tr>
