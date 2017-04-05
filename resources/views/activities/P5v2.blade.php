@@ -384,7 +384,7 @@
 			enableControl('replay');
 			enableControl('record');
 			enableControl('wordWrap');
-		}, 10000);
+		}, 7000);
 
 		busyControl('record');
 		disableControl('replay');
