@@ -458,8 +458,12 @@
 
 @section('actDescription-vi')
 	Rê chuột vào các từ và tích chuột để nghe từ.
+	<br>
+	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm.
 @stop
 
 @section('actDescription-en')
 	Click the word to listen.
+	<br>
+	Record your own voice by clicking the microphone button.
 @stop

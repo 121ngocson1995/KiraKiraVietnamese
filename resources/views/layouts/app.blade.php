@@ -125,53 +125,6 @@
         color: white;
         background: red;
     }
-
-    /* Tooltip */
-    .tooltip {
-        z-index: 40 !important;
-        position: fixed;
-        right: 50px;
-        bottom: 50px;
-        opacity: 1;
-    }
-    .tooltip > .tooltip-inner {
-        color: #FFFFFF;
-        width: 120px;
-        border: 1px solid black;
-        padding: 15px;
-        font-size: 14px;
-    }
-
-    /* Tooltip on bottom */
-    .tooltip.bottom > .tooltip-arrow {
-        border-bottom: 5px solid;
-    }
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 1000%;
-        max-width: 500px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 10px 10px;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        right: 50px;
-        opacity: 0;
-        font-size: 17px;
-        transition: opacity 1s;
-    }
-
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-    }
     #activity_menu {
         border-right: none;
     }
