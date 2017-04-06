@@ -121,13 +121,18 @@
         <a name="part2"></a>
         <div class="content">
             <a href="#part1" class="panelt" ></a>
-            <div class="content_body">
+            <div class="song_body">
                 <div class="container">
                     <div class="col-md-12 carousel fix">
                         <div>
                             <h2>{{ $titleArr[1] }}</h2>
-                        </div>                       
-                        <div class="row">
+                        </div> 
+                        <div style="vertical-align: center;">
+                            <img style="width: 80%; padding-left: 18%;" src=" {{ asset('exten/img/concobebe.jpg') }} ">
+                        </div>
+                            
+                        {{--</div>                      
+                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table">
                                     <tbody class="extendtable">
@@ -145,7 +150,7 @@
                         <div style="padding-top: 40%;">
                             <h3>Composer: Lê Xuân Thọ</h3>
                             <h3>Pianist: Nguyễn Thành</h3>
-                        </div>
+                        </div> --}}
 
                     </div>
                     

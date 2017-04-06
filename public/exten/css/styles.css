@@ -55,6 +55,12 @@ div.content_body{
   background-size:cover;
 }
 
+div.song_body{
+  background:url(../../img/P7/bg.svg) no-repeat center bottom fixed;
+  background-size:cover;
+}
+
+
 div.col-md-12.carousel{
   padding-bottom:64px;
   padding-top:24px;
