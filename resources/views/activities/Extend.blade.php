@@ -16,7 +16,7 @@
             <div class="col-md-12 title_button">
                 <div class="btn-group" role="group" style="padding-top: 28px;">
                     @for($i=0; $i<$cnt; $i++)
-                    <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" type="button">{{ $typeArr[$i] }}</button></a>
+                    <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" type="button">{{ $typeEnglish[$i] }}</button></a>
                     @endfor
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         <div class="col-md-12 carousel fix">
                             <div class="row title_row">
                                 <div class="col-md-12">
-                                    <h2>{{ $titleArr[0] }}</h2>
+                                    <h2>{{ $typeVn[0] }}</h2>
                                 </div>
                             </div>
                             <div class="carousel slide" data-ride="carousel" id="carousel-1">
@@ -125,7 +125,7 @@
                 <div class="container">
                     <div class="col-md-12 carousel fix">
                         <div>
-                            <h2>{{ $titleArr[1] }}</h2>
+                            <h2>{{ $typeVn[1] }}</h2>
                         </div> 
                         <div style="vertical-align: center;">
                             <img style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
@@ -171,7 +171,7 @@
                             <div class="col-md-12 carousel fix">
                                 <div class="row title_row">
                                     <div class="col-md-12">
-                                    <h2>{{ $titleArr[$i] }}</h2>
+                                    <h2>{{ $typeVn[$i] }}</h2>
                                     </div>
                                 </div>
                                 <div class="row">
