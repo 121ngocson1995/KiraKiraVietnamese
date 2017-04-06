@@ -270,6 +270,15 @@
 	}
 
 	function start() {
+		if (playTimeout) {
+			clearTimeout(playTimeout);
+		}
+
+		$('audio').each(function() {
+			this.pause();
+			this.currentTime = 0;
+		})
+
 		if(tlFinalScore) {
 			tlFinalScore.seek(0).pause();
 		}
@@ -325,6 +334,8 @@
 		  .to(box, 0.25, {scale:1, ease:Power2.easeOut});
 	}
 
+	var playTimeout;
+
 	function playSample(index) {
 		if(index == $("#sampleGroup audio").length) {
 			$('.wordSpan').unbind('click');
@@ -335,9 +346,9 @@
 		$('#sampleGroup').children().eq(index)[0].play();
 		playingSample = $('#sampleGroup').children().eq(index)[0].id;
 		changeScore('total', '/' + parseInt(index + 1));
-		setTimeout(function() {
+		playTimeout = setTimeout(function() {
 			$('#tick')[0].play();
-			setTimeout(function() {
+			playTimeout = setTimeout(function() {
 				playSample(++index);
 			}, $('#tick')[0].duration * 1000);
 		}, $('#sampleGroup').children().eq(index)[0].duration * 1000);

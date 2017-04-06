@@ -303,8 +303,6 @@
 			clearTimeout(playTimeout);
 		}
 
-		console.log(playTimeout);
-
 		$('audio').each(function() {
 			this.pause();
 			this.currentTime = 0;
