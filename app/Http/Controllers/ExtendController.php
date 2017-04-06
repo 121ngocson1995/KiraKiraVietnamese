@@ -21,6 +21,8 @@ class ExtendController extends Controller
 			for ($i=0; $i<$cnt; $i++){
 				$contentArr[$i] = explode( "|", $elementData[$i]->content);
 				$thumbArr[$i] = explode( "|", $elementData[$i]->thumbnail);
+				$slide_imgArr = explode( "|", $elementData[0]->slideshow_images);
+				$slide_nameArr = explode( "|", $elementData[0]->slideshow_caption);
 				$img = $elementData[0]->thumbnail;
 			}
 			foreach ($elementData as $key) 
@@ -28,11 +30,8 @@ class ExtendController extends Controller
 				$titleArr[] = $key->title;
 			} 
 			$typeArr = ['Image', 'Song', 'Poem','Idioms','Riddle', 'Play'];
-			$imgArr0 = explode( "|", $img);
-			// chưa có DB nên test thử
-			$imgNameArr = ['Bản đồ Việt Nam', 'Quốc kỳ', 'Tháp Rùa', 'Vịnh Hạ Long', 'Trường mẫu giáo', 'Cánh đồng lúa'];
-			$imgArr = ['exten/img/bando.jpg', 'exten/img/quocki.png', 'exten/img/thaprua.jpg', 'exten/img/halong.jpg','exten/img/nhatre.jpg','exten/img/donglua.jpg']; 
-		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'titleArr','imgArr', 'imgNameArr','typeArr', 'cnt'])); 
+
+		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'titleArr','slide_imgArr', 'slide_nameArr','typeArr', 'cnt'])); 
 
 	} else {
 		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 

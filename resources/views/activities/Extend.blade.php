@@ -86,14 +86,14 @@
                             <div class="carousel slide" data-ride="carousel" id="carousel-1">
                                 <div class="carousel-inner" role="listbox">
                                     <div class="item active">
-                                    <img src="{{  asset($imgArr[0]) }}" alt="Slide Image" class="center-block">
-                                        <p class="partName"> {{ $imgNameArr[0] }} </p>
+                                    <img src="{{  asset($slide_imgArr[0]) }}" alt="Slide Image" class="center-block">
+                                        <p class="partName"> {{ $slide_nameArr[0] }} </p>
                                     </div>
 
-                                    @for($i=1; $i<count($imgArr); $i++)
+                                    @for($i=1; $i<count($slide_imgArr); $i++)
                                     <div class="item">
-                                        <img src="{{  asset($imgArr[$i]) }}" alt="Slide Image" class="center-block">
-                                        <p class="partName"> {{ $imgNameArr[$i] }} </p>
+                                        <img src="{{  asset($slide_imgArr[$i]) }}" alt="Slide Image" class="center-block">
+                                        <p class="partName"> {{ $slide_nameArr[$i] }} </p>
                                     </div>
                                     @endfor
 
@@ -103,7 +103,7 @@
                                 </div>
                                 <ol class="carousel-indicators">
                                     <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                                    @for($i=1; $i<count($imgArr); $i++)
+                                    @for($i=1; $i<count($slide_imgArr); $i++)
                                     <li data-target="#carousel-1" data-slide-to="{{$i}}"></li>
                                     @endfor     
                                 </ol>
@@ -128,7 +128,7 @@
                             <h2>{{ $titleArr[1] }}</h2>
                         </div> 
                         <div style="vertical-align: center;">
-                            <img style="width: 80%; padding-left: 18%;" src=" {{ asset('exten/img/concobebe.jpg') }} ">
+                            <img style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
                         </div>
                             
                         {{--</div>                      
