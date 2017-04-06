@@ -237,7 +237,7 @@
 	<div id="chooseDHolder" style="text-align: center; display: none;">
 
 		@for ($i = 0; $i < count($dialogCnt); $i++)
-			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseD(this)">
+			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseDialog(this)">
 				<span> 
 					<span>D{{$i+1}}</span>
 					<span>D{{$i+1}}</span>
@@ -326,9 +326,11 @@
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
 
-	function chooseD(button){
+	function chooseDialog(button){
 		$('.dialogBtn').removeClass('selected').prop('disabled', false);
 		$(button).addClass('selected').prop('disabled', true);
+
+		stopRecording();
 
 		var dialogNow = button.getAttribute('data-dialogNo');
 		
