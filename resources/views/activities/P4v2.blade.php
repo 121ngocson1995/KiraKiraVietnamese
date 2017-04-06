@@ -177,10 +177,6 @@
 </div>
 
 <div id="wordGroup" class="" style="text-align: center;">
-	@php
-		$sentencesInRow = 0;
-	@endphp
-
 	<div class="row">
 		@foreach ($textRender as $text)
 		<div class="wordSpan col-sm-6 col-md-4 col-lg-3" style="display: inline-block;">
