@@ -183,14 +183,7 @@
 
 	<div class="row">
 		@foreach ($textRender as $text)
-		@if ($sentencesInRow++ == 3)
-			</div>
-			<div class="row">
-			@php
-				$sentencesInRow = 1;
-			@endphp
-		@endif
-		<div class="wordSpan col-sm-4" style="display: inline-block;">
+		<div class="wordSpan col-sm-6 col-md-4 col-lg-3" style="display: inline-block;">
 			<div class="flexContainer">
 				<p id="{{ $text['id'] }}" class="tbn word writtenFont" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['sentence'] }}</p>
 				<div class="btnBg">

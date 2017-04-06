@@ -53,11 +53,13 @@
 	}
 	#correct {
 		color: blue;
-		font-size: 5em;
+		font-size: 4em;
+		font-weight: 500;
 	}
 	#total {
 		color: red;
 		font-size: 2em;
+		font-weight: 500;
 	}
 	#cloudTop {
 		-webkit-animation-duration: 40s;
@@ -425,7 +427,7 @@
 		});
 		docBar.set(1);
 	}
-	
+
 </script>
 
 @stop
