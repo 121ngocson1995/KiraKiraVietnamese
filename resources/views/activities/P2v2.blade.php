@@ -229,15 +229,19 @@
 	var playingSample = -1;
 	var tlFinalScore;
 
-	function chooseWord(button) {
-		if ('audio' + $(button).find('p').attr("id") == playingSample) {
-			correctChoice(button);
+	function check(word) {
+		if (isCorrect(word)) {
+			displayCorrect(word);
 		} else {
-			wrongChoice(button);
+			displayWrong(word);
 		}
 	}
 
-	function correctChoice(button) {
+	function isCorrect(word) {
+		return 'audio' + $(word).find('p').attr("id") == playingSample;
+	}
+
+	function displayCorrect(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("p2correctWord");
 		$(button).prop("disabled", true);
@@ -248,7 +252,7 @@
 		correctSFX();
 	}
 
-	function wrongChoice(button) {
+	function displayWrong(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("p2wrongWord");
 		sadFace();
@@ -298,7 +302,7 @@
 		}
 
 		$('.wordSpan').bind('click', function() {
-			chooseWord(this);
+			check(this);
 		});
 
 		chosenOrder = 0;

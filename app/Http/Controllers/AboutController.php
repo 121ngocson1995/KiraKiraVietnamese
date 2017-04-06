@@ -18,11 +18,11 @@ class AboutController extends Controller
     	// Lấy dữ liệu từ db
 
     	$courseData = Course::where('id', '=', $course_id)->get();
-    	$lessonData = Lesson::where('course_id', '=', $course_id)->get(); 
+    	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
     	$lessonCnt = count($lessonData);
     	for ($i=0; $i<$lessonCnt; $i++){
-                $descripArr[$i] = $lessonData[$i]->description;
-            }
+            $descripArr[$i] = $lessonData[$i]->description;
+        }
 
         return view('about', compact(['lessonData', 'courseData', 'lessonCnt', 'descripArr']));
     }
