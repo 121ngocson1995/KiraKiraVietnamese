@@ -330,13 +330,22 @@
 		$('.dialogBtn').removeClass('selected').prop('disabled', false);
 		$(button).addClass('selected').prop('disabled', true);
 
-		stopRecording();
+		stopReplay();
+		if (isRecording) {
+			stopRecording();
+		}
 
 		var dialogNow = button.getAttribute('data-dialogNo');
 		
 		var elementData = <?php echo json_encode($elementData); ?>;
 		editContent(elementData[dialogNow]);
 		editAudio(elementData[dialogNow]);
+	}
+
+	function stopReplay() {
+		$('#auRecord')[0].pause();
+		$('#auRecord')[0].currentTime = 0;
+		$('#auRecord')[0].play();
 	}
 
 	function editContent(element) {
@@ -506,7 +515,10 @@
 		recorder = new Recorder(input);
 	}
 
+	var isRecording = false;
+
 	function startRecording(button) {
+		isRecording = true;
 		recorder && recorder.record();
 		$('.record').removeClass('toRecord').addClass('red toPause');
 
@@ -535,6 +547,7 @@
 	}
 
 	function stopRecording(button) {
+		isRecording = false;
 		recorder && recorder.stop();
 
 		createMedia();
