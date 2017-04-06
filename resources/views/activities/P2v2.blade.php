@@ -175,7 +175,7 @@
 
 <div id="controlBtn" style="text-align: center;">
 	<div id="sampleGroup"></div>
-	<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
+	<audio id="tick" src="{{ asset('audio/tick.mp3') }}"></audio>
 </div>
 
 <div>
@@ -317,10 +317,8 @@
 	}
 
 	function changeScore(text, to) {
-		// console.log(text);
 		var text = $('#'+text);
 		var box = text.parent();
-		console.log(box);
 		var tl = new TimelineMax();
 		tl.to(box, 0.25, {scale:1.4, ease:Power2.easeOut})
 		  .set(text, {text:to})

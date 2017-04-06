@@ -15,9 +15,6 @@ class P2Controller extends Controller
 
 		// Lấy dữ liệu từ db
 		$elementData = P2WordRecognize::where('lesson_id', '=', $lesson_id)->get();
-		// $cnt = count($elementData);
-		// $lastIndex = $elementData[$cnt-1]->correctOrder;
-        // $elementData = $elementData->shuffle();      
 
 		$textRender = array();
 		foreach ($elementData as $element) {
