@@ -34,7 +34,7 @@
 		z-index: 1;
 	}
 	#startBtn, #restartBtn {
-		width: 400px;
+		width: 260px;
 		max-width: 40%;
 		margin: auto;
 	}
@@ -107,7 +107,7 @@
 
 @section('actContent')
 
-<div id="background"{{--  style="text-align: center --}}">
+<div id="background">
 	<img id="cloudBottom" style="position: fixed; left: -6%; bottom: -4%; width: 103%" src="{{ asset('img/testAnimate/cloudBottom.svg') }}" alt="" style="bottom: 0">
 	<img id="cloudTop" style="position: fixed; left: -3%; bottom: -4%; width: 106%" src="{{ asset('img/testAnimate/cloudTop.svg') }}" alt="" style="bottom: 0">
 </div>
@@ -120,7 +120,7 @@
 	@foreach ($textRender as $text)
 		<div class="wordSpan" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
-				<p id="{{ $text['id'] }}" class="tbn word" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['word'] }}</p>
+				<p id="{{ $text['id'] }}" class="tbn word writtenFont" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['word'] }}</p>
 				<div class="btnBg">
 					<img class="wordCloud" style="width: 100%; max-width: 150px;" src="{{ asset('img/testAnimate/wordCloud.svg') }}" alt="start button">
 				</div>
@@ -131,7 +131,7 @@
 
 <div id="controlBtn" style="text-align: center;">
 	<div id="btnStart">
-		<p id="pStart" style="display: none;"><i class="fa fa-play fa-4x"></i></p>
+		<p id="pStart" style="display: none;"><i class="fa fa-play fa-3x"></i></p>
 		<div id="startBtn" class="btnBg">
 			<img id="imgStart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
 		</div>

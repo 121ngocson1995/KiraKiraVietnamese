@@ -140,9 +140,19 @@
     }
   }
 
+  var audioTimeout;
+
   function playAudio() {
     $('#pStart i').removeClass('fa-play').addClass('fa-pause fa-normal');
     $("#audio"+index)[0].play();
+
+    if (audioTimeout) {
+      clearTimeout(audioTimeout);
+    }
+
+    audioTimeout = setTimeout(function() {
+      $('#pStart i').removeClass('fa-pause fa-normal').addClass('fa-play');
+    }, (document.getElementById("audio"+index).duration - document.getElementById("audio"+index).currentTime) * 1000);
   }
 
   function pauseAudio() {
