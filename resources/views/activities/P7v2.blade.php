@@ -343,9 +343,17 @@
 	}
 
 	function stopReplay() {
-		$('#auRecord')[0].pause();
-		$('#auRecord')[0].currentTime = 0;
-		$('#auRecord')[0].play();
+		if ($('#auRecord')[0].currentTime != 0) {
+			$('#auRecord')[0].pause();
+			$('#auRecord')[0].currentTime = 0;
+			$('#auRecord')[0].play();
+
+			$('.replay').removeClass('red');
+
+			enableControl('replay');
+			enableControl('record');
+			enableControl('wordWrap');
+		}
 	}
 
 	function editContent(element) {
