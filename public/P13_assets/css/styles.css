@@ -77,6 +77,16 @@ div.row.practice{
     border-bottom: 2px dotted #858585;
   }
 
+/*  @media (max-width:1024px) {
+   blockquote {
+    width: 300px;
+    font-size: 1.7em;
+    letter-spacing: .075em;
+    float: left;
+    padding: 20px 12px 20px 12px;
+  }
+  }*/
+
   @media (max-width:768px) {
 
    blockquote {
@@ -96,6 +106,13 @@ div.row.practice{
     color: white;
   }
 
+  @media (max-width:1180px) {
+    .container2:before {
+      content: "“";
+      font-size: 8em;
+      left: -30px;
+    }
+  }
   @media (max-width:768px) {
     .container2:before {
       content: "“";
@@ -111,6 +128,17 @@ div.row.practice{
     right: -100px;
     top: 150px;
     color: white;
+  }
+
+  @media (max-width:1180px) {
+    .container2:after {
+      content: "”";
+      font-size: 8em;
+      position: absolute;
+      right: -30px;
+      top: 191px;
+      color: white;
+    }
   }
 
   @media (max-width:768px) {

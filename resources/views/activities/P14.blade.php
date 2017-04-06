@@ -25,7 +25,7 @@
 		text-align:left;
 		font-weight:500;
 		padding-top: 24px;
-		left: 50%;
+		padding-left: 40px;
 	}
 
 	div.col-xs-12.holderright{
@@ -50,7 +50,7 @@
 
 	@media (max-width: 768px) {
 		div.col-xs-12.holderleft {
-			text-align:center;
+			text-align:left;
 			font-weight:500;
 			padding-top: 24px;
 			padding-left: 24px;
