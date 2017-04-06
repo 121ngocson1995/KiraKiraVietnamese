@@ -309,6 +309,10 @@
 			$('#smiley').fadeIn(500);
 		}
 
+		if (hideSmiley) {
+			clearTimeout(hideSmiley);
+		}
+
 		$('.wordSpan').bind('click', function() {
 			chooseWord(this);
 		});
@@ -378,11 +382,19 @@
 		}
 	}
 
+	var hideSmiley;
+
 	function showResult() {
 		$(".notChosen").removeClass("notChosen").addClass("p2wrongWord");
 		$("#wordGroup").find("button").prop("disabled", true);
 		$("#btnRestart").prop("disabled", false);
 		$("#btnRestart").show();
+
+		if ($('#smiley').is(':visible')) {
+			hideSmiley = setTimeout(function() {
+				$('#smiley').fadeOut(500);	
+			}, 1000);
+		}
 
 		var tl = new TimelineMax();
 		tl.to('#resultInner', 0.25, {scale:1.4, ease:Power2.easeOut})
