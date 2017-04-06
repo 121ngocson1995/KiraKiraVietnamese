@@ -44,11 +44,6 @@
         font-family: "Open Sans",sans-serif;
         height: calc(100% - 65px);
     }
-    #container {
-      margin: 20px;
-      width: 50%;
-      height: 8px;
-    }
     #lesson_menu, #activity_menu {
         margin-bottom: 150px;
     }

@@ -3,10 +3,11 @@
 @section('header-more')
 
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/smiley-small.css') }}">
 
 <style>
 	#page-content-wrapper {
-		padding-top: 3%;
+		padding-top: 2%;
 	}
 	body {
 		background: #75D1F5;
@@ -16,6 +17,7 @@
 		align-items: center;
 		text-align: center;
 		z-index: 1;
+		width: 106px;
 	}
 	#btnStart p, #btnRestart p {
 		position: absolute;
@@ -34,12 +36,17 @@
 		z-index: 1;
 	}
 	#startBtn, #restartBtn {
-		width: 260px;
-		max-width: 40%;
+		width: 100%;
 		margin: auto;
 	}
-	#result {
+    #progressbarContainer {
+      margin: 20px;
+      width: calc(100% - 200px);
+      height: 8px;
+    }
+	#resultContainer {
 		font-weight: 300;
+		padding-right: 2em;
 	}
 	#scoreText {
 		font-size: 2em;
@@ -75,13 +82,14 @@
 		margin-top: 20px;
 	}
 	#wordGroup {
-		max-height: calc(100% - 250px);
-		overflow-y: scroll;
-		padding-top: 20px;
+		/*max-height: calc(100% - 250px);
+		overflow-y: scroll;*/
+		padding: 0 1.5em;
 	}
 	.wordSpan {
 		opacity: 0;
 		cursor: pointer;
+		margin: 20px;
 	}
 	.wordSpan:hover {
 		-webkit-filter: drop-shadow( 0px 0px 10px DodgerBlue);
@@ -112,11 +120,47 @@
 	<img id="cloudTop" style="position: fixed; left: -3%; bottom: -4%; width: 106%" src="{{ asset('img/testAnimate/cloudTop.svg') }}" alt="" style="bottom: 0">
 </div>
 
-<div style="text-align: center;">
-	<div id="container" style="display: inline-block;"></div>
+<div class="row" style="text-align: center; margin-bottom: 20px;">
+	<div id="resultContainer" class="col-md-3" style="text-align: right; padding-right: 2em; display: inline-block;">
+		<div id="resultInner" style="display: inline-block; right: 0;">
+			<div id="resultHolder">
+				<span id="correct"></span>
+				<span id="total"></span>
+			</div>
+		</div>
+	</div>
+	<div id="smileyContainer" class="col-md-3 col-md-push-6 happy" style="text-align: left; padding-left: 2em; display: inline-block;">
+		<div id="smiley" class="smiley" style="display: none;">
+			<div class="eyes">
+				<div class="eye"></div>
+				<div class="eye"></div>
+			</div>
+			<div class="mouth"></div>
+		</div>
+	</div>
+	<div class="col-md-6 col-md-pull-3">
+		<div id="controlContainer" style="display: inline-block; position: relative;">
+			<div id="btnStart">
+				<p id="pStart" style="display: none;"><i class="fa fa-play fa-3x"></i></p>
+				<div id="startBtn" class="btnBg">
+					<img id="imgStart" style="width: 100%" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
+				</div>
+			</div>
+			<div id="btnRestart" style="display: none;">
+				<p id="pRestart"><i class="fa fa-refresh fa-3x"></i></p>
+				<div id="restartBtn" class="btnBg">
+					<img id="imgRestart" style="width: 100%" src="{{ asset('img/testAnimate/flower2.svg') }}" alt="restart button">
+				</div>
+			</div>
+		</div>
+		<div id="progressbarContainer" style="display: inline-block;"></div>
+	</div>
+	<div class="col-md-3">
+		
+	</div>
 </div>
 
-<div id="wordGroup" class="" style="text-align: center; padding-bottom: 120px;">
+<div id="wordGroup" class="" style="text-align: center;">
 	@foreach ($textRender as $text)
 		<div class="wordSpan" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
@@ -130,28 +174,8 @@
 </div>
 
 <div id="controlBtn" style="text-align: center;">
-	<div id="btnStart">
-		<p id="pStart" style="display: none;"><i class="fa fa-play fa-3x"></i></p>
-		<div id="startBtn" class="btnBg">
-			<img id="imgStart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
-		</div>
-	</div>
-	<div id="btnRestart" style="display: none;">
-		<p id="pRestart"><i class="fa fa-refresh fa-4x"></i></p>
-		<div id="restartBtn" class="btnBg">
-			<img id="imgRestart" style="width: 40%; max-width: 150px;" src="{{ asset('img/testAnimate/flower2.svg') }}" alt="restart button">
-		</div>
-	</div>
-	<span id="timer" style="font-size: 70px"></span>
-	<span id="addedTime" style="font-size: 40px; color: grey"></span>
 	<div id="sampleGroup"></div>
 	<audio id="tick" src="{{ asset('audio/tick.wav') }}"></audio>
-</div>
-
-<div id="result" style="text-align: center; display: none;">
-	<span id="scoreText">Score: </span>
-	<span id="correct"></span>
-	<span id="total"></span>
 </div>
 
 <div>
@@ -218,18 +242,44 @@
 		$(".p2wrongWord").removeClass("p2wrongWord").addClass("notChosen");
 		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
 		$(button).unbind('click');
+		happyFace();
 		correctSFX();
 	}
 
 	function wrongChoice(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("p2wrongWord");
+		sadFace();
 		wrongSFX();
+	}
+
+	function happyFace() {
+		var smiley = document.getElementById('smiley');
+		smiley.classList.remove("happy");
+		smiley.classList.remove("normal");
+		smiley.offsetWidth;
+		smiley.classList.add("happy");
+	}
+
+	function sadFace() {
+		var smiley = document.getElementById('smiley');
+		smiley.classList.remove("happy");
+		smiley.classList.remove("normal");
+		smiley.offsetWidth;
+		smiley.classList.add("normal");
 	}
 
 	function start() {
 		if(tlFinalScore) {
 			tlFinalScore.seek(0).pause();
+		}
+
+		if (!$('#resultHolder').is(':visible')) {
+			$('#resultHolder').fadeIn(500);
+		}
+
+		if (!$('#smiley').is(':visible')) {
+			$('#smiley').fadeIn(500);
 		}
 
 		$('.wordSpan').bind('click', function() {
@@ -247,14 +297,17 @@
 
 		$("#btnStart").prop("disabled", true);
 		$("#btnRestart").prop("disabled", true);
-		$("#btnStart").hide();
-		$("#btnRestart").hide();
-		// startCountdown();
+
+		$("#btnStart").fadeOut(500, function() {
+			var tl = new TimelineMax();
+			tl.to('#imgRestart', 30, {rotation:-720, repeat:-1, ease: Power1.easeInOut, yoyo:true});
+			$("#btnRestart").fadeIn(500);
+		});
 	}
 
 	function initScore() {
-		$('#result').show();
-		document.getElementById('scoreText').innerHTML = 'Score: ';
+		$('#resultContainer').show();
+		// document.getElementById('scoreText').innerHTML = 'Score: ';
 		document.getElementById('correct').innerHTML = '0';
 		document.getElementById('total').innerHTML = '/0';
 
@@ -264,8 +317,10 @@
 	}
 
 	function changeScore(text, to) {
+		// console.log(text);
 		var text = $('#'+text);
 		var box = text.parent();
+		console.log(box);
 		var tl = new TimelineMax();
 		tl.to(box, 0.25, {scale:1.4, ease:Power2.easeOut})
 		  .set(text, {text:to})
@@ -303,12 +358,8 @@
 		$("#btnRestart").show();
 
 		var tl = new TimelineMax();
-		tl.to('#imgRestart', 30, {rotation:-720, repeat:-1, ease: Power2.easeInOut, yoyo:true});
-		var scoreText = $('#scoreText');
-		tlFinalScore = new TimelineMax();
-		tlFinalScore.to(scoreText, 2, {text:"Final score: "})
-		  .to(scoreText.parent(), 2, {scale:1.6, ease:Power2.easeOut})
-		  .to(scoreText.parent(), 0.4, {scale:1.4, ease:Power2.easeOut});
+		tl.to('#resultInner', 0.25, {scale:1.4, ease:Power2.easeOut})
+		  .to('#resultInner', 0.25, {scale:1, ease:Power2.easeOut});
 	}
 
 	var wordTime = 0;
@@ -350,13 +401,13 @@
 	}
 
 	function buildProgressBar(totalTime) {
-		docBar = new ProgressBar.Line("#container", {
-			strokeWidth: 4,
+		docBar = new ProgressBar.Line("#progressbarContainer", {
+			strokeWidth: 1,
 			duration: totalTime * 1000,
 			color: '#FFEA82',
 			trailColor: '#eee',
 			trailWidth: 1,
-			svgStyle: {width: '100%', height: '100%'},
+			svgStyle: {width: '100%', height: '200%'},
 			from: {color: '#ED6A5A'},
 			to: {color: '#1affa3'},
 			step: (state, bar) => {

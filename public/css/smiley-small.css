@@ -1,0 +1,280 @@
+/* Buttons */
+
+input{
+  display: none;
+}
+
+/* Smiley */
+
+.smiley
+{
+  background: linear-gradient(135deg, rgb(255, 233, 25) 0%, rgb(251, 192, 0) 100%);
+  border-radius: 100%;
+  padding: 25px;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  left: 0;
+}
+
+.mouth
+{
+  width: 62px;
+  height: 30%;
+  transform: translateX(-2%);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  margin-left: -30%;
+  background: #B57700;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes
+{
+  width: 130%;
+  margin-top: 7%;
+  margin-left: -16%;
+  box-sizing: border-box;
+  padding: 0 5px;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes .eye
+{
+  width: 12px;
+  height: 12px;
+  background: #B57700;
+  float: left;
+  border-radius: 100%;
+  position: relative;
+}
+
+.eyes .eye:nth-of-type(2)
+{
+  float: right;
+}
+
+.eyes .eye::after
+{
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0%;
+  height: 0%;
+  background: #fed800;
+  transform: rotate(0deg);
+  top: -15px;
+  left: 5px;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes .eye:first-of-type::after
+{
+  transform: rotate(0deg);
+  left: auto;
+  right: 5px;
+}
+
+/* Normal animation */
+.smiley.normal .mouth,
+#normal[type=radio]:checked ~ .smiley .mouth
+{
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  height: 10%;
+  width: 40%;
+  bottom: 25%;
+  margin-left: -20%;
+}
+
+.smiley.normal .eyes,
+#normal[type=radio]:checked ~ .smiley .eyes
+{
+  margin-top: 15%
+}
+
+
+.smiley.normal .eye,
+#normal[type=radio]:checked ~ .smiley .eye
+{
+  height: 12px;
+  margin-top: 0;
+}
+
+.smiley.normal .eyes,
+.smiley.normal .mouth,
+#normal[type=radio]:checked ~ .smiley .eyes,
+#normal[type=radio]:checked ~ .smiley .mouth
+{
+  animation: move-unapprove-head .6s;
+  animation-delay: .4s;
+  animation-fill-mode: both;
+}
+
+@keyframes move-unapprove-head 
+{
+  0%
+  { 
+    transform: translateX(0%);
+  }
+  20%
+  {
+    transform: translateX(-17%);
+  }
+  40% 
+  { 
+    transform: translateX(11%);
+  }
+  60%
+  {
+    transform: translateX(-7%);
+  }
+  80%
+  { 
+    transform: translateX(4%);
+  }
+  100%
+  {
+    transform: translateX(0%);
+  }
+}
+
+/* Re-shakehead animation */
+
+.smiley.normal.re-shakehead .eyes,
+.smiley.normal.re-shakehead .mouth,
+#re-shakehead[type=radio]:checked ~ .smiley .eyes,
+#re-shakehead[type=radio]:checked ~ .smiley .mouth
+{
+  animation: move-unapprove-head .6s;
+  animation-delay: .4s;
+  animation-fill-mode: both;
+}
+
+@keyframes move-unapprove-head 
+{
+  0%
+  { 
+    transform: translateX(0%);
+  }
+  20%
+  {
+    transform: translateX(-17%);
+  }
+  40% 
+  { 
+    transform: translateX(11%);
+  }
+  60%
+  {
+    transform: translateX(-7%);
+  }
+  80% 
+  { 
+    transform: translateX(4%);
+  }
+  100%
+  {
+    transform: translateX(0%);
+  }
+}
+
+
+/* Happy animation */
+
+.smiley.happy .mouth,
+#happy[type=radio]:checked ~ .smiley .mouth
+{
+  animation: move-mouth-down .8s;
+  animation-delay: .3s;
+  animation-fill-mode: both;
+}
+
+@keyframes move-mouth-down 
+{
+  0%
+  { 
+    bottom: 18%;
+  }
+  35%
+  {
+    bottom: 14%; 
+  }
+  65%
+  {
+    bottom: 14%; 
+  }
+  100% 
+  { 
+    bottom: 18%;
+  }
+}
+
+.smiley.happy .eyes,
+#happy[type=radio]:checked ~ .smiley .eyes
+{
+  animation: move-eyes-down .8s;
+  animation-delay: .3s;
+  animation-fill-mode: both;
+}
+
+@keyframes move-eyes-down 
+{
+  0%
+  { 
+    margin-top: 10%;
+  }
+  35%
+  {
+    margin-top: 17%; 
+  }
+  65%
+  {
+    margin-top: 17%;
+  }
+  100% 
+  { 
+    margin-top: 10%;
+  }
+}
+
+.smiley.happy .eye:nth-of-type(2),
+#happy[type=radio]:checked ~ .smiley .eye:nth-of-type(2)
+{
+  height: 12px;
+  margin-top: 0;
+  animation: wink .8s;
+  animation-delay: .3s;
+}
+
+@keyframes wink 
+{
+  0%
+  { 
+   height: 12px;
+   margin-top: 0; 
+ }
+ 30%
+ {
+  height: 3px;
+  margin-top: 5px; 
+}
+70%
+{
+  height: 3px;
+  margin-top: 5px; 
+}
+100% 
+{ 
+  height: 12px;
+  margin-top: 0; 
+}
+}
