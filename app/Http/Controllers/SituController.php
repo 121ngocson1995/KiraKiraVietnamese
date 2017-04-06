@@ -20,8 +20,10 @@ class SituController extends Controller
     	{
     		for ($i=0; $i<$cnt; $i++){
     			$dialogArr[$i] = explode( "|", $elementData[$i]->dialog);
+                $audioArr[$i] =  $elementData[$i]->audio;
     		}
-    		return view("activities.Situation", compact(['elementData', 'dialogArr', 'cnt'])); 
+
+    		return view("activities.Situation", compact(['elementData', 'audioArr', 'dialogArr', 'cnt'])); 
     		
     	} else {
     		return view("activities.Situation", compact(['elementData']));
