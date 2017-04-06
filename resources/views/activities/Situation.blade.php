@@ -12,6 +12,10 @@
     text-align: center;
     z-index: 1;
   }
+  button.selected{
+    background-color: #a58895;
+    color:white;
+  }
   #btnStart p, #btnRestart p {
     position: absolute;
     color: #33ccff;
@@ -62,7 +66,7 @@
           @endfor
         </div>
         <div id="controlBtn" style="text-align: center;padding-top: 8px;" >
-          <div id="btnStart">
+          <div id="btnStart" {{-- style="display: none; --}}">
             <p id="pStart">
               <i style="max-width: 50px;" class="fa fa-play fa-2x"></i>
             </p>
@@ -78,13 +82,11 @@
 
 <div id="wrapper">
   <div id="mask">
-
     @for($i=0; $i<$cnt; $i++)
     <div id="part{{$i+1}}" class="part">
       <a name="part{{$i+1}}"></a>
       <div class="content">
         <a href="#part{{$i}}" class="panelt" ></a>
-
         <div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image">
          <div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
           <img id="thumbnail" class="img" src="{{ asset($elementData[$i]->thumbnail) }}">
@@ -94,7 +96,6 @@
           </audio>
         </div>
       </div>
-
       <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px;">
         <table class="table">
           <tbody class="extendtable">
@@ -106,10 +107,8 @@
           </tbody>
         </table>
       </div> 
-
     </div>     
   </div>
-
   @endfor
 </div>
 </div>
@@ -126,10 +125,20 @@
   });
 
   function setIndex(node) {
+    var audioArr = <?php echo json_encode($audioArr); ?>;
     stopAudio();
+    $('.btn').removeClass('selected');
+    node.setAttribute('class', 'btn btn-default selected');
     index = node.getAttribute('data-index');
     $('#situation-group a button').prop('disabled', false);
     node.disabled = true;
+    if(audioArr[index]=="")
+    {
+      $('#btnStart').hide();
+    }
+    else {
+      $('#btnStart').show();
+    }
   }
 
   function toggleSample(button) {
@@ -185,6 +194,7 @@
       resizePanelt();
     });
     $('#situation-group a').prop('disabled', false);
+    $('#situation-group a button').first().addClass('selected').prop('disabled', true);
   });
 
   function resizePanelt() {
