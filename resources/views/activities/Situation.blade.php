@@ -99,7 +99,7 @@
       <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px;">
         <table class="table">
           <tbody class="extendtable">
-            @for ($j = 0; $j < count($dialogArr[0]) ; $j++)
+            @for ($j = 0; $j < count($dialogArr[$i]) ; $j++)
             <tr>
               <td>{{ $dialogArr[$i][$j]}}</td>
             </tr>
