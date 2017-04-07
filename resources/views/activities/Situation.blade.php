@@ -214,3 +214,11 @@
 </script>
 
 @stop
+
+@section('actDescription-vi')
+  Rê chuột vào các S và bấm chuột để nghe các tình huống tương ứng.
+@stop
+
+@section('actDescription-en')
+  Click S buttons to listen to corresponded situation.
+@stop
