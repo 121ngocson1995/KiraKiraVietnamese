@@ -2,19 +2,15 @@ var docBar;
 var playingSample = -1;
 var tlFinalScore;
 
-function check(word) {
-	if (isCorrect(word)) {
-		displayCorrect(word);
+function chooseWord(button) {
+	if ('audio' + $(button).find('p').attr("id") == playingSample) {
+		correctChoice(button);
 	} else {
-		displayWrong(word);
+		wrongChoice(button);
 	}
 }
 
-function isCorrect(word) {
-	return 'audio' + $(word).find('p').attr("id") == playingSample;
-}
-
-function displayCorrect(button) {
+function correctChoice(button) {
 	$(button).removeClass("notChosen");
 	$(button).addClass("p2correctWord");
 	$(button).prop("disabled", true);
@@ -25,7 +21,7 @@ function displayCorrect(button) {
 	correctSFX();
 }
 
-function displayWrong(button) {
+function wrongChoice(button) {
 	$(button).removeClass("notChosen");
 	$(button).addClass("p2wrongWord");
 	sadFace();
@@ -54,7 +50,7 @@ function start() {
 	}
 
 	$('.wordSpan').bind('click', function() {
-		check(this);
+		chooseWord(this);
 	});
 
 	chosenOrder = 0;
@@ -83,7 +79,7 @@ function resetAudio() {
 	$('audio').each(function() {
 		this.pause();
 		this.currentTime = 0;
-	});
+	})
 }
 
 function showScore() {
@@ -108,6 +104,7 @@ function showSmiley() {
 
 function initScore() {
 	$('#resultContainer').show();
+	// document.getElementById('scoreText').innerHTML = 'Score: ';
 	document.getElementById('correct').innerHTML = '0';
 	document.getElementById('total').innerHTML = '/0';
 
@@ -168,57 +165,4 @@ function showResult() {
 	var tl = new TimelineMax();
 	tl.to('#resultInner', 0.25, {scale:1.4, ease:Power2.easeOut})
 	.to('#resultInner', 0.25, {scale:1, ease:Power2.easeOut});
-}
-
-var wordTime = 0;
-var wordNo = 0;
-
-var sampleGroup = document.getElementById('sampleGroup');
-for (var i = 0; i < elementData.length; i++) {
-	var audioFile = document.createElement("audio");
-	audioFile.id = 'audio' + elementData[i].id;
-	audioFile.innerHTML  = "<source src='" + elementData[i].audio + "' type='audio/mp3'>";
-	sampleGroup.appendChild(audioFile);
-
-
-	if (!isNaN(audioFile.duration)) {
-		checkTickLoad(this.duration);
-	} else {
-		audioFile.addEventListener('loadedmetadata', function() {
-			checkTickLoad(this.duration);
-		});
-	}
-}
-
-function checkTickLoad(duration) {
-	wordNo++;
-	wordTime += duration;
-
-	if (wordNo == elementData.length) {
-		var tick = document.getElementById('tick');
-		if (!isNaN(tick.duration)) {
-			buildProgressBar(wordTime + wordNo * tick.duration);
-		} else {
-			tick.addEventListener('loadedmetadata', function() {
-				buildProgressBar(wordTime + wordNo * this.duration);
-			});
-		}
-	}
-}
-
-function buildProgressBar(totalTime) {
-	docBar = new ProgressBar.Line("#progressbarContainer", {
-		strokeWidth: 1,
-		duration: totalTime * 1000,
-		color: '#FFEA82',
-		trailColor: '#eee',
-		trailWidth: 1,
-		svgStyle: {width: '100%', height: '200%'},
-		from: {color: '#ED6A5A'},
-		to: {color: '#1affa3'},
-		step: (state, bar) => {
-			bar.path.setAttribute('stroke', state.color);
-		}
-	});
-	docBar.set(1);
 }

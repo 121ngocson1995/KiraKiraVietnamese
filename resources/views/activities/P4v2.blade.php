@@ -3,130 +3,14 @@
 @section('header-more')
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/smiley-small.css') }}">
+<link rel="stylesheet" href="{{ asset('css/screens/p4.css') }}">
 
 <style type="text/css">
-	#page-content-wrapper {
-		padding-top: 2%;
-	}
-	body {
-		background-color: #ccffff;
-	}
 	div.div-body {
-		position: fixed;
-		width: 100%;
-		height: 100%;
 		background: url({{ asset('img/P4/bg-grass.svg') }}) repeat-x center bottom fixed;
 		background-size: 300% auto;
 		-webkit-animation: backgroundScroll 700s linear infinite;
 		animation: backgroundScroll 700s linear infinite;
-	}
-
-	@-webkit-keyframes backgroundScroll {
-		from {background-position: 0 100%;}
-		to {background-position: 200% 100%;}
-	}
-	@keyframes backgroundScroll {
-		from {background-position: 0 100%;}
-		to {background-position: 200% 100%;}
-	}
-	#btnStart, #btnRestart {
-		display: flex;
-		align-items: center;
-		text-align: center;
-		z-index: 1;
-		width: 106px;
-	}
-	#btnStart p, #btnRestart p {
-		position: absolute;
-		color: #33ccff;
-		left: 50%;
-		transform: translateX(-50%);
-		z-index: 1;
-	}
-	.flexContainer p {
-		position: absolute;
-		width: 100%;
-		color: #33ccff;
-		top: 65%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		z-index: 1;
-	}
-	#startBtn, #restartBtn {
-		width: 100%;
-		margin: auto;
-	}
-	#progressbarContainer {
-		margin: 20px;
-		width: calc(100% - 200px);
-		height: 8px;
-	}
-	#resultContainer {
-		font-weight: 300;
-		padding-right: 2em;
-	}
-	#scoreText {
-		font-size: 2em;
-	}
-	#correct {
-		color: blue;
-		font-size: 4em;
-		font-weight: 500;
-	}
-	#total {
-		color: red;
-		font-size: 2em;
-		font-weight: 500;
-	}
-	#cloudTop {
-		-webkit-animation-duration: 40s;
-		-webkit-animation-delay: 1s;
-		-webkit-animation-iteration-count: infinite;
-		-moz-animation-duration: 40s;
-		-moz-animation-delay: 1s;
-		-moz-animation-iteration-count: infinite;
-	}
-	#cloudBottom {
-		-webkit-animation-duration: 60s;
-		-webkit-animation-delay: 10s;
-		-webkit-animation-iteration-count: infinite;
-		-moz-animation-duration: 60s;
-		-moz-animation-delay: 10s;
-		-moz-animation-iteration-count: infinite;
-	}
-	#pStart, #pRestart, #imgStart, #imgRestart {
-		cursor: pointer;
-	}
-	#controlBtn {
-		margin-top: 20px;
-	}
-	#wordGroup {
-		/*max-height: calc(100% - 250px);
-		overflow-y: scroll;*/
-		padding: 0 1.5em;
-	}
-	.wordSpan {
-		opacity: 0;
-		cursor: pointer;
-		padding: 10px 20px;
-	}
-	.wordSpan:hover {
-		-webkit-filter: drop-shadow( 0px 0px 10px DodgerBlue);
-		filter: drop-shadow( 0px 0px 10px DodgerBlue);
-	}
-	.p2wrongWord {
-		-webkit-filter: drop-shadow( 0px 0px 10px red);
-		filter: drop-shadow( 0px 0px 10px red);
-	}
-	.p2correctWord {
-		-webkit-filter: drop-shadow( 0px 0px 10px green);
-		filter: drop-shadow( 0px 0px 10px green);
-	}
-	.fa {
-		margin-left: 0;
-	}
-	.fa-play {
-		margin-left: 0.15em;
 	}
 </style>
 
@@ -217,7 +101,6 @@
 		tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
 	});
 
-	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
 	TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
@@ -238,190 +121,9 @@
 	$('#imgRestart').click(function() {
 		start();
 	});
-</script>
-
-<script>
-	var docBar;
-	var playingSample = -1;
-	var tlFinalScore;
-
-	function chooseWord(button) {
-		if ('audio' + $(button).find('p').attr("id") == playingSample) {
-			correctChoice(button);
-		} else {
-			wrongChoice(button);
-		}
-	}
-
-	function correctChoice(button) {
-		$(button).removeClass("notChosen");
-		$(button).addClass("p2correctWord");
-		$(button).prop("disabled", true);
-		$(".p2wrongWord").removeClass("p2wrongWord").addClass("notChosen");
-		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
-		$(button).unbind('click');
-		happyFace();
-		correctSFX();
-	}
-
-	function wrongChoice(button) {
-		$(button).removeClass("notChosen");
-		$(button).addClass("p2wrongWord");
-		sadFace();
-		wrongSFX();
-	}
-
-	function happyFace() {
-		var smiley = document.getElementById('smiley');
-		smiley.classList.remove("happy");
-		smiley.classList.remove("normal");
-		smiley.offsetWidth;
-		smiley.classList.add("happy");
-	}
-
-	function sadFace() {
-		var smiley = document.getElementById('smiley');
-		smiley.classList.remove("happy");
-		smiley.classList.remove("normal");
-		smiley.offsetWidth;
-		smiley.classList.add("normal");
-	}
-
-	function start() {
-		if (playTimeout) {
-			clearTimeout(playTimeout);
-		}
-
-		$('audio').each(function() {
-			this.pause();
-			this.currentTime = 0;
-		})
-
-		if(tlFinalScore) {
-			tlFinalScore.seek(0).pause();
-		}
-
-		if (!$('#resultHolder').is(':visible')) {
-			$('#resultHolder').fadeIn(500);
-		}
-
-		if (!$('#smiley').is(':visible')) {
-			$('#smiley').fadeIn(500);
-		}
-
-		if (hideSmiley) {
-			clearTimeout(hideSmiley);
-		}
-
-		$('.wordSpan').bind('click', function() {
-			chooseWord(this);
-		});
-
-		chosenOrder = 0;
-
-		$("#wordGroup").find(".wordSpan").prop("disabled", false);
-		$("#wordGroup").find(".wordSpan").removeClass("p2wrongWord").removeClass("p2correctWord").addClass("notChosen");
-
-		initScore();
-		playSample(0);
-		startProgress();
-
-		$("#btnStart").prop("disabled", true);
-		$("#btnRestart").prop("disabled", true);
-
-		$("#btnStart").fadeOut(500, function() {
-			var tl = new TimelineMax();
-			tl.to('#imgRestart', 30, {rotation:-720, repeat:-1, ease: Power1.easeInOut, yoyo:true});
-			$("#btnRestart").fadeIn(500);
-		});
-	}
-
-	function initScore() {
-		$('#resultContainer').show();
-		// document.getElementById('scoreText').innerHTML = 'Score: ';
-		document.getElementById('correct').innerHTML = '0';
-		document.getElementById('total').innerHTML = '/0';
-
-		if (docBar) {
-			docBar.set(1);
-		}
-	}
-
-	function changeScore(text, to) {
-		var text = $('#'+text);
-		var box = text.parent();
-		var tl = new TimelineMax();
-		tl.to(box, 0.25, {scale:1.4, ease:Power2.easeOut})
-		.set(text, {text:to})
-		.to(box, 0.25, {scale:1, ease:Power2.easeOut});
-	}
-
-	var playTimeout;
-
-	function playSample(index) {
-		if(index == $("#sampleGroup audio").length) {
-			$('.wordSpan').unbind('click');
-			showResult();
-			return;
-		}
-		$(".p2wrongWord").removeClass("p2wrongWord").addClass("notChosen");
-		$('#sampleGroup').children().eq(index)[0].play();
-		playingSample = $('#sampleGroup').children().eq(index)[0].id;
-		changeScore('total', '/' + parseInt(index + 1));
-		playTimeout = setTimeout(function() {
-			$('#tick')[0].play();
-			playTimeout = setTimeout(function() {
-				playSample(++index);
-			}, $('#tick')[0].duration * 1000);
-		}, $('#sampleGroup').children().eq(index)[0].duration * 1000);
-	}
-
-	function startProgress() {
-		if (docBar) {
-			docBar.animate(0);
-		}
-	}
-
-	var hideSmiley;
-
-	function showResult() {
-		$(".notChosen").removeClass("notChosen").addClass("p2wrongWord");
-		$("#wordGroup").find("button").prop("disabled", true);
-		$("#btnRestart").prop("disabled", false);
-		$("#btnRestart").show();
-
-		if ($('#smiley').is(':visible')) {
-			hideSmiley = setTimeout(function() {
-				$('#smiley').fadeOut(500);	
-			}, 1000);
-		}
-
-		var tl = new TimelineMax();
-		tl.to('#resultInner', 0.25, {scale:1.4, ease:Power2.easeOut})
-		.to('#resultInner', 0.25, {scale:1, ease:Power2.easeOut});
-	}
 
 	var wordTime = 0;
 	var wordNo = 0;
-
-	var elementData = <?php echo json_encode($elementData); ?>;
-	var sampleGroup = document.getElementById('sampleGroup');
-	for (var i = 0; i < elementData.length; i++) {
-		var audioFile = document.createElement("audio");
-		// audioFile.src = elementData[i].audio;
-		audioFile.id = 'audio' + elementData[i].id;
-		audioFile.innerHTML  = "<source src='{{ asset('') }}" + elementData[i].audio + "' type='audio/mp3'>";
-		sampleGroup.appendChild(audioFile);
-
-
-		if (!isNaN(audioFile.duration)) {
-			checkTickLoad(this.duration);
-		} else {
-			audioFile.addEventListener('loadedmetadata', function() {
-				checkTickLoad(this.duration);
-			});
-		}
-	}
 
 	function checkTickLoad(duration) {
 		wordNo++;
@@ -455,8 +157,28 @@
 		});
 		docBar.set(1);
 	}
+
+	var elementData = <?php echo json_encode($elementData); ?>;
+	var sampleGroup = document.getElementById('sampleGroup');
+	for (var i = 0; i < elementData.length; i++) {
+		var audioFile = document.createElement("audio");
+		audioFile.id = 'audio' + elementData[i].id;
+		audioFile.innerHTML  = "<source src='{{ asset('') }}" + elementData[i].audio + "' type='audio/mp3'>";
+		sampleGroup.appendChild(audioFile);
+
+
+		if (!isNaN(audioFile.duration)) {
+			checkTickLoad(this.duration);
+		} else {
+			audioFile.addEventListener('loadedmetadata', function() {
+				checkTickLoad(this.duration);
+			});
+		}
+	}
 	
 </script>
+
+<script src="{{ asset('js/screens/p4.js') }}"></script>
 
 @stop
 

@@ -278,10 +278,6 @@
 <div id="alert"></div>
 
 <script>
-	$('.wordWrap').click(function() {
-		playWord(this);
-	});
-
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
 	setTimeout(function() {
@@ -294,6 +290,9 @@
 					$('.wordWrap').css('display', 'inline-block');
 					$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 					setTimeout(function() {
+						$('.wordWrap').click(function() {
+							togglePlaySample(this);
+						});
 						$('.wordWrap').click();
 					}, 600);
 
@@ -342,11 +341,23 @@
 		editAudio(elementData[dialogNow]);
 	}
 
+	function togglePlaySample() {
+		console.log(wordIsPlaying());
+		if (wordIsPlaying()) {
+			stopPlayWord();
+		} else {
+			playWord();
+		}
+	}
+
+	function wordIsPlaying() {
+		return !$('#sample')[0].paused;
+	}
+
 	function stopReplay() {
 		if ($('#auRecord')[0].currentTime != 0) {
 			$('#auRecord')[0].pause();
 			$('#auRecord')[0].currentTime = 0;
-			$('#auRecord')[0].play();
 
 			$('.replay').removeClass('red');
 
@@ -357,6 +368,8 @@
 	}
 
 	function editContent(element) {
+		$('.wordWrap').unbind('click');
+
 		$('.wordWrap').removeClass('pulse').addClass('flipOutY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 
 			while (document.getElementsByClassName("wrapLine")[0].firstChild) {
@@ -387,6 +400,9 @@
 
 				$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 					setTimeout(function() {
+						$('.wordWrap').click(function() {
+							togglePlaySample(this);
+						});
 						$('.wordWrap').click();
 					}, 600);
 			});
@@ -400,9 +416,8 @@
 
 	var playWordTimeout;
 
-	function playWord(button) { 
-		$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
-		var audio = document.getElementById("sample"); 
+	function playWord() { 
+		pulseDialogHolder();
 
 		$('#sample')[0].pause();
 		$('#sample')[0].currentTime = 0;
@@ -418,6 +433,27 @@
 
 		disableControl('replay');
 		disableControl('record');
+	}
+
+	function pulseDialogHolder() {
+		button = document.getElementsByClassName('wordWrap')[0];
+		button.classList.remove("flipInY");
+		button.classList.remove("pulse");
+		button.offsetWidth;
+		button.classList.add("pulse");
+	}
+
+	function stopPlayWord() {
+		console.log('stop');
+
+		$('#sample')[0].pause();
+		$('#sample')[0].currentTime = 0;
+
+		if (playWordTimeout) {
+			clearTimeout(playWordTimeout);
+		}
+		enableControl('replay');
+		enableControl('record');
 	}
 
 	function playRecord() {
