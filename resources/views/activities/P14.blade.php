@@ -25,7 +25,7 @@
 		text-align:left;
 		font-weight:500;
 		padding-top: 24px;
-		padding-left: 40px;
+		left: 30%;
 	}
 
 	div.col-xs-12.holderright{
