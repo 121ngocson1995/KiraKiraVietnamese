@@ -2,6 +2,8 @@ var docBar;
 var playingSample = -1;
 var tlFinalScore;
 
+initAudio();
+
 function check(word) {
 	if (isCorrect(word)) {
 		displayCorrect(word);
@@ -69,14 +71,29 @@ function start() {
 	playSample(0);
 	startProgressbar();
 
-	$("#btnStart").prop("disabled", true);
-	$("#btnRestart").prop("disabled", true);
-
 	$("#btnStart").fadeOut(500, function() {
 		var tl = new TimelineMax();
 		tl.to('#imgRestart', 30, {rotation:-720, repeat:-1, ease: Power1.easeInOut, yoyo:true});
 		$("#btnRestart").fadeIn(500);
 	});
+}
+
+function restart() {
+	if (playTimeout) {
+		clearTimeout(playTimeout);
+	}
+
+	$('#pRestart').unbind('click');
+	$('#imgRestart').unbind('click');
+
+	document.getElementById('correct').innerHTML = '0';
+	document.getElementById('total').innerHTML = '/0'
+	resetAudio();
+	showScore();
+	initScore();
+	showSmiley();
+	happyFace();
+	hideWords();
 }
 
 function resetAudio() {
@@ -114,6 +131,48 @@ function initScore() {
 	if (docBar) {
 		docBar.set(1);
 	}
+}
+
+function hideWords() {
+	var tl = new TimelineMax({
+		onComplete: init
+	});
+	tl.staggerFromTo('.wordSpan', 0.5, {opactiry:1, scale:1}, {opacity:0, scale:0}, 0.2);
+}
+
+function init() {
+	shuffle(elementData);
+	shuffle(textRender);
+
+	initWords();
+	showWords();
+	initAudio();
+}
+
+function showWords() {
+	var tl = new TimelineMax({
+		onComplete: function() {
+			$('#pRestart').click(function() {
+				restart();
+			});
+
+			$('#imgRestart').click(function() {
+				restart();
+			});
+
+			$('.wordSpan').bind('click', function() {
+				check(this);
+			});
+
+			playSample(0);
+		}
+	});
+	tl.staggerFromTo('.wordSpan', 0.5, {opacity:0, scale:0}, {opacity:1, scale:1}, 0.2);
+}
+
+function shuffle(o) {
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
 }
 
 function changeScore(text, to) {
@@ -173,20 +232,60 @@ function showResult() {
 var wordTime = 0;
 var wordNo = 0;
 
-var sampleGroup = document.getElementById('sampleGroup');
-for (var i = 0; i < elementData.length; i++) {
-	var audioFile = document.createElement("audio");
-	audioFile.id = 'audio' + elementData[i].id;
-	audioFile.innerHTML  = "<source src='" + elementData[i].audio + "' type='audio/mp3'>";
-	sampleGroup.appendChild(audioFile);
+function initWords() {
+	var wordGroup = document.getElementById('wordGroup');
 
+	while (wordGroup.firstChild) {
+		wordGroup.removeChild(wordGroup.firstChild);
+	}
 
-	if (!isNaN(audioFile.duration)) {
-		checkTickLoad(this.duration);
-	} else {
-		audioFile.addEventListener('loadedmetadata', function() {
+	for (var i = 0; i < textRender.length; i++) {
+		var wordSpan = document.createElement('div');
+		wordSpan.className = 'wordSpan';
+
+		var flexContainer = document.createElement('div');
+		flexContainer.className = 'flexContainer';
+
+		var word = document.createElement('p');
+		word.id = textRender[i].id;
+		word.className = 'tbn word writtenFont';
+		word.innerHTML = textRender[i].word;
+		flexContainer.appendChild(word);
+
+		var btnBg = document.createElement('div');
+		btnBg.className = 'btnBg';
+
+		var wordCloud = document.createElement('img');
+		wordCloud.className = 'wordCloud';
+		wordCloud.src = assetPath + 'img/testAnimate/wordCloud.svg';
+		btnBg.appendChild(wordCloud);
+
+		flexContainer.appendChild(btnBg);
+		wordSpan.appendChild(flexContainer);
+		wordGroup.appendChild(wordSpan);
+	}
+}
+
+function initAudio() {
+	var sampleGroup = document.getElementById('sampleGroup');
+
+	while (sampleGroup.firstChild) {
+		sampleGroup.removeChild(sampleGroup.firstChild);
+	}
+
+	for (var i = 0; i < elementData.length; i++) {
+		var audioFile = document.createElement("audio");
+		audioFile.id = 'audio' + elementData[i].id;
+		audioFile.innerHTML  = "<source src='" + elementData[i].audio + "' type='audio/mp3'>";
+		sampleGroup.appendChild(audioFile);
+
+		if (!isNaN(audioFile.duration)) {
 			checkTickLoad(this.duration);
-		});
+		} else {
+			audioFile.addEventListener('loadedmetadata', function() {
+				checkTickLoad(this.duration);
+			});
+		}
 	}
 }
 

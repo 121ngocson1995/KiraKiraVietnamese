@@ -60,12 +60,12 @@
 	</div>
 </div>
 
-<div id="wordGroup" class="" style="text-align: center;">
-	<div class="row">
+<div id="wordGroup">
+	<div id="wordRow" class="row">
 		@foreach ($textRender as $text)
-		<div class="wordSpan col-sm-6 col-md-4" style="display: inline-block;">
+		<div class="wordSpan col-sm-6 col-md-4">
 			<div class="flexContainer">
-				<p id="{{ $text['id'] }}" class="tbn word writtenFont" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['sentence'] }}</p>
+				<p id="{{ $text['id'] }}" class="tbn word writtenFont">{{ $text['sentence'] }}</p>
 				<div class="btnBg">
 					<img class="wordCloud" src="{{ asset('img/P4/cloud1.svg') }}" alt="start button">
 				</div>
@@ -101,10 +101,10 @@
 		tl.to('#imgStart', 30, {rotation:360, repeat:-1, ease: Power0.easeNone});
 	});
 
+	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
-	TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
-	TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
+	TweenMax.staggerFromTo('.wordSpan', 0.5, {opacity:0, scale:0}, {opacity:1, scale:1,delay:0.5}, 0.2);
 
 	$('#pStart').click(function() {
 		start();
@@ -115,66 +115,15 @@
 	});
 
 	$('#pRestart').click(function() {
-		start();
+		restart();
 	});
 
 	$('#imgRestart').click(function() {
-		start();
+		restart();
 	});
-
-	var wordTime = 0;
-	var wordNo = 0;
-
-	function checkTickLoad(duration) {
-		wordNo++;
-		wordTime += duration;
-
-		if (wordNo == elementData.length) {
-			var tick = document.getElementById('tick');
-			if (!isNaN(tick.duration)) {
-				buildProgressBar(wordTime + wordNo * tick.duration);
-			} else {
-				tick.addEventListener('loadedmetadata', function() {
-					buildProgressBar(wordTime + wordNo * this.duration);
-				});
-			}
-		}
-	}
-
-	function buildProgressBar(totalTime) {
-		docBar = new ProgressBar.Line("#progressbarContainer", {
-			strokeWidth: 1,
-			duration: totalTime * 1000,
-			color: '#FFEA82',
-			trailColor: '#eee',
-			trailWidth: 1,
-			svgStyle: {width: '100%', height: '200%'},
-			from: {color: '#ED6A5A'},
-			to: {color: '#1affa3'},
-			step: (state, bar) => {
-				bar.path.setAttribute('stroke', state.color);
-			}
-		});
-		docBar.set(1);
-	}
-
+	
 	var elementData = <?php echo json_encode($elementData); ?>;
-	var sampleGroup = document.getElementById('sampleGroup');
-	for (var i = 0; i < elementData.length; i++) {
-		var audioFile = document.createElement("audio");
-		audioFile.id = 'audio' + elementData[i].id;
-		audioFile.innerHTML  = "<source src='{{ asset('') }}" + elementData[i].audio + "' type='audio/mp3'>";
-		sampleGroup.appendChild(audioFile);
-
-
-		if (!isNaN(audioFile.duration)) {
-			checkTickLoad(this.duration);
-		} else {
-			audioFile.addEventListener('loadedmetadata', function() {
-				checkTickLoad(this.duration);
-			});
-		}
-	}
+	var assetPath = '{{ asset('') }}';
 	
 </script>
 

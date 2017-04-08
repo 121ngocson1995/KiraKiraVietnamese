@@ -55,13 +55,13 @@
 	</div>
 </div>
 
-<div id="wordGroup" class="" style="text-align: center;">
+<div id="wordGroup">
 	@foreach ($textRender as $text)
-		<div class="wordSpan" style="display: inline-block;">
-			<div class="flexContainer" style="display: flex">
-				<p id="{{ $text['id'] }}" class="tbn word writtenFont" style="position: absolute; color: #30A782; opacity: 1; font-size: 1.5em;">{{ $text['word'] }}</p>
+		<div class="wordSpan">
+			<div class="flexContainer">
+				<p id="{{ $text['id'] }}" class="tbn word writtenFont">{{ $text['word'] }}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="width: 100%; max-width: 150px;" src="{{ asset('img/testAnimate/wordCloud.svg') }}" alt="start button">
+					<img class="wordCloud" src="{{ asset('img/testAnimate/wordCloud.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -97,8 +97,7 @@
 	var countCloud = 0;
 	var textRender = <?php echo json_encode($textRender); ?>;
 
-	TweenMax.staggerFrom('.wordSpan', 0.5, {scale:0, delay:0.5}, 0.2);
-	TweenMax.staggerTo('.wordSpan', 0.5, {opacity:1,delay:0.5}, 0.2);
+	TweenMax.staggerFromTo('.wordSpan', 0.5, {opacity:0, scale:0}, {opacity:1, scale:1,delay:0.5}, 0.2);
 
 	$('#pStart').click(function() {
 		start();
@@ -109,14 +108,15 @@
 	});
 
 	$('#pRestart').click(function() {
-		start();
+		restart();
 	});
 
 	$('#imgRestart').click(function() {
-		start();
+		restart();
 	});
 	
 	var elementData = <?php echo json_encode($elementData); ?>;
+	var assetPath = '{{ asset('') }}';
 </script>
 
 <script src="{{ asset('js/screens/p2.js') }}"></script>

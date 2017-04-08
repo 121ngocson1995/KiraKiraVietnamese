@@ -18,10 +18,12 @@ body {
 	transform: translateX(-50%);
 	z-index: 1;
 }
+.flexContainer {
+	display: flex;
+}
 .flexContainer p {
 	position: absolute;
 	width: 100%;
-	color: #33ccff;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
@@ -76,30 +78,40 @@ body {
 	margin-top: 20px;
 }
 #wordGroup {
-		/*max-height: calc(100% - 250px);
-		overflow-y: scroll;*/
-		padding: 0 1.5em;
-	}
-	.wordSpan {
-		opacity: 0;
-		cursor: pointer;
-		margin: 20px;
-	}
-	.wordSpan:hover {
-		-webkit-filter: drop-shadow( 0px 0px 10px DodgerBlue);
-		filter: drop-shadow( 0px 0px 10px DodgerBlue);
-	}
-	.p2wrongWord {
-		-webkit-filter: drop-shadow( 0px 0px 10px red);
-		filter: drop-shadow( 0px 0px 10px red);
-	}
-	.p2correctWord {
-		-webkit-filter: drop-shadow( 0px 0px 10px green);
-		filter: drop-shadow( 0px 0px 10px green);
-	}
-	.fa {
-		margin-left: 0;
-	}
-	.fa-play {
-		margin-left: 0.15em;
-	}
+	text-align: center;
+	padding: 0 1.5em;
+}
+.wordSpan {
+	opacity: 0;
+	display: inline-block;
+	cursor: pointer;
+	margin: 20px;
+}
+.wordSpan:hover {
+	-webkit-filter: drop-shadow( 0px 0px 10px DodgerBlue);
+	filter: drop-shadow( 0px 0px 10px DodgerBlue);
+}
+.p2wrongWord {
+	-webkit-filter: drop-shadow( 0px 0px 10px red) !important;
+	filter: drop-shadow( 0px 0px 10px red) !important;
+}
+.p2correctWord {
+	-webkit-filter: drop-shadow( 0px 0px 10px green);
+	filter: drop-shadow( 0px 0px 10px green);
+}
+.fa {
+	margin-left: 0;
+}
+.fa-play {
+	margin-left: 0.15em;
+}
+.word {
+	position: absolute;
+	color: #30A782;
+	opacity: 1;
+	font-size: 1.5em;
+}
+img.wordCloud {
+	width: 100%;
+	max-width: 150px;
+}

@@ -90,10 +90,12 @@ div.div-body {
 	margin-top: 20px;
 }
 #wordGroup {
+	text-align: center;
 	padding: 0 1.5em;
 }
 .wordSpan {
 	opacity: 0;
+	display: inline-block;
 	cursor: pointer;
 	padding: 10px 20px;
 }
@@ -102,16 +104,22 @@ div.div-body {
 	filter: drop-shadow( 0px 0px 10px DodgerBlue);
 }
 .p2wrongWord {
-	-webkit-filter: drop-shadow( 0px 0px 10px red);
-	filter: drop-shadow( 0px 0px 10px red);
+	-webkit-filter: drop-shadow( 0px 0px 10px red) !important;
+	filter: drop-shadow( 0px 0px 10px red) !important;
 }
 .p2correctWord {
-	-webkit-filter: drop-shadow( 0px 0px 10px green);
-	filter: drop-shadow( 0px 0px 10px green);
+	-webkit-filter: drop-shadow( 0px 0px 10px green) !important;
+	filter: drop-shadow( 0px 0px 10px green) !important;
 }
 .fa {
 	margin-left: 0;
 }
 .fa-play {
 	margin-left: 0.15em;
+}
+.word {
+	position: absolute;
+	color: #30A782;
+	opacity: 1;
+	font-size: 1.5em;
 }
