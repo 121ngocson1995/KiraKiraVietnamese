@@ -41,7 +41,11 @@
                 <div class="col-md-6 col-sm-7 get-it">
                     <h1>Start your learning today</h1>
                     <p>Every step needs a stable ground, walking on the road of knowledge is no exception. If you ever wondered from where to begin your journey, we're your answer.</p>
-                    <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="/lesson1/situations">Start your first lesson<i class="fa fa-graduation-cap"></i></a><a class="btn btn-success btn-lg margin-sm" role="button" href="/login">Login<i class="fa fa-sign-in fa fa-sign-in"></i></a></p>
+                    @if (Auth::guest())
+                        <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="/lesson1/situations">Start your first lesson<i class="fa fa-graduation-cap"></i></a><a class="btn btn-success btn-lg margin-sm" role="button" href="/login">Login<i class="fa fa-sign-in fa fa-sign-in"></i></a></p>
+                    @else
+                        <p><a class="btn btn-primary btn-lg margin-sm" role="button" href="/lesson1/situations">Start your first lesson<i class="fa fa-graduation-cap"></i></a></p>
+                    @endif
                 </div>
             </div>
         </div>
