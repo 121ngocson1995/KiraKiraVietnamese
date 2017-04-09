@@ -5,7 +5,6 @@
         // dd(\Request::get('lessons'));
     @endphp
 
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
     <div id="promo1">
@@ -129,11 +128,6 @@
             </div>
         </div>
     </div>
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-
 
 <footer>
     <div class="row">
