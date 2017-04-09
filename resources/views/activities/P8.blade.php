@@ -259,7 +259,7 @@
 					var node_img = document.createElement("img");
 					node_img.setAttribute("class", "wordCloud");
 					node_img.setAttribute('style', " opacity: 0; width: 100%;");
-					node_img.setAttribute('src', "{{ asset('img/P8/seashell.svg') }}");
+					node_img.setAttribute('src', "{{ asset('img/P8/word.svg') }}");
 					node_img.setAttribute('alt', "start button");
 
 					node_btnBg.appendChild(node_img);
@@ -442,7 +442,7 @@ onmousedown="return false;">
 			<div class="flexContainer" style="display: flex">
 				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.3em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="opacity: 0; width: 100%;" src="{{ asset('img/P8/word' . count(explode(' ', $dialogAnswer[$i]->answer[$j])) . '.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 100%;" src="{{ asset('img/P8/word.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -561,7 +561,7 @@ onmousedown="return false;">
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
 					var dropTarget = $(this);
-					dropTarget.css('width', ui.draggable.css('width'));
+					dropTarget.css('width', 'auto');
 					ui.draggable.position({
 						my: "center",
 						at: "center",
