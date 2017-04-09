@@ -9,21 +9,24 @@ class P4Controller extends Controller
 {
 	public function load()
 	{
-			// dummy course và lesson
+		// dummy course và lesson
 		$course_id= 1;
 		$lesson_id= 1;
 
-    		// Lấy dữ liệu từ db
-		$elementData = P4SentenceRecognize::where('lesson_id', '=', $lesson_id)->get()->toArray();
+		// Lấy dữ liệu từ db
+		$elementData = P4SentenceRecognize::where('lesson_id', '=', $lesson_id)->get();
 
-		$soundArr = array();
+		$textRender = array();
 		foreach ($elementData as $element) {
-				$soundArr[] = [
-				"id" => $element['id'],
-				"audio" => $element['audio']
+			$textRender[] = [
+				"id" => $element->id,
+				"sentence" => $element->sentence
 			];
 		}
-		shuffle($soundArr);
-		return view("activities.P4", compact(['elementData', 'soundArr']));
+
+		shuffle($textRender);
+		$elementData = $elementData->shuffle();
+
+		return view("activities.P4v2", compact(['elementData', 'textRender']));
 	}  
 }

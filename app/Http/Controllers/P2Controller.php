@@ -4,20 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\P2WordRecognize;
+use App\Http\Controllers\LessonController;
 
 class P2Controller extends Controller
 {
-	public function load()
+	public function load(Request $request, $lessonNo)
 	{
-    	// dummy course và lesson
-		$course_id= 1;
-		$lesson_id= 1;
+    	// get lesson
+    	$lesson = LessonController::getLesson($lessonNo);
 
-		// Lấy dữ liệu từ db
-		$elementData = P2WordRecognize::where('lesson_id', '=', $lesson_id)->get();
-		// $cnt = count($elementData);
-		// $lastIndex = $elementData[$cnt-1]->correctOrder;
-        // $elementData = $elementData->shuffle();      
+		// get P2
+		$elementData = P2WordRecognize::where('lesson_id', '=', $lesson->id)->get();
 
 		$textRender = array();
 		foreach ($elementData as $element) {

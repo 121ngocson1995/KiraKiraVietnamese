@@ -23,15 +23,16 @@ class ExtendController extends Controller
 				$thumbArr[$i] = explode( "|", $elementData[$i]->thumbnail);
 				$slide_imgArr = explode( "|", $elementData[0]->slideshow_images);
 				$slide_nameArr = explode( "|", $elementData[0]->slideshow_caption);
-				$img = $elementData[0]->thumbnail;
+				$typeArr[$i] = $elementData[$i]->type;
 			}
 			foreach ($elementData as $key) 
 			{
 				$titleArr[] = $key->title;
 			} 
-			$typeArr = ['Image', 'Song', 'Poem','Idioms','Riddle', 'Play'];
+			$typeEnglish = ['Image', 'Song', 'Poem','Idioms','Riddle', 'Play'];
+			$typeVn = ['Hình ảnh đất nước - con người Việt Nam', 'Bài hát dành cho em', 'Em đọc thơ', 'Thành ngữ -Tục ngữ - Ca dao', 'Câu đố', 'Cùng chơi các ban ơi!'];
 
-		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'titleArr','slide_imgArr', 'slide_nameArr','typeArr', 'cnt'])); 
+		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'slide_imgArr', 'slide_nameArr','typeArr', 'typeEnglish', 'typeVn','cnt'])); 
 
 	} else {
 		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 

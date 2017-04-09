@@ -41,6 +41,10 @@
 
 @stop
 
-@section('description')
-In this activity,...
+@section('actDescription-vi')
+
+@stop
+
+@section('actDescription-en')
+  
 @stop

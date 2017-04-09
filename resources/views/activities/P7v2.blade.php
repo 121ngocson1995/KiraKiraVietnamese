@@ -237,7 +237,7 @@
 	<div id="chooseDHolder" style="text-align: center; display: none;">
 
 		@for ($i = 0; $i < count($dialogCnt); $i++)
-			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseD(this)">
+			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseDialog(this)">
 				<span> 
 					<span>D{{$i+1}}</span>
 					<span>D{{$i+1}}</span>
@@ -278,10 +278,6 @@
 <div id="alert"></div>
 
 <script>
-	$('.wordWrap').click(function() {
-		playWord(this);
-	});
-
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
 	setTimeout(function() {
@@ -294,6 +290,9 @@
 					$('.wordWrap').css('display', 'inline-block');
 					$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 					setTimeout(function() {
+						$('.wordWrap').click(function() {
+							togglePlaySample(this);
+						});
 						$('.wordWrap').click();
 					}, 600);
 
@@ -326,9 +325,14 @@
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
 
-	function chooseD(button){
+	function chooseDialog(button){
 		$('.dialogBtn').removeClass('selected').prop('disabled', false);
 		$(button).addClass('selected').prop('disabled', true);
+
+		stopReplay();
+		if (isRecording) {
+			stopRecording();
+		}
 
 		var dialogNow = button.getAttribute('data-dialogNo');
 		
@@ -337,7 +341,35 @@
 		editAudio(elementData[dialogNow]);
 	}
 
+	function togglePlaySample() {
+		console.log(wordIsPlaying());
+		if (wordIsPlaying()) {
+			stopPlayWord();
+		} else {
+			playWord();
+		}
+	}
+
+	function wordIsPlaying() {
+		return !$('#sample')[0].paused;
+	}
+
+	function stopReplay() {
+		if ($('#auRecord')[0].currentTime != 0) {
+			$('#auRecord')[0].pause();
+			$('#auRecord')[0].currentTime = 0;
+
+			$('.replay').removeClass('red');
+
+			enableControl('replay');
+			enableControl('record');
+			enableControl('wordWrap');
+		}
+	}
+
 	function editContent(element) {
+		$('.wordWrap').unbind('click');
+
 		$('.wordWrap').removeClass('pulse').addClass('flipOutY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 
 			while (document.getElementsByClassName("wrapLine")[0].firstChild) {
@@ -368,6 +400,9 @@
 
 				$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 					setTimeout(function() {
+						$('.wordWrap').click(function() {
+							togglePlaySample(this);
+						});
 						$('.wordWrap').click();
 					}, 600);
 			});
@@ -381,9 +416,8 @@
 
 	var playWordTimeout;
 
-	function playWord(button) { 
-		$('.wordWrap').removeClass('flipInY pulse').addClass('pulse');
-		var audio = document.getElementById("sample"); 
+	function playWord() { 
+		pulseDialogHolder();
 
 		$('#sample')[0].pause();
 		$('#sample')[0].currentTime = 0;
@@ -399,6 +433,27 @@
 
 		disableControl('replay');
 		disableControl('record');
+	}
+
+	function pulseDialogHolder() {
+		button = document.getElementsByClassName('wordWrap')[0];
+		button.classList.remove("flipInY");
+		button.classList.remove("pulse");
+		button.offsetWidth;
+		button.classList.add("pulse");
+	}
+
+	function stopPlayWord() {
+		console.log('stop');
+
+		$('#sample')[0].pause();
+		$('#sample')[0].currentTime = 0;
+
+		if (playWordTimeout) {
+			clearTimeout(playWordTimeout);
+		}
+		enableControl('replay');
+		enableControl('record');
 	}
 
 	function playRecord() {
@@ -504,7 +559,10 @@
 		recorder = new Recorder(input);
 	}
 
+	var isRecording = false;
+
 	function startRecording(button) {
+		isRecording = true;
 		recorder && recorder.record();
 		$('.record').removeClass('toRecord').addClass('red toPause');
 
@@ -533,6 +591,7 @@
 	}
 
 	function stopRecording(button) {
+		isRecording = false;
 		recorder && recorder.stop();
 
 		createMedia();
