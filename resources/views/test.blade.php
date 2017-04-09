@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-  <title>Responsive Navigation Menu - Bootsnipp.com</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-  <style type="text/css">
-    .nav-side-menu {
-      overflow: auto;
-      font-family: verdana;
-      font-size: 12px;
-      font-weight: 200;
-      background-color: #2e353d;
-      position: fixed;
-      top: 0px;
-      width: 300px;
-      height: 100%;
-      color: #e1ffff;
-    }
-    .nav-side-menu .brand {
-      background-color: #23282e;
-      line-height: 50px;
-      display: block;
-      text-align: center;
-      font-size: 14px;
-    }
-    .nav-side-menu .toggle-btn {
-      display: none;
-    }
-    .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+  <title>Bootstrap Form Helpers Basic Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-    small {
-      display: block;
-      line-height: 1.428571429;
-      color: #999;
-    }
-    .nav-side-menu ul,
-    .nav-side-menu li {
-      list-style: none;
-      padding: 0px;
-      margin: 0px;
-      line-height: 35px;
-      cursor: pointer;
+  <!-- Bootstrap Form Helpers -->
+  <link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+      <style type="text/css">
+        .nav-side-menu {
+          overflow: auto;
+          font-family: verdana;
+          font-size: 12px;
+          font-weight: 200;
+          background-color: #2e353d;
+          position: fixed;
+          top: 0px;
+          width: 300px;
+          height: 100%;
+          color: #e1ffff;
+        }
+        .nav-side-menu .brand {
+          background-color: #23282e;
+          line-height: 50px;
+          display: block;
+          text-align: center;
+          font-size: 14px;
+        }
+        .nav-side-menu .toggle-btn {
+          display: none;
+        }
+        .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+        small {
+          display: block;
+          line-height: 1.428571429;
+          color: #999;
+        }
+        .nav-side-menu ul,
+        .nav-side-menu li {
+          list-style: none;
+          padding: 0px;
+          margin: 0px;
+          line-height: 35px;
+          cursor: pointer;
   /*    
     .collapsed{
        .arrow:before{
@@ -174,13 +188,13 @@
     <div class="menu-list">
 
       <ul id="menu-content" class="menu-content collapse out">
-        <li>
+        <li class="active ">
           <a href="#">
             <i class="fa fa-dashboard fa-lg"></i> Profile
           </a>
         </li>
 
-        <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+        <li  data-toggle="collapse" data-target="#products" class="collapsed ">
           <a href="#"><i class="fa fa-gift fa-lg"></i> Add lesson <span class="arrow"></span></a>
         </li>
               <!--   <ul class="sub-menu collapse" id="products">
@@ -209,45 +223,51 @@
             </div>
           </div>
           <div class="container">
-            <div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="well well-sm">
-                  <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                      <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
-                    </div>
-                    <div class="col-sm-6 col-md-8">
-                      <h4>
-                        Bhaumik Patel</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                          <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                          <br />
-                          <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                          <br />
-                          <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
-                          <!-- Split button -->
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                              Social</button>
-                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                              </button>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <form action="EditUser" method="get">
+              <div class="col-sm-6 col-md-4">
+                <img src="{{ asset('')."img/avatar/".$userData[0]['avatar']}}" alt="" class="img-rounded img-responsive" />
+              </div>
+              <div class="col-sm-6 col-md-8">
+                <span>
+                  {{$userData[0]['first_name']." ".$userData[0]['last_name']}}</span>
+                  <br>
+                  <span>
+                    Username: {{$userData[0]['username']}}</span>
+                    <p>
+                      <i class="glyphicon glyphicon-envelope"></i>Email: <input type="text" name="txtEmail" value="{{$userData[0]['email']}}" id="txtEmail">
+                      <br />
+                      <i class="glyphicon glyphicon-gift"></i>DOB: <input type="date" name="txtDOB" value="{{$userData[0]['date_of_birth']}}" id="txtDOB">
+                      <br>
+                      <i class="fa fa-venus-mars" aria-hidden="true"></i>Gender: <select id="txtGender" name="txtGender">
+                      <option value="1" @if ($userData[0]['gender'] == '1')
+                      selected 
+                      @endif>Male</option>
+                      <option value="0" @if ($userData[0]['gender'] == '0')
+                      selected 
+                      @endif>Female</option>
+                    </select>
+                  </p>
+                  <!-- Split button -->
+                  Country: <select class="input-medium bfh-countries" id="txtCountry"  name="txtCountry" data-country="{{$userData[0]['country']}}"></select>
+                <br>
+                Language: <select class="input-medium bfh-languages" id="txtLanguage" name="txtLanguage" data-language="{{$userData[0]['language']}}"></select>
+                <br>
+                <button type="submit">Edit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-              </body>
-              </html>
+    <!-- jQuery -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Form Helpers -->
+    <script src="js/bootstrap-formhelpers.min.js"></script>
+    <script src="js/bootstrap-formhelpers-countries.js"></script>
+  </body>
+  </html>
