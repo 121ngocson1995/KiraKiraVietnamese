@@ -214,10 +214,6 @@
 
 @section('actContent')
 
-<script>
-	var elementData = <?php echo json_encode($elementData); ?>;
-</script>
-
 <div id="background">
 	<div id="sunPositionHolder" style="position: fixed; width: 80%; bottom: -64%; left: 50%; transform: translateX(-40%); z-index: -1">
 		<div id="sunMoveHolder" style="opacity: 0;">
@@ -285,6 +281,7 @@
 <br style="clear:both">
 
 <script>
+	var elementData = <?php echo json_encode($elementData); ?>;
 	var correctNo = 0;
 	var totalQuestion = 0;
 
@@ -352,7 +349,7 @@
 
 		/* Move all dragSentence objects to their correct positions */
 
-		var correctAnswer = <?php echo json_encode($correctAnswer); ?>;
+		var correctAnswerList = <?php echo json_encode($correctAnswerList); ?>;
 		var timeout = revert ? 1500 : 0;
 
 		setTimeout(function() {
@@ -362,7 +359,7 @@
 		function reposition(i, timeout) {
 			loopDrag:
 			for (var j = 0; j < $('.dragSentence').length; j++) {
-				if($($('.dragSentence')[j]).find('span').html() == correctAnswer[i] && !$($('.dragSentence')[j]).hasClass('ordered')) {
+				if($($('.dragSentence')[j]).find('span').html() == correctAnswerList[0][i] && !$($('.dragSentence')[j]).hasClass('ordered')) {
 					
 					var dragSentence = $('.dragSentence')[j];
 
@@ -381,7 +378,7 @@
 				}
 			}
 
-			if (i < correctAnswer.length) {
+			if (i < correctAnswerList[0].length) {
 				setTimeout(function() {
 					reposition(++i, 500);
 				}, timeout);
@@ -521,7 +518,7 @@
 	}
 
 	function checkAnswer() {
-		var correctAnswer = <?php echo json_encode($correctAnswer); ?>;
+		var correctAnswerList = <?php echo json_encode($correctAnswerList); ?>;
 		var answer = [];
 
 		$('.dropSentence').each(function() {
@@ -530,17 +527,10 @@
 			}
 		});
 
-		if (answer.length == correctAnswer.length) {
-			var allCorrect = true;
-			for (var i = 1; i < answer.length; i++) {
-				if (answer[i] != correctAnswer[i]) {
-					allCorrect = false;
-				}
-			}
-		
+		if (answer.length == correctAnswerList[0].length) {
 			$('#helpBtn').fadeOut(500);
 
-			if (allCorrect == true) {
+			if (answerIsCorrect(answer, correctAnswerList) == true) {
 				showScore(true);
 				showCorrect();
 			} else {
@@ -548,6 +538,27 @@
 				showWrong();
 			}
 		}
+	}
+
+	function answerIsCorrect(answer, correctAnswerList) {
+		var allCorrect = true;
+
+		for (var i = 0; i < correctAnswerList.length; i++) {
+			allCorrect = true;
+
+			for (var j = 0; j < answer.length; j++) {
+				if (answer[j] != correctAnswerList[i][j]) {
+					allCorrect = false;
+					break;
+				}
+			}
+
+			if (allCorrect) {
+				break;
+			}
+		}
+
+		return allCorrect;
 	}
 
 	function showCorrect() {
@@ -599,7 +610,6 @@
 		}
 
 		$('#resultContainer').fadeOut(500, function() {
-			console.log($('#tryAgainBtn2Holder:visible'));
 			if ($('#tryAgainBtn2Holder').is(':visible')) {
 				$('#tryAgainBtn2Holder').addClass('animated rotateOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 					$(this).removeClass('animated rotateOut').hide();
