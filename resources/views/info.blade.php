@@ -1,8 +1,12 @@
 @extends('userLayout')
 
 @section('content')
+<script type="text/javascript">
+  $('.listBtn').removeClass('active');
+  $('#li-info').addClass('active');
+</script>
   <div class="container">
-    <form action="EditUser" method="get">
+    <form action="editUser" method="get">
       <div class="col-sm-6 col-md-4">
         <img src="{{ asset('')."img/avatar/".$userData[0]['avatar']}}" alt="" class="img-rounded img-responsive" />
       </div>

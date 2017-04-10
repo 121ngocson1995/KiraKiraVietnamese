@@ -177,60 +177,21 @@
 
       <ul id="menu-content" class="menu-content collapse out">
         <li id='li-info'>
-          <a href="#">
-            <i class="fa fa-user fa-lg"></i> Info
-          </a>
+          <a href="/userManage"><i class="fa fa-user fa-lg listBtn"></i> Info</a>
         </li>
 
         <li id='li-add' data-target="#products" class="collapsed ">
-        <a href="/AddLesson"><i class="fa fa-plus fa-lg"></i> Add lesson </a>
+        <a href="/preAddLesson"><i class="fa fa-plus fa-lg listBtn"></i> Add lesson </a>
         </li>
+
         <li id='li-edit' data-target="#service" class="collapsed">
-        <a href="#"><i class="fa fa-pencil fa-lg"></i> Edit lesson </a>
+        <a href="#"><i class="fa fa-pencil fa-lg listBtn"></i> Edit lesson </a>
         </li>  
       </ul>
     </div>
   </div>
 
 @yield('content')
-  <div class="container">
-    <form action="EditUser" method="get">
-      <div class="col-sm-6 col-md-4">
-        <img src="{{ asset('')."img/avatar/".$userData[0]['avatar']}}" alt="" class="img-rounded img-responsive" />
-      </div>
-      <div class="col-sm-6 col-md-8">
-        <span>
-          {{$userData[0]['first_name']." ".$userData[0]['last_name']}}</span>
-          <br>
-          <span>
-            Username: {{$userData[0]['username']}}</span>
-            <p>
-              <i class="glyphicon glyphicon-envelope"></i>Email: <input type="text" name="txtEmail" value="{{$userData[0]['email']}}" id="txtEmail">
-              <br />
-              <i class="glyphicon glyphicon-gift"></i>DOB: <input type="date" name="txtDOB" value="{{$userData[0]['date_of_birth']}}" id="txtDOB">
-              <br>
-              <i class="fa fa-venus-mars" aria-hidden="true"></i>Gender: <select id="txtGender" name="txtGender">
-              <option value="1" @if ($userData[0]['gender'] == '1')
-              selected 
-              @endif>Male</option>
-              <option value="0" @if ($userData[0]['gender'] == '0')
-              selected 
-              @endif>Female</option>
-            </select>
-          </p>
-          <!-- Split button -->
-          Country: <select class="input-medium bfh-countries" id="txtCountry"  name="txtCountry" data-country="{{$userData[0]['country']}}"></select>
-          <br>
-          Language: <select class="input-medium bfh-languages" id="txtLanguage" name="txtLanguage" data-language="{{$userData[0]['language']}}"></select>
-          <br>
-          <button type="submit">Edit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-</div>
-
 <!-- Bootstrap Form Helpers -->
 <script src="js/bootstrap-formhelpers.min.js"></script>
 <script src="js/bootstrap-formhelpers-countries.js"></script>
