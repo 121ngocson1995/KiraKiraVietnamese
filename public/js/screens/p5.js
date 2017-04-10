@@ -1,3 +1,5 @@
+var audio_context;
+var recorder;
 var tl;
 var readWordTimeout;
 
@@ -142,19 +144,13 @@ function busyControl(control) {
 	}
 }
 
-function startUserMedia(stream) {
-	var input = audio_context.createMediaStreamSource(stream);
-
-	recorder = new Recorder(input);
-}
-
 function startRecording(button) {
 	recorder && recorder.record();
 	$('.record').addClass('red');
 
 	setTimeout(function() {
 		stopRecording();
-	}, 3000);
+	}, 7000);
 
 	busyControl('record');
 	disableControl('replay');
