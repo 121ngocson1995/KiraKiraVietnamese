@@ -16,24 +16,6 @@ class LessonController extends Controller
 		return $lesson;
 	}
 
-	 public function preAdd()
-    {
-    	// dummy course và lesson
-		$course_id= 1;
-    	
-    	// Lấy dữ liệu từ db
-
-    	$courseData = Course::where('id', '=', $course_id)->get();
-    	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
-    	$lessonCnt = count($lessonData);
-    	for ($i=0; $i<$lessonCnt; $i++){
-            $lessonList[$i]['lessonNo'] = $lessonData[$i]->lessonNo;
-            $lessonList[$i]['lessonName'] = $lessonData[$i]->lesson_name;
-        }
-
-        return view('add', compact('lessonList'));
-    }
-
     public function preAdd()
     {
     	// dummy course và lesson
@@ -59,14 +41,8 @@ class LessonController extends Controller
     	
     	// Lấy dữ liệu từ db
 
-    	$courseData = Course::where('id', '=', $course_id)->get();
-    	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
-    	$lessonCnt = count($lessonData);
-    	for ($i=0; $i<$lessonCnt; $i++){
-            $lessonList[$i]['lessonNo'] = $lessonData[$i]->lessonNo;
-            $lessonList[$i]['lessonName'] = $lessonData[$i]->lesson_name;
-        }
-
+    	$lessonNew = new Lesson;
+    	$lessonNew-
         return view('add', compact('lessonList'));
     }
 }
