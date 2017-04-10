@@ -8,7 +8,12 @@ function chooseDialog(button){
 
 	stopReplay();
 	if (isRecording) {
-		stopRecording();
+		clearTimeout(recordTimeout);
+		stopRecording(false);
+	}
+
+	if (playRecordTimeout) {
+		clearTimeout(playRecordTimeout);
 	}
 
 	var dialogNow = button.getAttribute('data-dialogNo');
@@ -35,11 +40,11 @@ function stopReplay() {
 		$('#auRecord')[0].currentTime = 0;
 
 		$('.replay').removeClass('red');
-
-		enableControl('replay');
-		enableControl('record');
-		enableControl('wordWrap');
 	}
+
+	disableControl('replay');
+	disableControl('record');
+	disableControl('wordWrap');
 }
 
 function editContent(element) {
@@ -75,9 +80,11 @@ function editContent(element) {
 
 			$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 			setTimeout(function() {
-				$('.wordWrap').click(function() {
-					togglePlaySample(this);
-				});
+				if (!$._data( document.getElementsByClassName('wordWrap')[0], "events" )) {
+					$('.wordWrap').click(function() {
+						togglePlaySample(this);
+					});
+				}
 				$('.wordWrap').click();
 			}, 600);
 		});
@@ -89,9 +96,11 @@ function editAudio(element) {
 	document.getElementById('sample').load();
 }
 
+var recordTimeout;
+var playRecordTimeout;
 var readWordTimeout;
 
-function readWord() { 
+function readWord() {
 	pulseDialogHolder();
 
 	$('#sample')[0].pause();
@@ -110,14 +119,6 @@ function readWord() {
 	disableControl('record');
 }
 
-function pulseDialogHolder() {
-	button = document.getElementsByClassName('wordWrap')[0];
-	button.classList.remove("flipInY");
-	button.classList.remove("pulse");
-	button.offsetWidth;
-	button.classList.add("pulse");
-}
-
 function stopReadWord() {
 	$('#sample')[0].pause();
 	$('#sample')[0].currentTime = 0;
@@ -129,6 +130,14 @@ function stopReadWord() {
 	enableControl('record');
 }
 
+function pulseDialogHolder() {
+	button = document.getElementsByClassName('wordWrap')[0];
+	button.classList.remove("flipInY");
+	button.classList.remove("pulse");
+	button.offsetWidth;
+	button.classList.add("pulse");
+}
+
 function playRecord() {
 	if ( $('#auRecord').attr('src') ) {
 		$('#auRecord')[0].pause();
@@ -136,7 +145,7 @@ function playRecord() {
 		$('#auRecord')[0].play();
 
 		$('.replay').addClass('red');
-		setTimeout(function() {
+		playRecordTimeout = setTimeout(function() {
 			$('.replay').removeClass('red');
 
 			enableControl('replay');
@@ -203,7 +212,7 @@ function enableControl(control) {
 		});
 	} else if (control == 'wordWrap') {
 		$('.wordWrap').click(function() {
-			readWord(this);
+			togglePlaySample(this);
 		});
 	}
 }
@@ -221,7 +230,7 @@ function busyControl(control) {
 		controlHolder.appendChild(busyRecord);
 		$('.record').unbind('click');
 		$('.record').click(function() {
-			stopRecording(this);
+			stopRecording(true);
 		});
 	}
 }
@@ -235,7 +244,7 @@ function startRecording(button) {
 
 	setTimeout(function() {
 		if($('.record').hasClass('toPause')) {
-			stopRecording();
+			recordTimeout = stopRecording(true);
 		}
 	}, 60000);
 
@@ -257,7 +266,7 @@ function startRecording(button) {
 	}, 500);
 }
 
-function stopRecording() {
+function stopRecording(enableButtons) {
 	isRecording = false;
 	recorder && recorder.stop();
 
@@ -267,9 +276,11 @@ function stopRecording() {
 
 	$('.record').removeClass('red toPause').addClass('toRecord');
 
-	enableControl('replay');
-	enableControl('record');
-	enableControl('wordWrap');
+	if (enableButtons) {
+		enableControl('replay');
+		enableControl('record');
+		enableControl('wordWrap');
+	}
 }
 
 function createMedia() {

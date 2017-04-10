@@ -326,26 +326,10 @@
 		$('#helpBtn').fadeOut(500);
 		$('.dragSentence').draggable('destroy');
 
-		var revert = false;
+		filterAnswer();
 
 		/* revert all dragSentence objects to their original positions */
-		$('.dropSentence').each(function() {
-			if ($(this).data('curDrag')) {
-				var lastDrag = $(this).data('curDrag');
-
-				lastDrag.css('transition', '1s');
-				lastDrag.css('top', 0);
-				lastDrag.css('left', 0);
-				lastDrag.removeData('curDrop');
-				$(this).removeData('curDrag');
-
-				setTimeout(function() {
-					lastDrag.css('transition', '');
-				}, 1000);
-
-				revert = true;
-			}
-		});
+		revertChosenSentences();
 
 		/* Move all dragSentence objects to their correct positions */
 
@@ -394,6 +378,28 @@
 		}
 
 		totalQuestion++;
+	}
+
+	function revertChosenSentences() {
+		var revert = false;
+
+		$('.dropSentence').each(function() {
+			if ($(this).data('curDrag')) {
+				var lastDrag = $(this).data('curDrag');
+
+				lastDrag.css('transition', '1s');
+				lastDrag.css('top', 0);
+				lastDrag.css('left', 0);
+				lastDrag.removeData('curDrop');
+				$(this).removeData('curDrag');
+
+				setTimeout(function() {
+					lastDrag.css('transition', '');
+				}, 1000);
+
+				revert = true;
+			}
+		});
 	}
 
 	function initDroppable() {
