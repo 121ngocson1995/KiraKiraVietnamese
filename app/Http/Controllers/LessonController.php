@@ -34,15 +34,15 @@ class LessonController extends Controller
         return view('add', compact('lessonList'));
     }
 
-    public function add(Request $request)
-    {
-    	// dummy course và lesson
-		$course_id= 1;
+  //   public function add(Request $request)
+  //   {
+  //   	// dummy course và lesson
+		// $course_id= 1;
     	
-    	// Lấy dữ liệu từ db
+  //   	// Lấy dữ liệu từ db
 
-    	$lessonNew = new Lesson;
-    	$lessonNew-
-        return view('add', compact('lessonList'));
-    }
+  //   	$lessonNew = new Lesson;
+  //   	$lessonNew-
+  //       return view('add', compact('lessonList'));
+  //   }
 }
