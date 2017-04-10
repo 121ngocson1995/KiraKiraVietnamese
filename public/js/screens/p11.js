@@ -30,6 +30,9 @@ function filterAnswer() {
 	});
 
 	var blanks = [];
+	for (var i = 0; i < elementData.length; i++) {
+		blanks.push(i);
+	}
 
 	for (var i = 0; i < correctAnswerList.length; i++) {
 
