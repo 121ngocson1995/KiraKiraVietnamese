@@ -1,0 +1,199 @@
+body {
+	margin: 0;
+	background: -moz-linear-gradient(top, rgb(152,168,192) 0%, rgb(206,192,140) 25%, rgb(206,193,36) 74%, rgb(214,203,145) 100%);
+	background: -webkit-linear-gradient(top, rgb(152,168,192) 0%,rgb(206,192,140) 25%,rgb(206,193,36) 74%,rgb(214,203,145) 100%);
+	background: linear-gradient(to bottom, rgb(152,168,192) 0%,rgb(206,192,140) 25%,rgb(206,193,36) 74%,rgb(214,203,145) 100%);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.fullscreenDiv {
+	width: 100%;
+	height: auto;
+	bottom: 0px;
+	top: 65px;
+	left: 0;
+	position: absolute;
+	text-align: center;
+}
+.dragSentence {
+	/*display: inline-block;*/
+	border-radius: 4px;
+	border: 1px solid transparent;
+	color: firebrick;
+	min-height:45px;
+	width: 80%;
+	max-width: 400px;
+	white-space: normal;
+	padding: 2px 10px;
+	margin: 10px 10px;
+	text-align: center;
+	background: #e6e6e6;
+	font-size: 1.5em;
+	transition: background 0.6s;
+	opacity: 0;
+}
+.dragSentence:hover {
+	cursor: move;
+}
+.dragSentence:active {
+	background: gold;
+}
+.dragSentence span {
+	vertical-align: middle;
+}
+.dropSentence {
+	/*display: inline-block;*/
+	width: 80%;
+	max-width: 400px;
+	height: 45px;
+	font-size: 30px;
+	text-align: center;
+	border-radius: 4px;
+	background: rgba(0, 153, 255, .8);
+	margin: 10px 10px;
+	opacity: 0;
+}
+.dropSentence span {
+	position: relative;
+	float: left;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/*padding: 0 20px;*/
+}
+#btnHelp {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	z-index: 1;
+}
+#helpBtn {
+	opacity: 0;
+	margin: auto;
+}
+#angel {
+	position: absolute;
+	left: 50%;
+	height: 120px;
+	    transform: translate(30%, -140%);
+}
+#angel img {
+	height: 100%;
+}
+#helpBtn, #angel {
+	cursor: pointer;
+}
+.dropPulse {
+	-webkit-animation-name: hvr-pulse-grow;
+	animation-name: hvr-pulse-grow;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+	animation-direction: alternate;
+}
+@-webkit-keyframes hvr-pulse-grow {
+	to {
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+}
+@keyframes hvr-pulse-grow {
+	to {
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+}
+#resultContainer {
+	text-align: center;
+	display: none;
+	padding-top: 10%;
+}
+.tryAgain {
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	margin: 0.2em;
+	border: 0.2em solid #f2f2f2;
+	border-radius: 10px;
+	background: #f2f2f2;
+	font-size: 2.5em;
+	color: black;
+	transition: all .5s;
+}
+.tryAgain:hover {
+	border: 0.2em solid #bfbfbf;
+	background: #bfbfbf;
+	color: white;
+}
+.score {
+	background: initial;
+}
+.score:hover {
+	background: initial;
+	color: black;
+}
+.sunRotate {
+	-webkit-animation-name: sunRotate;
+	animation-name: sunRotate;
+	-webkit-animation-duration: 300s;
+	animation-duration: 300s;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear; /* Safari 4.0 - 8.0 */
+	animation-timing-function: linear;
+}
+@-webkit-keyframes sunRotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes sunRotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+#element {
+	position: relative;
+}
+@media screen and (min-width: 768px) and (min-height: 666px) {
+	#element {
+		top: calc(100% - 600px);
+	}
+}
+@media screen and (min-width: 768px) and (min-height: 750px) {
+	#element {
+		top: 85px;
+	}
+}
+#tryAgainBtn2Holder {
+	position: absolute;
+	top: 50%;
+	right: 10%;
+}
+#tryAgainBtn2 {
+	transform: translateY(-50%);
+}
+.dragGroup {
+	text-align: -moz-right;
+	text-align: -webkit-right;
+}
+.dropGroup {
+	text-align: -moz-left;
+	text-align: -webkit-left;
+}
+@media screen and (max-width: 767px) {
+	.dragSentence, .dropSentence {
+		width: 90%;
+	}
+	.dragGroup, .dropGroup {
+		text-align: -moz-center;
+		text-align: -webkit-center;
+	}
+}
