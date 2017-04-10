@@ -33,7 +33,7 @@ class userController extends Controller
 		// 	"role" =>  $data[0]['role']
 		// ];
 		// `// $userData[0]['date_of_birth'] = date_format($date, 'F d Y');
-       return view("test", compact('userData'));
+       return view("info", compact('userData'));
     }
 
     public function edit(Request $request)
@@ -49,6 +49,6 @@ class userController extends Controller
 		$userData->country = $request->input('txtCountry');
 		$userData->save();
 		$userData = User::where('id', '=', $user_id)->get()->toArray();
-       return view("test", compact('userData'));
+       return view("info", compact('userData'));
     }
 }
