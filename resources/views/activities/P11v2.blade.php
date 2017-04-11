@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/screens/p11.css') }}">
 
+<style>
+	.dragSentence {
+		text-align: left;
+	}
+</style>
+
 @stop
 
 @section('actContent')
