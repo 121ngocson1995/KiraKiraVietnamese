@@ -56,6 +56,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
 
+<div id="background">
+  <img id="landBottom" style="position: fixed; bottom: 0; width: 100%" src="{{ asset('img/situation/bg-land.svg') }}" alt="">
+</div>
 <div id="promo_extend">
   <div class="jumbotron extend">
     <div class="row" style="text-align: center;">

@@ -105,7 +105,7 @@ div.row.store{
 }
 
 body {
-  background:url(../../img/P7/bg.svg) no-repeat center bottom fixed;
+  background-color: #66ccff !important;
   background-size:cover;
 }
 
