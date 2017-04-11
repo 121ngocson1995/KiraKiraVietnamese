@@ -1,6 +1,6 @@
 .tooltip {
 	display: inline;
-	z-index: 9;
+	z-index: 100;
 	font-family: Arial,sans-serif;
 	position: fixed;
 	right: 50px;

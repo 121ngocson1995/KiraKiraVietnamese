@@ -1,7 +1,7 @@
 var tl;
-var playWordTimeout;
+var readWordTimeout;
 
-function playWord(button) {
+function readWord(button) {
 	var audio = document.getElementById("sample");
 
 	audio.src = assetPath + button.getAttribute('data-audio-source');
@@ -27,10 +27,10 @@ function playWord(button) {
 	function doNothing() {}
 
 	document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
-		if (playWordTimeout) {
-			clearTimeout(playWordTimeout);
+		if (readWordTimeout) {
+			clearTimeout(readWordTimeout);
 		}
-		playWordTimeout = setTimeout(function() {
+		readWordTimeout = setTimeout(function() {
 			document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
 
 			enableControl('replay');
@@ -119,7 +119,7 @@ function enableControl(control) {
 		});
 	} else if (control == 'wordWrap') {
 		$('.wordWrap').click(function() {
-			playWord(this);
+			readWord(this);
 		});
 	}
 }
@@ -153,23 +153,27 @@ function startRecording(button) {
 	$('.record').addClass('red');
 
 	setTimeout(function() {
-		recorder && recorder.stop();
-
-		createMedia();
-
-		recorder.clear();
-
-		$('#playRecord').show();
-		$('.record').removeClass('red');
-
-		enableControl('replay');
-		enableControl('record');
-		enableControl('wordWrap');
+		stopRecording();
 	}, 3000);
 
 	busyControl('record');
 	disableControl('replay');
 	disableControl('wordWrap');
+}
+
+function stopRecording() {
+	isRecording = false;
+	recorder && recorder.stop();
+
+	createMedia();
+
+	recorder.clear();
+
+	$('.record').removeClass('red toPause').addClass('toRecord');
+
+	enableControl('replay');
+	enableControl('record');
+	enableControl('wordWrap');
 }
 
 function createMedia() {
@@ -180,32 +184,4 @@ function createMedia() {
 		auRecord.src = url;
 		localStorage.setItem("record", url);
 	});
-}
-
-function startProgress(id) {
-	var elem = document.getElementById(id);
-	$(elem).closest('.progress').show();
-
-	var interval = 0;
-	if (id == 'progressSample') {
-		interval = $('#sample')[0].duration *10;
-	} else if (id == 'progressRecord') {
-		interval = 50;
-	} else if (id == 'progressPlayback') {
-		interval = $('#record')[0].duration *10;
-	}
-	var width = 1;
-	var duration = setInterval(frame, interval);
-	function frame() {
-		if (width >= 100) {
-			clearInterval(duration);
-			setTimeout(function() {
-				$(elem).attr('style', 'width: 0%');
-				$(elem).closest('.progress').hide();
-			}, 1000);
-		} else {
-			width++; 
-			elem.style.width = width + '%'; 
-		}
-	}
 }

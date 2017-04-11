@@ -70,7 +70,7 @@
 	});
 
 	$('.wordWrap').click(function() {
-		playWord(this);
+		readWord(this);
 	});
 
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
