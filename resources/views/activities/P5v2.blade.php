@@ -139,7 +139,7 @@
 @section('actDescription-vi')
 	Rê chuột vào các đoạn thoại và tích chuột để nghe đoạn thoại.
 	<br>
-	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm.
+	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm và nút nghe lại.
 @stop
 
 @section('actDescription-en')

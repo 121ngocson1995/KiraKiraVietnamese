@@ -127,6 +127,8 @@
 
 @section('actDescription-vi')
 	Rê chuột vào các câu và tích chuột để nghe câu.
+	<br>
+	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm và nút nghe lại.
 @stop
 
 @section('actDescription-en')

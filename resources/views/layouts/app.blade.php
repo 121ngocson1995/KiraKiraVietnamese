@@ -26,7 +26,7 @@
     {{-- <script src="https://use.fontawesome.com/45e03a14ce.js"></script> --}}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>

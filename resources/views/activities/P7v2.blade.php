@@ -151,7 +151,7 @@
 @section('actDescription-vi')
 	Rê chuột vào D1, D2, D3, D4, D5, D6 và tích chuột để nghe và luyện tập nói theo bài hội thoại.
 	<br>
-	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm.
+	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm và nút nghe lại.
 @stop
 
 @section('actDescription-en')
