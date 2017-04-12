@@ -2,49 +2,49 @@
 
 @section('body')
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
 
-  <!-- Bootstrap Form Helpers -->
-  <link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
+<!-- Bootstrap Form Helpers -->
+<link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
 
-  <style type="text/css">
-    .nav-side-menu {
-      overflow: auto;
-      font-family: verdana;
-      font-size: 12px;
-      font-weight: 200;
-      background-color: #2e353d;
-      position: fixed;
-/*      top: 0px;*/
-      width: 300px;
-      height: 100%;
-      color: #e1ffff;
-    }
-    .nav-side-menu .brand {
-      background-color: #23282e;
-      line-height: 50px;
-      display: block;
-      text-align: center;
-      font-size: 14px;
-    }
-    .nav-side-menu .toggle-btn {
-      display: none;
-    }
-    .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+<style type="text/css">
+  .nav-side-menu {
+    overflow: auto;
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: 200;
+    background-color: #2e353d;
+    position: fixed;
+    /*      top: 0px;*/
+    width: 300px;
+    height: 100%;
+    color: #e1ffff;
+  }
+  .nav-side-menu .brand {
+    background-color: #23282e;
+    line-height: 50px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+  .nav-side-menu .toggle-btn {
+    display: none;
+  }
+  .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
 
-    small {
-      display: block;
-      line-height: 1.428571429;
-      color: #999;
-    }
-    .nav-side-menu ul,
-    .nav-side-menu li {
-      list-style: none;
-      padding: 0px;
-      margin: 0px;
-      line-height: 35px;
-      cursor: pointer;
+  small {
+    display: block;
+    line-height: 1.428571429;
+    color: #999;
+  }
+  .nav-side-menu ul,
+  .nav-side-menu li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    line-height: 35px;
+    cursor: pointer;
   /*    
     .collapsed{
        .arrow:before{
@@ -167,33 +167,35 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <div style="">
-  <div class="nav-side-menu">
-    <div class="brand">User Profile</div>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+ 
+  <div class="nav-side-menu" >
+      <div class="brand">User Profile</div>
+      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
-    <div class="menu-list">
+      <div class="menu-list">
 
-      <ul id="menu-content" class="menu-content collapse out">
-        <li id='li-info'>
-          <a href="/userManage"><i class="fa fa-user fa-lg listBtn"></i> Info</a>
-        </li>
+        <ul id="menu-content" class="menu-content collapse out">
+          <li id='li-info'>
+            <a href="/userManage"><i class="fa fa-user fa-lg listBtn"></i> Info</a>
+          </li>
 
-        <li id='li-add' data-target="#products" class="collapsed ">
-        <a href="/preAddLesson"><i class="fa fa-plus fa-lg listBtn"></i> Add lesson </a>
-        </li>
+          <li id='li-add' data-target="#products" class="collapsed ">
+            <a href="/preAddLesson"><i class="fa fa-plus fa-lg listBtn"></i> Add lesson </a>
+          </li>
 
-        <li id='li-edit' data-target="#service" class="collapsed">
-        <a href="#"><i class="fa fa-pencil fa-lg listBtn"></i> Edit lesson </a>
-        </li>  
-      </ul>
+          <li id='li-edit' data-target="#service" class="collapsed">
+            <a href="/listLesson"><i class="fa fa-pencil fa-lg listBtn"></i> Edit lesson </a>
+          </li>  
+        </ul>
+      </div>
     </div>
-  </div>
 
-@yield('content')
-<!-- Bootstrap Form Helpers -->
-<script src="js/bootstrap-formhelpers.min.js"></script>
-<script src="js/bootstrap-formhelpers-countries.js"></script>
+    @yield('content')
+  
+  <!-- Bootstrap Form Helpers -->
+  <script src="js/bootstrap-formhelpers.min.js"></script>
+  <script src="js/bootstrap-formhelpers-countries.js"></script>
 </div>
 @stop
