@@ -16,28 +16,33 @@ class ExtendController extends Controller
 		// Lấy dữ liệu từ db
 		$elementData = LanguageCulture::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
+
+		$slide_imgArr = array();
+		$slide_nameArr = array();
+
 		if ($cnt != 0)
 		{
 			for ($i=0; $i<$cnt; $i++){
 				$contentArr[$i] = explode( "|", $elementData[$i]->content);
 				$thumbArr[$i] = explode( "|", $elementData[$i]->thumbnail);
-				$slide_imgArr = explode( "|", $elementData[0]->slideshow_images);
-				$slide_nameArr = explode( "|", $elementData[0]->slideshow_caption);
-				$typeArr[$i] = $elementData[$i]->type;
+				if ($elementData[$i]->type == 0) {
+					$slide_imgArr[(string)$i] = explode( "|", $elementData[0]->slideshow_images);
+					$slide_nameArr[(string)$i] = explode( "|", $elementData[0]->slideshow_caption);
+				}
 			}
-			foreach ($elementData as $key) 
+			foreach ($elementData as $key)
 			{
 				$titleArr[] = $key->title;
 			} 
-			$typeEnglish = ['Image', 'Song', 'Poem','Idioms','Riddle', 'Play'];
+			$typeEn = ['Images', 'Song', 'Poem','Idioms','Riddle', 'Play'];
 			$typeVn = ['Hình ảnh đất nước - con người Việt Nam', 'Bài hát dành cho em', 'Em đọc thơ', 'Thành ngữ -Tục ngữ - Ca dao', 'Câu đố', 'Cùng chơi các ban ơi!'];
 
-		return view("activities.Extend", compact(['elementData', 'contentArr','thumbArr', 'slide_imgArr', 'slide_nameArr','typeArr', 'typeEnglish', 'typeVn','cnt'])); 
+			return view("activities.Extendv2", compact(['elementData', 'contentArr','thumbArr', 'slide_imgArr', 'slide_nameArr', 'typeEn', 'typeVn','cnt']));
 
-	} else {
-		return view("activities.Extend", compact(['elementData', 'contentArr','titleArr', 'typeArr', 'cnt'])); 
+		} else {
+			return view("activities.Extendv2", compact(['elementData', 'contentArr','titleArr', 'cnt'])); 
+		}
 	}
-}
 }
 
 
