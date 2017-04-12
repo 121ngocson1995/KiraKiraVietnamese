@@ -32,11 +32,17 @@ Route::get('/lessons', 'AboutController@load');
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
 // Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
-//start route dummy
+//start route dummy 
 Route::get('/userManage', 'UserController@load');
 Route::get('/editUser', 'UserController@edit');
 Route::get('/preAddLesson', 'LessonController@preAdd');
 Route::get('/addLesson', 'LessonController@add');
+Route::get('/listLesson', 'LessonController@list');
+Route::get('/preEditLesson{lessonNo}', 'LessonController@preEdit');
+Route::get('/editLesson', 'LessonController@edit');
+Route::get('/listAct{lessonId}', 'LessonController@listAct');
+Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
+Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
 //end route dummy
 Route::get('/lesson{lessonNo}/p1', 'P1Controller@load');
 Route::get('/lesson{lessonNo}/p2', 'P2Controller@load');
