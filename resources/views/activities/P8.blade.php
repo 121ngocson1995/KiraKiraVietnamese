@@ -154,6 +154,9 @@
 				questionDone = checkFinish[i]['finish'];
 			}
 		}
+
+		//checkQuestionDone() 
+
 		if (questionDone) {
 			$("#countdown").empty();
 			while (document.getElementById("content_id").firstChild) {
@@ -181,6 +184,7 @@
 				document.getElementById("content_id").appendChild(node);
 			} 
 			checkQuestion = false;
+			//showAnswer();
 		}else{
 			edit(elementData, dialogNow, dialogCnt);
 			initDroppable();
