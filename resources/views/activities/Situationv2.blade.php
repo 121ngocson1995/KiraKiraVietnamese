@@ -41,7 +41,7 @@
 
   td {
     font-size: 32px;
-    font-family: 'Patrick Hand', cursive;
+    font-family: "Open Sans";
     color: white;
   }
   #pStart {
@@ -50,9 +50,24 @@
   #imgStart {
     cursor: pointer;
   }
+  td {
+    padding: 0 0 0.2em 0 !important;
+    border-top: initial !important;
+  }
   .jumbotron {
     padding: 1.5em 0 !important;
     margin-bottom: 0 !important;
+  }
+  .dialogVi {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin: 0;
+  }
+  .dialogEn {
+    font-size: 0.6em;
+    font-weight: 400;
+    font-style: italic;
+    margin: 0;
   }
 </style>
 
@@ -72,7 +87,12 @@
           <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" data-index="{{$i}}" onclick="setIndex(this)" type="button">S{{ $i+1 }}</button></a>
           @endfor
         </div>
-        <div id="controlBtn" style="text-align: center;padding-top: 8px;" >
+        <button id="collapsePlay" style="display: none;" data-toggle="collapse" data-target="#controlBtn"></button>
+        <div id="controlBtn" class="collapse 
+          @if ($elementData[0]->audio && strcmp($elementData[0]->audio, '') != 0)
+            in
+          @endif
+        " style="text-align: center;padding-top: 8px;" >
           <div id="btnStart">
             <p id="pStart">
               <i style="max-width: 50px;" class="fa fa-play fa-2x"></i>
@@ -108,7 +128,10 @@
           <tbody class="extendtable">
             @for ($j = 0; $j < count($dialogArr[$i]) ; $j++)
             <tr>
-              <td>{{ $dialogArr[$i][$j]}}</td>
+              <td>
+                <p class="dialogVi writtenFont">{{ $dialogArr[$i][$j]}}</p>
+                <p class="dialogEn">{{ $dialogArrEn[$i][$j]}}</p>
+              </td>
             </tr>
             @endfor
           </tbody>
@@ -121,6 +144,11 @@
 </div>
 
 <script language="JavaScript">
+  var elementData = <?php echo json_encode($elementData); ?>;
+  if (elementData[0].audio) {
+    $('#wrapper').css('top', '198px');
+  }
+
   var index = 0;
 
   $('#pStart').click(function() {
@@ -139,12 +167,26 @@
     index = node.getAttribute('data-index');
     $('#situation-group a button').prop('disabled', false);
     node.disabled = true;
-    if(audioArr[index]=="")
+    if(!elementData[index].audio)
     {
-      $('#btnStart').hide();
+      if ($('#controlBtn').hasClass('in')) {
+        $('#pStart').unbind('click');
+        $('#imgStart').unbind('click');
+        $('#collapsePlay').click();
+      }
     }
     else {
-      $('#btnStart').show();
+      if (!$('#controlBtn').hasClass('in')) {
+        $('#pStart').click(function() {
+          toggleSample(this);
+        });
+
+        $('#imgStart').click(function() {
+          toggleSample(this);
+        });
+
+        $('#collapsePlay').click();
+      }
     }
   }
 

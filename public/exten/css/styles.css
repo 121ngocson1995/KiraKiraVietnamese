@@ -11,10 +11,10 @@ div.jumbotron.extend{
 }
 
 #promo_extend{
-  background: -moz-linear-gradient(top, rgb(99,182,219) 0%, rgb(48,157,207) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgb(99,182,219) 0%,rgb(48,157,207) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgb(99,182,219) 0%,rgb(48,157,207) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); /* IE6-9 */
+  background: -moz-linear-gradient(left, rgb(147,206,222) 0%, rgb(117,189,209) 41%, rgb(73,165,191) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, rgb(147,206,222) 0%,rgb(117,189,209) 41%,rgb(73,165,191) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgb(147,206,222) 0%,rgb(117,189,209) 41%,rgb(73,165,191) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf',GradientType=1 ); /* IE6-9 */
   background-size:cover;
   padding-bottom:1px;
   position: fixed;

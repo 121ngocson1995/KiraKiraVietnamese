@@ -19,14 +19,15 @@ class SituController extends Controller
     	if ($cnt != 0)
     	{
     		for ($i=0; $i<$cnt; $i++){
-    			$dialogArr[$i] = explode( "|", $elementData[$i]->dialog);
+                $dialogArr[$i] = explode( "|", $elementData[$i]->dialog);
+    			$dialogArrEn[$i] = explode( "|", $elementData[$i]->dialog_translate);
                 $audioArr[$i] =  $elementData[$i]->audio;
     		}
 
-    		return view("activities.Situation", compact(['elementData', 'audioArr', 'dialogArr', 'cnt'])); 
+    		return view("activities.Situationv2", compact(['elementData', 'audioArr', 'dialogArr', 'dialogArrEn', 'cnt'])); 
     		
     	} else {
-    		return view("activities.Situation", compact(['elementData']));
+    		return view("activities.Situationv2", compact(['elementData']));
     	}
     }
 }
