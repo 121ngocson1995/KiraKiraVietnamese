@@ -1,0 +1,235 @@
+.flexContainer {
+	display: flex;
+	height: 100%;
+}
+.replay {
+	position: fixed;
+	bottom: -30px;
+	right: 80px;
+	overflow: hidden;
+}
+.play {
+	position: fixed;
+	bottom: -30px;
+	right: 510px;
+	overflow: hidden;
+}
+.record {
+	position: fixed;
+	bottom: -70px;
+	right: 280px;
+	overflow: hidden;
+}
+
+.wordCloud {
+	height: 100%; 
+	width: 700px;
+}
+
+@media screen and (max-width: 768px) {
+	.replay {
+		width: 35% !important;
+		right: 30px !important;
+	}
+	.play {
+		width: 35% !important;
+		left: 30px !important;
+	}
+	.record {
+		width: 35% !important;
+		left: 30% !important;
+	}
+	.replay img {
+		width: 100% !important;
+		max-width: 262px !important;
+	}
+	.play img {
+		width: 100% !important;
+		max-width: 200px !important;
+	}
+	.record img {
+		width: 100% !important;
+		max-width: 249px !important;
+	}
+
+	.wordCloud {
+		height: 100%; 
+		width: 600px;
+	}
+}
+@media screen and (max-height: 400px) {
+	.replay {
+		top: 230px !important;
+		overflow: visible;
+	}
+	.play {
+		top: 220px !important;
+		overflow: visible;
+	}
+	.record {
+		top: 290px !important;
+		overflow: visible;
+	}
+}
+.replay svg, .play svg, .record svg, .replay img, .play img, .record img {
+	cursor: pointer;
+}
+.replay svg:hover, .play svg:hover, .record svg:hover, .replay img:hover, .play img:hover, .record img:hover {
+	-webkit-filter: drop-shadow( 0px 0px 10px blue );
+	filter: drop-shadow( 0px 0px 10px blue );
+}
+div.red svg, div.red img {
+	-webkit-filter: drop-shadow( 0px 0px 10px red ) !important;
+	filter: drop-shadow( 0px 0px 10px red ) !important;
+}
+div.blue svg, div.blue img {
+	-webkit-filter: drop-shadow( 0px 0px 10px blue );
+	filter: drop-shadow( 0px 0px 10px blue );
+}
+.wordWrap2 {
+	display: inline-flex;
+	margin: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+.word {
+	font-weight: 500;
+	font-size: 1.6em;
+	color: white;
+	cursor: pointer;
+}
+.wrapLine {
+	position: absolute;
+	padding: 2em;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 1;
+}
+.line {
+	width: 100%;
+}
+#alert {
+	display: none;
+	position: fixed;
+	text-align: center;
+	padding: 10px;
+	font-size: 1.4em;
+	background: rgba(140, 140, 140, 0.9);
+	color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.spkerDiv{
+	font-style: italic;
+	text-align: right;
+}
+.diaDiv{
+	text-align: left;
+}
+.initDisplayBoard {
+	display: inline-block;
+}
+
+@media screen and (max-width: 991px) {
+	.col-md-7 {
+		overflow-y: scroll;
+		max-height: calc(100% - 350px);
+	}
+}
+
+@-webkit-keyframes flipOutY {
+	from {
+		-webkit-transform: perspective(400px);
+		transform: perspective(400px);
+	}
+
+	30% {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+		transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+		opacity: 1;
+	}
+
+	to {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+		transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+		opacity: 0;
+	}
+}
+
+@keyframes flipOutY {
+	from {
+		-webkit-transform: perspective(400px);
+		transform: perspective(400px);
+	}
+
+	30% {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+		transform: perspective(400px) rotate3d(0, 1, 0, 15deg);
+		opacity: 1;
+	}
+
+	to {
+		-webkit-transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+		transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+		opacity: 0;
+	}
+}
+
+p.content {
+	margin: 0.8em;
+	/*max-width: 500px;*/
+	font-size: 32px;
+	color: white;
+}
+p.content_translate {
+	margin: 0.8em;
+	/*max-width: 500px;*/
+	font-size: 25px;
+	font-style: italic;
+	color: white;
+}
+@-webkit-keyframes pulse {
+	from {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+		-webkit-transform: scale3d(1.02, 1.02, 1.02);
+		transform: scale3d(1.02, 1.02, 1.02);
+	}
+
+	to {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes pulse {
+	from {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+		-webkit-transform: scale3d(1.02, 1.02, 1.02);
+		transform: scale3d(1.02, 1.02, 1.02);
+	}
+
+	to {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+.pulse {
+	-webkit-animation-name: pulse;
+	animation-name: pulse;
+	-webkit-animation-duration: 1.4s;
+	animation-duration: 1.4s;
+	-webkit-animation-delay: 0.5s;
+	animation-delay: 0.5s;
+}
