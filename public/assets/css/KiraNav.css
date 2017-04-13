@@ -38,7 +38,7 @@ nav.navbar.navbar-default{
   transition:all 0.3s;
 }
 
-img{
+img.limit {
   width:600px;
   max-width:100%;
   text-align:center;

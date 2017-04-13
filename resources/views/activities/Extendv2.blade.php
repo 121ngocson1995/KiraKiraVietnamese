@@ -164,7 +164,7 @@
                                 </p>
                             </div>
                             <div style="vertical-align: center;">
-                                <img style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
+                                <img class="limit" style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
                             </div>
                         </div>
                     </div>
