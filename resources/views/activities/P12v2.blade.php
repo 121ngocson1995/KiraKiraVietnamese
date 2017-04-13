@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/screens/p12.css') }}">
 <style>
 	body {
-		background: url({{ asset('img/stave2.jpg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P12/bg.svg') }}) no-repeat center top fixed;
 		background-size: cover;
 	}
 </style>
@@ -13,6 +13,10 @@
 @stop
 
 @section('actContent')
+
+<div id="background">
+	<img id="group-study" style="position: fixed; bottom: 0; width: 100%; z-index: 10" src="{{ asset('img/P12/group-study.svg') }}" alt="">
+</div>
 
 <div>
 	<audio id="sample"></audio>
@@ -30,7 +34,7 @@
 						Click to read this guide in English</p>
 					</div>
 					<div>
-						<img class="wordCloud" src="{{ asset('img/P7/newboard1.svg') }}">
+						<img class="wordCloud" src="{{ asset('img/P12/newboard1.svg') }}">
 					</div>
 				</div>
 			</div>
@@ -42,7 +46,7 @@
 						Bấm vào đây để xem hướng dẫn bằng tiếng Việt</p>
 					</div>
 					<div>
-						<img class="wordCloud" src="{{ asset('img/P7/newboard1.svg') }}">
+						<img class="wordCloud" src="{{ asset('img/P12/newboard1.svg') }}">
 					</div>
 				</div>
 			</div>
