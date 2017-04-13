@@ -18,9 +18,10 @@ class P13Controller extends Controller
 
     	foreach ($elementData as $value) 
     	{
-    		$noteArr = explode("|", $value->note);
+            $noteArr = explode("|", $value->note);
+    		$noteArrEn = explode("|", $value->note_translate);
     	} 
 
-    	return view("activities.P13", compact(['elementData', 'noteArr'])); 
+    	return view("activities.P13", compact(['elementData', 'noteArr', 'noteArrEn'])); 
     }
 }

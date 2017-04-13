@@ -1,0 +1,18 @@
+article {
+	padding-top: 5%;
+}
+blockquote {
+	float: none;
+	padding: 0;
+	border-top: initial;
+	border-bottom: initial;
+}
+.container2:before {
+	transform: translateY(-30%);
+}
+.container2:after {
+	transform: translateY(10%);
+}
+#promo2 {
+	padding-top: 0;
+}

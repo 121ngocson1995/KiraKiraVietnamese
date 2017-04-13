@@ -3,29 +3,12 @@
 @section('actContent')
 
 <link rel="stylesheet" href="{{ asset('P13_assets/css/styles.css') }}">
+<link rel="stylesheet" href="{{ asset('css/screens/p13.css') }}">
 
 <style>
 	body {
 		background: url({{ asset('P13_assets/img/p13.svg') }}) no-repeat center center fixed;
 		background-size: cover;
-	}
-	article {
-		padding-top: 5%;
-	}
-	blockquote {
-		float: none;
-		padding: 0;
-		border-top: initial;
-		border-bottom: initial;
-	}
-	.container2:before {
-		transform: translateY(-30%);
-	}
-	.container2:after {
-		transform: translateY(10%);
-	}
-	#promo2 {
-		padding-top: 0;
 	}
 </style>
 
@@ -47,13 +30,15 @@
 						@foreach ($noteArr as $key)
 						<p>{{ $key }}</p>
 						@endforeach
+						@foreach ($noteArrEn as $key)
+						<p>{{ $key }}</p>
+						@endforeach
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 
 @stop
 
