@@ -7,13 +7,13 @@ use App\P8ConversationFillWord;
 
 class P8Controller extends Controller
 {	
-	public function load()
+	public function load(Request $request, $lessonNo)
 	{
-			// dummy course và lesson
-		$course_id= 1;
-		$lesson_id= 1;
+		// get lesson
+        $lesson = LessonController::getLesson($lessonNo);
+        $lesson_id = $lesson->id;
 
-    		// Lấy dữ liệu từ db
+		// Lấy dữ liệu từ db
 		$elementData = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
         $dialogCnt = array();

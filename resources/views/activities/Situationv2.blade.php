@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="{{ asset('Situation-styles.css') }}">
 
 <style type="text/css">
-
+  * {
+    letter-spacing: .075em;
+  }
   #btnStart, #btnRestart {
     display: flex;
     align-items: center;
@@ -69,6 +71,13 @@
     font-style: italic;
     margin: 0;
   }
+  .note-content {
+    font-size: 1.6em;
+    color: white;
+    padding: 2em !important;
+    border-radius: 20px;
+    background-color: rgba(0, 172, 230, 0.8);
+  }
 </style>
 
 @section('actContent')
@@ -83,64 +92,90 @@
     <div class="row" style="text-align: center;">
       <div class="col-md-12 title_button">
         <div id="situation-group" class="btn-group" role="group" style="padding-top: 1px;">
-          @for($i=0; $i<$cnt; $i++)
-          <a href="#part{{$i+1}}" class="panelt"><button class="btn btn-default" data-index="{{$i}}" onclick="setIndex(this)" type="button">S{{ $i+1 }}</button></a>
+          @php
+          $index = 0;
+          @endphp
+          @for($i=0; $i<count($elementData); $i++)
+          <a href="#part{{ ++$index }}" class="panelt "><button class="btn btn-default" data-index="{{ $i }}" onclick="setIndex(this)" type="button">S{{ $i+1 }}</button></a>
           @endfor
+          @if (count($note_content) == 1)
+          <a href="#part{{ ++$index }}" class="panelt note"><button class="btn btn-success" data-index="{{ $i }}" onclick="setIndexNote(this)" type="button">Note</button></a>
+          @else
+          @for($i=0; $i<count($note_content); $i++)
+          <a href="#part{{ ++$index }}" class="panelt note"><button class="btn btn-success" data-index="{{ $i }}" onclick="setIndexNote(this)" type="button">Note {{ $i+1 }}</button></a>
+          @endfor
+          @endif
         </div>
         <button id="collapsePlay" style="display: none;" data-toggle="collapse" data-target="#controlBtn"></button>
         <div id="controlBtn" class="collapse 
-          @if ($elementData[0]->audio && strcmp($elementData[0]->audio, '') != 0)
-            in
-          @endif
+        @if ($elementData[0]->audio && strcmp($elementData[0]->audio, '') != 0)
+        in
+        @endif
         " style="text-align: center;padding-top: 8px;" >
-          <div id="btnStart">
-            <p id="pStart">
-              <i style="max-width: 50px;" class="fa fa-play fa-2x"></i>
-            </p>
-            <div id="startBtn" class="btnBg">
-              <img id="imgStart" style="width: 50%; max-width: 100px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
-            </div>
+        <div id="btnStart">
+          <p id="pStart">
+            <i style="max-width: 50px;" class="fa fa-play fa-2x"></i>
+          </p>
+          <div id="startBtn" class="btnBg">
+            <img id="imgStart" style="width: 50%; max-width: 100px;" src="{{ asset('img/testAnimate/flower1.svg') }}" alt="start button">
           </div>
         </div>
-      </div>    
-    </div>
+      </div>
+    </div>    
   </div>
+</div>
 </div>
 
 <div id="wrapper">
   <div id="mask">
-    @for($i=0; $i<$cnt; $i++)
-    <div id="part{{$i+1}}" class="part">
-      <a name="part{{$i+1}}"></a>
+    @php
+    $index = 0;
+    @endphp
+    @for($i=0; $i<count($elementData); $i++)
+    <div id="part{{ ++$index }}" class="part">
+      <a name="part{{ $index }}"></a>
       <div class="content">
-        <a href="#part{{$i}}" class="panelt" ></a>
+        <a href="#part{{ $index }}" class="panelt" ></a>
         <div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image">
-         <div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
-          <img id="thumbnail" class="img" src="{{ asset($elementData[$i]->thumbnail) }}">
+          <div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
+            <img id="thumbnail" class="img" src="{{ asset($elementData[$i]->thumbnail) }}">
+          </div>
+          <div id="audioHolder" style="text-align: center;">
+            <audio id="audio{{$i}}" src="{{ asset($elementData[$i]->audio) }}" type="audio/mpeg">
+            </audio>
+          </div>
         </div>
-        <div id="audioHolder" style="text-align: center;">
-          <audio id="audio{{$i}}" src="{{ asset($elementData[$i]->audio) }}" type="audio/mpeg">
-          </audio>
+        <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px;">
+          <table class="table">
+            <tbody class="extendtable">
+              @for ($j = 0; $j < count($dialogArr[$i]) ; $j++)
+              <tr>
+                <td>
+                  <p class="dialogVi writtenFont">{{ $dialogArr[$i][$j]}}</p>
+                  <p class="dialogEn">{{ $dialogArrEn[$i][$j]}}</p>
+                </td>
+              </tr>
+              @endfor
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="col-sm-3 col-sm-pull-4 paragraph" style="margin-top: 40px;">
-        <table class="table">
-          <tbody class="extendtable">
-            @for ($j = 0; $j < count($dialogArr[$i]) ; $j++)
-            <tr>
-              <td>
-                <p class="dialogVi writtenFont">{{ $dialogArr[$i][$j]}}</p>
-                <p class="dialogEn">{{ $dialogArrEn[$i][$j]}}</p>
-              </td>
-            </tr>
-            @endfor
-          </tbody>
-        </table>
-      </div> 
-    </div>     
+    </div>
+    @endfor
+    @for($i=0; $i<count($note_content); $i++)
+    <div id="part{{ ++$index }}" class="part">
+      <a name="part{{ $index }}"></a>
+      <div class="content">
+        <a href="#part{{ $index }}" class="panelt" ></a>
+        <div class="col-sm-10 col-sm-offset-1 note-content writtenFont">
+          @foreach ($note_content[$i] as $noteLine)
+            <p>{{ $noteLine }}</p>
+          @endforeach
+        </div>
+      </div>
+    </div>
+    @endfor
   </div>
-  @endfor
-</div>
 </div>
 
 <script language="JavaScript">
@@ -187,6 +222,20 @@
 
         $('#collapsePlay').click();
       }
+    }
+  }
+
+  function setIndexNote(node) {
+    stopAudio();
+    $('.btn').removeClass('selected');
+    node.setAttribute('class', 'btn btn-success selected');
+    $('#situation-group a button').prop('disabled', false);
+    node.disabled = true;
+ 
+    if ($('#controlBtn').hasClass('in')) {
+      $('#pStart').unbind('click');
+      $('#imgStart').unbind('click');
+      $('#collapsePlay').click();
     }
   }
 
@@ -265,9 +314,9 @@
 @stop
 
 @section('actDescription-vi')
-  Rê chuột vào các S và bấm chuột để nghe các tình huống tương ứng.
+Rê chuột vào các S và bấm chuột để nghe các tình huống tương ứng.
 @stop
 
 @section('actDescription-en')
-  Click S buttons to listen to corresponded situation.
+Click S buttons to listen to corresponded situation.
 @stop

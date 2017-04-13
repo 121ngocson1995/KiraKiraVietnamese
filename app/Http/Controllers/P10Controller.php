@@ -7,11 +7,11 @@ use App\P10SentenceReorder;
 
 class P10Controller extends Controller
 {
-    public function load()
+    public function load(Request $request, $lessonNo)
     {
-    	// dummy course và lesson
-    	$course_id= 1;
-    	$lesson_id= 1;
+    	// get lesson
+        $lesson = LessonController::getLesson($lessonNo);
+		$lesson_id = $lesson->id;
 
 		// Lấy dữ liệu từ db
 		$data = P10SentenceReorder::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();

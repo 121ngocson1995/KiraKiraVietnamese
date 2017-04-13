@@ -7,11 +7,11 @@ use App\P11ConversationReorder;
 
 class P11Controller extends Controller
 {
-    public function load()
+    public function load(Request $request, $lessonNo)
     {
-    	// dummy course và lesson
-    	$course_id= 1;
-    	$lesson_id= 1;
+    	// get lesson
+        $lesson = LessonController::getLesson($lessonNo);
+        $lesson_id = $lesson->id;
 
 		// Lấy dữ liệu từ db
 		$elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
