@@ -2,95 +2,113 @@
 
 @section('header-more')
 
+<link rel="stylesheet" href="{{ asset('css/screens/p12.css') }}">
 <style>
 	body {
-		background: url({{ asset('img/P7/bg.svg') }}) no-repeat center bottom fixed;
+		background: url({{ asset('img/P12/bg.svg') }}) no-repeat center top fixed;
 		background-size: cover;
 	}
 </style>
-<link rel="stylesheet" href="{{ asset('css/screens/p7.css') }}">
 
 @stop
 
 @section('actContent')
+
+<div id="background">
+	<img id="group-study" style="position: fixed; bottom: 0; width: 100%; z-index: 10" src="{{ asset('img/P12/group-study.svg') }}" alt="">
+</div>
 
 <div>
 	<audio id="sample"></audio>
 	<audio id="auRecord"></audio>
 </div>
 
-<div class="col-md-7" style="margin-top: 30px">
-	<div id="chooseDHolder" style="text-align: center; display: none;">
-
-		@for ($i = 0; $i < count($dialogCnt); $i++)
-			<button data-dialogNo="{{ $i }}" class="dialogBtn" onclick="chooseDialog(this)">
-				<span> 
-					<span>D{{$i+1}}</span>
-					<span>D{{$i+1}}</span>
-					<span>D{{$i+1}}</span>
-				</span>
-			</button>
-		@endfor
-	</div>
+<div class="col-md-7" style="margin-top: 2%;">
 	<div class="wordLine" style="text-align: center; width: 100%">
-		<div class="wordWrap" style="display: none;">
-			<div class="flexContainer">
-				<div class="wrapLine">
-					@foreach (explode( "|", $elementData[0]->dialogue) as $line)
-					<div class="line">
-						@php
-						$lineContent = explode('*', $line);
-						@endphp
-						<div class="tbn word writtenFont spkerDiv col-xs-4">{{ $lineContent[0]}}</div>
-						<div class="tbn word writtenFont diaDiv col-xs-8">{{ $lineContent[1]}}</div>
+		@foreach ($elementData as $key)
+			<div class="wordWrap2 vietnamese" style="display: none;">
+				<div class="flexContainer">
+					<div class="wrapLine">
+						<p class="content writtenFont">{{ $key->content }}</p>
+						<p class="content_translate writtenFont"><i class="fa fa-commenting" aria-hidden="true"></i> 
+						Click to read this guide in English</p>
 					</div>
-					@endforeach
-				</div>
-				<div class="btnBg">
-					<img class="wordCloud" style="height: 100%; " src="{{ asset('img/P7/newboard1.svg') }}" alt="start button">
+					<div>
+						<img class="wordCloud" src="{{ asset('img/P12/newboard1.svg') }}">
+					</div>
 				</div>
 			</div>
-		</div>
+			<div class="wordWrap2 english" style="display: none;">
+				<div class="flexContainer">
+					<div class="wrapLine">
+						<p class="content writtenFont">{{ $key->content_translate }}</p>
+						<p class="content_translate writtenFont"><i class="fa fa-commenting" aria-hidden="true"></i> 
+						Bấm vào đây để xem hướng dẫn bằng tiếng Việt</p>
+					</div>
+					<div>
+						<img class="wordCloud" src="{{ asset('img/P12/newboard1.svg') }}">
+					</div>
+				</div>
+			</div>
+		@endforeach
 	</div>
 </div>
 
 <div class="replay">
 	<img class="fillable" src="{{ asset('img/testAnimate/replay.png') }}" id="playSample">
 </div>
-<div class="record toRecord">
+
+<div class="record">
 	<img class="fillable" src="{{ asset('img/testAnimate/record.png') }}" id="record">
 </div>
 
-<div id="alert"></div>
+<div id="alert">
+	To record your voice, first click on the record sign at the middle.
+</div>
 
 <script>
+	$('.replay').click(function() {
+		playRecord();
+	});
+
+	$('.record').click(function() {
+		startRecording(this);
+	});
+
+	$('.wordWrap2').click(function() {
+		switchLanguage(this);
+	});
+
 	TweenMax.from('.replay', 1, {scale:0.5, y:300, delay:1, ease:Elastic.easeOut});
 	TweenMax.from('.record', 1, {scale:0.5, y:300, delay:1.3, ease:Elastic.easeOut});
+
 	setTimeout(function() {
-		$('#chooseDHolder').addClass('animated fadeInDownBig').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+		$('.wordWrap2.vietnamese').addClass('animated flipInY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function play() {
+			$('.wordWrap2.vietnamese').css('display', 'inline-block');
+			$('.wordWrap2.vietnamese').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
 
-			$('.dialogBtn').first().addClass('selected').prop('disabled', true);
-			setTimeout(function() {
-				$('.wordWrap').addClass('animated flipInY').show().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function play() {
+			$('.wordWrap2').click(function() {
+				switchLanguage(this);
+			});
 
-					$('.wordWrap').css('display', 'inline-block');
-					$('.wordWrap').off('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
-					setTimeout(function() {
-						$('.wordWrap').click(function() {
-							togglePlaySample(this);
-						});
-						$('.wordWrap').click();
-					}, 600);
-
-				});
-			}, 300);
+			$('.wordWrap2')
+			.mouseenter(function() {
+				$(this).removeClass('flipInY pulse').addClass('pulse infinite');
+			})
+			.mouseleave(function() {
+				$(this).removeClass('infinite');
+			});
 		});
-	}, 800);
+	}, 1500);
+
 </script>
 
 <script>
-	var elementData = <?php echo json_encode($elementData); ?>;
+	var audio_context;
+	var recorder;
+	var tl;
 	var assetPath = '{{ asset('') }}';
+
 	var busyPlay, busyReplay, busyRecord, 
 		enabledPlay, enabledReplay, enabledRecord, 
 		disabledPlay, disabledReplay, disabledRecord;
@@ -143,19 +161,16 @@
 		});
 	};
 </script>
-<script src="{{ asset('js/screens/p7.js') }}"></script>
+
+<script src="{{ asset('js/screens/p12.js') }}"></script>
 <script src="{{ asset('js/recorder.js') }}"></script>
 
 @stop
 
 @section('actDescription-vi')
-	Rê chuột vào D1, D2, D3, D4, D5, D6 và tích chuột để nghe và luyện tập nói theo bài hội thoại.
-	<br>
-	Tự ghi âm và nghe lại bằng cách bấm vào nút ghi âm và nút nghe lại.
+	Sau khi chuẩn bị xong, hãy ghi âm và nghe lại bài giới thiệu của mình.
 @stop
 
 @section('actDescription-en')
-	Click D1, D2, D3, D4, D5, D6 to listen the dialogue and practice.
-	<br>
-	Record your own voice by clicking the microphone button, listen by clicking the arrow button.
+	Record and playback your introduction after your preparation.
 @stop

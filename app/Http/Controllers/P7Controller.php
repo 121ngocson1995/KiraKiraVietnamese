@@ -7,11 +7,11 @@ use App\P7ConversationMemorize;
 
 class P7Controller extends Controller
 {
-	public function load()
+	public function load(Request $request, $lessonNo)
 	{
-			// dummy course và lesson
-		$course_id= 1;
-		$lesson_id= 1;
+		// get lesson
+        $lesson = LessonController::getLesson($lessonNo);
+		$lesson_id = $lesson->id;
 
     		// Lấy dữ liệu từ db
 		$elementData = P7ConversationMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();

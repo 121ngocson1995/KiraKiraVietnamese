@@ -50,6 +50,10 @@
   #imgStart {
     cursor: pointer;
   }
+  .jumbotron {
+    padding: 1.5em 0 !important;
+    margin-bottom: 0 !important;
+  }
 </style>
 
 @section('actContent')
@@ -69,7 +73,7 @@
           @endfor
         </div>
         <div id="controlBtn" style="text-align: center;padding-top: 8px;" >
-          <div id="btnStart" {{-- style="display: none; --}}">
+          <div id="btnStart">
             <p id="pStart">
               <i style="max-width: 50px;" class="fa fa-play fa-2x"></i>
             </p>

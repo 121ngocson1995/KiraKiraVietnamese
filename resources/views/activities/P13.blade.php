@@ -3,7 +3,7 @@
 @section('actContent')
 
 <link rel="stylesheet" href="{{ asset('P13_assets/css/styles.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
+<link rel="stylesheet" href="{{ asset('css/screens/p13.css') }}">
 
 <style>
 	body {
@@ -14,6 +14,14 @@
 
 <div class="prac-grey-section">
 
+	<article class="container2">
+		<blockquote>
+			@foreach ($elementData as $value)
+			{{ $value->content }}
+			@endforeach
+		</blockquote>
+	</article>
+
 	<div id="promo2">
 		<div class="jumbotron practice">
 			<div class="container">
@@ -22,29 +30,22 @@
 						@foreach ($noteArr as $key)
 						<p>{{ $key }}</p>
 						@endforeach
+						@foreach ($noteArrEn as $key)
+						<p>{{ $key }}</p>
+						@endforeach
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	<article class="container2">
-		<blockquote>
-			@foreach ($elementData as $value)
-			{{ $value->content }}
-			@endforeach
-		</blockquote>
-	</article>
 </div>
-
 
 @stop
 
 @section('actDescription-vi')
-
+	Học thuộc lòng bài đọc và làm theo hướng dẫn.
 @stop
 
 @section('actDescription-en')
-  
+	Memorize the given texts and follow the guide.
 @stop

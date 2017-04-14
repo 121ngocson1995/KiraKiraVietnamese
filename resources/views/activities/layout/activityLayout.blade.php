@@ -104,7 +104,7 @@
 	else if ( '{{\Request::get('activity') }}'.toUpperCase() == 'SITUATIONS')
 		pTitle = 'Tình huống';
 	else if ( '{{\Request::get('activity') }}'.toUpperCase() == 'EXTENSIONS')
-		pTitle = 'Mở rộng';
+		pTitle = 'Ngôn ngữ và văn hoá';
 	$('.navbar-brand.title').html(pTitle);
 
 	setTimeout(function() {

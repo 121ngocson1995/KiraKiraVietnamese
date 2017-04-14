@@ -52,9 +52,9 @@ class LessonController extends Controller
 		$lessonNew->last_updated_by = Auth::id();
 		$lessonNew->save();
 		return redirect('/');
-	} 
+	}
 
-	public function list() 
+	public function listLesson()
 	{
     	// dummy course và lesson
 		$course_id= 1;

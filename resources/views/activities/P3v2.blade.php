@@ -133,4 +133,6 @@
 
 @section('actDescription-en')
 	Click the sentence to listen.
+	<br>
+	Record your own voice by clicking the microphone button, listen by clicking the arrow button.
 @stop

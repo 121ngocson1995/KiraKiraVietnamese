@@ -7,20 +7,21 @@ use App\P13Text;
 
 class P13Controller extends Controller
 {
-    public function load()
+    public function load(Request $request, $lessonNo)
     {
-    	// dummy course và lesson
-		$course_id= 1;
-		$lesson_id= 1;
+    	// get lesson
+        $lesson = LessonController::getLesson($lessonNo);
+        $lesson_id = $lesson->id;
 
     	// Lấy dữ liệu từ db
     	$elementData = P13Text::where('lesson_id', '=', $lesson_id)->get();
 
     	foreach ($elementData as $value) 
     	{
-    		$noteArr = explode("|", $value->note);
+            $noteArr = explode("|", $value->note);
+    		$noteArrEn = explode("|", $value->note_translate);
     	} 
 
-    	return view("activities.P13", compact(['elementData', 'noteArr'])); 
+    	return view("activities.P13", compact(['elementData', 'noteArr', 'noteArrEn'])); 
     }
 }
