@@ -47,10 +47,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $todayDate = date("Y/m/d");
         return Validator::make($data, [
-            'username' => 'required|max:255',
+            'first-name' => 'required|alpha|max:30',
+            'last-name' => 'required|alpha|max:30',
+            'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|max:24|confirmed',
+            'gender' => 'numeric|between:0,1',
+            'date-of-birth' => 'required|date|before:' . $todayDate,
         ]);
     }
 
@@ -64,8 +69,12 @@ class RegisterController extends Controller
     {
         return User::create([
             'username' => $data['username'],
+            'first_name' => $data['first-name'],
+            'last_name' => $data['last-name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'gender' => $data['gender'],
+            'date_of_birth' => $data['date-of-birth'],
         ]);
     }
 }

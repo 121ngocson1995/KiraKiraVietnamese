@@ -16767,7 +16767,7 @@ var BFHTimezonesList = {
 
   $.fn.bfhselectbox.defaults = {
     icon: 'caret',
-    input: 'form-control',
+    input: '',
     name: '',
     value: '',
     filter: false
