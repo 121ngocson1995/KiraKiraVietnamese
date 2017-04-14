@@ -191,9 +191,9 @@
         </ul>
       </div>
     </div>
-
+<div style="padding-left: 300px;">
     @yield('content')
-  
+  </div>
   <!-- Bootstrap Form Helpers -->
   <script src="js/bootstrap-formhelpers.min.js"></script>
   <script src="js/bootstrap-formhelpers-countries.js"></script>

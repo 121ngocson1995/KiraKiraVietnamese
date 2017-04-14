@@ -8,7 +8,7 @@
 
 <div class="container" >
   <form action="editLesson" method="get">
-    <div class="col-md-6 form-line"  style="padding-left: 300px; ">
+    <div class="col-md-6 form-line" >
       <div class="form-group">
         <label for="lsnNo">Lesson number</label>
         <input type="text" class="form-control" name="lsnNo" id="lsnNo" value="{{$lessonData[0]->lessonNo}}">
@@ -22,7 +22,7 @@
         <input type="text" class="form-control" name="lsnAuthor" id="lsnAuthor" value="{{$lessonData[0]->author}}">
       </div>
     </div>
-    <div class="col-md-6" style="padding-left: 300px;">
+    <div class="col-md-6" >
       <div class="form-group">
         <label for ="description"> Lesson description</label>
         <textarea  class="form-control" name="description" id="description" ></textarea>

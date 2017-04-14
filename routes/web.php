@@ -43,6 +43,7 @@ Route::get('/editLesson', 'LessonController@edit');
 Route::get('/listAct{lessonId}', 'LessonController@listAct');
 Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
 Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
+Route::post('/editSitu', 'SituController@edit');
 //end route dummy
 Route::get('/lesson{lessonNo}/p1', 'P1Controller@load');
 Route::get('/lesson{lessonNo}/p2', 'P2Controller@load');
@@ -63,6 +64,13 @@ Route::get('/lesson{lessonNo}/situations', 'SituController@load');
 Route::get('/act', function () {
 	return view('activities.layout.activityLayout');
 });
+Route::get('/test', function () {
+	return view('test');
+});
+Route::get('upload', function() {
+  return view('test');
+});
+Route::post('apply/upload', 'ApplyController@upload');
 
 /*ádas
 |--------------------------------------------------------------------------
