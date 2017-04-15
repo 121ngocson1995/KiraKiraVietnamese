@@ -622,7 +622,7 @@
 @stop
 
 @section('actDescription-vi')
-	Sắp xếp lại trật tự từ trong câu bằng cách kéo các từ thả vào trong các ô trống.
+	Sắp xếp lại trật tự từ trong câu bằng cách kéo các từ thả vào trong các ô trống
 @stop
 
 @section('actDescription-en')

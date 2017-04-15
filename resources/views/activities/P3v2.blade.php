@@ -132,7 +132,7 @@
 @stop
 
 @section('actDescription-en')
-	Click the sentence to listen.
+	Click the sentence to listen and repeat.
 	<br>
 	Record your own voice by clicking the microphone button, listen by clicking the arrow button.
 @stop

@@ -633,5 +633,5 @@ Tìm các câu hợp lý rồi kéo thả vào chỗ trống.
 @stop
 
 @section('actDescription-en')
-Find the appropriate sentence; hold the sentence and then move to the right space
+Find the appropriate sentence; hold the sentence and move to the right space
 @stop

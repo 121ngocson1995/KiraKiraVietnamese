@@ -128,5 +128,5 @@
 @stop
 
 @section('actDescription-en')
-	Click START to begin. The computer will read each word twice. Listen and click on appropriate word.
+	Click START to begin. You will hear each word twice. Listen and click on the appropriate word.
 @stop

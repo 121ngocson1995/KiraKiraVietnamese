@@ -155,7 +155,7 @@
 @stop
 
 @section('actDescription-en')
-	Click D1, D2, D3, D4, D5, D6 to listen the dialogue and practice.
+	Click D1, D2, D3, D4, D5, D6 to listen to the dialogue and practice.
 	<br>
 	Record your own voice by clicking the microphone button, listen by clicking the arrow button.
 @stop

@@ -143,7 +143,7 @@
 @stop
 
 @section('actDescription-en')
-	Click the dialogue to listen.
+	Click the dialogue to listen to the dialogue.
 	<br>
 	Record your own voice by clicking the microphone button, listen by clicking the arrow button.
 @stop

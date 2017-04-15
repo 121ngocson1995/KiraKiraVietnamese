@@ -195,5 +195,5 @@
 @stop
 
 @section('actDescription-en')
-	Memorize the given sentence pattern.
+	Learn by heart the given sentence patterns.
 @stop
