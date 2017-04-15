@@ -95,7 +95,7 @@
     <h1 class="text-center">With content created by...</h1>
     <div class="row introduction">
         <div class="col-sm-5 col-sm-push-7 teacher_img">
-            <div class="img_container"><img class="img-circle" src="{{ asset('img/avatar_2x.png') }}"></div>
+            <div class="img_container"><img class="img-circle" src="{{ asset('img/nlt.jpg') }}"></div>
         </div>
         <div class="col-sm-7 col-sm-pull-5 author_info">
             <h2 class="author_info">Ph.D Lan Trung Nguyen</h2>
