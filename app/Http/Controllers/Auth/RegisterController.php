@@ -48,6 +48,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $todayDate = date("Y/m/d");
+
+        Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {
+            return strtotime($value) <= strtotime('-18 years');
+        });
+
         return Validator::make($data, [
             'first-name' => 'required|alpha|max:30',
             'last-name' => 'required|alpha|max:30',
@@ -55,7 +60,10 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|max:24|confirmed',
             'gender' => 'numeric|between:0,1',
-            'date-of-birth' => 'required|date|before:' . $todayDate,
+            'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
+        ],
+        [
+            '18yo' => 'You must be 18 years or older',
         ]);
     }
 
