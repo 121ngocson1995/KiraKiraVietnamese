@@ -57,7 +57,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="username" id="username" value="{{ old('username') }}" maxlength="255" placeholder="Enter your Username" required>
+                            <input type="text" class="form-control" name="username" id="username" value="{{ old('username') }}" maxlength="191" placeholder="Enter your Username" required>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="255" placeholder="Enter your Email" required>
+                            <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="191" placeholder="Enter your Email" required>
                         </div>
                     </div>
 
