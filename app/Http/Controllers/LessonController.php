@@ -243,7 +243,7 @@ class LessonController extends Controller
 			for ($i=0; $i<count($situation); $i++){
 				$situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
 			}
-			return view('editP1', compact('situation'));
+			return view('editSitu', compact('situation'));
 			break;
 			
 			default:

@@ -46,7 +46,7 @@ class SituController extends Controller
 
     public function edit(Request $request) {
         // getting all of the post data
-        dd($request->exists('image1'));
+        dd($request);
         $file = array('image' => $request->all()['image1']);
         
         // setting up rules
