@@ -13,9 +13,10 @@
 <div class="container">
   {!! Form::open(array('url'=>'editSitu','method'=>'POST', 'files'=>true, 'id' =>'situationForm')) !!}
   <div id="situForm">
+    <input type="hidden" name="situaID" value="{{$situation[0]->lesson_id}}">
     @for ($i = 0; $i < count($situation); $i++)
     <div class="row" id="row{{$i}}" data-line="{{$i}}">
-      <div class="col-md-2 " >
+      <div class="col-md-1 " >
         <div>
           <span >Situation </span><span id="line{{$i}}">{{$situation[$i]->situationNo}}</span>
         </div>
@@ -28,14 +29,20 @@
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <label for ="image{{$situation[$i]->situationNo}}"> Image</label>
-          {!! Form::file('image'.$situation[$i]->situationNo, array('onchange' => 'ValidateSingleInput_img(this);', 'id' => 'image'.$situation[$i]->situationNo, 'class' => 'undone')) !!}
+          <label for ="dialogTrans"> Dialog translate</label>
+          <textarea  class="form-control textarea" name="dialogTrans{{$situation[$i]->situationNo}}" id="dialogTrans{{$situation[$i]->situationNo}}" data-dialog="{{$situation[$i]->dialogTransArr}}" ></textarea>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for ="image{{$situation[$i]->situationNo}}"> Image</label>
+          {!! Form::file('image'.$situation[$i]->situationNo, array('onchange' => 'ValidateSingleInput_img(this);', 'id' => 'image'.$situation[$i]->situationNo, 'class' => 'undone image', 'data-situ'=> $situation[$i]->situationNo, 'data-path-image' => $situation[$i]->thumbnail)) !!}
+        </div>
+      </div>
+      <div class="col-md-2">
         <div class="form-group">
           <label for ="audio{{$situation[$i]->situationNo}}"> Audio</label>
-          {!! Form::file('audio'.$situation[$i]->situationNo, array('onchange' => 'ValidateSingleInput_audio(this);', 'id' => 'audio'.$situation[$i]->situationNo)) !!}
+          {!! Form::file('audio'.$situation[$i]->situationNo, array('onchange' => 'ValidateSingleInput_audio(this);', 'id' => 'audio'.$situation[$i]->situationNo, 'class' => 'undone audio', 'data-situ'=> $situation[$i]->situationNo, 'data-path-audio' => $situation[$i]->audio)) !!}
         </div>
       </div>
       <div class="col-md-1">
@@ -47,7 +54,7 @@
     @endfor
   </div>
   {!! Form::submit('Save', array('class'=>'info-btn')) !!}
-  <button onclick="AddRow()">Add</button>
+  <button type="button" onclick="AddRow()">Add</button>
   {!! Form::close() !!}
 
 </div>
@@ -115,7 +122,7 @@
     rowAdded++;
     var node_row = document.createElement("div");
     node_row.setAttribute('class', 'row');
-    node_row.setAttribute('id', "row"+(sumLine-1));
+    node_row.setAttribute('id', "row"+(sumLine));
     node_row.setAttribute('data-line', sumLine);
     
     var node_situa = document.createElement("div");
@@ -126,7 +133,7 @@
     var node_situa_span1 = document.createElement("span");
     var node_situa_text0 = document.createTextNode('Situation ');
     var node_situa_text1 = document.createTextNode(sumLine+1);
-    node_situa_span1.setAttribute('id', "line"+(sumLine-1));
+    node_situa_span1.setAttribute('id', "line"+(sumLine));
     node_situa_span0.appendChild(node_situa_text0); 
     node_situa_span1.appendChild(node_situa_text1); 
     
@@ -169,7 +176,6 @@
 
     var node_img_input = document.createElement("input");
     node_img_input.setAttribute('type', 'file');
-    node_img_input.setAttribute('required', 'true');
     node_img_input.setAttribute('name',"image"+sumLine);
     node_img_input.setAttribute('onchange', 'ValidateSingleInput_img(this);');
 
@@ -191,7 +197,6 @@
 
     var node_audio_input = document.createElement("input");
     node_audio_input.setAttribute('type', 'file');
-    node_audio_input.setAttribute('required', 'true');
     node_audio_input.setAttribute('name',"audio"+sumLine);
     node_audio_input.setAttribute('onchange', 'ValidateSingleInput_audio(this);');
 
@@ -228,7 +233,9 @@
   }
 
   function deleteRow(button) {
+    console.log(sumLine);
     var curLine = $(button).closest('.row').attr('data-line');
+    console.log(curLine);
     if(confirm("Are you sure you want to delete?")){
       $(button).closest('.row').empty().remove();
     }
@@ -241,8 +248,10 @@
         $("#dialog"+(i+1)).attr('name', "dialog"+i);
         $("#dialog"+(i+1)).attr('id', "dialog"+i);
         $("#image"+(i+1)).attr('name', "image"+i);
+        $("#image"+(i+1)).attr('data-situ', i);
         $("#image"+(i+1)).attr('id', "image"+i);
         $("#audio"+(i+1)).attr('name', "audio"+i);
+        $("#audio"+(i+1)).attr('data-situ', i);
         $("#audio"+(i+1)).attr('id', "audio"+i);
       }
     }
@@ -263,6 +272,27 @@
     .appendTo('#situationForm');
     return true;
   });
+
+  $("#situationForm").submit( function(eventObj) {
+    $('.undone').each(function() {
+
+
+      if($(this).hasClass('image')){
+        $('<input />').attr('type', 'hidden')
+        .attr('name', "imgPath"+$(this).attr('data-situ'))
+        .attr('value', $(this).attr('data-path-image'))
+        .appendTo('#situationForm');
+        return true;
+      }else if($(this).hasClass('audio')){
+        $('<input />').attr('type', 'hidden')
+        .attr('name', "audioPath"+$(this).attr('data-situ'))
+        .attr('value', $(this).attr('data-path-audio'))
+        .appendTo('#situationForm');
+        return true;
+      }
+    })
+  });
+  
 </script>
 @stop
 
