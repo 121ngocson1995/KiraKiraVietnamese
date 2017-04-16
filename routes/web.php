@@ -13,38 +13,21 @@ use Illuminate\Support\Facades\File;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| All web access routes go below this line
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     // $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
-    return view('welcome2', compact('lessons'));
+	return view('welcome2', compact('lessons'));
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/lessons', 'AboutController@load');
-
-/*
-|--------------------------------------------------------------------------
-| All dummy routes go below this line
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/dummy', 'DummyController@load');
-// Route::get('/dummy1', 'DummyController@load');		// Example
-// Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
-//start route dummy 
-Route::get('/userManage', 'UserController@load');
-Route::get('/editUser', 'UserController@edit');
-Route::get('/preAddLesson', 'LessonController@preAdd');
-Route::get('/addLesson', 'LessonController@add');
-Route::get('/listLesson', 'LessonController@listLesson');
-Route::get('/preEditLesson{lessonNo}', 'LessonController@preEdit');
-Route::get('/editLesson', 'LessonController@edit');
-Route::get('/listAct{lessonId}', 'LessonController@listAct');
-Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
-Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
-Route::post('/editSitu', 'SituController@edit');
-//end route dummy
 Route::get('/lesson{lessonNo}/p1', 'P1Controller@load');
 Route::get('/lesson{lessonNo}/p2', 'P2Controller@load');
 Route::get('/lesson{lessonNo}/p3', 'P3Controller@load');
@@ -61,23 +44,77 @@ Route::get('/lesson{lessonNo}/p13', 'P13Controller@load');
 Route::get('/lesson{lessonNo}/p14', 'P14Controller@load');
 Route::get('/lesson{lessonNo}/extensions', 'ExtendController@load');
 Route::get('/lesson{lessonNo}/situations', 'SituController@load');
+
+/*
+|--------------------------------------------------------------------------
+| END of web access routes
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| All web manage routes go below this line
+|--------------------------------------------------------------------------
+*/
+
+//start route dummy 
+Route::get('/userManage', 'UserController@load');
+Route::post('/editUser', 'UserController@edit');
+Route::get('/preAddLesson', 'LessonController@preAdd');
+Route::get('/addLesson', 'LessonController@add');
+Route::get('/listLesson', 'LessonController@listLesson');
+Route::get('/preEditLesson{lessonNo}', 'LessonController@preEdit');
+Route::get('/editLesson', 'LessonController@edit');
+Route::get('/listAct{lessonId}', 'LessonController@listAct');
+Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
+Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
+Route::post('/editSitu', 'SituController@edit');
+    //end route dummy
+Route::get('/dummy', 'DummyController@load');
+// Route::get('/dummy1', 'DummyController@load');		// Example
+// Route::get('/lesson{lessonNo}/{activity}', 'DummyController@load');
+
+/*
+|--------------------------------------------------------------------------
+| END of manage access routes
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| All web testing routes go below this line
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/act', function () {
 	return view('activities.layout.activityLayout');
 });
 Route::get('/test', function () {
 	return view('test');
 });
-Route::get('upload', function() {
-  return view('test');
-});
-Route::post('apply/upload', 'ApplyController@upload');
 
-/*ádas
+
+
+Route::group(['domain' => 'manage.localhost', 'domain' => 'manage1.localhost'], function () {
+    //start route dummy 
+    // Route::get('/userManage', 'UserController@load');
+    // Route::post('/editUser', 'UserController@edit');
+    // Route::get('/preAddLesson', 'LessonController@preAdd');
+    // Route::get('/addLesson', 'LessonController@add');
+    // Route::get('/listLesson', 'LessonController@listLesson');
+    // Route::get('/preEditLesson{lessonNo}', 'LessonController@preEdit');
+    // Route::get('/editLesson', 'LessonController@edit');
+    // Route::get('/listAct{lessonId}', 'LessonController@listAct');
+    // Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
+    // Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
+    // Route::post('/editSitu', 'SituController@edit');
+    //end route dummy
+});
+
+/*
 |--------------------------------------------------------------------------
-| End dummy routes
+| END of manage access routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/testAnimate', function () {
-	return view('testAnimate');
-});

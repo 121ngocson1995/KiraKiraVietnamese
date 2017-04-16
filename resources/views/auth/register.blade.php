@@ -28,7 +28,7 @@
                         <div class="col-sm-6 first-name">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="first-name" id="first-name" value="{{ old('first-name') }}" maxlength="30" placeholder="{{ $errors->has('first-name') ? $errors->first('first-name') : 'Enter your first name' }}" required autofocus>
+                                <input type="text" class="form-control" name="first-name" id="first-name" value="{{ old('first-name') }}" maxlength="30" placeholder="Enter your first name" required autofocus>
                             </div>
                         </div>
                         <div class="col-sm-6 last-name">
@@ -73,7 +73,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="191" placeholder="Enter your Email" required>
+                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="191" placeholder="Enter your Email" required>
                         </div>
                     </div>
 
