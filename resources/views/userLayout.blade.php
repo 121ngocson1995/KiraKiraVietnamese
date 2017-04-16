@@ -199,5 +199,6 @@ body {
 			$(this).find('a')[0].click();
 		})
 	</script>
+
 </div>
 @stop

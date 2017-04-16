@@ -68,8 +68,20 @@
   var situation = <?php echo json_encode($situation); ?>;
   var sumOrigin = situation.length;
   var sumLine = situation.length;
-  var _validFileExtensions_img = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
+  var _validFileExtensions_img = [".jpg",".png"];    
   var _validFileExtensions_audio = [".mp3"]; 
+
+  var maxLength = 80;
+  $('.textarea').on('input focus keydown keyup', function() {
+    var text = $(this).val();
+    var lines = text.split(/(\r\n|\n|\r)/gm); 
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].length > maxLength) {
+        lines[i] = lines[i].substring(0, maxLength);
+      }
+    }
+    $(this).val(lines.join(''));
+  });
 
   function ValidateSingleInput_img(oInput) {
     if (oInput.type == "file") {
@@ -115,6 +127,7 @@
         }
       }
     }
+    $(oInput).removeClass('undone');
     return true;
   }
 
@@ -126,7 +139,7 @@
     node_row.setAttribute('data-line', sumLine);
     
     var node_situa = document.createElement("div");
-    node_situa.setAttribute('class', 'col-md-2');
+    node_situa.setAttribute('class', 'col-md-1');
 
     var node_situa_div = document.createElement("div");
     var node_situa_span0 = document.createElement("span");
@@ -150,33 +163,57 @@
     node_dialog_div.setAttribute('class', 'form-group');
 
     var node_dialog_label = document.createElement("label");
-    node_dialog_label.setAttribute('for', "dialog"+sumLine);
+    node_dialog_label.setAttribute('for', "dialog"+(sumLine+1));
     var node_dialog_text = document.createTextNode('Dialog ');
     node_dialog_label.appendChild(node_dialog_text);
 
     var node_dialog_textArea = document.createElement("textarea");
     node_dialog_textArea.setAttribute('class', 'form-control textarea');
-    node_dialog_textArea.setAttribute('name', "dialog"+sumLine);
+    node_dialog_textArea.setAttribute('required', 'true');
+    node_dialog_textArea.setAttribute('name', "dialog"+(sumLine+1));
+    node_dialog_textArea.setAttribute('id', "dialog"+(sumLine+1));
 
     node_dialog_div.appendChild(node_dialog_label);
     node_dialog_div.appendChild(node_dialog_textArea);
 
     node_dialog.appendChild(node_dialog_div);
 
+    var node_dialogTrans = document.createElement("div");
+    node_dialogTrans.setAttribute('class', 'col-md-3');
+
+    var node_dialogTrans_div = document.createElement("div");
+    node_dialogTrans_div.setAttribute('class', 'form-group');
+
+    var node_dialogTrans_label = document.createElement("label");
+    node_dialogTrans_label.setAttribute('for', "dialogTrans"+(sumLine+1));
+    var node_dialogTrans_text = document.createTextNode('Dialog translate ');
+    node_dialogTrans_label.appendChild(node_dialogTrans_text);
+
+    var node_dialogTrans_textArea = document.createElement("textarea");
+    node_dialogTrans_textArea.setAttribute('class', 'form-control textarea');
+    node_dialogTrans_textArea.setAttribute('required', 'true');
+    node_dialogTrans_textArea.setAttribute('name', "dialogTrans"+(sumLine+1));
+    node_dialogTrans_textArea.setAttribute('id', "dialogTrans"+(sumLine+1));
+
+    node_dialogTrans_div.appendChild(node_dialogTrans_label);
+    node_dialogTrans_div.appendChild(node_dialogTrans_textArea);
+
+    node_dialogTrans.appendChild(node_dialogTrans_div);
+
     var node_img = document.createElement("div");
-    node_img.setAttribute('class', 'col-md-3');
+    node_img.setAttribute('class', 'col-md-2');
 
     var node_img_div = document.createElement("div");
     node_img_div.setAttribute('class', 'form-group');
 
     var node_img_label = document.createElement("label");
-    node_img_label.setAttribute('for', "image"+sumLine);
+    node_img_label.setAttribute('for', "image"+(sumLine+1));
     var node_img_text = document.createTextNode('Image ');
     node_img_label.appendChild(node_img_text);
 
     var node_img_input = document.createElement("input");
     node_img_input.setAttribute('type', 'file');
-    node_img_input.setAttribute('name',"image"+sumLine);
+    node_img_input.setAttribute('name',"image"+(sumLine+1) );
     node_img_input.setAttribute('onchange', 'ValidateSingleInput_img(this);');
 
     node_img_div.appendChild(node_img_label);
@@ -185,19 +222,19 @@
     node_img.appendChild(node_img_div);
 
     var node_audio = document.createElement("div");
-    node_audio.setAttribute('class', 'col-md-3');
+    node_audio.setAttribute('class', 'col-md-2');
 
     var node_audio_div = document.createElement("div");
     node_audio_div.setAttribute('class', 'form-group');
 
     var node_audio_label = document.createElement("label");
-    node_audio_label.setAttribute('for', "audio"+sumLine);
+    node_audio_label.setAttribute('for', "audio"+(sumLine+1));
     var node_audio_text = document.createTextNode('Audio ');
     node_audio_label.appendChild(node_audio_text);
 
     var node_audio_input = document.createElement("input");
     node_audio_input.setAttribute('type', 'file');
-    node_audio_input.setAttribute('name',"audio"+sumLine);
+    node_audio_input.setAttribute('name',"audio"+(sumLine+1));
     node_audio_input.setAttribute('onchange', 'ValidateSingleInput_audio(this);');
 
     var node_btn = document.createElement("div");
@@ -223,6 +260,7 @@
 
     node_row.appendChild(node_situa);
     node_row.appendChild(node_dialog);
+    node_row.appendChild(node_dialogTrans);
     node_row.appendChild(node_img);
     node_row.appendChild(node_audio);
     node_row.appendChild(node_btn);
@@ -247,6 +285,8 @@
         $("#line"+i).attr('id', "line"+(i-1));
         $("#dialog"+(i+1)).attr('name', "dialog"+i);
         $("#dialog"+(i+1)).attr('id', "dialog"+i);
+        $("#dialogTrans"+(i+1)).attr('name', "dialogTrans"+i);
+        $("#dialogTrans"+(i+1)).attr('id', "dialogTrans"+i);
         $("#image"+(i+1)).attr('name', "image"+i);
         $("#image"+(i+1)).attr('data-situ', i);
         $("#image"+(i+1)).attr('id', "image"+i);
@@ -274,16 +314,37 @@
   });
 
   $("#situationForm").submit( function(eventObj) {
+    var validateFail = false;
+    $('.row').each(function() {
+        var situaNo = parseInt($(this).attr('data-line')) + 1;
+        var dialog_text = $("#dialog"+situaNo).val();
+        var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+        var dialog_count = dialog_text.split("\n").length;
+        var dialogTrans_count = dialogTrans_text.split("\n").length;
+
+        if (dialog_count != dialogTrans_count) {
+          document.getElementById("dialog"+situaNo).style.borderColor = "red";
+          document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
+          validateFail = true;
+        }else{
+          document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
+          document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
+        }
+    })
+
+    if (validateFail) {
+      alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
+      return false;
+    }
+
     $('.undone').each(function() {
-
-
-      if($(this).hasClass('image')){
+      if($(this).hasClass('image') && $(this).attr('data-path-image') != ''){
         $('<input />').attr('type', 'hidden')
         .attr('name', "imgPath"+$(this).attr('data-situ'))
         .attr('value', $(this).attr('data-path-image'))
         .appendTo('#situationForm');
         return true;
-      }else if($(this).hasClass('audio')){
+      }else if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
         $('<input />').attr('type', 'hidden')
         .attr('name', "audioPath"+$(this).attr('data-situ'))
         .attr('value', $(this).attr('data-path-audio'))

@@ -242,6 +242,7 @@ class LessonController extends Controller
 			$situation = Situation::where('lesson_id', '=', $lessonId)->get();
 			for ($i=0; $i<count($situation); $i++){
 				$situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
+				$situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
 			}
 			return view('editSitu', compact('situation'));
 			break;
