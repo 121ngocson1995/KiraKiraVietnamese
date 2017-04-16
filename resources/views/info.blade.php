@@ -83,9 +83,9 @@
 	input:focus::placeholder {
 		font-size: 0.7em;
 		color: #8c8c8c;
-	};
+	}
 </style>
-<div class="form-container">
+<div class="container">
 	@if (session('msg'))
 	<div class="alert alert-success">
 		{{ session('msg') }}
