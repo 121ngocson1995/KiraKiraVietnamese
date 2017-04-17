@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\P1WordMemorize;
-
+use Illuminate\Support\Facades\Input;
+use App\Lesson;
+use Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class P1Controller extends Controller
 {
 	public function load(Request $request, $lessonNo)
 	{
 		// get lesson
-        $lesson = LessonController::getLesson($lessonNo);
+		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
 		// Lấy dữ liệu từ db
@@ -28,7 +31,6 @@ class P1Controller extends Controller
 		}
 	}
 	
-
 	public function edit(Request $request) {
 
 		$lesson = Lesson::find($request->all()['situaID']);
