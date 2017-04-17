@@ -49,6 +49,8 @@ class SituController extends Controller{
 	}
 
 	public function edit(Request $request) {
+		// dd($request->all());
+
 		$lesson = Lesson::find($request->all()['situaID']);
 		$totalOld = $request->all()['sumOrigin'];
 		$totalNew = $request->all()['sumLine'];
@@ -61,13 +63,13 @@ class SituController extends Controller{
 				$dialog_validate = explode("|",$dialog);
 
 				Validator::make($dialog_validate, [
-					'*' => 'alpha|max:80',
+					'*' => 'string|max:80',
 					])->validate();
 				$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTrans".$i]);
 				$dialog_translate_validate = explode("|",$dialog_translate);
 				
 				Validator::make($dialog_translate_validate, [
-					'*' => 'alpha|max:80',
+					'*' => 'string|max:80',
 					])->validate();
 				// dd();
 				$SituaEdit[0]->dialog = $dialog;
@@ -80,7 +82,7 @@ class SituController extends Controller{
 
 					rename($oldName, $newName);
 					$SituaEdit[0]->thumbnail = $newName;
-				}elseif($request->exists("image".$i)){
+				}else if($request->exists("image".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
 					$destinationPath = 'Situation_img'; 
@@ -100,7 +102,7 @@ class SituController extends Controller{
 					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
 					rename($oldName, $newName);
 					$SituaEdit[0]->audio = $newName;
-				}elseif($request->exists("audio".$i)){
+				}else if($request->exists("audio".$i)){
 
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
@@ -137,7 +139,7 @@ class SituController extends Controller{
 
 						rename($oldName, $newName);
 						$SituaNew->thumbnail = $newName;
-					}elseif($request->exists("image".$i)){
+					}else if($request->exists("image".$i)){
 						$t=time();
 						$t=date("Y-m-d-H-i-s",$t);
 						$destinationPath = 'Situation_img'; 
@@ -157,7 +159,7 @@ class SituController extends Controller{
 						$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
 						rename($oldName, $newName);
 						$SituaNew->audio = $newName;
-					}elseif($request->exists("audio".$i)){
+					}else if($request->exists("audio".$i)){
 
 						$t=time();
 						$t=date("Y-m-d-H-i-s",$t);
@@ -192,7 +194,7 @@ class SituController extends Controller{
 
 					rename($oldName, $newName);
 					$SituaEdit[0]->thumbnail = $newName;
-				}elseif($request->exists("image".$i)){
+				}else if($request->exists("image".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
 					$destinationPath = 'Situation_img'; 
@@ -212,7 +214,7 @@ class SituController extends Controller{
 					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
 					rename($oldName, $newName);
 					$SituaEdit[0]->audio = $newName;
-				}elseif($request->exists("audio".$i)){
+				}else if($request->exists("audio".$i)){
 
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);

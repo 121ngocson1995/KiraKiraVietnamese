@@ -5,6 +5,7 @@
 <style type="text/css">
 	div.title {
 		text-align: center;
+		margin-bottom: 1em;
 	}
 	div.activityHolder {
 		text-align: center;

@@ -85,6 +85,11 @@
 		color: #8c8c8c;
 	}
 </style>
+
+@php
+	$user = \Auth::user();
+@endphp
+
 <div class="container">
 	@if (session('msg'))
 	<div class="alert alert-success">
@@ -96,10 +101,10 @@
 
 		<div class="row container-fluid author">
 			<div class="teacher_img">
-				<div class="img_container"><img class="img-circle" src="{{ asset('img/avatar/' . \Auth::user()->avatar) }}"></div>
+				<div class="img_container"><img class="img-circle" src="{{ asset('img/avatar/' . $user->avatar) }}"></div>
 			</div>
 			<div class="{{ $errors->has('username') ? ' has-error' : '' }}" style="text-align: center;">
-				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ \Auth::user()->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
+				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
 
 				@if ($errors->has('username'))
 				<div class="help-block">
@@ -109,13 +114,13 @@
 			</div>
 			<div>
 				<span class="role">
-					@if ( \Auth::user()->role == 0 )
+					@if ( $user->role == 0 )
 					Learner
-					@elseif (\Auth::user()->role == 1)
+					@elseif ($user->role == 1)
 					Teacher
-					@elseif (\Auth::user()->role == 2)
+					@elseif ($user->role == 2)
 					Admin
-					@elseif (\Auth::user()->role == 100)
+					@elseif ($user->role == 100)
 					Super Admin
 					@endif
 				</span>
@@ -126,7 +131,7 @@
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="first-name" class="cols-sm-2 control-label">First name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox first-name" name="first-name" id="first-name" value="{{ \Auth::user()->first_name }}" placeholder="Enter your first name" maxlength="30" required>
+						<input type="text" class="textbox first-name" name="first-name" id="first-name" size="{{ !$user->first_nam || strcmp($user->first_nam, '') == 0 ?: strlen($user->first_nam) }}" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
 					</div>
 				</div>
 
@@ -140,7 +145,7 @@
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Last name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox last-name" name="last-name" id="last-name" value="{{ \Auth::user()->last_name }}" placeholder="Enter your last name" maxlength="30" required>
+						<input type="text" class="textbox last-name" name="last-name" id="last-name" size="{{ !$user->last_nam || strcmp($user->last_nam, '') == 0 ?: strlen($user->last_nam) }}" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
 					</div>
 				</div>
 
@@ -150,13 +155,13 @@
 				</div>
 				@endif
 			</div>
-			<div class="col-sm-4 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+			<div class="col-sm-4 form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
 				<div class="label-wrapper"><i class="fa fa-flag fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Gender:</label></div>
 				<div>
 					<div class="input-group">
 						<select class="textbox" id="gender" name="gender">
-							<option value="1"{{ \Auth::user()->gender === 1 ? ' selected' : '' }}>Male</option>
-							<option value="0"{{ \Auth::user()->gender === 0 ? ' selected' : '' }}>Female</option>
+							<option value="1"{{ $user->gender === 1 ? ' selected' : '' }}>Male</option>
+							<option value="0"{{ $user->gender === 0 ? ' selected' : '' }}>Female</option>
 						</select>
 					</div>
 				</div>
@@ -173,7 +178,7 @@
 				<div class="label-wrapper"><i class="fa fa-envelope fa" aria-hidden="true"></i><label for="email" class="cols-sm-2 control-label">Email:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="email" class="textbox email" name="email" id="email" value="{{ \Auth::user()->email }}" maxlength="191" required>
+						<input type="email" class="textbox email" name="email" id="email" size="{{ !$user->email || strcmp($user->email, '') == 0 ?: strlen($user->email) }}" value="{{ $user->email }}" maxlength="191" required onkeypress="changeTextboxWidth(this)">
 					</div>
 				</div>
 
@@ -187,7 +192,7 @@
 				<div class="label-wrapper"><i class="fa fa-calendar fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Date of birth:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="date" class="textbox date-of-birth" name="date-of-birth" id="date-of-birth" value="{{ \Auth::user()->date_of_birth }}" maxlength="191" required>
+						<input type="date" class="textbox date-of-birth" name="date-of-birth" id="date-of-birth" value="{{ $user->date_of_birth }}" maxlength="191" required>
 					</div>
 				</div>
 
@@ -201,7 +206,7 @@
 				<div class="label-wrapper"><i class="fa fa-flag fa" aria-hidden="true"></i><label for="country" class="cols-sm-2 control-label">Living country:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="date" class="textbox country" name="country" id="country" value="{{ \Auth::user()->date_of_birth }}" maxlength="191" required>
+						<input type="date" class="textbox country" name="country" id="country" value="{{ $user->date_of_birth }}" maxlength="191" required>
 					</div>
 				</div>
 

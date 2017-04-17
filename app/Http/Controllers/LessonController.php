@@ -254,7 +254,7 @@ class LessonController extends Controller
 				$situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
 				$situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
 			}
-			return view('editSitu', compact('situation'));
+			return view('editSitu', compact(['situation', 'lessonId']));
 			break;
 			
 			default:

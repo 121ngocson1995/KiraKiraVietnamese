@@ -9,6 +9,9 @@
 <link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
 
 <style type="text/css">
+	body {
+		background-color: #f9f9f9;
+	}
 	.nav-side-menu {
 		overflow: auto;
 		font-family: verdana;
@@ -115,7 +118,6 @@
 	}
 	.main-container {
 		padding-left: 200px;
-		background-color: #f9f9f9;
 	}
 	@media (max-width: 767px) {
 		.nav-side-menu {

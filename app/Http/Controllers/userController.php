@@ -6,24 +6,25 @@ use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class userController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+	/**
+	* Create a new controller instance.
+	*
+	* @return void
+	*/
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 
 	public function load()
 	{
-			// dummy course và lesson
+		// dummy course và lesson
 		$user_id= Auth::id();
-    		// Lấy dữ liệu từ db
+		// Lấy dữ liệu từ db
 		$userData = User::where('id', '=', $user_id)->get()->toArray();
 		$roleData = Role::get();
 		for ($i=0; $i <count($roleData) ; $i++) { 
@@ -31,19 +32,6 @@ class userController extends Controller
 				$userData[0]['roleTitle'] = $roleData[$i]->role_title;
 			}
 		}
-		// $userData = array();
-		// $userData[] = [
-		// 	"id" => $data[0]['id'],
-		// 	"firstName" => $data[0]['first_name'],
-		// 	"lastName" => $data[0]['last_name'],
-		// 	"email" => $data[0]['email'],
-		// 	"gender" => $data[0]['gender'],
-		// 	"birthday" =>  $data[0]['date_of_birth'],
-		// 	"language" =>  $data[0]['language'],
-		// 	"country" =>  $data[0]['country'],
-		// 	"role" =>  $data[0]['role']
-		// ];
-		// `// $userData[0]['date_of_birth'] = date_format($date, 'F d Y');
 		return view("info", compact('userData'));
 	}
 
@@ -55,21 +43,31 @@ class userController extends Controller
 
 		$todayDate = date("Y/m/d");
 
-        Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {
-            return strtotime($value) <= strtotime('-18 years');
-        });
+		Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {
+			return strtotime($value) <= strtotime('-18 years');
+		});
 
-        Validator::make($request->all(), [
-            'first-name' => 'required|alpha|max:30',
-            'last-name' => 'required|alpha|max:30',
-            'username' => 'required|alpha_dash|max:191|unique:users',
-            'email' => 'required|email|max:191|unique:users',
-            'gender' => 'numeric|between:0,1',
-            'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
-        ],
-        [
-            '18yo' => 'You must be 18 years or older',
-        ]);
+		Validator::make($request->all(), [
+			'first-name' => 'required|alpha|max:30',
+			'last-name' => 'required|alpha|max:30',
+			'username' => [
+			'required',
+			'alpha_dash',
+			'max:191',
+			Rule::unique('users')->ignore($user_id),
+			],
+			'email' => [
+			'required',
+			'email',
+			'max:191',
+			Rule::unique('users')->ignore($user_id),
+			],
+			'gender' => 'numeric|between:0,1',
+			'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
+			],
+			[
+			'18yo' => 'You must be 18 years or older',
+			])->validate();
 
 		$userData->first_name = $request->input('first-name');
 		$userData->last_name = $request->input('last-name');
