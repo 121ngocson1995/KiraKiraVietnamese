@@ -22,7 +22,6 @@ class userController extends Controller
 
 	public function load()
 	{
-		dd('load');
 		// dummy course và lesson
 		$user_id= Auth::id();
 		// Lấy dữ liệu từ db
@@ -33,7 +32,7 @@ class userController extends Controller
 				$userData[0]['roleTitle'] = $roleData[$i]->role_title;
 			}
 		}
-		return view("info", compact('userData'));
+		return view("register", compact('userData'));
 	}
 
 	public function edit(Request $request)
