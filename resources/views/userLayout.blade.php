@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('body')
+@section('header')
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -17,7 +17,7 @@
 		background-color: #2e353d;
 		position: fixed;
 		/*      top: 0px;*/
-		width: 300px;
+		width: 200px;
 		height: 100%;
 		color: #e1ffff;
 	}
@@ -31,7 +31,7 @@
 	.nav-side-menu .toggle-btn {
 		display: none;
 	}
-	.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+	/*.glyphicon {  margin-bottom: 10px;margin-right: 10px;}*/
 
 	small {
 		display: block;
@@ -114,7 +114,7 @@
 		transition: all 1s ease;
 	}
 	.main-container {
-		padding-left: 300px;
+		padding-left: 200px;
 		background-color: #f9f9f9;
 	}
 	@media (max-width: 767px) {
@@ -157,8 +157,16 @@
 	}
 	.container {
 		width: initial;
+		padding: 2em 1em;
 	}
+
 </style>
+
+@yield('header-more')
+
+@stop
+
+@section('body')
 
 <div style="">
 

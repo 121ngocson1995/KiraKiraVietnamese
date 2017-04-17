@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/TextPlugin.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/tooltip-classic.css') }}" />
 <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700" rel="stylesheet">
+<script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
 
 <style>
 	.writtenFont {

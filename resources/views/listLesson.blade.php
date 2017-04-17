@@ -27,9 +27,9 @@
 										</div>
 
 										<div class="span2">
-											<div class="btn-group">
+											<div>
 												<a class="btn btn-info" href="/preEditLesson{{$lesson->lessonNo}}">Modify</a>
-												<a class="btn btn-info delete" data-confirm="Are you sure to delete this lesson?"  href="/deleteLesson{{$lesson->lessonNo}}">Delete</a>
+												<a class="btn btn-danger delete" data-confirm="Are you sure to delete this lesson?"  href="/deleteLesson{{$lesson->lessonNo}}">Delete</a>
 											</div>
 										</div>
 									</div>
@@ -37,7 +37,7 @@
 							</div>
 						</div>
 
-					</div>                   
+					</div>
 				</div>
 				@endforeach
 

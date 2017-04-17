@@ -28,7 +28,6 @@
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui1-12.1.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Header-1.css') }}">
@@ -37,7 +36,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> --}}
     {{-- css --}}
 
-@yield('header')
+    @yield('header')
     
 </head>
 <body>
@@ -65,11 +64,11 @@
                         <li role="presentation" class="{{ strcmp(\Request::path(), 'register') == 0 ? 'active' : '' }} navbtn"><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="caret"></span><img src="{{ asset('img/avatar_2x.png') }}" class="dropdown-image"></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="caret"></span><img src="{{ asset('img/avatar/' . \Auth::user()->avatar) }}" class="dropdown-image"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                <li role="presentation"><a href="/userManage">Settings</a></li>
+                                <li role="presentation"><a href="/userManage">Manage board</a></li>
                                 {{-- <li role="presentation"><a href="#">Payments</a></li> --}}
-                                <li role="presentation" class="active"><a href="{{ url('/logout') }}" 
+                                <li role="presentation"><a href="{{ url('/logout') }}" 
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Logout</a></li>
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

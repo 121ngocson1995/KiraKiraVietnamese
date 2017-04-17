@@ -9,6 +9,16 @@ use App\Situation;
 
 class LessonController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public static function getLesson($lessonNo, $course_id = 1)
 	{
 		// \DB::listen(function($query) {
