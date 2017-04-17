@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Lesson;
 use App\Situation;
+use App\P1WordMemorize;
 
 class LessonController extends Controller
 {
@@ -255,6 +256,11 @@ class LessonController extends Controller
 				$situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
 			}
 			return view('editSitu', compact(['situation', 'lessonId']));
+			break;
+
+			case 'p1':
+			$p1 = P1WordMemorize::where('lesson_id', '=', $lessonId)->get();
+			return view('editP1', compact(['p1', 'lessonId']));
 			break;
 			
 			default:
