@@ -40,7 +40,7 @@ class P1Controller extends Controller
 		if($totalNew >= $totalOld){
 			$validate = array();
 			for ($i=1; $i <= $totalOld ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('wordNo', '=', $i)->get();
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('id', '=', $i)->get();
 				
 				$this->validate($request, [
 					"word".$i => 'string|max:10',
@@ -115,7 +115,7 @@ class P1Controller extends Controller
 			}
 		}else if($totalNew < $totalOld){
 			for ($i=1; $i <= $totalNew ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('wordNo', '=', $i)->get();
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('id', '=', $i)->get();
 				
 				$this->validate($request, [
 					"word".$i => 'string|max:10',
@@ -150,7 +150,7 @@ class P1Controller extends Controller
 			}
 
 			for ($i=$totalNew+1; $i <= $totalOld ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('wordNo', '=', $i)->delete();
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['situaID'])->where('id', '=', $i)->delete();
 			}
 		}
 

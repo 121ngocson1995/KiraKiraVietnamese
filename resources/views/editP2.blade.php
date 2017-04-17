@@ -63,17 +63,17 @@
 </script>
 <div class="container">
 	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
-	{!! Form::open(array('url'=>'editP1','method'=>'POST', 'files'=>true, 'id' =>'p1Form')) !!}
-	<div id="p1Div">
-		<input type="hidden" name="situaID" value="{{$p1[0]->lesson_id}}">
-		@for ($i = 0; $i < count($p1)  ; $i++)
+	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
+	<div id="p2Div">
+		<input type="hidden" name="situaID" value="{{$p2[0]->lesson_id}}">
+		@for ($i = 0; $i < count($p2)  ; $i++)
 		<div class="row" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
-				<input type="text" id="word{{$p1[$i]->id}}" maxlength="10" name="word{{$p1[$i]->id}}" value="{{$p1[$i]->word}}">
+				<input type="text" id="word{{$p2[$i]->id}}" maxlength="10" name="word{{$p2[$i]->id}}" value="{{$p2[$i]->word}}">
 			</div>
 			<div class="col-xs-4">
-				<label for="audio{{$p1[$i]->id}}">Audio</label>
-				<input id="audio{{$p1[$i]->id}}" name="audio{{$p1[$i]->id}}" type="file" class="file undone audio" data-situ="{{$p1[$i]->id}}" data-path-audio="{{$p1[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
+				<label for="audio{{$p2[$i]->id}}">Audio</label>
+				<input id="audio{{$p2[$i]->id}}" name="audio{{$p2[$i]->id}}" type="file" class="file undone audio" data-situ="{{$p2[$i]->id}}" data-path-audio="{{$p2[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
 			<div class="col-xs-4">
 				<button type="button" class="deleteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
@@ -89,22 +89,22 @@
 
 </div>
 <script type="text/javascript">
-	var p1 = <?php echo json_encode($p1); ?>;
-	var sumOrigin = p1.length;
-	var sumLine = p1.length;
+	var p2 = <?php echo json_encode($p2); ?>;
+	var sumOrigin = p2.length;
+	var sumLine = p2.length;
 
 	var node_hidden = document.createElement("input");
 	node_hidden.setAttribute('type', 'hidden');
 	node_hidden.setAttribute('name',"sumOrigin");
 	node_hidden.setAttribute('value', sumOrigin);
 
-	document.getElementById("p1Div").appendChild(node_hidden);
+	document.getElementById("p2Div").appendChild(node_hidden);
 
-	$("#p1Form").submit( function(eventObj) {
+	$("#p2Form").submit( function(eventObj) {
 		$('<input />').attr('type', 'hidden')
 		.attr('name', "sumLine")
 		.attr('value', sumLine)
-		.appendTo('#p1Form');
+		.appendTo('#p2Form');
 		return true;
 	});
 
@@ -166,7 +166,7 @@
 		node_rowBig.appendChild(div_audio);
 		node_rowBig.appendChild(div_btn);
 
-		document.getElementById("p1Div").appendChild(node_rowBig);
+		document.getElementById("p2Div").appendChild(node_rowBig);
 
 		var $input = $('input.file[type=file]');
 		if ($input.length) {
@@ -194,13 +194,13 @@
 		sumLine--;
 	}
 
-	$("#p1Form").submit( function(eventObj) {
+	$("#p2Form").submit( function(eventObj) {
 		$('.undone').each(function() {
 			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
 				$('<input />').attr('type', 'hidden')
 				.attr('name', "audioPath"+$(this).attr('data-situ'))
 				.attr('value', $(this).attr('data-path-audio'))
-				.appendTo('#p1Form');
+				.appendTo('#p2Form');
 				return true;
 			}
 		})

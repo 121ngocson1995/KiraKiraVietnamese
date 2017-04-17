@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Lesson;
 use App\Situation;
 use App\P1WordMemorize;
-
+use App\P2WordRecognize;
 class LessonController extends Controller
 {
     /**
@@ -263,6 +263,11 @@ class LessonController extends Controller
 			return view('editP1', compact(['p1', 'lessonId']));
 			break;
 			
+			case 'p2':
+			$p2 = P2WordRecognize::where('lesson_id', '=', $lessonId)->get();
+			return view('editP2', compact(['p2', 'lessonId']));
+			break;
+
 			default:
 			return redirect('/');
 			break;
