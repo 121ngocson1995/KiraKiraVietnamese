@@ -24,8 +24,6 @@ Route::get('/', function () {
 	return view('welcome2', compact('lessons'));
 });
 
-Route::get('/userManage', 'UserController@load');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
