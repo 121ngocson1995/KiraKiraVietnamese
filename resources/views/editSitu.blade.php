@@ -108,7 +108,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="audio{{$situation[$i]->situationNo}}">Audio</label>
-						`	<input id="audio{{ $situation[$i]->situationNo }}" name="audio{{ $situation[$i]->situationNo }}" type="file" class="file undone audio" data-situ="{{ $situation[$i]->situationNo }}" data-path-audio="{{ $situation[$i]->audio }}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
+							<input id="audio{{ $situation[$i]->situationNo }}" name="audio{{ $situation[$i]->situationNo }}" type="file" class="file undone audio" data-situ="{{ $situation[$i]->situationNo }}" data-path-audio="{{ $situation[$i]->audio }}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 						</div>
 					</div>
 				</div>
@@ -130,9 +130,12 @@
 	});
 </script>
 <script type="text/javascript">
+	var rowAdded = 0;
 	var situation = <?php echo json_encode($situation); ?>;
 	var sumOrigin = situation.length;
 	var sumLine = situation.length;
+	var _validFileExtensions_img = [".jpg",".png"];    
+	var _validFileExtensions_audio = [".mp3"]; 
 
 	var maxLength = 80;
 	$('.textarea').on('input focus keydown keyup', function() {
@@ -146,7 +149,56 @@
 		$(this).val(lines.join(''));
 	});
 
+	function ValidateSingleInput_img(oInput) {
+		if (oInput.type == "file") {
+			var sFileName = oInput.value;
+			if (sFileName.length > 0) {
+				var blnValid = false;
+				for (var j = 0; j < _validFileExtensions_img.length; j++) {
+					var sCurExtension = _validFileExtensions_img[j];
+					if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+						blnValid = true;
+						break;
+					}
+				}
+
+				if (!blnValid) {
+					alert("Sorry, " + sFileName.replace(/C:\\fakepath\\/, '') + " is invalid, allowed extensions are: " + _validFileExtensions_img.join(", "));
+					oInput.value = "";
+					return false;
+				}
+			}
+		}
+		$(oInput).removeClass('undone');
+		return true;
+	}
+
+	function ValidateSingleInput_audio(oInput) {
+		if (oInput.type == "file") {
+			var sFileName = oInput.value;
+			if (sFileName.length > 0) {
+				var blnValid = false;
+				for (var j = 0; j < _validFileExtensions_audio.length; j++) {
+					var sCurExtension = _validFileExtensions_audio[j];
+					if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+						blnValid = true;
+						break;
+					}
+				}
+
+				if (!blnValid) {
+					alert("Sorry, " + sFileName.replace(/C:\\fakepath\\/, '') + " is invalid, allowed extensions are: " + _validFileExtensions_audio.join(", "));
+					oInput.value = "";
+					return false;
+				}
+			}
+		}
+		$(oInput).removeClass('undone');
+		return true;
+	}
+
 	function AddRow() {
+		rowAdded++;
 		var node_rowBig = document.createElement("div");
 		node_rowBig.setAttribute('class', 'row');
 		node_rowBig.setAttribute('id', "row"+(sumLine));
@@ -243,11 +295,11 @@
 		image_input.setAttribute('type', 'file');
 		image_input.setAttribute('id', 'image'+(sumLine+1));
 		image_input.setAttribute('name', 'image'+(sumLine+1));
-		image_input.setAttribute('class', 'file image');
+		image_input.setAttribute('class', 'file undone image');
 		image_input.setAttribute('data-situ', ""+(sumLine+1));
 		image_input.setAttribute('data-show-upload', "false");
 		image_input.setAttribute('data-show-caption', "true");
-		image_input.setAttribute('data-allowed-file-extensions', '["jpg", "png"]');
+		image_input.setAttribute('ata-allowed-file-extensions', '["jpg", "png"]');
 		form_group.appendChild(image_input);
 
 		col.appendChild(form_group);
@@ -267,11 +319,11 @@
 		audio_input.setAttribute('type', 'file');
 		audio_input.setAttribute('id', 'audio'+(sumLine+1));
 		audio_input.setAttribute('name', 'audio'+(sumLine+1));
-		audio_input.setAttribute('class', 'file audio');
+		audio_input.setAttribute('class', 'file undone audio');
 		audio_input.setAttribute('data-situ', ""+(sumLine+1));
 		audio_input.setAttribute('data-show-upload', "false");
 		audio_input.setAttribute('data-show-caption', "true");
-		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
+		audio_input.setAttribute('ata-allowed-file-extensions', '["mp3"]');
 		form_group.appendChild(audio_input);
 
 		col.appendChild(form_group);
