@@ -32,7 +32,7 @@ class userController extends Controller
 				$userData[0]['roleTitle'] = $roleData[$i]->role_title;
 			}
 		}
-		return view("register", compact('userData'));
+		return view("auth/register", compact('userData'));
 	}
 
 	public function edit(Request $request)
