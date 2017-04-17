@@ -22,6 +22,7 @@ class userController extends Controller
 
 	public function load()
 	{
+		dd('load');
 		// dummy course và lesson
 		$user_id= Auth::id();
 		// Lấy dữ liệu từ db
