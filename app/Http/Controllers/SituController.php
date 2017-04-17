@@ -60,9 +60,9 @@ class SituController extends Controller{
 			for ($i=1; $i <= $totalOld ; $i++) { 
 				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->get();
 				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
-				$dialog_validate = explode("|",$dialog);
-
 				$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTrans".$i]);
+
+				$dialog_validate = explode("|",$dialog);
 				$dialogTrans_validate = explode("|",$dialog_translate);
 
 				$validate['dialog'] = $dialog_validate;
@@ -133,6 +133,22 @@ class SituController extends Controller{
 					$SituaNew->lesson_id = $request->all()['situaID'];
 					$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
 					$dialog_translate = str_replace("\n", "|", $request->all()["dialogTrans".$i]);
+
+					$dialog_validate = explode("|",$dialog);
+					$dialogTrans_validate = explode("|",$dialog_translate);
+
+					$validate['dialog'] = $dialog_validate;
+					$validate['dialogTrans'] = $dialogTrans_validate;
+
+					$messages = [
+					'max'    => 'The :attribute has maximum :max characters per sentence.',
+					];
+
+					Validator::make($validate, [
+						'dialog.*' => 'string|max:80',
+						'dialogTrans.*' => 'string|max:80',
+						], $messages)->validate();
+
 					$SituaNew->dialog = $dialog;
 					$SituaNew->dialog_translate = $dialog_translate;
 
@@ -189,6 +205,22 @@ class SituController extends Controller{
 				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->get();
 				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
 				$dialog_translate = str_replace("\n", "|", $request->all()["dialogTrans".$i]);
+
+				$dialog_validate = explode("|",$dialog);
+				$dialogTrans_validate = explode("|",$dialog_translate);
+
+				$validate['dialog'] = $dialog_validate;
+				$validate['dialogTrans'] = $dialogTrans_validate;
+				
+				$messages = [
+				'max'    => 'The :attribute has maximum :max characters per sentence.',
+				];
+
+				Validator::make($validate, [
+					'dialog.*' => 'string|max:80',
+					'dialogTrans.*' => 'string|max:80',
+					], $messages)->validate();
+
 				$SituaEdit[0]->dialog = $dialog;
 				$SituaEdit[0]->dialog_translate =  $dialog_translate;
 				if($request->exists("imgPath".$i)){
