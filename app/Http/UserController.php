@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class userController extends Controller
+class UserController extends Controller
 {
 	/**
 	* Create a new controller instance.
@@ -17,7 +17,7 @@ class userController extends Controller
 	*/
 	public function __construct()
 	{
-		// $this->middleware('auth');
+		$this->middleware('auth');
 	}
 
 	public function load()
@@ -32,7 +32,7 @@ class userController extends Controller
 				$userData[0]['roleTitle'] = $roleData[$i]->role_title;
 			}
 		}
-		return view("auth/register", compact('userData'));
+		return view("info", compact('userData'));
 	}
 
 	public function edit(Request $request)
