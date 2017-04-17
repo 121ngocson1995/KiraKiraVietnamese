@@ -14,7 +14,7 @@ class SituController extends Controller{
 
 	public function __construct()
 	{
-		$this->middleware('auth');
+		$this->middleware('auth', ['except' => 'load']);
 	}
 
 	public function load(Request $request, $lessonNo){
@@ -61,19 +61,15 @@ class SituController extends Controller{
 				$dialog_validate = explode("|",$dialog);
 
 				Validator::make($dialog_validate, [
-					'dialog_validate.0' => 'string|max:80'
-					], [
-					'max:80' => 'dialog sentence has maximum 80 character'
-					]);
-				$dialog_translate = str_replace("\n", "|", $request->all()["dialogTrans".$i]);
+					'*' => 'alpha|max:80',
+					])->validate();
+				$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTrans".$i]);
 				$dialog_translate_validate = explode("|",$dialog_translate);
 				
 				Validator::make($dialog_translate_validate, [
-					'dialog_translate_validate[0]' => 'string|max:80'
-					], [
-					'max:80' => 'dialog sentence has maximum 80 character'
-					]);
-				dd($dialog_translate_validate);
+					'*' => 'alpha|max:80',
+					])->validate();
+				// dd();
 				$SituaEdit[0]->dialog = $dialog;
 				$SituaEdit[0]->dialog_translate =  $dialog_translate;
 				if($request->exists("imgPath".$i)){
@@ -181,7 +177,7 @@ class SituController extends Controller{
 
 				}
 			}
-		}elseif($totalNew < $totalOld){
+		}else if($totalNew < $totalOld){
 			for ($i=1; $i <= $totalNew ; $i++) { 
 				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->get();
 				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
