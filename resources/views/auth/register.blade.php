@@ -17,6 +17,12 @@
 		width: 30%;
 		color: grey;
 	}
+    .note {
+        float: right;
+        margin-right: 0.5em;
+        font-size: smaller;
+        font-style: italic;
+    }
 </style>
 <link href="{{ asset('css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('themes/explorer/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -177,7 +183,7 @@
                 </div>
 
                 <div class="form-group">
-                	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label>
+                	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label><span class="note">Only .doc, .docx, .pdf</span>
                 	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'>
                 </div>
 
