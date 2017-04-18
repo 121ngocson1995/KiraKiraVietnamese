@@ -83,10 +83,10 @@ class P1Controller extends Controller
 				$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
 
 				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
-				$fileName = $i."-".$t.'.'.$extension;
+				$fileName = $p1New->wordNo."-".$t.'.'.$extension;
 
 				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
-				$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+				$newName = "audio/P1/lesson".$lesson->lessonNo."/".$p1New->wordNo."-".$t.'.'.$extension;
 
 				$p1New->audio = $newName;
 				$p1New->save();
