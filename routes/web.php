@@ -73,6 +73,10 @@ Route::post('/editSitu', 'SituController@edit');
 // Route::get('/users', 'UserController@index');
 Route::resource('/users', 'UserController');
 Route::post('/setRole', 'UserController@setRole');
+
+Route::post('/editP1', 'P1Controller@edit');
+Route::post('/editP2', 'P2Controller@edit');
+
     //end route dummy
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example

@@ -62,15 +62,20 @@ class SituController extends Controller{
 				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
 				$dialog_validate = explode("|",$dialog);
 
-				Validator::make($dialog_validate, [
-					'*' => 'string|max:80',
-					])->validate();
 				$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTrans".$i]);
-				$dialog_translate_validate = explode("|",$dialog_translate);
+				$dialogTrans_validate = explode("|",$dialog_translate);
+
+				$validate['dialog'] = $dialog_validate;
+				$validate['dialogTrans'] = $dialogTrans_validate;
 				
-				Validator::make($dialog_translate_validate, [
-					'*' => 'string|max:80',
-					])->validate();
+				$messages = [
+				'max'    => 'The :attribute has maximum :max characters per sentence.',
+				];
+
+				Validator::make($validate, [
+					'dialog.*' => 'string|max:80',
+					'dialogTrans.*' => 'string|max:80',
+					], $messages)->validate();
 				// dd();
 				$SituaEdit[0]->dialog = $dialog;
 				$SituaEdit[0]->dialog_translate =  $dialog_translate;

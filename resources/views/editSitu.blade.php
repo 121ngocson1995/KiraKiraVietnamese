@@ -61,13 +61,6 @@
 	$('.listBtn').removeClass('active');
 	$('#li-edit').addClass('active');
 </script>
-
-@php
-	if (count($errors)) {
-		dd($errors);
-	}
-@endphp
-
 <div class="container">
 	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editSitu','method'=>'POST', 'files'=>true, 'id' =>'situationForm')) !!}
@@ -87,12 +80,22 @@
 							<label for="dialog{{$situation[$i]->situationNo}}">Dialog</label>
 							<textarea class="form-control textarea" name="dialog{{$situation[$i]->situationNo}}" id="dialog{{$situation[$i]->situationNo}}" data-dialog="{{$situation[$i]->dialogArr}}" required></textarea>
 						</div>
+						@if ($errors->has("dialog".$i))
+						<div class="help-block">
+							<span>{{ $errors->first('dialog') }}</span>
+						</div>
+						@endif
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="dialogTrans{{$situation[$i]->situationNo}}">Dialog's translation</label>
 							<textarea class="form-control textarea" name="dialogTrans{{$situation[$i]->situationNo}}" id="dialogTrans{{$situation[$i]->situationNo}}" data-dialog="{{$situation[$i]->dialogTransArr}}" required></textarea>
 						</div>
+						@if ($errors->has('dialogTrans'.$i))
+						<div class="help-block">
+							<span>{{ $errors->first('dialogTrans') }}</span>
+						</div>
+						@endif
 					</div>
 				</div>
 				<div class="row">
@@ -135,16 +138,16 @@
 	var _validFileExtensions_audio = [".mp3"]; 
 
 	var maxLength = 80;
-	// $('.textarea').on('input focus keydown keyup', function() {
-	// 	var text = $(this).val();
-	// 	var lines = text.split(/(\r\n|\n|\r)/gm); 
-	// 	for (var i = 0; i < lines.length; i++) {
-	// 		if (lines[i].length > maxLength) {
-	// 			lines[i] = lines[i].substring(0, maxLength);
-	// 		}
-	// 	}
-	// 	$(this).val(lines.join(''));
-	// });
+	$('.textarea').on('input focus keydown keyup', function() {
+		var text = $(this).val();
+		var lines = text.split(/(\r\n|\n|\r)/gm); 
+		for (var i = 0; i < lines.length; i++) {
+			if (lines[i].length > maxLength) {
+				lines[i] = lines[i].substring(0, maxLength);
+			}
+		}
+		$(this).val(lines.join(''));
+	});
 
 	function ValidateSingleInput_img(oInput) {
 		if (oInput.type == "file") {
