@@ -158,7 +158,7 @@
 
 <script>
 	var assetPath = '{{ asset('') }}';
-	var type = 'all';
+	var role = 'all';
 
 	$(function() {
 		$('body').on('click', '.pagination a', function(e) {
@@ -167,21 +167,23 @@
 			$('#load').children().css('opacity', 0.5);
 			$('#load').append('<img style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
 
-			var url = $(this).attr('href') + '&type=' + type;
+			var url = $(this).attr('href') + '&type=' + role;
 			getUsers(url);
 			// window.history.pushState("", "", url);
 		});
 
 		$('body').on('click', 'a.tab_toggle', function(e) {
-			// e.preventDefault();
+			filterByRole(role);
+		});
 
+		function filterByRole(role) {
 			$('#load').children().css('opacity', 0.5);
 			$('.main-container').append('<img id="loadImg" style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
 
-			var url = window.location.pathname + '?page=1' + '&type=' + type;
+			var url = window.location.pathname + '?page=1' + '&type=' + role;
 			getUsers(url);
 			// window.history.pushState("", "", url);
-		});
+		}
 
 		function getUsers(url) {
 			$.ajax({
@@ -198,12 +200,6 @@
 		var userid, oldRole;
 
 		$('body').on('click', '.edit-modal', function() {
-			// $('#footer_action_button').text(" Update");
-			// $('#footer_action_button').addClass('glyphicon-check');
-			// $('#footer_action_button').removeClass('glyphicon-trash');
-			// $('.actionBtn').addClass('btn-success');
-			// $('.actionBtn').removeClass('btn-danger');
-			// $('.actionBtn').addClass('edit');
 			userid = $(this).attr('data-user-id');
 			oldRole = $(this).attr('data-user-role');
 			$('.modal-title').text('Set role for ' + $(this).attr('data-user-username'));
@@ -217,11 +213,6 @@
 			} else if ($(this).attr('data-user-role') == '100') {
 				$('#radio_sadmin').prop('checked', true);
 			}
-			// $('.deleteContent').hide();
-			// $('.form-horizontal').show();
-			// $('#fid').val($(this).data('id'));
-			// $('#t').val($(this).data('title'));
-			// $('#d').val($(this).data('description'));
 			$('#setRoleModal').modal('show');
 		});
 
@@ -251,7 +242,7 @@
 				$('#load').children().css('opacity', 0.5);
 				$('.main-container').append(loading);
 
-				var url = window.location.pathname + '?page=1' + '&type=' + type;
+				var url = window.location.pathname + '?page=1' + '&type=' + role;
 				getUsers(url);
 			}).fail(function () {
 				alert('Your request could not be done at the moment');
@@ -280,23 +271,23 @@
 	})
 
 	function toggle_all() {
-		type = 'all';
+		role = 'all';
 	}
 
 	function toggle_admins() {
-		type = 'admins';
+		role = 'admins';
 	}
 
 	function toggle_teachers() {
-		type = 'teachers';
+		role = 'teachers';
 	}
 
 	function toggle_pending() {
-		type = 'pending';
+		role = 'pending';
 	}
 
 	function toggle_rejected() {
-		type = 'rejected';
+		role = 'rejected';
 	}
 
 	var loading;
