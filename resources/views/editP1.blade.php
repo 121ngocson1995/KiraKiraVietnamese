@@ -67,7 +67,7 @@
 	<div id="p1Div">
 		<input type="hidden" name="lessonID" value="{{$p1[0]->lesson_id}}">
 		@for ($i = 1; $i <= count($p1)  ; $i++)
-		<div class="row" id="row{{$i}}" data-line="{{$i}}">
+		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
 				<label for="word{{$i}}">Word</label>
 				<input type="text" id="word{{$i}}" class="form-control"  name="word{{$i}}" value="{{$p1[$i-1]->word}}">
@@ -92,17 +92,10 @@
 </div>
 <script type="text/javascript">
 	var p1 = <?php echo json_encode($p1); ?>;
-	var sumOrigin = p1.length;
 	var sumLine = p1.length;
 	var deleteLine = 0;
 	var addLine = 0;
 
-	var node_hidden = document.createElement("input");
-	node_hidden.setAttribute('type', 'hidden');
-	node_hidden.setAttribute('name',"sumOrigin");
-	node_hidden.setAttribute('value', sumOrigin);
-
-	document.getElementById("p1Div").appendChild(node_hidden);
 
 	$("#p1Form").submit( function(eventObj) {
 		$('<input />').attr('type', 'hidden')
@@ -222,6 +215,13 @@
 		node_add.setAttribute('name', 'sumAdd');
 		node_add.setAttribute('value', addLine);
 		document.getElementById('p1Form').appendChild(node_add);
+
+		var node_origin = document.createElement("input");
+		node_origin.setAttribute('type', 'hidden');
+		node_origin.setAttribute('name',"sumOrigin");
+		node_origin.setAttribute('value', $('.origin').length);
+		document.getElementById('p1Form').appendChild(node_origin);
+
 		$('.undone').each(function() {
 			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
 				$('<input />').attr('type', 'hidden')

@@ -25,9 +25,8 @@ class P1Controller extends Controller
 	}
 	
 	public function edit(Request $request) {
-
 		$lesson = Lesson::find($request->all()['lessonID']);
-		$totalNew = $request->all()['sumLine'];
+		$totalNew = $request->all()['sumOrigin'];
 		for ($i=0; $i <= $totalNew ; $i++) { 
 			if ($request->exists("wordId".$i)) {
 				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["wordId".$i])->get();
@@ -71,7 +70,6 @@ class P1Controller extends Controller
 			if ($request->exists("wordAdd".$i)) {
 				$p1New = new P1WordMemorize;
 				$p1New->wordNo = $totalNew + $i;
-				dd($p1New->wordNo);
 				$p1New->lesson_id = $request->all()['lessonID'];
 				$word = $request->all()["word".$i];
 
