@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'password' => 'required|min:6|max:24|confirmed',
             'gender' => 'numeric|between:0,1',
             'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
-            'cv' => 'required|file',
+            'cv' => 'required|file|max:10240',
             ],
             [
             '18yo' => 'You must be 18 years or older',
