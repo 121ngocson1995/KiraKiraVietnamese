@@ -22,7 +22,6 @@ class CreateP2WordRecognizesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('word');
-            $table->tinyInteger('correctOrder')->unsigned();
             $table->string('audio');
             $table->timestamps();
             $table->softDeletes();

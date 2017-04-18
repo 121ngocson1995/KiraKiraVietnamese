@@ -27,20 +27,9 @@
 </div>
 
 <div class="col-md-7" style="margin-top: 30px">
-	@php
-		$currentlineNumber = $firstLineNumber;
-	@endphp
-
 	<div class="wordLine" style="text-align: center; width: 100%">
 
 		@foreach ($elementData as $elementValue)
-			@if ($elementValue->lineNumber > $currentlineNumber)
-				@php
-					$currentlineNumber = $elementValue->lineNumber;
-				@endphp
-
-				</div><div class="wordLine" style="text-align: center; width: 100%">
-			@endif
 
 			<div class="wordWrap" data-audio-source="{{ $elementValue->audio }}" style="display: inline-block; height: 60px;">
 				<div class="flexContainer" style="display: flex; height: 100%;">

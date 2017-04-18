@@ -21,7 +21,6 @@ class CreateP1WordMemorizesTable extends Migration
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('lineNo')->unsigned();
             $table->tinyInteger('wordNo')->unsigned();
             $table->string('word');
             $table->string('audio');

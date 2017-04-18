@@ -21,7 +21,6 @@ class CreateP4SentenceRecognizesTable extends Migration
                 ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('sentenceOrder')->unsigned();
             $table->string('sentence');
             $table->string('audio');
             $table->timestamps();
