@@ -66,19 +66,20 @@
 	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
 	<div id="p2Div">
 		<input type="hidden" name="lessonID" value="{{$p2[0]->lesson_id}}">
-		@for ($i = 0; $i < count($p2)  ; $i++)
-		<div class="row" id="row{{$i}}" data-line="{{$i}}">
+		@for ($i = 1; $i <= count($p2)  ; $i++)
+		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
-			<label for="word{{$p2[$i]->id}}">Word</label>
-				<input type="text" id="word{{$p2[$i]->id}}" class="form-control" name="word{{$p2[$i]->id}}" value="{{$p2[$i]->word}}">
+				<label for="word{{$i}}">Word</label>
+				<input type="text" id="word{{$i}}" class="form-control"  name="word{{$i}}" value="{{$p2[$i-1]->word}}">
 			</div>
 			<div class="col-xs-4">
-				<label for="audio{{$p2[$i]->id}}">Audio</label>
-				<input id="audio{{$p2[$i]->id}}" name="audio{{$p2[$i]->id}}" type="file" class="file undone audio" data-situ="{{$p2[$i]->id}}" data-path-audio="{{$p2[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
+				<label for="audio{{$i}}">Audio</label>
+				<input id="audio{{$i}}" name="audio{{$i}}" type="file" class="file undone audio" data-situ="{{$i}}" data-path-audio="{{$p2[$i-1]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
-			<div class="col-xs-4">
-				<button type="button" class="deleteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
+			<div class="col-xs-4 ">
+				<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
 			</div>
+			<input type="hidden" id="wordId{{$i}}" class="id" name="wordId{{$i}}" value="{{$p2[$i-1]->id}}">
 		</div>
 		@endfor
 	</div>
@@ -91,15 +92,10 @@
 </div>
 <script type="text/javascript">
 	var p2 = <?php echo json_encode($p2); ?>;
-	var sumOrigin = p2.length;
 	var sumLine = p2.length;
+	var deleteLine = 0;
+	var addLine = 0;
 
-	var node_hidden = document.createElement("input");
-	node_hidden.setAttribute('type', 'hidden');
-	node_hidden.setAttribute('name',"sumOrigin");
-	node_hidden.setAttribute('value', sumOrigin);
-
-	document.getElementById("p2Div").appendChild(node_hidden);
 
 	$("#p2Form").submit( function(eventObj) {
 		$('<input />').attr('type', 'hidden')
@@ -110,48 +106,48 @@
 	});
 
 	function AddRow() {
+		addLine++;
+		sumLine++;
 		var node_rowBig = document.createElement("div");
 		node_rowBig.setAttribute('class', 'row');
 		node_rowBig.setAttribute('id', "row"+(sumLine));
 		node_rowBig.setAttribute('data-line', sumLine);
 
 		/* Create label Situation n */
-
 		var div_word = document.createElement("div");
 		div_word.setAttribute('class', "col-xs-4");
 
 		label_word = document.createElement("label");
-		label_word.setAttribute('for', 'word'+(sumLine+1));
+		label_word.setAttribute('for', 'wordAdd'+ addLine);
 		label_word.innerHTML = 'Word';
 
 		var word_input = document.createElement("input");
 		word_input.setAttribute('type', "text");
 		word_input.setAttribute('class', "form-control");
-		word_input.setAttribute('name', "word"+(sumLine+1));
+		word_input.setAttribute('name', "wordAdd"+ addLine);
 		word_input.setAttribute('required', "true");
 
 		div_word.appendChild(label_word);
 		div_word.appendChild(word_input);
-
 		var div_audio = document.createElement("div");
 		div_audio.setAttribute('class', "col-xs-4");
 
-		label_audio = document.createElement("label");
-		label_audio.setAttribute('for', 'audio'+(sumLine+1));
-		label_audio.innerHTML = 'Audio';
+		label = document.createElement("label");
+		label.setAttribute('for', 'audioAdd'+ addLine);
+		label.innerHTML = 'Audio';
 
 		var audio_input = document.createElement("input");
 		audio_input.setAttribute('type', 'file');
 		audio_input.setAttribute('required', 'true');
-		audio_input.setAttribute('id', 'audio'+(sumLine+1));
-		audio_input.setAttribute('name', 'audio'+(sumLine+1));
+		audio_input.setAttribute('id', 'audioAdd'+addLine);
+		audio_input.setAttribute('name', 'audioAdd'+addLine);
 		audio_input.setAttribute('class', 'file audio');
-		audio_input.setAttribute('data-situ', ""+(sumLine+1));
+		audio_input.setAttribute('data-situ', addLine);
 		audio_input.setAttribute('data-show-upload', "false");
 		audio_input.setAttribute('data-show-caption', "true");
 		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
 
-		div_audio.appendChild(label_audio);
+		div_audio.appendChild(label);
 		div_audio.appendChild(audio_input);
 
 		var div_btn = document.createElement("div");
@@ -160,7 +156,7 @@
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');
 		deleteBtn.setAttribute('class', 'deleteBtn');
-		deleteBtn.setAttribute('onchange', 'deleteRow(this)');
+		deleteBtn.setAttribute('onclick', 'deleteRow(this)');
 
 		var icon = document.createElement("i");
 		icon.setAttribute('class', 'fa fa-trash');
@@ -178,29 +174,54 @@
 		if ($input.length) {
 			$input.fileinput();
 		}
-		sumLine++;
 	}
 
 	function deleteRow(button) {
+		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');
 		if(confirm("Are you sure you want to delete?")){
+			var node_delete = document.createElement('input');
+			node_delete.setAttribute('type', 'hidden');
+			node_delete.setAttribute('name', 'delete'+deleteLine);
+			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
+			document.getElementById('p2Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
 		}
 		for (var i = 0; i < sumLine; i++) {
 			if (curLine < i) {
 				$("#row"+i).attr('data-line', i-1);
 				$("#row"+i).attr('id', "row"+(i-1));
-				$("#word"+(i+1)).attr('name', "word"+i);
-				$("#word"+(i+1)).attr('id', "word"+i);
-				$("#audio"+(i+1)).attr('name', "audio"+i);
-				$("#audio"+(i+1)).attr('data-situ', i);
-				$("#audio"+(i+1)).attr('id', "audio"+i);
+				$("#wordId"+i).attr('name', "wordId"+(i-1));
+				$("#wordId"+i).attr('id', "wordId"+(i-1));
+				$("#word"+(i)).attr('name', "word"+(i-1));
+				$("#word"+(i)).attr('id', "word"+(i-1));
+				$("#audio"+(i)).attr('name', "audio"+(i-1));
+				$("#audio"+(i)).attr('data-situ', (i-1));
+				$("#audio"+(i)).attr('id', "audio"+(i-1));
 			}
 		}
 		sumLine--;
 	}
 
 	$("#p2Form").submit( function(eventObj) {
+		var node_delete = document.createElement('input');
+		node_delete.setAttribute('type', 'hidden');
+		node_delete.setAttribute('name', 'sumDelete');
+		node_delete.setAttribute('value', deleteLine);
+		document.getElementById('p2Form').appendChild(node_delete);
+
+		var node_add = document.createElement('input');
+		node_add.setAttribute('type', 'hidden');
+		node_add.setAttribute('name', 'sumAdd');
+		node_add.setAttribute('value', addLine);
+		document.getElementById('p2Form').appendChild(node_add);
+
+		var node_origin = document.createElement("input");
+		node_origin.setAttribute('type', 'hidden');
+		node_origin.setAttribute('name',"sumOrigin");
+		node_origin.setAttribute('value', $('.origin').length);
+		document.getElementById('p2Form').appendChild(node_origin);
+
 		$('.undone').each(function() {
 			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
 				$('<input />').attr('type', 'hidden')

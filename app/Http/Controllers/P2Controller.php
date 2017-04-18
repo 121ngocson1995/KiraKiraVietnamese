@@ -15,7 +15,7 @@ class P2Controller extends Controller
 	public function load(Request $request, $lessonNo)
 	{
     	// get lesson
-    	$lesson = LessonController::getLesson($lessonNo);
+		$lesson = LessonController::getLesson($lessonNo);
 
 		// get P2
 		$elementData = P2WordRecognize::where('lesson_id', '=', $lesson->id)->get();
@@ -23,8 +23,8 @@ class P2Controller extends Controller
 		$textRender = array();
 		foreach ($elementData as $element) {
 			$textRender[] = [
-				"id" => $element->id,
-				"word" => $element->word
+			"id" => $element->id,
+			"word" => $element->word
 			];
 		}
 
@@ -35,19 +35,15 @@ class P2Controller extends Controller
 	}
 
 	public function edit(Request $request) {
-
 		$lesson = Lesson::find($request->all()['lessonID']);
-		$totalOld = $request->all()['sumOrigin'];
-		$totalNew = $request->all()['sumLine'];
+		$totalNew = $request->all()['sumOrigin'];
+		for ($i=0; $i <= $totalNew ; $i++) { 
+			if ($request->exists("wordId".$i)) {
+				$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["wordId".$i])->get();
 
-		if($totalNew >= $totalOld){
-			$validate = array();
-			for ($i=1; $i <= $totalOld ; $i++) { 
-				$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
-				
-				$this->validate($request, [
-					"word".$i => 'string|max:10',
-					]);
+				// $this->validate($request, [
+				// 	"word".$i => 'string|max:10',
+				// 	]);
 
 				$p2Edit[0]->word = $request->all()['word'.$i];
 
@@ -55,7 +51,7 @@ class P2Controller extends Controller
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
 					$oldName = $request->all()["audioPath".$i];
-					$newName = "/audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+					$newName = "audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
 					rename($oldName, $newName);
 					$p2Edit[0]->audio = $newName;
 				}else if($request->exists("audio".$i)){
@@ -68,88 +64,49 @@ class P2Controller extends Controller
 					$fileName = $i."-".$t.'.'.$extension;
 
 					Input::file("audio".$i)->move($destinationPath, $fileName);
-					$newName = "/audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+					$newName = "audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
 
 					$p2Edit[0]->audio = $newName;
 				}else{
 					$p2Edit[0]->audio = "";
 				}
 				$p2Edit[0]->save();
-			}
-
-			if ($totalNew > $totalOld) {
-				for ($i=$totalOld+1; $i <= $totalNew ; $i++) { 
-					$p2New = new P2WordRecognize;
-					$p2New->correctOrder = $i;
-					$p2New->lesson_id = $request->all()['lessonID'];
-					$word = $request->all()["word".$i];
-					
-
-					$this->validate($request, [
-						"word".$i => 'string|max:10',
-						]);
-					$p2New->word = $word;
-
-					if($request->exists("audio".$i)){
-
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$destinationPath = "audio/P2/lesson".$lesson->lessonNo;
-
-						$extension = Input::file("audio".$i)->getClientOriginalExtension();
-						$fileName = $i."-".$t.'.'.$extension;
-
-						Input::file("audio".$i)->move($destinationPath, $fileName);
-						$newName = "/audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
-
-						$p2New->audio = $newName;
-					}else{
-						$p2New->audio = "";
-					}
-					$p2New->save();
-				}
-			}
-		}else if($totalNew < $totalOld){
-			for ($i=1; $i <= $totalNew ; $i++) { 
-				$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
-				
-				$this->validate($request, [
-					"word".$i => 'string|max:10',
-					]);
-
-				$p2Edit[0]->word = $request->all()['word'.$i];
-
-				if($request->exists("audioPath".$i)){
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$oldName = $request->all()["audioPath".$i];
-					$newName = "/audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
-					rename($oldName, $newName);
-					$p2Edit[0]->audio = $newName;
-				}else if($request->exists("audio".$i)){
-
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$destinationPath = "audio/P2/lesson".$lesson->lessonNo;
-
-					$extension = Input::file("audio".$i)->getClientOriginalExtension();
-					$fileName = $i."-".$t.'.'.$extension;
-
-					Input::file("audio".$i)->move($destinationPath, $fileName);
-					$newName = "/audio/P2/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
-
-					$p2Edit[0]->audio = $newName;
-				}else{
-					$p2Edit[0]->audio = "";
-				}
-				$p2Edit[0]->save();
-			}
-
-			for ($i=$totalNew+1; $i <= $totalOld ; $i++) { 
-				$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->delete();
 			}
 		}
 
+		$sumAdd = $request->all()['sumAdd'];
+		for ($i=0; $i <= $sumAdd ; $i++) { 
+			if ($request->exists("wordAdd".$i)) {
+				$p2New = new P2WordRecognize;
+				$p2New->lesson_id = $request->all()['lessonID'];
+				$word = $request->all()["wordAdd".$i];
+
+
+					// $this->validate($request, [
+					// 	"word".$i => 'string|max:10',
+					// 	]);
+				$p2New->word = $word;
+				$t=time();
+				$t=date("Y-m-d-H-i-s",$t);
+				$destinationPath = "audio/P2/lesson".$lesson->lessonNo;
+
+				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
+				$fileName = $p2New->wordNo."-".$t.'.'.$extension;
+
+				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
+				$newName = "audio/P2/lesson".$lesson->lessonNo."/".$p2New->wordNo."-".$t.'.'.$extension;
+
+				$p2New->audio = $newName;
+				$p2New->save();
+			}
+		}
+
+		$sumDelete = $request->all()['sumDelete'];
+		for ($i=0; $i <= $sumDelete ; $i++) { 
+			if ($request->exists("delete".$i)) {
+				$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+			}
+		}
 		return Redirect("/listAct".$request->all()['lessonID']);
 	}
 }
