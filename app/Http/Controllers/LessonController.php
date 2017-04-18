@@ -8,6 +8,9 @@ use App\Lesson;
 use App\Situation;
 use App\P1WordMemorize;
 use App\P2WordRecognize;
+use App\P3SentenceMemorize;
+use App\P4SentenceRecognize;
+
 class LessonController extends Controller
 {
     /**
@@ -266,6 +269,16 @@ class LessonController extends Controller
 			case 'p2':
 			$p2 = P2WordRecognize::where('lesson_id', '=', $lessonId)->get();
 			return view('editP2', compact(['p2', 'lessonId']));
+			break;
+
+			case 'p3':
+			$p3 = P3SentenceMemorize::where('lesson_id', '=', $lessonId)->get();
+			return view('editP3', compact(['p3', 'lessonId']));
+			break;
+
+			case 'p4':
+			$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->get();
+			return view('editP4', compact(['p4', 'lessonId']));
 			break;
 
 			default:

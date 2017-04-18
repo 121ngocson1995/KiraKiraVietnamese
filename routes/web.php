@@ -76,6 +76,15 @@ Route::post('/setRole', 'UserController@setRole');
 
 Route::post('/editP1', 'P1Controller@edit');
 Route::post('/editP2', 'P2Controller@edit');
+Route::post('/editP3', 'P3Controller@edit');
+Route::post('/editP4', 'P4Controller@edit');
+Route::post('/editP5', 'P5Controller@edit');
+Route::post('/editP6', 'P6Controller@edit');
+Route::post('/editP7', 'P7Controller@edit');
+Route::post('/editP8', 'P8Controller@edit');
+Route::post('/editP9', 'P9Controller@edit');
+Route::post('/editP10', 'P1oController@edit');
+
 
     //end route dummy
 Route::get('/dummy', 'DummyController@load');

@@ -65,7 +65,7 @@
 	<div class="title"><h2>Edit P1: Word Memorize for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP1','method'=>'POST', 'files'=>true, 'id' =>'p1Form')) !!}
 	<div id="p1Div">
-		<input type="hidden" name="situaID" value="{{$p1[0]->lesson_id}}">
+		<input type="hidden" name="lessonID" value="{{$p1[0]->lesson_id}}">
 		@for ($i = 0; $i < count($p1)  ; $i++)
 		<div class="row" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
