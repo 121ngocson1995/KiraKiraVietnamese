@@ -82,7 +82,7 @@ class P1Controller extends Controller
 				$t=date("Y-m-d-H-i-s",$t);
 				$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
 
-				$extension = Input::file("audio".$i)->getClientOriginalExtension();
+				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
 				$fileName = $i."-".$t.'.'.$extension;
 
 				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
@@ -91,6 +91,13 @@ class P1Controller extends Controller
 				$p1New->audio = $newName;
 				$p1New->save();
 
+			}
+		}
+
+		$sumDelete = $request->all()['sumDelete'];
+		for ($i=0; $i <= $sumDelete ; $i++) { 
+			if ($request->exists("delete".$i)) {
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
 			}
 		}
 		// if($totalNew >= $totalOld){
