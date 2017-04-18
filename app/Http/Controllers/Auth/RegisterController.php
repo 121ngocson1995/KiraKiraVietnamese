@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Input;
 
 class RegisterController extends Controller
 {
@@ -61,10 +63,35 @@ class RegisterController extends Controller
             'password' => 'required|min:6|max:24|confirmed',
             'gender' => 'numeric|between:0,1',
             'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
-        ],
-        [
+            ],
+            [
             '18yo' => 'You must be 18 years or older',
+            ]);
+    }
+
+    /**
+     * Save CV file into storage for later review..
+     *
+     * @param  Request  $request
+     * @return string
+     */
+    protected function saveCV(\Illuminate\Http\Request $request)
+    {
+        // dd($request);
+
+        $this->validate($request, [
+            'cv' => 'required|file',
         ]);
+
+        $t = time();
+        $t = date("Y-m-d-H-i-s",$t);
+        $destinationPath = 'cv'; 
+        $extension = $request->cv->extension();
+
+        $fileName = "CV_" . $request->username . "_" . $t . '.' . $extension;
+        $path = $request->cv->storeAs('public/cv', 'filename.jpg');
+        // dd($path);
+        $newName = "Situation_img/S".$i."-".$t.".".$extension;
     }
 
     /**
@@ -73,7 +100,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data, $cv_path)
     {
         return User::create([
             'username' => $data['username'],
@@ -83,6 +110,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'gender' => $data['gender'],
             'date_of_birth' => $data['date-of-birth'],
-        ]);
+            'cv' => $cv_path,
+            ]);
     }
 }
