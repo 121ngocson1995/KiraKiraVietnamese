@@ -165,6 +165,7 @@ function showWords() {
 			});
 
 			playSample(0);
+			startProgressbar();
 		}
 	});
 	tl.staggerFromTo('.wordSpan', 0.5, {opacity:0, scale:0}, {opacity:1, scale:1}, 0.2);
@@ -276,7 +277,7 @@ function initAudio() {
 	for (var i = 0; i < elementData.length; i++) {
 		var audioFile = document.createElement("audio");
 		audioFile.id = 'audio' + elementData[i].id;
-		audioFile.innerHTML  = "<source src='" + elementData[i].audio + "' type='audio/mp3'>";
+		audioFile.innerHTML  = "<source src='" + assetPath + elementData[i].audio + "' type='audio/mp3'>";
 		sampleGroup.appendChild(audioFile);
 
 		if (!isNaN(audioFile.duration)) {

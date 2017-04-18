@@ -1,7 +1,7 @@
 var tl;
-var readWordTimeout;
+var readSentenceTimeout;
 
-function readWord(button) {
+function readSentence(button) {
 	var audio = document.getElementById("sample");
 
 	audio.src = assetPath + button.getAttribute('data-audio-source');
@@ -27,10 +27,10 @@ function readWord(button) {
 	function doNothing() {}
 
 	document.getElementById("sample").addEventListener('loadedmetadata', function toEnableBtn() {
-		if (readWordTimeout) {
-			clearTimeout(readWordTimeout);
+		if (readSentenceTimeout) {
+			clearTimeout(readSentenceTimeout);
 		}
-		readWordTimeout = setTimeout(function() {
+		readSentenceTimeout = setTimeout(function() {
 			document.getElementById("sample").removeEventListener('loadedmetadata', toEnableBtn);
 
 			enableControl('replay');
@@ -119,7 +119,7 @@ function enableControl(control) {
 		});
 	} else if (control == 'wordWrap') {
 		$('.wordWrap').click(function() {
-			readWord(this);
+			readSentence(this);
 		});
 	}
 }

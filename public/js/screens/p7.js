@@ -23,14 +23,14 @@ function chooseDialog(button){
 }
 
 function togglePlaySample() {
-	if (wordIsPlaying()) {
-		stopReadWord();
+	if (conversationIsPlaying()) {
+		stopReadConversation();
 	} else {
-		readWord();
+		readConversation();
 	}
 }
 
-function wordIsPlaying() {
+function conversationIsPlaying() {
 	return !$('#sample')[0].paused;
 }
 
@@ -42,9 +42,9 @@ function stopReplay() {
 		$('.replay').removeClass('red');
 	}
 
-	disableControl('replay');
-	disableControl('record');
-	disableControl('wordWrap');
+	enableControl('replay');
+	enableControl('record');
+	enableControl('wordWrap');
 }
 
 function editContent(element) {
@@ -85,7 +85,6 @@ function editContent(element) {
 						togglePlaySample(this);
 					});
 				}
-				$('.wordWrap').click();
 			}, 600);
 		});
 	});
@@ -98,19 +97,19 @@ function editAudio(element) {
 
 var recordTimeout;
 var playRecordTimeout;
-var readWordTimeout;
+var readConversationTimeout;
 
-function readWord() {
+function readConversation() {
 	pulseDialogHolder();
 
 	$('#sample')[0].pause();
 	$('#sample')[0].currentTime = 0;
 	$('#sample')[0].play();
 
-	if (readWordTimeout) {
-		clearTimeout(readWordTimeout);
+	if (readConversationTimeout) {
+		clearTimeout(readConversationTimeout);
 	}
-	readWordTimeout = setTimeout(function() {
+	readConversationTimeout = setTimeout(function() {
 		enableControl('replay');
 		enableControl('record');
 	}, $('#sample')[0].duration*1000);
@@ -119,12 +118,12 @@ function readWord() {
 	disableControl('record');
 }
 
-function stopReadWord() {
+function stopReadConversation() {
 	$('#sample')[0].pause();
 	$('#sample')[0].currentTime = 0;
 
-	if (readWordTimeout) {
-		clearTimeout(readWordTimeout);
+	if (readConversationTimeout) {
+		clearTimeout(readConversationTimeout);
 	}
 	enableControl('replay');
 	enableControl('record');

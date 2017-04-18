@@ -183,8 +183,8 @@
                 </div>
 
                 <div class="form-group">
-                	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label><span class="note">Only .doc, .docx, .pdf</span>
-                	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'>
+                	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label><span class="note">Only .doc, .docx, .pdf; Max size: 10Mb</span>
+                	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'{{ old('cv') ? ' value=' . old('cv')  : '' }}>
                 </div>
 
                 @if ($errors->has('cv'))
