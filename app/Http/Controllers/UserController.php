@@ -40,7 +40,7 @@ class UserController extends Controller
 		$users = User::latest('created_at')->paginate($pagination);
 
 		if($request->ajax()) {
-			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'all') == 0 || strcmp($request->input('type'), 'admins') == 0 || strcmp($request->input('type'), 'teachers') == 0 || strcmp($request->input('type'), 'learners') == 0) {
+			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0 || strcmp($request->input('type'), 'all') == 0 || strcmp($request->input('type'), 'admins') == 0 || strcmp($request->input('type'), 'teachers') == 0 || strcmp($request->input('type'), 'learners') == 0) {
 				
 				$type = $request->input('type');
 
@@ -86,14 +86,10 @@ class UserController extends Controller
 		])->validate();
 
 		$user = User::where('id', '=', $request->input('userid'))->first();
-		// dd($request->input('newRole'));
-		$user->role = (int)($request->input('newRole'));
-		$user->save();
-	}
 
-	public function downloadCV($userid)
-	{
-		# code...
+		$user->role = (int)($request->input('newRole'));
+		
+		$user->save();
 	}
 
 	public function edit(Request $request)
