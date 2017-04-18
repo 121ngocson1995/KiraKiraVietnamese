@@ -62,14 +62,15 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit P2: Word Recognize for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
 	<div id="p2Div">
 		<input type="hidden" name="situaID" value="{{$p2[0]->lesson_id}}">
 		@for ($i = 0; $i < count($p2)  ; $i++)
 		<div class="row" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
-				<input type="text" id="word{{$p2[$i]->id}}" maxlength="10" name="word{{$p2[$i]->id}}" value="{{$p2[$i]->word}}">
+			<label for="word{{$p2[$i]->id}}">Word</label>
+				<input type="text" id="word{{$p2[$i]->id}}" class="form-control" name="word{{$p2[$i]->id}}" value="{{$p2[$i]->word}}">
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$p2[$i]->id}}">Audio</label>
@@ -119,20 +120,25 @@
 		var div_word = document.createElement("div");
 		div_word.setAttribute('class', "col-xs-4");
 
+		label_word = document.createElement("label");
+		label_word.setAttribute('for', 'word'+(sumLine+1));
+		label_word.innerHTML = 'Word';
+
 		var word_input = document.createElement("input");
 		word_input.setAttribute('type', "text");
-		word_input.setAttribute('maxlength', "10");
+		word_input.setAttribute('class', "form-control");
 		word_input.setAttribute('name', "word"+(sumLine+1));
 		word_input.setAttribute('required', "true");
 
+		div_word.appendChild(label_word);
 		div_word.appendChild(word_input);
 
 		var div_audio = document.createElement("div");
 		div_audio.setAttribute('class', "col-xs-4");
 
-		label = document.createElement("label");
-		label.setAttribute('for', 'audio'+(sumLine+1));
-		label.innerHTML = 'Audio';
+		label_audio = document.createElement("label");
+		label_audio.setAttribute('for', 'audio'+(sumLine+1));
+		label_audio.innerHTML = 'Audio';
 
 		var audio_input = document.createElement("input");
 		audio_input.setAttribute('type', 'file');
@@ -145,7 +151,7 @@
 		audio_input.setAttribute('data-show-caption', "true");
 		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
 
-		div_audio.appendChild(label);
+		div_audio.appendChild(label_audio);
 		div_audio.appendChild(audio_input);
 
 		var div_btn = document.createElement("div");

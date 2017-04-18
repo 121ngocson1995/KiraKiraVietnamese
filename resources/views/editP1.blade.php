@@ -62,14 +62,15 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit P1: Word Memorize for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP1','method'=>'POST', 'files'=>true, 'id' =>'p1Form')) !!}
 	<div id="p1Div">
 		<input type="hidden" name="situaID" value="{{$p1[0]->lesson_id}}">
 		@for ($i = 0; $i < count($p1)  ; $i++)
 		<div class="row" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
-				<input type="text" id="word{{$p1[$i]->id}}" maxlength="10" name="word{{$p1[$i]->id}}" value="{{$p1[$i]->word}}">
+				<label for="word{{$p1[$i]->id}}">Word</label>
+				<input type="text" id="word{{$p1[$i]->id}}" class="form-control"  name="word{{$p1[$i]->id}}" value="{{$p1[$i]->word}}">
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$p1[$i]->id}}">Audio</label>
@@ -115,18 +116,21 @@
 		node_rowBig.setAttribute('data-line', sumLine);
 
 		/* Create label Situation n */
-
 		var div_word = document.createElement("div");
 		div_word.setAttribute('class', "col-xs-4");
 
+		label_word = document.createElement("label");
+		label_word.setAttribute('for', 'word'+(sumLine+1));
+		label_word.innerHTML = 'Word';
+
 		var word_input = document.createElement("input");
 		word_input.setAttribute('type', "text");
-		word_input.setAttribute('maxlength', "10");
+		word_input.setAttribute('class', "form-control");
 		word_input.setAttribute('name', "word"+(sumLine+1));
 		word_input.setAttribute('required', "true");
 
+		div_word.appendChild(label_word);
 		div_word.appendChild(word_input);
-
 		var div_audio = document.createElement("div");
 		div_audio.setAttribute('class', "col-xs-4");
 
