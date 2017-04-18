@@ -50,7 +50,7 @@
 				@endif
 			</td>
 			<td>
-				<a href="{{ $user->cv && strcmp($user->cv, '') != 0 ? asset($user->cv) : '#' }}" class="btn btn-warning btn-sm" {{ $user->cv && strcmp($user->cv, '') != 0 ? 'download' : 'disabled' }}><i class="fa fa-download"></i>Download CV</a>
+				<a href="{{ $user->cv && strcmp($user->cv, '') != 0 ? asset('storage/app/' . $user->cv) : '#' }}" class="btn btn-warning btn-sm" {{ $user->cv && strcmp($user->cv, '') != 0 ? 'download' : 'disabled' }}><i class="fa fa-download"></i>Download CV</a>
 				<button type="button" class="edit-modal btn btn-primary btn-sm" data-user-id="{{ $user->id }}" data-user-username="{{ $user->username }}"><i class="fa fa-edit"></i>Set role</button>
 			</td>
 		</tr>

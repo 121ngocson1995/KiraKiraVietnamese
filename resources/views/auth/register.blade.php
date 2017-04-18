@@ -30,8 +30,7 @@
 	<div class="row main">
 		<div class="main-login main-center">
 			{{-- <h4 style="color: white">Apply to become a teacher at KiraKiraVietnamese</h4> --}}
-			<form class="" role="form" method="post" action="{{ route('register') }}">
-				{{ csrf_field() }}
+            {!! Form::open(array('url'=>route('register'),'method'=>'POST', 'files'=>true)) !!}
 
 				<div class="form-group{{ $errors->has('first-name') || $errors->has('last-name') ? ' has-error' : '' }}">
 					<label for="name" class="cols-sm-2 control-label">Your Name</label>
@@ -179,7 +178,7 @@
 
                 <div class="form-group">
                 	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label>
-                	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["pdf", "doc", "docx"]'>
+                	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'>
                 </div>
 
                 @if ($errors->has('cv'))
@@ -198,7 +197,7 @@
                 	<button type="submit" target="_blank" id="submitBtn" class="btn btn-success btn-lg btn-block login-button">Register</button>
                 </div>
 
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

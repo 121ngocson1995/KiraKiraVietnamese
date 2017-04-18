@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Input;
 
 class RegisterController extends Controller
 {
@@ -63,6 +62,7 @@ class RegisterController extends Controller
             'password' => 'required|min:6|max:24|confirmed',
             'gender' => 'numeric|between:0,1',
             'date-of-birth' => 'required|date|before:' . $todayDate .'|18yo',
+            'cv' => 'required|file',
             ],
             [
             '18yo' => 'You must be 18 years or older',
@@ -77,21 +77,15 @@ class RegisterController extends Controller
      */
     protected function saveCV(\Illuminate\Http\Request $request)
     {
-        // dd($request);
-
-        $this->validate($request, [
-            'cv' => 'required|file',
-        ]);
-
         $t = time();
         $t = date("Y-m-d-H-i-s",$t);
         $destinationPath = 'cv'; 
         $extension = $request->cv->extension();
 
         $fileName = "CV_" . $request->username . "_" . $t . '.' . $extension;
-        $path = $request->cv->storeAs('public/cv', 'filename.jpg');
-        // dd($path);
-        $newName = "Situation_img/S".$i."-".$t.".".$extension;
+        $path = $request->cv->storeAs('public/cv', $fileName);
+        
+        return $path;
     }
 
     /**

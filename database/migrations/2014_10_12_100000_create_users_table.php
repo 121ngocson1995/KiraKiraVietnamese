@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('date_of_birth')->nullable();
             $table->string('avatar')->default('public/img/avatar_2x.png');
+            $table->string('cv')->nullable();
             $table->string('language')->nullable();
             $table->string('country')->nullable();
             $table->unsignedTinyInteger('role')->default(0);
