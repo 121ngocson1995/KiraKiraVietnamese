@@ -156,7 +156,7 @@
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');
 		deleteBtn.setAttribute('class', 'deleteBtn');
-		deleteBtn.setAttribute('onchange', 'deleteRow(this)');
+		deleteBtn.setAttribute('onclick', 'deleteRow(this)');
 
 		var icon = document.createElement("i");
 		icon.setAttribute('class', 'fa fa-trash');
