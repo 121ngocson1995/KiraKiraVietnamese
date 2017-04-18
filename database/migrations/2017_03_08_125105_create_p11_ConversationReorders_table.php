@@ -22,7 +22,7 @@ class CreateP11ConversationReordersTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('sentence');
-            $table->tinyInteger('correctOrder')->unsigned();
+            $table->string('correctOrder');
             $table->timestamps();
             $table->softDeletes();
         });
