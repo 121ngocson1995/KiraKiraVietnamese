@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\P3SentenceMemorize;
+use Illuminate\Support\Facades\Input;
+use App\Lesson;
+use Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class P3Controller extends Controller
 {

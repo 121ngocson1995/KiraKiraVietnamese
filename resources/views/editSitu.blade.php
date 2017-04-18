@@ -65,7 +65,7 @@
 	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editSitu','method'=>'POST', 'files'=>true, 'id' =>'situationForm')) !!}
 	<div id="situForm">
-		<input type="hidden" name="situaID" value="{{$situation[0]->lesson_id}}">
+		<input type="hidden" name="lessonID" value="{{$situation[0]->lesson_id}}">
 		@for ($i = 0; $i < count($situation); $i++)
 		<div class="row situationRow" id="row{{$i}}" data-line="{{$i}}">
 			<div>
