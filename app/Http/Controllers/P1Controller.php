@@ -25,21 +25,18 @@ class P1Controller extends Controller
 	}
 	
 	public function edit(Request $request) {
-
 		$lesson = Lesson::find($request->all()['lessonID']);
-		$totalOld = $request->all()['sumOrigin'];
-		$totalNew = $request->all()['sumLine'];
+		$totalNew = $request->all()['sumOrigin'];
+		for ($i=0; $i <= $totalNew ; $i++) { 
+			if ($request->exists("wordId".$i)) {
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["wordId".$i])->get();
 
-		if($totalNew >= $totalOld){
-			$validate = array();
-			for ($i=1; $i <= $totalOld ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
-				
-				$this->validate($request, [
-					"word".$i => 'string|max:10',
-					]);
+				// $this->validate($request, [
+				// 	"word".$i => 'string|max:10',
+				// 	]);
 
 				$p1Edit[0]->word = $request->all()['word'.$i];
+				$p1Edit[0]->wordNo = $i;
 
 				if($request->exists("audioPath".$i)){
 					$t=time();
@@ -66,79 +63,152 @@ class P1Controller extends Controller
 				}
 				$p1Edit[0]->save();
 			}
+		}
 
-			if ($totalNew > $totalOld) {
-				for ($i=$totalOld+1; $i <= $totalNew ; $i++) { 
-					$p1New = new P1WordMemorize;
-					$p1New->wordNo = $i;
-					$p1New->lesson_id = $request->all()['lessonID'];
-					$word = $request->all()["word".$i];
-					
+		$sumAdd = $request->all()['sumAdd'];
+		for ($i=0; $i <= $sumAdd ; $i++) { 
+			if ($request->exists("wordAdd".$i)) {
+				$p1New = new P1WordMemorize;
+				$p1New->wordNo = $totalNew + $i;
+				$p1New->lesson_id = $request->all()['lessonID'];
+				$word = $request->all()["word".$i];
 
-					$this->validate($request, [
-						"word".$i => 'string|max:10',
-						]);
-					$p1New->word = $word;
 
-					if($request->exists("audio".$i)){
+					// $this->validate($request, [
+					// 	"word".$i => 'string|max:10',
+					// 	]);
+				$p1New->word = $word;
+				$t=time();
+				$t=date("Y-m-d-H-i-s",$t);
+				$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
 
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
+				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
+				$fileName = $i."-".$t.'.'.$extension;
 
-						$extension = Input::file("audio".$i)->getClientOriginalExtension();
-						$fileName = $i."-".$t.'.'.$extension;
+				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
+				$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
 
-						Input::file("audio".$i)->move($destinationPath, $fileName);
-						$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+				$p1New->audio = $newName;
+				$p1New->save();
 
-						$p1New->audio = $newName;
-					}else{
-						$p1New->audio = "";
-					}
-					$p1New->save();
-				}
-			}
-		}else if($totalNew < $totalOld){
-			for ($i=1; $i <= $totalNew ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
-				
-				$this->validate($request, [
-					"word".$i => 'string|max:10',
-					]);
-
-				$p1Edit[0]->word = $request->all()['word'.$i];
-
-				if($request->exists("audioPath".$i)){
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$oldName = $request->all()["audioPath".$i];
-					$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
-					rename($oldName, $newName);
-					$p1Edit[0]->audio = $newName;
-				}else if($request->exists("audio".$i)){
-
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$destinationPath = "/audio/P1/lesson".$lesson->lessonNo;
-
-					$extension = Input::file("audio".$i)->getClientOriginalExtension();
-					$fileName = $i."-".$t.'.'.$extension;
-
-					Input::file("audio".$i)->move($destinationPath, $fileName);
-					$newName = "/audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
-
-					$p1Edit[0]->audio = $newName;
-				}else{
-					$p1Edit[0]->audio = "";
-				}
-				$p1Edit[0]->save();
-			}
-
-			for ($i=$totalNew+1; $i <= $totalOld ; $i++) { 
-				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->delete();
 			}
 		}
+
+		$sumDelete = $request->all()['sumDelete'];
+		for ($i=0; $i <= $sumDelete ; $i++) { 
+			if ($request->exists("delete".$i)) {
+				$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+			}
+		}
+		// if($totalNew >= $totalOld){
+		// 	$validate = array();
+		// 	for ($i=1; $i <= $totalOld ; $i++) { 
+		// 		$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
+
+				// $this->validate($request, [
+				// 	"word".$i => 'string|max:10',
+				// 	]);
+
+		// 		$p1Edit[0]->word = $request->all()['word'.$i];
+
+		// 		if($request->exists("audioPath".$i)){
+		// 			$t=time();
+		// 			$t=date("Y-m-d-H-i-s",$t);
+		// 			$oldName = $request->all()["audioPath".$i];
+		// 			$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+		// 			rename($oldName, $newName);
+		// 			$p1Edit[0]->audio = $newName;
+		// 		}else if($request->exists("audio".$i)){
+
+		// 			$t=time();
+		// 			$t=date("Y-m-d-H-i-s",$t);
+		// 			$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
+
+		// 			$extension = Input::file("audio".$i)->getClientOriginalExtension();
+		// 			$fileName = $i."-".$t.'.'.$extension;
+
+		// 			Input::file("audio".$i)->move($destinationPath, $fileName);
+		// 			$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+
+		// 			$p1Edit[0]->audio = $newName;
+		// 		}else{
+		// 			$p1Edit[0]->audio = "";
+		// 		}
+		// 		$p1Edit[0]->save();
+		// 	}
+
+		// 	if ($totalNew > $totalOld) {
+		// 		for ($i=$totalOld+1; $i <= $totalNew ; $i++) { 
+		// 			$p1New = new P1WordMemorize;
+		// 			$p1New->wordNo = $i;
+		// 			$p1New->lesson_id = $request->all()['lessonID'];
+		// 			$word = $request->all()["word".$i];
+
+
+		// 			// $this->validate($request, [
+		// 			// 	"word".$i => 'string|max:10',
+		// 			// 	]);
+		// 			$p1New->word = $word;
+
+		// 			if($request->exists("audio".$i)){
+
+		// 				$t=time();
+		// 				$t=date("Y-m-d-H-i-s",$t);
+		// 				$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
+
+		// 				$extension = Input::file("audio".$i)->getClientOriginalExtension();
+		// 				$fileName = $i."-".$t.'.'.$extension;
+
+		// 				Input::file("audio".$i)->move($destinationPath, $fileName);
+		// 				$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+
+		// 				$p1New->audio = $newName;
+		// 			}else{
+		// 				$p1New->audio = "";
+		// 			}
+		// 			$p1New->save();
+		// 		}
+		// 	}
+		// }else if($totalNew < $totalOld){
+		// 	for ($i=1; $i <= $totalNew ; $i++) { 
+		// 		$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->get();
+
+		// 		// $this->validate($request, [
+		// 		// 	"word".$i => 'string|max:10',
+		// 		// 	]);
+
+		// 		$p1Edit[0]->word = $request->all()['word'.$i];
+
+		// 		if($request->exists("audioPath".$i)){
+		// 			$t=time();
+		// 			$t=date("Y-m-d-H-i-s",$t);
+		// 			$oldName = $request->all()["audioPath".$i];
+		// 			$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+		// 			rename($oldName, $newName);
+		// 			$p1Edit[0]->audio = $newName;
+		// 		}else if($request->exists("audio".$i)){
+
+		// 			$t=time();
+		// 			$t=date("Y-m-d-H-i-s",$t);
+		// 			$destinationPath = "/audio/P1/lesson".$lesson->lessonNo;
+
+		// 			$extension = Input::file("audio".$i)->getClientOriginalExtension();
+		// 			$fileName = $i."-".$t.'.'.$extension;
+
+		// 			Input::file("audio".$i)->move($destinationPath, $fileName);
+		// 			$newName = "/audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+
+		// 			$p1Edit[0]->audio = $newName;
+		// 		}else{
+		// 			$p1Edit[0]->audio = "";
+		// 		}
+		// 		$p1Edit[0]->save();
+		// 	}
+
+		// 	for ($i=$totalNew+1; $i <= $totalOld ; $i++) { 
+		// 		$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $i)->delete();
+		// 	}
+		// }
 
 		return Redirect("/listAct".$request->all()['lessonID']);
 	}
