@@ -79,7 +79,6 @@
 						$('.wordWrap').click(function() {
 							togglePlaySample(this);
 						});
-						$('.wordWrap').click();
 					}, 600);
 
 				});
