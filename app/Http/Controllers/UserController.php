@@ -35,6 +35,67 @@ class UserController extends Controller
 		return view("info", compact('userData'));
 	}
 
+	public function index(Request $request, $type='all', $username='%', $email='%', $pagination=5)
+	{
+		$users = User::latest('created_at')->paginate($pagination);
+
+		if($request->ajax()) {
+			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'all') == 0 || strcmp($request->input('type'), 'admins') == 0 || strcmp($request->input('type'), 'teachers') == 0 || strcmp($request->input('type'), 'learners') == 0) {
+				
+				$type = $request->input('type');
+
+			}
+
+			if (strcmp($type, 'pending') == 0 || strcmp($type, 'rejected') == 0) {
+				$users;
+
+				if (strcmp($type, 'pending') == 0) {
+					$users = User::where('role', '=', 1)->latest('created_at')->paginate($pagination);
+				} else {
+					$users = User::where('role', '=', 0)->latest('created_at')->paginate($pagination);
+				}
+
+				return view('userList.applicants', ['users' => $users])->render();
+
+			} else if (strcmp($type, 'all') == 0 || strcmp($type, 'admins') == 0 || strcmp($type, 'teachers') == 0 || strcmp($type, 'learners') == 0) {
+
+				if (strcmp($type, 'all') == 0) {
+					$users = User::latest('created_at')->paginate($pagination);
+				} else if (strcmp($type, 'leaners') == 0) {
+					$users = User::where('role', '=', 2)->latest('created_at')->paginate($pagination);
+				} else if (strcmp($type, 'teachers') == 0) {
+					$users = User::where('role', '=', 3)->latest('created_at')->paginate($pagination);
+				} else if (strcmp($type, 'admins') == 0) {
+					$users = User::where('role', '=', 10)->orWhere('role', '=', 100)->latest('created_at')->paginate($pagination);
+				}
+
+				return view('userList.normal', ['users' => $users])->render();
+
+			}
+		}
+
+		return view('userList.index', compact(['users']));
+	}
+
+	public function setRole(Request $request)
+	{
+		Validator::make($request->all(), [
+			'userid' => 'exists:users,id',
+			'oldRole' => 'exists:roles,id',
+			'newRole' => 'exists:roles,id'
+		])->validate();
+
+		$user = User::where('id', '=', $request->input('userid'))->first();
+		// dd($request->input('newRole'));
+		$user->role = (int)($request->input('newRole'));
+		$user->save();
+	}
+
+	public function downloadCV($userid)
+	{
+		# code...
+	}
+
 	public function edit(Request $request)
 	{
 		// Lấy dữ liệu từ db;

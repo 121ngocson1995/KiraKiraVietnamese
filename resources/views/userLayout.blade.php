@@ -189,7 +189,11 @@
 
 				<li id='li-edit'>
 					<a href="/listLesson"><i class="fa fa-pencil fa-lg listBtn"></i> Edit lesson </a>
-				</li>  
+				</li>
+
+				<li id='li-users'>
+					<a href="/users"><i class="fa fa-users fa-lg listBtn"></i> Users and roles </a>
+				</li>
 
 				<!-- example for cordion button -->
 

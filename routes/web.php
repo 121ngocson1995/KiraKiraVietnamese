@@ -70,6 +70,9 @@ Route::get('/listAct{lessonId}', 'LessonController@listAct');
 Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
 Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
 Route::post('/editSitu', 'SituController@edit');
+// Route::get('/users', 'UserController@index');
+Route::resource('/users', 'UserController');
+Route::post('/setRole', 'UserController@setRole');
     //end route dummy
 Route::get('/dummy', 'DummyController@load');
 // Route::get('/dummy1', 'DummyController@load');		// Example
