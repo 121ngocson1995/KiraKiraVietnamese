@@ -77,13 +77,48 @@
 	div[data-toggle="buttons"] label:hover {
 		color: #7AA3CC;
 	}
-
+	#load {
+		margin: 2em 0;
+	}
 	div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active {
 		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
-
-
+	.search-outer {
+		width: 100%;
+		text-align: center;
+	}
+	.search {
+		display: inline-grid;
+		width: 80%;
+	}
+	.search .field {
+		position: relative;
+	}
+	.search label {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAQAAAC1QeVaAAAAxElEQVR4AXXPIUuDcRDA4Zv4AUSwTLEKVoNlySyCYLO98CCsahGrX0AW/QhmBRHEJghLS4JFBBXDgrJi2In78w8v4v3S8XDh4nd0DTxLEzd2RC2EnrH07trQVDrXqbhs7FvfnBDWDKWTigOpL2oWvZpYKPjio1zVHEt7BdOtaLUtHRX8MmqjRjooeCVttPBOWi+4JT1aLaDjVLpU/5ytn840Dj1IaWSpYmi8yVlTF54qh9K8nn27usJK5fC3yvfhPx7a/AE9dYwDEfKrlAAAAABJRU5ErkJggg==) no-repeat 0 50%;
+		color: #b2b2b2;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%, -50%);
+		top: 50%;
+		transition: left .4s, transform .4s;
+		padding-left: 1.25em;
+	}
+	.search .input-search {
+		padding: .5em 1.75em;
+	}
+	.search .input-search:focus + label, .search .input-search:valid + label {
+		left: .5em;
+		transform: translate(0, -50%);
+	}
+	.search .input-search:valid + label {
+		text-indent: -9999px;
+	}
+	.label-search {
+		cursor: text;
+		font-weight: 600;
+	}
 
 </style>
 
@@ -110,13 +145,22 @@
 			</ul>
 		</li>
 	</ul>
+	<div class="search-outer">
+		<div class="search">
+			<div class="field">
 
+				<input type="text" class="input-search form-control" id="input-search" name="input-search" required>
+				<label for="input-search" class="label-search">Search by username, first name, last name or email</label>
+
+			</div>
+		</div>
+	</div>
 	<section id="userList">
 		@include('userList.normal')
 	</section>
 
 	<div id="setRoleModal" class="modal fade" role="dialog">
-        {{ csrf_field() }}
+		{{ csrf_field() }}
 		
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -176,11 +220,30 @@
 			filterByRole(role);
 		});
 
+		$('#input-search').keypress(function(e) {
+			var keyPress = e.keyCode || e.which;
+			if (keyPress == '13'){
+				// console.log(document.getElementById('input-search').value);
+				var keyword = document.getElementById('input-search').value;
+				filterByName(keyword);
+			}
+		})
+
 		function filterByRole(role) {
 			$('#load').children().css('opacity', 0.5);
 			$('.main-container').append('<img id="loadImg" style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
 
 			var url = window.location.pathname + '?page=1' + '&type=' + role;
+			getUsers(url);
+			// window.history.pushState("", "", url);
+		}
+
+		function filterByName(keyword) {
+			$('#load').children().css('opacity', 0.5);
+			$('.main-container').append('<img id="loadImg" style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
+
+			console.log(keyword);
+			var url = window.location.pathname + '?page=1' + '&type=' + role + '&keyword=' + keyword;
 			getUsers(url);
 			// window.history.pushState("", "", url);
 		}
