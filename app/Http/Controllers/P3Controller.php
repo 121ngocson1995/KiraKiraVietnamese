@@ -24,6 +24,7 @@ class P3Controller extends Controller
 	}
 
 	public function edit(Request $request) {
+		dd($request);
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
 		for ($i=0; $i <= $totalNew ; $i++) { 
