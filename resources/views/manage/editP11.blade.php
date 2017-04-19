@@ -85,6 +85,12 @@
 	.orderError {
 		background-color: #f2dede;
 	}
+	input.focus {
+		border-color: #66afe9;
+		outline: 0;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
+	}
 </style>
 
 @stop
@@ -362,7 +368,6 @@
 	}
 
 	function unmarkError(orderNo) {
-		console.log(orderNo);
 		for (var i = 0; i < $('tr.sentence').length; i++) {
 			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
 
@@ -394,6 +399,22 @@
 		var orderNo = $(this).attr('id').replace('answer', '');
 		showOrder(orderNo);
 	});
+
+	$('input.order-input')
+	.focus(function() {
+		var index = [].indexOf.call(this.parentNode.children, this);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
+		}
+	})
+	.blur(function() {
+		var index = [].indexOf.call(this.parentNode.children, this);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
+		}
+	})
 
 	$("#p11Form").submit( function(eventObj) {
 		if(!isOrderFormatCorrect()) {
