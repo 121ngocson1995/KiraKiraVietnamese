@@ -8,7 +8,7 @@
 		display: inline-block;
 	}
 	#wrapper {
-		padding: 4em;
+		padding: 2em 4em;
 	}
 	.close-col {
 		text-align: center;
@@ -74,6 +74,17 @@
 		width: 40px;
 		margin: 0;
 	}
+	#error .close {
+		color: #8a6d3b;
+	}
+	.alert-warning {
+		color: #8a6d3b;
+		background-color: #f5e8a3;
+		border-color: #f4d18b;
+	}
+	.orderError {
+		background-color: #f2dede;
+	}
 </style>
 
 @stop
@@ -98,7 +109,7 @@
 				<tr class="vertical-close-wrapper">
 					<td></td>
 					<td class="vertical-close-holder">
-						@for ($i = 0; $i < count($p11); $i++)
+						@for ($i = 0; $i < count(explode(',', $p11[0]->correctOrder)); $i++)
 						<button type="button" class="vertical close" aria-label="Delete">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -119,7 +130,7 @@
 						@endphp
 
 						@foreach ( explode(',', $element->correctOrder) as $order)
-						<input type="text" class="form-control order-input" name="update[{{ $element->id }}][order][{{ (integer)$orderNo +1 }}]" value="{{ $order }}" required="">
+						<input type="text" class="form-control order-input" name="update[{{ $element->id }}][order][{{ $orderNo }}]" value="{{ (integer)$order + 1 }}" required="">
 						@php
 						$orderNo++;
 						@endphp
@@ -135,24 +146,16 @@
 				@endif
 			</table>
 
-			<div id="saveBtn-holder" class="row">
-				<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
-				<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
-				<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
-			</div>
+			<div id="error"></div>
+		</div>
 
-			{{-- <div id="answer-holder" class="row allAnswers"><label for="">There is currently a total of <span id="answers_number">{{ count($correctAnswerList) }}</span> answers for this practice</label>
-				@php
-				$i = 0;
-				@endphp
-				<ul class="nav nav-pills nav-justified">
-					@foreach ( $correctAnswerList as $answer)
-					<li><a id="answer{{ $i++ }}" class="pill-toggle" data-toggle="pill" href="#wrapper">{{ $i }}</a></li>
-					@endforeach
-				</ul>
-			</div> --}}
-		</form>
-	</div>
+		<div id="saveBtn-holder" class="row">
+			<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
+			<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
+			<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
+		</div>
+	</form>
+</div>
 </div>
 
 <script>
@@ -251,7 +254,6 @@
 			var tr = $('tr.sentence')[i];
 
 			var orderHolder = $(tr).find('.order-holder').get(0);
-			// console.log(orderHolder);
 
 			var orderInput = document.createElement('input');
 			orderInput.setAttribute('type', 'text');
@@ -282,8 +284,82 @@
 		$(closeHolder).append("&nbsp;");
 	}
 
-	function checkOrderValue() {
-		
+	function isOrderFormatCorrect() {
+		var orderList = new Array;
+		for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
+			// orderList[i] = new Array();
+			var sentenceOrder = new Array;
+			for (var j = 0; j < $('tr.sentence').length; j++) {
+				var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
+				sentenceOrder.push(parseInt(order));
+			}
+
+			orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
+		}
+
+		for (var i = 0; i < orderList.length; i++) {
+			if (orderList[i][0] != 1) {
+				alert('Sentence order must start at 1');
+				markError(i);
+				return false;
+			}
+
+			for (var j = 1; j < orderList[i].length; j++) {
+				if (orderList[i][j] != orderList[i][j-1] + 1) {
+					alert('Order value is not continuous');
+					markError(i);
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	function alert(message) {
+		var div = document.createElement('div');
+		div.className = 'alert alert-warning fade in';
+
+		var close = document.createElement('a');
+		close.innerHTML = '×';
+		close.setAttribute('href', '#');
+		close.setAttribute('class', 'close');
+		close.setAttribute('data-dismiss', 'alert');
+		close.setAttribute('aria-label', 'close');
+
+		div.append(close);
+
+		var i = document.createElement('i');
+		i.className = 'fa fa-exclamation';
+		div.append(i);
+
+		var span = document.createElement('i');
+		span.className = 'error-message';
+		span.innerHTML = message;
+		div.append(span);
+
+		$('#error').prepend(div);
+	}
+
+	function markError(orderNo) {
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+
+			input.addClass('orderError');
+
+			input.on('input', function() {
+				unmarkError(orderNo);
+			});
+		}
+	}
+
+	function unmarkError(orderNo) {
+		console.log(orderNo);
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+
+			input.removeClass('orderError');
+		}
 	}
 
 	$('#newSentenceBtn').click(function() {
@@ -312,7 +388,9 @@
 	});
 
 	$("#p11Form").submit( function(eventObj) {
-		checkOrderValue();
+		if(!isOrderFormatCorrect()) {
+			return false;
+		}
 
 		if (toDelete) {
 			$('<input />').attr('type', 'hidden')

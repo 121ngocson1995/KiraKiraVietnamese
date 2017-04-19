@@ -10,6 +10,7 @@ use App\P1WordMemorize;
 use App\P2WordRecognize;
 use App\P3SentenceMemorize;
 use App\P4SentenceRecognize;
+use App\P11ConversationReorder;
 
 class LessonController extends Controller
 {
@@ -256,6 +257,12 @@ class LessonController extends Controller
     		$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->get();
     		return view('editP4', compact(['p4', 'lessonId']));
     		break;
+
+			case 'p11':
+			$p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+
+			return view('manage.editP11', compact(['p11', 'lessonId']));
+			break;
 
     		default:
     		return redirect('/');
