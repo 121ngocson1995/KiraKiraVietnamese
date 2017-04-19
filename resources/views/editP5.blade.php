@@ -127,8 +127,8 @@
 		var dialog_textarea = document.createElement("textarea");
 		dialog_textarea.setAttribute('class', 'form-control textarea');
 		dialog_textarea.setAttribute('required', 'true');
-		dialog_textarea.setAttribute('name', "dialog"+addLine);
-		dialog_textarea.setAttribute('id', "dialog"+addLine);
+		dialog_textarea.setAttribute('name', "dialogAdd"+addLine);
+		dialog_textarea.setAttribute('id', "dialogAdd"+addLine);
 
 		div_dialog.appendChild(label_dialog );
 		div_dialog.appendChild(dialog_textarea);

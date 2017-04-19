@@ -25,7 +25,6 @@ class P5Controller extends Controller
 	}  
 
 	public function edit(Request $request) {
-
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
 		for ($i=0; $i < $totalNew ; $i++) { 
@@ -74,9 +73,9 @@ class P5Controller extends Controller
 
 		$sumAdd = $request->all()['sumAdd'];
 		for ($i=0; $i <= $sumAdd ; $i++) { 
-			if ($request->exists("sentenceAdd".$i)) {
+			if ($request->exists("dialogAdd".$i)) {
 				$p5New = new P5DialogueMemorize;
-				$p5New->dialogNo = ($totalNew-1) + $i;
+				$p5New->dialogNo = $totalNew - 1 + $i;
 				$p5New->lesson_id = $request->all()['lessonID'];
 
 				$dialog = str_replace("\n", "|", $request->all()["dialogAdd".$i]);
