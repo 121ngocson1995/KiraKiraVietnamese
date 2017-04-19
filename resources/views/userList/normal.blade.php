@@ -41,9 +41,9 @@
 				@endif
 			</td>
 			<td>
-				@if ($user->gender && strcmp($user->gender, '') != 0 && $user->gender == 1)
+				@if (strcmp($user->gender, '') != 0 && $user->gender == 1)
 				Male
-				@elseif($user->gender && strcmp($user->gender, '') != 0 && $user->gender == 0)
+				@elseif(strcmp($user->gender, '') != 0 && $user->gender == 0)
 				Female
 				@else
 				<span class="unavailable_info">Unavailable</span>
