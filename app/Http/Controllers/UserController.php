@@ -61,10 +61,10 @@ class UserController extends Controller
 			} else {
 				$keyword = '%' . $request->keyword . '%';
 
-				$searchEmail = User::whereIn('role', $type)->where('email', 'like', $keyword);
-				$searchLastname = User::whereIn('role', $type)->where('last_name', 'like', $keyword);
-				$searchFirstname = User::whereIn('role', $type)->where('first_name', 'like', $keyword);
-				$searchUsername = User::whereIn('role', $type)->where('username', 'like', $keyword);
+				$searchEmail = User::whereIn('role', $type)->where('email', 'like', $keyword)->latest('created_at');
+				$searchLastname = User::whereIn('role', $type)->where('last_name', 'like', $keyword)->latest('created_at');
+				$searchFirstname = User::whereIn('role', $type)->where('first_name', 'like', $keyword)->latest('created_at');
+				$searchUsername = User::whereIn('role', $type)->where('username', 'like', $keyword)->latest('created_at');
 
 				$query = $searchUsername->union($searchFirstname)->union($searchLastname)->union($searchEmail);
 				
