@@ -212,6 +212,11 @@
 			$('#load').append('<img style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
 
 			var url = $(this).attr('href') + '&type=' + role;
+
+			if(document.getElementById('input-search').value) {
+				url += '&keyword=' + document.getElementById('input-search').value;
+			}
+
 			getUsers(url);
 			// window.history.pushState("", "", url);
 		});
