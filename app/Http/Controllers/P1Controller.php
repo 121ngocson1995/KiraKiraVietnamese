@@ -25,7 +25,6 @@ class P1Controller extends Controller
 	}
 	
 	public function edit(Request $request) {
-		return Redirect('/');
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
 		for ($i=0; $i <= $totalNew ; $i++) { 
