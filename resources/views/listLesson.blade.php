@@ -28,8 +28,8 @@
 
 										<div class="span2">
 											<div>
-												<a class="btn btn-info" href="/preEditLesson{{$lesson->lessonNo}}">Modify</a>
-												<a class="btn btn-danger delete" data-confirm="Are you sure to delete this lesson?"  href="/deleteLesson{{$lesson->lessonNo}}">Delete</a>
+												<a class="btn btn-info modify" data-lessonNo="{{$lesson->lessonNo}}" href="#">Modify</a>
+												<a class="btn btn-danger delete" data-lessonNo="{{$lesson->lessonNo}}" data-confirm="Are you sure to delete this lesson?" href="#">Delete</a>
 											</div>
 										</div>
 									</div>
@@ -58,6 +58,26 @@
 				window.location.href = this.getAttribute('href');
 			}
 		});
+	}
+
+	$('.modify').click(function(e) {
+		e.preventDefault();
+
+		modifyLesson($(this).attr('data-lessonNo'));
+	})
+
+	$('.delete').click(function(e) {
+		e.preventDefault();
+
+		deleteLesson($(this).attr('data-lessonNo'));
+	})
+
+	function modifyLesson(lessonNo) {
+		window.location = '/preEditLesson' + lessonNo;
+	}
+
+	function deleteLesson(lessonNo) {
+		window.location = '/deleteLesson' + lessonNo;
 	}
 </script>
 @stop
