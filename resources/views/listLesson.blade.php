@@ -29,7 +29,7 @@
 										<div class="span2">
 											<div>
 												<a class="btn btn-info modify" data-lessonNo="{{$lesson->lessonNo}}" href="#">Modify</a>
-												<a class="btn btn-danger delete" data-lessonNo="{{$lesson->lessonNo}}" data-confirm="Are you sure to delete this lesson?" href="#">Delete</a>
+												<a class="btn btn-danger delete" data-lessonNo="{{$lesson->lessonNo}}" data-confirm="Are you sure to delete this lesson?" onclick="deleteLesson(this)" href="#">Delete</a>
 											</div>
 										</div>
 									</div>
@@ -46,30 +46,11 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var deleteLinks = document.querySelectorAll('.delete');
-
-	for (var i = 0; i < deleteLinks.length; i++) {
-		deleteLinks[i].addEventListener('click', function(event) {
-			event.preventDefault();
-
-			var choice = confirm(this.getAttribute('data-confirm'));
-
-			if (choice) {
-				window.location.href = this.getAttribute('href');
-			}
-		});
-	}
 
 	$('.modify').click(function(e) {
 		e.preventDefault();
 
 		modifyLesson($(this).attr('data-lessonNo'));
-	})
-
-	$('.delete').click(function(e) {
-		e.preventDefault();
-
-		deleteLesson($(this).attr('data-lessonNo'));
 	})
 
 	function modifyLesson(lessonNo) {
@@ -78,6 +59,12 @@
 
 	function deleteLesson(lessonNo) {
 		window.location = '/deleteLesson' + lessonNo;
+	}
+	function deleteLesson(button) {
+		var lessonNo = $(button).attr('data-lessonNo');
+		if(confirm("Are you sure to delete this lesson?")){
+			window.location = '/deleteLesson' + lessonNo;
+		}
 	}
 </script>
 @stop
