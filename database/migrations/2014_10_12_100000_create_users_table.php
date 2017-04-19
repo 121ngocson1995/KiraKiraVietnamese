@@ -22,11 +22,11 @@ class CreateUsersTable extends Migration
             $table->boolean('gender')->nullable();
             $table->string('password');
             $table->date('date_of_birth')->nullable();
-            $table->string('avatar')->default('public/img/avatar_2x.png');
+            $table->string('avatar')->default('publicimgavatar_2x.png');
             $table->text('cv')->nullable();
             $table->string('language')->nullable();
             $table->string('country')->nullable();
-            $table->unsignedTinyInteger('role')->default(0);
+            $table->unsignedTinyInteger('role')->default(1);
             /*
             *  0: learner
             *  1: teacher
