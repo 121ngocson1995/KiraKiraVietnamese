@@ -223,7 +223,6 @@
 		$('#input-search').keypress(function(e) {
 			var keyPress = e.keyCode || e.which;
 			if (keyPress == '13'){
-				// console.log(document.getElementById('input-search').value);
 				var keyword = document.getElementById('input-search').value;
 				filterByName(keyword);
 			}
@@ -242,7 +241,6 @@
 			$('#load').children().css('opacity', 0.5);
 			$('.main-container').append('<img id="loadImg" style="position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;" src="' + assetPath + 'img/loading-ajax.gif" />');
 
-			console.log(keyword);
 			var url = window.location.pathname + '?page=1' + '&type=' + role + '&keyword=' + keyword;
 			getUsers(url);
 			// window.history.pushState("", "", url);

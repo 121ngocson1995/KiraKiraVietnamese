@@ -41,12 +41,6 @@ class UserController extends Controller
 		$users = User::latest('created_at')->paginate($pagination);
 
 		if($request->ajax()) {
-			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0 || strcmp($request->input('type'), 'all') == 0 || strcmp($request->input('type'), 'admins') == 0 || strcmp($request->input('type'), 'teachers') == 0 || strcmp($request->input('type'), 'learners') == 0) {
-				
-				$type = $request->input('type');
-
-			}
-
 			if (strcmp($request->input('type'), 'pending') == 0) {
 				$type = array(1);
 			} else if (strcmp($request->input('type'), 'rejected') == 0) {
@@ -63,7 +57,7 @@ class UserController extends Controller
 
 			$users;
 			if (!$request->has('keyword')) {
-				$user = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
+				$users = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
 			} else {
 				$keyword = '%' . $request->keyword . '%';
 
