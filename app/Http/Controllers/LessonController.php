@@ -10,7 +10,8 @@ use App\P1WordMemorize;
 use App\P2WordRecognize;
 use App\P3SentenceMemorize;
 use App\P4SentenceRecognize;
-
+use App\P5DialogueMemorize;
+use App\P7ConversationMemorize;
 class LessonController extends Controller
 {
     /**
@@ -164,12 +165,12 @@ class LessonController extends Controller
     	$activity[] = $currentActivity;
 
 
-    	
+
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p6';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Choose the correct answer';
     	$activity[] = $currentActivity;
-    	
+
 
     	
     	$currentActivity = new \stdClass;
@@ -255,6 +256,14 @@ class LessonController extends Controller
     		case 'p4':
     		$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->get();
     		return view('editP4', compact(['p4', 'lessonId']));
+    		break;
+
+    		case 'p5':
+    		$p5 = P5DialogueMemorize::where('lesson_id', '=', $lessonId)->get();
+    		for ($i=0; $i<count($p5); $i++){
+    			$p5[$i]->dialogArr = str_replace( "|","\n", $p5[$i]->dialog);
+    		}
+    		return view('editP5', compact(['p5', 'lessonId']));
     		break;
 
     		default:
