@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
 		return view("info", compact('userData'));
 	}
 
-	public function index(Request $request, $type='all', $username='%', $email='%', $pagination=5)
+	public function index(Request $request, $type='%', $keyword='%', $pagination=5)
 	{
 		$users = User::latest('created_at')->paginate($pagination);
 
@@ -46,28 +47,56 @@ class UserController extends Controller
 
 			}
 
-			if (strcmp($type, 'pending') == 0 || strcmp($type, 'rejected') == 0) {
-				$users;
+			if (strcmp($request->input('type'), 'pending') == 0) {
+				$type = array(1);
+			} else if (strcmp($request->input('type'), 'rejected') == 0) {
+				$type = array(0);
+			} else if (strcmp($request->input('type'), 'admins') == 0) {
+				$type = array(10, 100);
+			} else if (strcmp($request->input('type'), 'teachers') == 0) {
+				$type = array(3);
+			} else if (strcmp($request->input('type'), 'learners') == 0) {
+				$type = array(2);
+			} else {
+				$type = Role::all()->pluck('id')->toArray();
+			}
 
-				if (strcmp($type, 'pending') == 0) {
-					$users = User::where('role', '=', 1)->latest('created_at')->paginate($pagination);
-				} else {
-					$users = User::where('role', '=', 0)->latest('created_at')->paginate($pagination);
-				}
+			$users;
+			if (!$request->has('keyword')) {
+				$user = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
+			} else {
+				$keyword = '%' . $request->keyword . '%';
+
+				$searchEmail = User::whereIn('role', $type)->where('email', 'like', $keyword);
+				$searchLastname = User::whereIn('role', $type)->where('last_name', 'like', $keyword);
+				$searchFirstname = User::whereIn('role', $type)->where('first_name', 'like', $keyword);
+				$searchUsername = User::whereIn('role', $type)->where('username', 'like', $keyword);
+
+				$query = $searchUsername->union($searchFirstname)->union($searchLastname)->union($searchEmail);
+				
+				$userList = $query->get();
+				$count = $userList->count();
+				$slice = $userList->slice($pagination * ((integer)($request->page) - 1), $pagination);
+				
+				// $userList = $query->skip($pagination * ((integer)($request->page) - 1))->take($pagination)->get();
+
+				$users = new LengthAwarePaginator($slice, $count, $pagination, null, [
+					'path' => $request->path,
+					]);
+			}
+
+			// dd(User::whereIn('role', $type)->where(function($query) {
+			// 	$query->where('username', 'like', $keyword)
+			// 		  ->orWhere('email', 'like', $keyword)
+			// 		  ->orWhere('email', 'like', $keyword)
+			// 		  ->orWhere('email', 'like', $keyword);
+			// }->latest('created_at')->toSql());
+			
+			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
 
 				return view('userList.applicants', ['users' => $users])->render();
 
-			} else if (strcmp($type, 'all') == 0 || strcmp($type, 'admins') == 0 || strcmp($type, 'teachers') == 0 || strcmp($type, 'learners') == 0) {
-
-				if (strcmp($type, 'all') == 0) {
-					$users = User::latest('created_at')->paginate($pagination);
-				} else if (strcmp($type, 'leaners') == 0) {
-					$users = User::where('role', '=', 2)->latest('created_at')->paginate($pagination);
-				} else if (strcmp($type, 'teachers') == 0) {
-					$users = User::where('role', '=', 3)->latest('created_at')->paginate($pagination);
-				} else if (strcmp($type, 'admins') == 0) {
-					$users = User::where('role', '=', 10)->orWhere('role', '=', 100)->latest('created_at')->paginate($pagination);
-				}
+			} else {
 
 				return view('userList.normal', ['users' => $users])->render();
 
@@ -83,7 +112,7 @@ class UserController extends Controller
 			'userid' => 'exists:users,id',
 			'oldRole' => 'exists:roles,id',
 			'newRole' => 'exists:roles,id'
-		])->validate();
+			])->validate();
 
 		$user = User::where('id', '=', $request->input('userid'))->first();
 
@@ -132,8 +161,6 @@ class UserController extends Controller
 		$userData->email = $request->input('email');
 		$userData->date_of_birth = $request->input('date-of-birth');
 		$userData->gender = $request->input('gender');
-		// $userData->language = $request->input('language');
-		// $userData->country = $request->input('country');
 		$userData->save();
 
 		return redirect("/userManage");
