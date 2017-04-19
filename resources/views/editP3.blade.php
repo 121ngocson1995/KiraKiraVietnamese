@@ -66,19 +66,20 @@
 	{!! Form::open(array('url'=>'editP3','method'=>'POST', 'files'=>true, 'id' =>'p3Form')) !!}
 	<div id="p3Div">
 		<input type="hidden" name="lessonID" value="{{$p3[0]->lesson_id}}">
-		@for ($i = 0; $i < count($p3)  ; $i++)
-		<div class="row" id="row{{$i}}" data-line="{{$i}}">
+		@for ($i = 1; $i <= count($p3)  ; $i++)
+		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
-				<label for="sentence{{$p3[$i]->id}}">Sentence</label>
-				<input type="text" id="sentence{{$p3[$i]->id}}" class="form-control"  name="sentence{{$p3[$i]->id}}" value="{{$p3[$i]->sentence}}">
+				<label for="sentence{{$i}}">Sentence</label>
+				<input type="text" id="sentence{{$i}}" class="form-control"  name="sentence{{$i}}" value="{{$p3[$i-1]->sentence}}">
 			</div>
 			<div class="col-xs-4">
-				<label for="audio{{$p3[$i]->id}}">Audio</label>
-				<input id="audio{{$p3[$i]->id}}" name="audio{{$p3[$i]->id}}" type="file" class="file undone audio" data-situ="{{$p3[$i]->id}}" data-path-audio="{{$p3[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
+				<label for="audio{{$i}}">Audio</label>
+				<input id="audio{{$i}}" name="audio{{$i}}" type="file" class="file undone audio" data-situ="{{$i}}" data-path-audio="{{$p3[$i-1]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
-			<div class="col-xs-4">
-				<button type="button" class="deleteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
+			<div class="col-xs-4 ">
+				<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
 			</div>
+			<input type="hidden" id="sentenceId{{$i}}" class="id" name="sentenceId{{$i}}" value="{{$p3[$i-1]->id}}">
 		</div>
 		@endfor
 	</div>
@@ -91,15 +92,10 @@
 </div>
 <script type="text/javascript">
 	var p3 = <?php echo json_encode($p3); ?>;
-	var sumOrigin = p3.length;
 	var sumLine = p3.length;
+	var deleteLine = 0;
+	var addLine = 0;
 
-	var node_hidden = document.createElement("input");
-	node_hidden.setAttribute('type', 'hidden');
-	node_hidden.setAttribute('name',"sumOrigin");
-	node_hidden.setAttribute('value', sumOrigin);
-
-	document.getElementById("p3Div").appendChild(node_hidden);
 
 	$("#p3Form").submit( function(eventObj) {
 		$('<input />').attr('type', 'hidden')
@@ -110,41 +106,43 @@
 	});
 
 	function AddRow() {
+		addLine++;
+		sumLine++;
 		var node_rowBig = document.createElement("div");
 		node_rowBig.setAttribute('class', 'row');
 		node_rowBig.setAttribute('id', "row"+(sumLine));
 		node_rowBig.setAttribute('data-line', sumLine);
 
 		/* Create label Situation n */
-		var div_sentence = document.createElement("div");
-		div_sentence.setAttribute('class', "col-xs-4");
+		var div_sentence  = document.createElement("div");
+		div_sentence .setAttribute('class', "col-xs-4");
 
-		label_sentence = document.createElement("label");
-		label_sentence.setAttribute('for', 'sentence'+(sumLine+1));
-		label_sentence.innerHTML = 'sentence';
+		label_sentence  = document.createElement("label");
+		label_sentence.setAttribute('for', 'sentenceAdd'+ addLine);
+		label_sentence.innerHTML = 'Sentence';
 
 		var sentence_input = document.createElement("input");
 		sentence_input.setAttribute('type', "text");
 		sentence_input.setAttribute('class', "form-control");
-		sentence_input.setAttribute('name', "sentence"+(sumLine+1));
+		sentence_input.setAttribute('name', "sentenceAdd"+ addLine);
 		sentence_input.setAttribute('required', "true");
 
-		div_sentence.appendChild(label_sentence);
+		div_sentence.appendChild(label_sentence );
 		div_sentence.appendChild(sentence_input);
 		var div_audio = document.createElement("div");
 		div_audio.setAttribute('class', "col-xs-4");
 
 		label = document.createElement("label");
-		label.setAttribute('for', 'audio'+(sumLine+1));
+		label.setAttribute('for', 'audioAdd'+ addLine);
 		label.innerHTML = 'Audio';
 
 		var audio_input = document.createElement("input");
 		audio_input.setAttribute('type', 'file');
 		audio_input.setAttribute('required', 'true');
-		audio_input.setAttribute('id', 'audio'+(sumLine+1));
-		audio_input.setAttribute('name', 'audio'+(sumLine+1));
+		audio_input.setAttribute('id', 'audioAdd'+addLine);
+		audio_input.setAttribute('name', 'audioAdd'+addLine);
 		audio_input.setAttribute('class', 'file audio');
-		audio_input.setAttribute('data-situ', ""+(sumLine+1));
+		audio_input.setAttribute('data-situ', addLine);
 		audio_input.setAttribute('data-show-upload', "false");
 		audio_input.setAttribute('data-show-caption', "true");
 		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
@@ -158,7 +156,7 @@
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');
 		deleteBtn.setAttribute('class', 'deleteBtn');
-		deleteBtn.setAttribute('onchange', 'deleteRow(this)');
+		deleteBtn.setAttribute('onclick', 'deleteRow(this)');
 
 		var icon = document.createElement("i");
 		icon.setAttribute('class', 'fa fa-trash');
@@ -166,7 +164,7 @@
 
 		div_btn.appendChild(deleteBtn);
 
-		node_rowBig.appendChild(div_sentence);
+		node_rowBig.appendChild(div_sentence );
 		node_rowBig.appendChild(div_audio);
 		node_rowBig.appendChild(div_btn);
 
@@ -176,29 +174,54 @@
 		if ($input.length) {
 			$input.fileinput();
 		}
-		sumLine++;
 	}
 
 	function deleteRow(button) {
+		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');
 		if(confirm("Are you sure you want to delete?")){
+			var node_delete = document.createElement('input');
+			node_delete.setAttribute('type', 'hidden');
+			node_delete.setAttribute('name', 'delete'+deleteLine);
+			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
+			document.getElementById('p3Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
 		}
 		for (var i = 0; i < sumLine; i++) {
 			if (curLine < i) {
-				$("#row"+i).attr('data-line', i-1);
+				$("#row"+i).attr('data-line', i-1);	
 				$("#row"+i).attr('id', "row"+(i-1));
-				$("#sentence"+(i+1)).attr('name', "sentence"+i);
-				$("#sentence"+(i+1)).attr('id', "sentence"+i);
-				$("#audio"+(i+1)).attr('name', "audio"+i);
-				$("#audio"+(i+1)).attr('data-situ', i);
-				$("#audio"+(i+1)).attr('id', "audio"+i);
+				$("#sentenceId"+i).attr('name', "sentenceId"+(i-1));
+				$("#sentenceId"+i).attr('id', "sentenceId"+(i-1));
+				$("#sentence"+(i)).attr('name', "sentence"+(i-1));
+				$("#sentence"+(i)).attr('id', "sentence"+(i-1));
+				$("#audio"+(i)).attr('name', "audio"+(i-1));
+				$("#audio"+(i)).attr('data-situ', (i-1));
+				$("#audio"+(i)).attr('id', "audio"+(i-1));
 			}
 		}
 		sumLine--;
 	}
 
 	$("#p3Form").submit( function(eventObj) {
+		var node_delete = document.createElement('input');
+		node_delete.setAttribute('type', 'hidden');
+		node_delete.setAttribute('name', 'sumDelete');
+		node_delete.setAttribute('value', deleteLine);
+		document.getElementById('p3Form').appendChild(node_delete);
+
+		var node_add = document.createElement('input');
+		node_add.setAttribute('type', 'hidden');
+		node_add.setAttribute('name', 'sumAdd');
+		node_add.setAttribute('value', addLine);
+		document.getElementById('p3Form').appendChild(node_add);
+
+		var node_origin = document.createElement("input");
+		node_origin.setAttribute('type', 'hidden');
+		node_origin.setAttribute('name',"sumOrigin");
+		node_origin.setAttribute('value', $('.origin').length);
+		document.getElementById('p3Form').appendChild(node_origin);
+
 		$('.undone').each(function() {
 			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
 				$('<input />').attr('type', 'hidden')
