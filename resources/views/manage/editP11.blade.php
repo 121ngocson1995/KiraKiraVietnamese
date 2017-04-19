@@ -195,6 +195,11 @@
 				orderInput.className = 'form-control order-input';
 				orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 				orderInput.setAttribute('required', '');
+				$(orderInput).focus(function() {
+					focusCol(this);
+				}).blur(function() {
+					blurCol(this);
+				});
 				td.appendChild(orderInput);
 				$(td).append("&nbsp;");
 			}
@@ -224,6 +229,11 @@
 			orderInput.className = 'form-control order-input';
 			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 			orderInput.setAttribute('required', '');
+			$(orderInput).focus(function() {
+				focusCol(this);
+			}).blur(function() {
+				blurCol(this);
+			});
 			td.appendChild(orderInput);
 			$(td).append("&nbsp;");
 		}
@@ -312,6 +322,11 @@
 			orderInput.className = 'form-control order-input';
 			orderInput.setAttribute('name', (tr.getAttribute('data-sentence-id') ? 'update[' + tr.getAttribute('data-sentence-id') : 'insert[' + tr.getAttribute('data-insert-sentence-id')) + '][order][' + maxColId + ']');
 			orderInput.setAttribute('required', '');
+			$(orderInput).focus(function() {
+				focusCol(this);
+			}).blur(function() {
+				blurCol(this);
+			});
 			orderHolder.appendChild(orderInput);
 			$(orderHolder).append("&nbsp;");
 		}
@@ -413,6 +428,22 @@
 		}
 	}
 
+	function focusCol(input) {
+		var index = [].indexOf.call(input.parentNode.children, input);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
+		}
+	}
+
+	function blurCol(input) {
+		var index = [].indexOf.call(input.parentNode.children, input);
+
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
+		}
+	}
+
 	$('#newSentenceBtn').click(function() {
 		newSentence();
 	});
@@ -440,19 +471,10 @@
 
 	$('input.order-input')
 	.focus(function() {
-		var index = [].indexOf.call(this.parentNode.children, this);
-		
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
-		}
-	})
-	.blur(function() {
-		var index = [].indexOf.call(this.parentNode.children, this);
-		
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
-		}
-	})
+		focusCol(this);
+	}).blur(function() {
+		blurCol(this);
+	});
 
 	$("#p11Form").submit( function(eventObj) {
 		if(!isOrderFormatCorrect()) {
