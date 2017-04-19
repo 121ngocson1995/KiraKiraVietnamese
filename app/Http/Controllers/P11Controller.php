@@ -96,33 +96,36 @@ class P11Controller extends Controller
 
     public function edit(Request $request)
     {
-        foreach ($request->update as $id => $value) {
-            $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
-                
-            if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
-                $newSentence = $value['sentence'];
+        // dd($request->all());
+        if ($request->has('update')) {
+            foreach ($request->update as $id => $value) {
+                $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
+                    
+                if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
+                    $newSentence = $value['sentence'];
 
-                while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
-                    $newSentence = trim($newSentence, '-');
-                    $newSentence = trim($newSentence, ' ');
+                    while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
+                        $newSentence = trim($newSentence, '-');
+                        $newSentence = trim($newSentence, ' ');
+                    }
+
+                    $p11Element->sentence = '- ' . $newSentence;
                 }
 
-                $p11Element->sentence = '- ' . $newSentence;
-            }
-
-            $correctOrder = '';
-            $start = true;
-            foreach ($value['order'] as $key => $order) { 
-                if ($start) {
-                    $start = false;
-                } else {
-                    $correctOrder .= ',';
+                $correctOrder = '';
+                $start = true;
+                foreach ($value['order'] as $key => $order) { 
+                    if ($start) {
+                        $start = false;
+                    } else {
+                        $correctOrder .= ',';
+                    }
+                    $correctOrder .= (integer)$value['order'][$key] - 1;
                 }
-                $correctOrder .= (integer)$value['order'][$key] - 1;
-            }
 
-            $p11Element->correctOrder = $correctOrder;
-            $p11Element->save();
+                $p11Element->correctOrder = $correctOrder;
+                $p11Element->save();
+            }
         }
 
         if ($request->has('insert')) {
@@ -134,14 +137,17 @@ class P11Controller extends Controller
                     $newSentence = trim($newSentence, ' ');
                 }
 
-                $p11Element->sentence = '- ' . $newSentence;
+                $newSentence = '- ' . $newSentence;
 
                 $correctOrder = '';
-                for ($i=0; $i < count($value['order']); $i++) { 
-                    if ($i != 0) {
+                $start = true;
+                foreach ($value['order'] as $key => $order) { 
+                    if ($start) {
+                        $start = false;
+                    } else {
                         $correctOrder .= ',';
                     }
-                    $correctOrder .= (integer)$value['order'][$i] - 1;
+                    $correctOrder .= (integer)$value['order'][$key] - 1;
                 }
 
                 P11ConversationReorder::create([

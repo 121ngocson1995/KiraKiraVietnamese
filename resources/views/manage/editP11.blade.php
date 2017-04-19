@@ -115,11 +115,13 @@
 				<tr class="vertical-close-wrapper">
 					<td></td>
 					<td class="vertical-close-holder">
+						@if (count($p11))
 						@for ($i = 0; $i < count(explode(',', $p11[0]->correctOrder)); $i++)
 						<button type="button" class="vertical close" aria-label="Delete">
 							<span aria-hidden="true">&times;</span>
 						</button>
 						@endfor
+						@endif
 					</td>
 					<td></td>
 				</tr>
@@ -167,7 +169,7 @@
 <script>
 	var correctAnswerList;
 	var toAdd = -1;
-	var maxColId = $('.order-holder')[0].children.length;
+	var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length : 0;
 
 	function newSentence() {
 		var tr = document.createElement('tr');
@@ -183,11 +185,40 @@
 		sentenceInput.setAttribute('required', '');
 		td.appendChild(sentenceInput);
 		tr.appendChild(td);
-
 		td = document.createElement('td');
 		td.className = 'order-holder';
-		for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
-			
+		if (document.getElementsByClassName('order-holder').length) {
+			for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
+				
+				var orderInput = document.createElement('input');
+				orderInput.setAttribute('type', 'text');
+				orderInput.className = 'form-control order-input';
+				orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
+				orderInput.setAttribute('required', '');
+				td.appendChild(orderInput);
+				$(td).append("&nbsp;");
+			}
+		} else {
+			maxColId++;
+
+			var closeBtn = document.createElement('button');
+			closeBtn.setAttribute('type', 'button');
+			closeBtn.setAttribute('aria-label', 'Delete');
+			closeBtn.className = 'vertical close';
+
+			$(closeBtn).click(function() {
+				deleteOrder([].indexOf.call(this.parentNode.children, this));
+			})
+
+			var closeSpan = document.createElement('span');
+			closeSpan.setAttribute('aria-hidden', 'true');
+			closeSpan.innerHTML = '×';
+			closeBtn.appendChild(closeSpan);
+
+			var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+			closeHolder.appendChild(closeBtn);
+			$(closeHolder).append("&nbsp;");
+
 			var orderInput = document.createElement('input');
 			orderInput.setAttribute('type', 'text');
 			orderInput.className = 'form-control order-input';
@@ -196,6 +227,7 @@
 			td.appendChild(orderInput);
 			$(td).append("&nbsp;");
 		}
+		
 		tr.appendChild(td);
 
 		td = document.createElement('td');
@@ -236,6 +268,12 @@
 		}
 
 		sentenceRow.get(0).parentElement.removeChild(sentenceRow.get(0));
+
+		if (!$('tr.sentence').length) {
+			while(document.getElementsByClassName('vertical-close-holder')[0].firstChild) {
+				document.getElementsByClassName('vertical-close-holder')[0].removeChild(document.getElementsByClassName('vertical-close-holder')[0].firstChild);
+			}
+		}
 	}
 
 	function deleteOrder(orderColumn) {
@@ -431,4 +469,3 @@
 	});
 </script>
 @stop
-
