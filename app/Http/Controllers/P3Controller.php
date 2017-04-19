@@ -33,7 +33,6 @@ class P3Controller extends Controller
 				// $this->validate($request, [
 				// 	"word".$i => 'string|max:10',
 				// 	]);
-
 				$p3Edit[0]->sentence = $request->all()['sentence'.$i];
 				$p3Edit[0]->sentenceNo = $i;
 
@@ -71,8 +70,6 @@ class P3Controller extends Controller
 				$p3New->sentenceNo = $totalNew + $i;
 				$p3New->lesson_id = $request->all()['lessonID'];
 				$sentence = $request->all()["sentenceAdd".$i];
-
-
 					// $this->validate($request, [
 					// 	"word".$i => 'string|max:10',
 					// 	]);
@@ -82,7 +79,7 @@ class P3Controller extends Controller
 				$destinationPath = "audio/P3/lesson".$lesson->lessonNo;
 
 				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
-				$fileName = $p3New->wordNo."-".$t.'.'.$extension;
+				$fileName = $p3New->sentenceNo."-".$t.'.'.$extension;
 
 				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
 				$newName = "audio/P3/lesson".$lesson->lessonNo."/".$p3New->sentenceNo."-".$t.'.'.$extension;
@@ -95,7 +92,7 @@ class P3Controller extends Controller
 		$sumDelete = $request->all()['sumDelete'];
 		for ($i=0; $i <= $sumDelete ; $i++) { 
 			if ($request->exists("delete".$i)) {
-				$p3Edit = P3SentenceMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["sentence".$i])->delete();
+				$p3Edit = P3SentenceMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
 			}
 		}
 		return Redirect("/listAct".$request->all()['lessonID']);

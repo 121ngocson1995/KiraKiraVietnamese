@@ -62,7 +62,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit P3: Sentences Memorize for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 3: Listen to sentences and repeat for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP3','method'=>'POST', 'files'=>true, 'id' =>'p3Form')) !!}
 	<div id="p3Div">
 		<input type="hidden" name="lessonID" value="{{$p3[0]->lesson_id}}">

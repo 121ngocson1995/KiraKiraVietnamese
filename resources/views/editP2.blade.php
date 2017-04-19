@@ -62,7 +62,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit P2: Word Recognize for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 2: Listen and find the correct words for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
 	<div id="p2Div">
 		<input type="hidden" name="lessonID" value="{{$p2[0]->lesson_id}}">
