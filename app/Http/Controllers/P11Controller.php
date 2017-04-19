@@ -96,12 +96,18 @@ class P11Controller extends Controller
 
     public function edit(Request $request)
     {
-        // dd($request->all());
         foreach ($request->update as $id => $value) {
             $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
                 
             if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
-                $p11Element->sentence = $value['sentence'];
+                $newSentence = $value['sentence'];
+
+                while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
+                    $newSentence = trim($newSentence, '-');
+                    $newSentence = trim($newSentence, ' ');
+                }
+
+                $p11Element->sentence = '- ' . $newSentence;
             }
 
             $correctOrder = '';
@@ -121,9 +127,14 @@ class P11Controller extends Controller
 
         if ($request->has('insert')) {
             foreach ($request->insert as $id => $value) {
-                if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
-                    $p11Element->sentence = $value['sentence'];
+                $newSentence = $value['sentence'];
+
+                while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
+                    $newSentence = trim($newSentence, '-');
+                    $newSentence = trim($newSentence, ' ');
                 }
+
+                $p11Element->sentence = '- ' . $newSentence;
 
                 $correctOrder = '';
                 for ($i=0; $i < count($value['order']); $i++) { 
@@ -135,7 +146,7 @@ class P11Controller extends Controller
 
                 P11ConversationReorder::create([
                     'lesson_id' => $request->lessonId,
-                    'sentence' => $value['sentence'],
+                    'sentence' => $newSentence,
                     'correctOrder' => $correctOrder,
                 ]);
             }

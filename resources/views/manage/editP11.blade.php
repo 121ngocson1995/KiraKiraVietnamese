@@ -218,6 +218,10 @@
 	var toDelete = '';
 
 	function deleteSentence(sentenceRow) {
+		if (!confirm('Are you sure you want to delete this sentence?\r\nYou can recover the data by refreshing the page.')) {
+			return;
+		}
+
 		if (sentenceRow.attr('data-sentence-id')) {
 			if (toDelete) {
 				toDelete += ','
@@ -229,6 +233,10 @@
 	}
 
 	function deleteOrder(orderColumn) {
+		if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+			return;
+		}
+		
 		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
 
 		if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
