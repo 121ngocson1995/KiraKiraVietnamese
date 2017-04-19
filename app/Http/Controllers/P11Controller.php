@@ -7,6 +7,16 @@ use App\P11ConversationReorder;
 
 class P11Controller extends Controller
 {
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+
     public function load(Request $request, $lessonNo)
     {
     	// get lesson
@@ -18,6 +28,26 @@ class P11Controller extends Controller
     	$initOrder = [];
     	$correctAnswer = [];
 
+        $correctAnswerList = $this->makeAnswerListWithSentence($elementData);
+
+        foreach ($elementData as $key) {
+            $initOrder[] = $key->correctOrder;
+        }
+
+        $currentOrder;
+        do {
+            $elementData = $elementData->shuffle();
+    		$currentOrder = array();
+    		foreach ($elementData as $key) {
+    			$currentOrder[] = $key->correctOrder;
+    		}
+    	} while ( $currentOrder === $initOrder );
+
+    	return view("activities.P11v2", compact(['elementData', 'correctAnswerList']));
+    }
+
+    public function makeAnswerListWithSentence(\Illuminate\Database\Eloquent\Collection $elementData)
+    {
         $answerListRaw = array();
         foreach ($elementData as $elementValue) {
             $answer = array();
@@ -44,22 +74,7 @@ class P11Controller extends Controller
             }
         }
 
-        $correctAnswerList = $this->arrange($answerListPreArranged);
-
-        foreach ($elementData as $key) {
-            $initOrder[] = $key->correctOrder;
-        }
-
-        $currentOrder;
-        do {
-            $elementData = $elementData->shuffle();
-    		$currentOrder = array();
-    		foreach ($elementData as $key) {
-    			$currentOrder[] = $key->correctOrder;
-    		}
-    	} while ( $currentOrder === $initOrder );
-
-    	return view("activities.P11v2", compact(['elementData', 'correctAnswerList']));
+        return $this->arrange($answerListPreArranged);
     }
 
     private function arrange($answerListPreArranged)
@@ -77,5 +92,78 @@ class P11Controller extends Controller
     {
         array_multisort($answer['order'], $answer['sentence']);
         return $answer['sentence'];
+    }
+
+    public function edit(Request $request)
+    {
+        // dd($request->all());
+        if ($request->has('update')) {
+            foreach ($request->update as $id => $value) {
+                $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
+                    
+                if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
+                    $newSentence = $value['sentence'];
+
+                    while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
+                        $newSentence = trim($newSentence, '-');
+                        $newSentence = trim($newSentence, ' ');
+                    }
+
+                    $p11Element->sentence = '- ' . $newSentence;
+                }
+
+                $correctOrder = '';
+                $start = true;
+                foreach ($value['order'] as $key => $order) { 
+                    if ($start) {
+                        $start = false;
+                    } else {
+                        $correctOrder .= ',';
+                    }
+                    $correctOrder .= (integer)$value['order'][$key] - 1;
+                }
+
+                $p11Element->correctOrder = $correctOrder;
+                $p11Element->save();
+            }
+        }
+
+        if ($request->has('insert')) {
+            foreach ($request->insert as $id => $value) {
+                $newSentence = $value['sentence'];
+
+                while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
+                    $newSentence = trim($newSentence, '-');
+                    $newSentence = trim($newSentence, ' ');
+                }
+
+                $newSentence = '- ' . $newSentence;
+
+                $correctOrder = '';
+                $start = true;
+                foreach ($value['order'] as $key => $order) { 
+                    if ($start) {
+                        $start = false;
+                    } else {
+                        $correctOrder .= ',';
+                    }
+                    $correctOrder .= (integer)$value['order'][$key] - 1;
+                }
+
+                P11ConversationReorder::create([
+                    'lesson_id' => $request->lessonId,
+                    'sentence' => $newSentence,
+                    'correctOrder' => $correctOrder,
+                ]);
+            }
+        }
+
+        if ($request->has('delete')) {
+            foreach (explode(',', $request->delete) as $id) {
+                P11ConversationReorder::where('id', '=', $id)->delete();
+            }
+        }
+
+        return Redirect("/listAct".$request->all()['lessonId']);
     }
 }

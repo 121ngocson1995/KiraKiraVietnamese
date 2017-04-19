@@ -12,6 +12,8 @@ use App\P3SentenceMemorize;
 use App\P4SentenceRecognize;
 use App\P5DialogueMemorize;
 use App\P7ConversationMemorize;
+use App\P11ConversationReorder;
+
 class LessonController extends Controller
 {
     /**
@@ -265,6 +267,12 @@ class LessonController extends Controller
     		}
     		return view('editP5', compact(['p5', 'lessonId']));
     		break;
+
+			case 'p11':
+			$p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+
+			return view('manage.editP11', compact(['p11', 'lessonId']));
+			break;
 
     		default:
     		return redirect('/');

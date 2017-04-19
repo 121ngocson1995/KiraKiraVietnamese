@@ -8,20 +8,20 @@
 		display: inline-block;
 	}
 	#wrapper {
-		padding: 4em;
+		padding: 2em 4em;
 	}
 	.close-col {
 		text-align: center;
 	}
 	input.order-input {
 		text-align: center;
+		padding: 0;
+		width: 40px;
+		display: inline-block;
 	}
 	button.close {
 		color: black;
 		float: none;
-		/*position: absolute;*/
-		/*right: 4em;*/
-		/*transform: translateY(30%);*/
 		margin: 0 0.5em;
 		outline: none;
 		line-height: initial;
@@ -52,15 +52,14 @@
 		margin-left: 0;
 		margin-right: 0.3em;
 	}
-	.order-input {
-		width: 3em;
-		display: inline-block;
-	}
 	table {
 		width: 100%;
 	}
-	table td, table th {
+	table td {
 		padding: 0.5em;
+	}
+	table th {
+		padding: 0 0.5em;
 	}
 	td.order-holder {
 		width: 1px;
@@ -70,6 +69,27 @@
 		width: 1px;
 		white-space: nowrap;
 		text-align: center;
+	}
+	button.vertical.close {
+		width: 40px;
+		margin: 0;
+	}
+	#error .close {
+		color: #8a6d3b;
+	}
+	.alert-warning {
+		color: #8a6d3b;
+		background-color: #f5e8a3;
+		border-color: #f4d18b;
+	}
+	.orderError {
+		background-color: #f2dede;
+	}
+	input.focus {
+		border-color: #66afe9;
+		outline: 0;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6);
 	}
 </style>
 
@@ -83,21 +103,34 @@
 </script>
 <div class="container">
 	<div id="wrapper">
-		<form method="post" action="/editP11">
+		<form id="p11Form" method="post" action="/editP11">
 			{{ csrf_field() }}
 			<input type="hidden" name="lessonId" value="{{ $lessonId }}">
 			<table>
 				<tr>
-					<th><label for="">Sentences</label></th>
-					<th><label for="">Order</label></th>
-					<th><label for=""">Delete</label></th>
+					<th><label for="">Sentences</label><hr></th>
+					<th><label for="">Order</label><hr></th>
+					<th></th>
+				</tr>
+				<tr class="vertical-close-wrapper">
+					<td></td>
+					<td class="vertical-close-holder">
+						@if (count($p11))
+						@for ($i = 0; $i < count(explode(',', $p11[0]->correctOrder)); $i++)
+						<button type="button" class="vertical close" aria-label="Delete">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						@endfor
+						@endif
+					</td>
+					<td></td>
 				</tr>
 
 				@if (count($p11))
 				@foreach ($p11 as $element)
-				<tr data-sentence-id="{{ $element->id }}">
+				<tr class="sentence" data-sentence-id="{{ $element->id }}">
 					<td class="sentence-holder">
-						<input type="text" class="form-control sentence-input" name="update[{{ $element->id }}][sentence]" value="{{ $element->sentence }}">
+						<input type="text" class="form-control sentence-input" name="update[{{ $element->id }}][sentence]" value="{{ $element->sentence }}" required="">
 					</td>
 					<td class="order-holder">
 						@php
@@ -105,14 +138,14 @@
 						@endphp
 
 						@foreach ( explode(',', $element->correctOrder) as $order)
-						<input type="text" class="form-control order-input" name="update[{{ $element->id }}][order][{{ $orderNo }}]" value="{{ $order }}" required="">
+						<input type="text" class="form-control order-input" name="update[{{ $element->id }}][order][{{ $orderNo }}]" value="{{ (integer)$order + 1 }}" required="">
 						@php
 						$orderNo++;
 						@endphp
 						@endforeach
 					</td>
 					<td class="delete-holder">
-						<button type="button" class="close" aria-label="Delete">
+						<button type="button" class="horizontal close" aria-label="Delete">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</td>
@@ -121,54 +154,80 @@
 				@endif
 			</table>
 
-			<div id="saveBtn-holder" class="row">
-				<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
-				<button id="newOrder" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderText">Add new order</span></button>
-				<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
-			</div>
+			<div id="error"></div>
+		</div>
 
-			{{-- <div id="answer-holder" class="row allAnswers"><label for="">There is currently a total of <span id="answers_number">{{ count($correctAnswerList) }}</span> answers for this practice</label>
-				@php
-				$i = 0;
-				@endphp
-				<ul class="nav nav-pills nav-justified">
-					@foreach ( $correctAnswerList as $answer)
-					<li><a id="answer{{ $i++ }}" class="pill-toggle" data-toggle="pill" href="#wrapper">{{ $i }}</a></li>
-					@endforeach
-				</ul>
-			</div> --}}
-		</form>
-	</div>
+		<div id="saveBtn-holder" class="row">
+			<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
+			<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
+			<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
+		</div>
+	</form>
+</div>
 </div>
 
 <script>
 	var correctAnswerList;
-	var toAdd = 0;
+	var toAdd = -1;
+	var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length : 0;
 
 	function newSentence() {
 		var tr = document.createElement('tr');
+		tr.className = 'sentence';
+		tr.setAttribute('data-insert-sentence-id', ++toAdd);
 
 		var td = document.createElement('td');
 		td.className = 'sentence-holder';
 		var sentenceInput = document.createElement('input');
 		sentenceInput.setAttribute('type', 'text');
-		sentenceInput.setAttribute('name', 'update[' + toAdd++ + '][sentence]');
 		sentenceInput.className = 'form-control sentence-input';
+		sentenceInput.setAttribute('name', 'insert[' + toAdd + '][sentence]');
+		sentenceInput.setAttribute('required', '');
 		td.appendChild(sentenceInput);
 		tr.appendChild(td);
-
 		td = document.createElement('td');
 		td.className = 'order-holder';
-		for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
-			
+		if (document.getElementsByClassName('order-holder').length) {
+			for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
+				
+				var orderInput = document.createElement('input');
+				orderInput.setAttribute('type', 'text');
+				orderInput.className = 'form-control order-input';
+				orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
+				orderInput.setAttribute('required', '');
+				td.appendChild(orderInput);
+				$(td).append("&nbsp;");
+			}
+		} else {
+			maxColId++;
+
+			var closeBtn = document.createElement('button');
+			closeBtn.setAttribute('type', 'button');
+			closeBtn.setAttribute('aria-label', 'Delete');
+			closeBtn.className = 'vertical close';
+
+			$(closeBtn).click(function() {
+				deleteOrder([].indexOf.call(this.parentNode.children, this));
+			})
+
+			var closeSpan = document.createElement('span');
+			closeSpan.setAttribute('aria-hidden', 'true');
+			closeSpan.innerHTML = '×';
+			closeBtn.appendChild(closeSpan);
+
+			var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+			closeHolder.appendChild(closeBtn);
+			$(closeHolder).append("&nbsp;");
+
 			var orderInput = document.createElement('input');
 			orderInput.setAttribute('type', 'text');
 			orderInput.className = 'form-control order-input';
-			orderInput.setAttribute('name', 'update[' + toAdd + '][order][' + i + ']');
+			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 			orderInput.setAttribute('required', '');
 			td.appendChild(orderInput);
 			$(td).append("&nbsp;");
 		}
+		
 		tr.appendChild(td);
 
 		td = document.createElement('td');
@@ -177,7 +236,11 @@
 		var closeBtn = document.createElement('button');
 		closeBtn.setAttribute('type', 'button');
 		closeBtn.setAttribute('aria-label', 'Delete');
-		closeBtn.className = 'close';
+		closeBtn.className = 'horizontal close';
+
+		$(closeBtn).click(function() {
+			deleteSentence($(this).closest('tr'));
+		})
 
 		var closeSpan = document.createElement('span');
 		closeSpan.setAttribute('aria-hidden', 'true');
@@ -193,6 +256,10 @@
 	var toDelete = '';
 
 	function deleteSentence(sentenceRow) {
+		if (!confirm('Are you sure you want to delete this sentence?\r\nYou can recover the data by refreshing the page.')) {
+			return;
+		}
+
 		if (sentenceRow.attr('data-sentence-id')) {
 			if (toDelete) {
 				toDelete += ','
@@ -201,49 +268,149 @@
 		}
 
 		sentenceRow.get(0).parentElement.removeChild(sentenceRow.get(0));
+
+		if (!$('tr.sentence').length) {
+			while(document.getElementsByClassName('vertical-close-holder')[0].firstChild) {
+				document.getElementsByClassName('vertical-close-holder')[0].removeChild(document.getElementsByClassName('vertical-close-holder')[0].firstChild);
+			}
+		}
 	}
 
-	// function showOrder(orderNo) {
-	// 	var answerToShow = correctAnswerList[orderNo];
+	function deleteOrder(orderColumn) {
+		if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+			return;
+		}
+		
+		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
 
-	// 	for (var i = 0; i < answerToShow.id.length; i++) {
-	// 		for (var j = 0; j < document.getElementById('content-holder').childNodes.length; j++) {
+		if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+			$(closeHolder.children[orderColumn].nextSibling).remove();
+		}
 
-	// 			if ($('#content-holder').children()[j].getAttribute('data-sentence-id') == answerToShow.id[i]) {
+		closeHolder.removeChild(closeHolder.children[orderColumn]);
 
-	// 				console.log('a');
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var tr = $('tr.sentence')[i];
 
-	// 				$('.order-input').eq(j).attr('value', parseInt(answerToShow.order[i]) + 1);
+			var orderHolder = $(tr).find('.order-holder').get(0);
 
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// }
+			if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+				$(orderHolder.children[orderColumn].nextSibling).remove();
+			}
+			orderHolder.removeChild(orderHolder.children[orderColumn]);
+		}
+	}
 
-	// function saveOrder() {
-	// 	if (!hasEnoughOrder()) {
-	// 		alert('You haven\'t finished ordering yet.');
-	// 		return;
-	// 	}
+	function newOrder() {
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var tr = $('tr.sentence')[i];
 
-	// 	var newAnswer = makeAnswer();
+			var orderHolder = $(tr).find('.order-holder').get(0);
 
-	// 	correctAnswerList.push();
-	// }
+			var orderInput = document.createElement('input');
+			orderInput.setAttribute('type', 'text');
+			orderInput.className = 'form-control order-input';
+			orderInput.setAttribute('name', (tr.getAttribute('data-sentence-id') ? 'update[' + tr.getAttribute('data-sentence-id') : 'insert[' + tr.getAttribute('data-insert-sentence-id')) + '][order][' + maxColId + ']');
+			orderInput.setAttribute('required', '');
+			orderHolder.appendChild(orderInput);
+			$(orderHolder).append("&nbsp;");
+		}
+		maxColId++;
 
-	// function hasEnoughOrder() {
-	// 	$('#content-holder').children().each(function() {
-	// 		if ($(this).find('span.sentenceNo').length != 1) {
-	// 			return false;
-	// 		}
-	// 	});
+		var closeBtn = document.createElement('button');
+		closeBtn.setAttribute('type', 'button');
+		closeBtn.setAttribute('aria-label', 'Delete');
+		closeBtn.className = 'vertical close';
 
-	// 	return true;
-	// }
+		$(closeBtn).click(function() {
+			deleteOrder([].indexOf.call(this.parentNode.children, this));
+		})
 
-	function makeAnswer() {
+		var closeSpan = document.createElement('span');
+		closeSpan.setAttribute('aria-hidden', 'true');
+		closeSpan.innerHTML = '×';
+		closeBtn.appendChild(closeSpan);
 
+		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+		closeHolder.appendChild(closeBtn);
+		$(closeHolder).append("&nbsp;");
+	}
+
+	function isOrderFormatCorrect() {
+		var orderList = new Array;
+		for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
+			// orderList[i] = new Array();
+			var sentenceOrder = new Array;
+			for (var j = 0; j < $('tr.sentence').length; j++) {
+				var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
+				sentenceOrder.push(parseInt(order));
+			}
+
+			orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
+		}
+
+		for (var i = 0; i < orderList.length; i++) {
+			if (orderList[i][0] != 1) {
+				alert('Sentence order must start at 1');
+				markError(i);
+				return false;
+			}
+
+			for (var j = 1; j < orderList[i].length; j++) {
+				if (orderList[i][j] != orderList[i][j-1] + 1) {
+					alert('Order value is not continuous');
+					markError(i);
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	function alert(message) {
+		var div = document.createElement('div');
+		div.className = 'alert alert-warning fade in';
+
+		var close = document.createElement('a');
+		close.innerHTML = '×';
+		close.setAttribute('href', '#');
+		close.setAttribute('class', 'close');
+		close.setAttribute('data-dismiss', 'alert');
+		close.setAttribute('aria-label', 'close');
+
+		div.append(close);
+
+		var i = document.createElement('i');
+		i.className = 'fa fa-exclamation';
+		div.append(i);
+
+		var span = document.createElement('i');
+		span.className = 'error-message';
+		span.innerHTML = message;
+		div.append(span);
+
+		$('#error').prepend(div);
+	}
+
+	function markError(orderNo) {
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+
+			input.addClass('orderError');
+
+			input.on('input', function() {
+				unmarkError(orderNo);
+			});
+		}
+	}
+
+	function unmarkError(orderNo) {
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+
+			input.removeClass('orderError');
+		}
 	}
 
 	$('#newSentenceBtn').click(function() {
@@ -251,11 +418,15 @@
 	});
 
 	$('#newOrderBtn').click(function() {
-		saveOrder();
+		newOrder();
 	});
 
-	$('.close').click(function() {
+	$('.horizontal.close').click(function() {
 		deleteSentence($(this).closest('tr'));
+	})
+
+	$('.vertical.close').click(function() {
+		deleteOrder([].indexOf.call(this.parentNode.children, this));
 	})
 
 	$('.pill-toggle').click(function(e) {
@@ -267,46 +438,34 @@
 		showOrder(orderNo);
 	});
 
-	$("#situationForm").submit( function(eventObj) {
-		var validateFail = false;
-		$('.row.situationRow').each(function() {
-			var situaNo = parseInt($(this).attr('data-line')) + 1;
-			var dialog_text = $("#dialog"+situaNo).val();
-			var dialogTrans_text = $("#dialogTrans"+situaNo).val();
-			var dialog_count = dialog_text.split("\n").length;
-			var dialogTrans_count = dialogTrans_text.split("\n").length;
+	$('input.order-input')
+	.focus(function() {
+		var index = [].indexOf.call(this.parentNode.children, this);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
+		}
+	})
+	.blur(function() {
+		var index = [].indexOf.call(this.parentNode.children, this);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
+		}
+	})
 
-			if (dialog_count != dialogTrans_count) {
-				document.getElementById("dialog"+situaNo).style.borderColor = "red";
-				document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
-				validateFail = true;
-			}else{
-				document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
-				document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
-			}
-		})
-
-		if (validateFail) {
-			alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
+	$("#p11Form").submit( function(eventObj) {
+		if(!isOrderFormatCorrect()) {
 			return false;
 		}
 
-		$('.undone').each(function() {
-			if($(this).hasClass('image') && $(this).attr('data-path-image') != ''){
-				$('<input />').attr('type', 'hidden')
-				.attr('name', "imgPath"+$(this).attr('data-situ'))
-				.attr('value', $(this).attr('data-path-image'))
-				.appendTo('#situationForm');
-				return true;
-			}else if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
-				$('<input />').attr('type', 'hidden')
-				.attr('name', "audioPath"+$(this).attr('data-situ'))
-				.attr('value', $(this).attr('data-path-audio'))
-				.appendTo('#situationForm');
-				return true;
-			}
-		})
+		if (toDelete) {
+			$('<input />').attr('type', 'hidden')
+			.attr('name', 'delete')
+			.attr('value', toDelete)
+			.appendTo('#p11Form');
+			return true;
+		}
 	});
 </script>
 @stop
-
