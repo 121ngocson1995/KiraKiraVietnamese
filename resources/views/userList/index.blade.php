@@ -117,6 +117,7 @@
 	}
 	.label-search {
 		cursor: text;
+		font-weight: 600;
 	}
 
 </style>
@@ -149,7 +150,7 @@
 			<div class="field">
 
 				<input type="text" class="input-search form-control" id="input-search" name="input-search" required>
-				<label for="input-search" class="label-search">Search by name, username or email</label>
+				<label for="input-search" class="label-search">Search by username, first name, last name or email</label>
 
 			</div>
 		</div>
