@@ -74,6 +74,7 @@
 <?php $m = count($nounArr[2 * $k]); ?>
 <div class="row big">
 
+	{{-- left column --}}
 	<div class="col-md-6">
 		<div class="row pattern">
 			<div class="col-xs-12 holderleft">
@@ -127,6 +128,7 @@
 		</div>
 	</div>
 
+	{{-- right column --}}
 	@if($k<$cntRow-1)
 	<?php $n = count($nounArr[2*$k+1]); ?>
 	<div class="col-md-6">
