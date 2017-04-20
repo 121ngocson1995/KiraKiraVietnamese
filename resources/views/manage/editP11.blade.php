@@ -25,9 +25,11 @@
 		margin: 0 0.5em;
 		outline: none;
 		line-height: initial;
+		opacity: 0.4 !important;
 	}
 	button.close:hover, button.close:focus {
-		color: black;
+		color: #e60000;
+		opacity: 1 !important;
 	}
 	.form-group {
 		vertical-align: middle;
@@ -146,7 +148,7 @@
 					</td>
 					<td class="delete-holder">
 						<button type="button" class="horizontal close" aria-label="Delete">
-							<span aria-hidden="true">&times;</span>
+							<span aria-hidden="true"><i class="fa fa-trash fa-1x"></i></span>
 						</button>
 					</td>
 				</tr>
@@ -155,15 +157,14 @@
 			</table>
 
 			<div id="error"></div>
-		</div>
 
-		<div id="saveBtn-holder" class="row">
-			<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
-			<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
-			<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
-		</div>
-	</form>
-</div>
+			<div id="saveBtn-holder" class="row">
+				<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
+				<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
+				<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
+			</div>
+		</form>
+	</div>
 </div>
 
 <script>
