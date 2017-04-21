@@ -377,7 +377,7 @@ class LessonController extends Controller
 
     			$p14[$pId]->sentenceParts = $sentenceParts;
     		}
-    		return view('manage.editp14', compact(['p14', 'lessonId']));
+    		return view('manage.editP14', compact(['p14', 'lessonId']));
     		break;
 
     		default:
