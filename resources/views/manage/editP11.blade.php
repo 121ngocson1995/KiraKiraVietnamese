@@ -25,9 +25,11 @@
 		margin: 0 0.5em;
 		outline: none;
 		line-height: initial;
+		opacity: 0.4 !important;
 	}
 	button.close:hover, button.close:focus {
-		color: black;
+		color: #e60000;
+		opacity: 1 !important;
 	}
 	.form-group {
 		vertical-align: middle;
@@ -146,7 +148,7 @@
 					</td>
 					<td class="delete-holder">
 						<button type="button" class="horizontal close" aria-label="Delete">
-							<span aria-hidden="true">&times;</span>
+							<span aria-hidden="true"><i class="fa fa-trash fa-1x"></i></span>
 						</button>
 					</td>
 				</tr>
@@ -155,15 +157,14 @@
 			</table>
 
 			<div id="error"></div>
-		</div>
 
-		<div id="saveBtn-holder" class="row">
-			<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
-			<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
-			<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
-		</div>
-	</form>
-</div>
+			<div id="saveBtn-holder" class="row">
+				<button id="newSentenceBtn" class="btn btn-primary" type="button"><i class="fa fa-plus"></i><span class="newSentenceBtnText">Add new sentence</span></button>
+				<button id="newOrderBtn" class="btn btn-warning" type="button"><i class="fa fa-plus"></i><span class="newOrderBtnText">Add new order</span></button>
+				<button id="saveBtn" class="btn btn-success" type="submit"><i class="fa fa-save"></i><span class="saveBtnText">Save</span></button>
+			</div>
+		</form>
+	</div>
 </div>
 
 <script>
@@ -195,6 +196,11 @@
 				orderInput.className = 'form-control order-input';
 				orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 				orderInput.setAttribute('required', '');
+				$(orderInput).focus(function() {
+					focusCol(this);
+				}).blur(function() {
+					blurCol(this);
+				});
 				td.appendChild(orderInput);
 				$(td).append("&nbsp;");
 			}
@@ -224,6 +230,11 @@
 			orderInput.className = 'form-control order-input';
 			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 			orderInput.setAttribute('required', '');
+			$(orderInput).focus(function() {
+				focusCol(this);
+			}).blur(function() {
+				blurCol(this);
+			});
 			td.appendChild(orderInput);
 			$(td).append("&nbsp;");
 		}
@@ -312,6 +323,11 @@
 			orderInput.className = 'form-control order-input';
 			orderInput.setAttribute('name', (tr.getAttribute('data-sentence-id') ? 'update[' + tr.getAttribute('data-sentence-id') : 'insert[' + tr.getAttribute('data-insert-sentence-id')) + '][order][' + maxColId + ']');
 			orderInput.setAttribute('required', '');
+			$(orderInput).focus(function() {
+				focusCol(this);
+			}).blur(function() {
+				blurCol(this);
+			});
 			orderHolder.appendChild(orderInput);
 			$(orderHolder).append("&nbsp;");
 		}
@@ -413,6 +429,22 @@
 		}
 	}
 
+	function focusCol(input) {
+		var index = [].indexOf.call(input.parentNode.children, input);
+		
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
+		}
+	}
+
+	function blurCol(input) {
+		var index = [].indexOf.call(input.parentNode.children, input);
+
+		for (var i = 0; i < $('tr.sentence').length; i++) {
+			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
+		}
+	}
+
 	$('#newSentenceBtn').click(function() {
 		newSentence();
 	});
@@ -440,19 +472,10 @@
 
 	$('input.order-input')
 	.focus(function() {
-		var index = [].indexOf.call(this.parentNode.children, this);
-		
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
-		}
-	})
-	.blur(function() {
-		var index = [].indexOf.call(this.parentNode.children, this);
-		
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
-		}
-	})
+		focusCol(this);
+	}).blur(function() {
+		blurCol(this);
+	});
 
 	$("#p11Form").submit( function(eventObj) {
 		if(!isOrderFormatCorrect()) {
