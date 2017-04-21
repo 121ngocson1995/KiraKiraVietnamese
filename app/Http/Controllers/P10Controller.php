@@ -58,7 +58,7 @@ class P10Controller extends Controller
 
 	public function edit(Request $request)
 	{
-		dd($request->all());
+		// dd($request->all());
 		if ($request->has('update')) {
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
