@@ -256,6 +256,7 @@ class UserController extends Controller
 		$user->password = \Hash::make($request->pass['newPassword']);
 		$user->save();
 
+		$request->session()->flash('alert-success', 'Your password has been successfully changed');
 		return back();
 	}
 }
