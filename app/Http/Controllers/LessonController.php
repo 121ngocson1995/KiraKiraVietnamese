@@ -232,7 +232,7 @@ class LessonController extends Controller
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($lessonId);
     	switch ($activityName) {
     		case 'situations':
-    		$situation = Situation::where('lesson_id', '=', $lessonId)->get();
+    		$situation = Situation::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
     		for ($i=0; $i<count($situation); $i++){
     			$situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
     			$situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
@@ -241,42 +241,70 @@ class LessonController extends Controller
     		break;
 
     		case 'p1':
-    		$p1 = P1WordMemorize::where('lesson_id', '=', $lessonId)->get();
+    		$p1 = P1WordMemorize::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
     		return view('editP1', compact(['p1', 'lessonId']));
     		break;
 
     		case 'p2':
-    		$p2 = P2WordRecognize::where('lesson_id', '=', $lessonId)->get();
+    		$p2 = P2WordRecognize::where('lesson_id', '=', $lessonId)->orderBy('id')->orderBy('id')->get();
     		return view('editP2', compact(['p2', 'lessonId']));
     		break;
 
     		case 'p3':
-    		$p3 = P3SentenceMemorize::where('lesson_id', '=', $lessonId)->get();
+    		$p3 = P3SentenceMemorize::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
     		return view('editP3', compact(['p3', 'lessonId']));
     		break;
 
     		case 'p4':
-    		$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->get();
+    		$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
     		return view('editP4', compact(['p4', 'lessonId']));
     		break;
 
     		case 'p5':
-    		$p5 = P5DialogueMemorize::where('lesson_id', '=', $lessonId)->get();
+    		$p5 = P5DialogueMemorize::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
     		for ($i=0; $i<count($p5); $i++){
     			$p5[$i]->dialogArr = str_replace( "|","\n", $p5[$i]->dialog);
     		}
     		return view('editP5', compact(['p5', 'lessonId']));
     		break;
 
-			case 'p11':
-			$p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+            case 'p7':
+            $p7 = P7ConversationMemorize::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
+            $dialogCnt = array();
+            $contentArr = array();
+            for ($i=0; $i<count($p7); $i++){
+                $dup = false;
+                for ($j=0; $j < count($dialogCnt) ; $j++) { 
+                    if($p7[$i]->dialogNo == $dialogCnt[$j]){
+                        $dup = true;
+                    }
+                }
+                if ($dup == false) {
+                    array_push($dialogCnt, $p7[$i]->dialogNo);
+                }
+            }
+            for ($i=0; $i<count($dialogCnt); $i++){
+                for ($j=0; $j < count($p7) ; $j++) { 
+                    if ($p7[$j]['dialogNo'] == $dialogCnt[$i]) {
+                        $line = explode('|', $p7[$j]['dialogue']);
+                        for ($k=0; $k < count($line)  ; $k++) { 
+                            $line[$k] = explode('*', $line[$k]);
+                        }
+                        array_push($contentArr, $line);
+                    }
+                }
+            }
+            return view('editP7', compact(['p7', 'contentArr', 'lessonId']));
+            break;
 
-			return view('manage.editP11', compact(['p11', 'lessonId']));
-			break;
+            case 'p11':
+            $p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+            return view('manage.editP11', compact(['p11', 'lessonId']));
+            break;
 
-    		default:
-    		return redirect('/');
-    		break;
-    	}
+            default:
+            return redirect('/');
+            break;
+        }
     } 
 }
