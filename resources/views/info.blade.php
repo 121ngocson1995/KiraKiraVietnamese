@@ -111,11 +111,11 @@ $user = \Auth::user();
 	.img_container .img-box:after {
 		content: "";
 		position: absolute;
-		transform: translate(95px, -165px);
+		transform: translate(90px, -160px);
 		font-family: "Glyphicons Halflings";
 		font-size: 3.33333em;
 		color: #fff;
-		text-shadow: 2px 2px 10px #000;
+		text-shadow: 0px 0px 10px #000;
 		opacity: 0;
 		display: none;
 	}
@@ -123,7 +123,7 @@ $user = \Auth::user();
 		opacity: 1;
 		display: block;
 	}
-	.img_container:hover img {
+	.img_container:hover .avatar_img {
 		opacity: 0.6;
 	}
 	.img_container:hover .image-avatar {
