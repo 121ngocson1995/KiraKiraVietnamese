@@ -226,12 +226,11 @@ class UserController extends Controller
 	 */
 	public function changePassword(Request $request)
 	{
-		$user = \Auth::user();
 		Validator::extend('authenticated', function ($attribute, $value, $parameters, $validator) {
-			return \Hash::check($value['oldPassword'], $user->password);
+			return \Hash::check($value['oldPassword'], \Auth::user()->password);
 		});
 
-		Validator::extend('differentPass', function ($attribute, $value, $parameters, $validator) {
+		Validator::extend('differentpass', function ($attribute, $value, $parameters, $validator) {
 			return strcmp($value['oldPassword'], $value['newPassword']) == 0 ? false : true;
 		});
 
@@ -240,19 +239,19 @@ class UserController extends Controller
 		});
 
 		Validator::make($request->all(), [
-			'pass' => 'authenticated|differentPass',
+			'pass' => 'authenticated|differentpass|confirm',
 			'pass.newPassword' => 'required|min:6|max:24',
-			'pass' => 'confirm',
 			],
 			[
 			'authenticated' => 'Your entered current password didn\'t match our record',
-			'different_pass' => 'Your new password is the same as the current one',
+			'differentpass' => 'Your new password is the same as the current one',
 			'required' => 'New password required',
 			'min' => 'Password must be at minimum of :min characters',
 			'max' => 'Password must be at maxium of :max characters',
 			'confirm' => 'Your password confirmation does not match',
 			])->validate();
 
+		$user = \Auth::user();
 		$user->password = \Hash::make($request->pass['newPassword']);
 		$user->save();
 
