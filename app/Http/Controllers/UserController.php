@@ -219,7 +219,7 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Update password
+	 * Update user's password
 	 * 
 	 * @param  Request     $request
 	 * @return \Illuminate\Http\RedirectResponse
@@ -248,9 +248,9 @@ class UserController extends Controller
 			'authenticated' => 'Your entered current password didn\'t match our record',
 			'different_pass' => 'Your new password is the same as the current one',
 			'required' => 'New password required',
-			'min' => 'Password must be at minimumof :min characters',
+			'min' => 'Password must be at minimum of :min characters',
 			'max' => 'Password must be at maxium of :max characters',
-			'confirm' => 'Your password confirmation does not math',
+			'confirm' => 'Your password confirmation does not match',
 			])->validate();
 
 		$user->password = \Hash::make($request->pass['newPassword']);

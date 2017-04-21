@@ -312,15 +312,15 @@ $user = \Auth::user();
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="oldPassword">Old password:</label>
-							<input id="oldPassword" name="pass[oldPassword]" type="password" class="form-control" maxlength="191" required>
+							<input id="oldPassword" name="pass[oldPassword]" type="password" class="form-control" maxlength="24" required>
 						</div>
 						<div class="form-group">
 							<label for="newPassword">New password:</label>
-							<input id="newPassword" name="pass[newPassword]" type="password" class="form-control" maxlength="191" required>
+							<input id="newPassword" name="pass[newPassword]" type="password" class="form-control" maxlength="24" required>
 						</div>
 						<div class="form-group">
 							<label for="newPasswordConfirm">Confirm new password:</label>
-							<input id="newPasswordConfirm" name="pass[password_confirm]" type="password" class="form-control" maxlength="191" required>
+							<input id="newPasswordConfirm" name="pass[password_confirm]" type="password" class="form-control" maxlength="24" required>
 						</div>
 					</div>
 					<div class="modal-footer" style="text-align: center;">
