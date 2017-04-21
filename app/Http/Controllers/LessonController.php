@@ -271,14 +271,6 @@ class LessonController extends Controller
     		return view('editP5', compact(['p5', 'lessonId']));
     		break;
 
-    		case 'p5':
-    		$p5 = P5DialogueMemorize::where('lesson_id', '=', $lessonId)->get();
-    		for ($i=0; $i<count($p5); $i++){
-    			$p5[$i]->dialogArr = str_replace( "|","\n", $p5[$i]->dialog);
-    		}
-    		return view('editP5', compact(['p5', 'lessonId']));
-    		break;
-
     		case 'p6':
     		$p6 = P6DialogueMultipleChoice::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
 
@@ -348,7 +340,6 @@ class LessonController extends Controller
 
     			$p14[$pId]->sentenceParts = $sentenceParts;
     		}
-
     		return view('manage.editp14', compact(['p14', 'lessonId']));
     		break;
 

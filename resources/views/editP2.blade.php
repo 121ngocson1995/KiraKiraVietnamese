@@ -65,13 +65,12 @@
 	<div class="title"><h2>Edit Practice 2: Listen and find the correct words for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
 	<div id="p2Div">
-		<input type="hidden" name="lessonID" value="{{$lessonId}}">
-		@if (count($p2) )
+		<input type="hidden" name="lessonID" value="{{$p2[0]->lesson_id}}">
 		@for ($i = 1; $i <= count($p2)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
 				<label for="word{{$i}}">Word</label>
-				<input type="text" id="word{{$i}}" class="form-control" required="true" name="word{{$i}}" value="{{$p2[$i-1]->word}}">
+				<input type="text" id="word{{$i}}" class="form-control"  name="word{{$i}}" value="{{$p2[$i-1]->word}}">
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$i}}">Audio</label>
@@ -83,9 +82,7 @@
 			<input type="hidden" id="wordId{{$i}}" class="id" name="wordId{{$i}}" value="{{$p2[$i-1]->id}}">
 		</div>
 		@endfor
-		@endif
 	</div>
-	<br>
 	<div class="row" style="text-align: center;">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
@@ -189,22 +186,21 @@
 			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
 			document.getElementById('p2Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
-			
-			for (var i = 0; i < sumLine; i++) {
-				if (curLine < i) {
-					$("#row"+i).attr('data-line', i-1);
-					$("#row"+i).attr('id', "row"+(i-1));
-					$("#wordId"+i).attr('name', "wordId"+(i-1));
-					$("#wordId"+i).attr('id', "wordId"+(i-1));
-					$("#word"+(i)).attr('name', "word"+(i-1));
-					$("#word"+(i)).attr('id', "word"+(i-1));
-					$("#audio"+(i)).attr('name', "audio"+(i-1));
-					$("#audio"+(i)).attr('data-situ', (i-1));
-					$("#audio"+(i)).attr('id', "audio"+(i-1));
-				}
-			}
-			sumLine--;
 		}
+		for (var i = 0; i < sumLine; i++) {
+			if (curLine < i) {
+				$("#row"+i).attr('data-line', i-1);
+				$("#row"+i).attr('id', "row"+(i-1));
+				$("#wordId"+i).attr('name', "wordId"+(i-1));
+				$("#wordId"+i).attr('id', "wordId"+(i-1));
+				$("#word"+(i)).attr('name', "word"+(i-1));
+				$("#word"+(i)).attr('id', "word"+(i-1));
+				$("#audio"+(i)).attr('name', "audio"+(i-1));
+				$("#audio"+(i)).attr('data-situ', (i-1));
+				$("#audio"+(i)).attr('id', "audio"+(i-1));
+			}
+		}
+		sumLine--;
 	}
 
 	$("#p2Form").submit( function(eventObj) {

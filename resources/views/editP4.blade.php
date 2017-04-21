@@ -65,15 +65,12 @@
 	<div class="title"><h2>Edit Practice 4: Listen and find the correct sentences for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP4','method'=>'POST', 'files'=>true, 'id' =>'p4Form')) !!}
 	<div id="p4Div">
-		<input type="hidden" name="lessonID" value="{{$lessonId}}">
-		@if (count($p4))
-
-		
+		<input type="hidden" name="lessonID" value="{{$p4[0]->lesson_id}}">
 		@for ($i = 1; $i <= count($p4)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
 				<label for="sentence{{$i}}">Sentence</label>
-				<input type="text" id="sentence{{$i}}" class="form-control" required="true" name="sentence{{$i}}" value="{{$p4[$i-1]->sentence}}">
+				<input type="text" id="sentence{{$i}}" class="form-control"  name="sentence{{$i}}" value="{{$p4[$i-1]->sentence}}">
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$i}}">Audio</label>
@@ -85,9 +82,7 @@
 			<input type="hidden" id="sentenceId{{$i}}" class="id" name="sentenceId{{$i}}" value="{{$p4[$i-1]->id}}">
 		</div>
 		@endfor
-		@endif
 	</div>
-	<br>
 	<div class="row" style="text-align: center;">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
@@ -191,22 +186,21 @@
 			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
 			document.getElementById('p4Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
-			
-			for (var i = 0; i < sumLine; i++) {
-				if (curLine < i) {
-					$("#row"+i).attr('data-line', i-1);
-					$("#row"+i).attr('id', "row"+(i-1));
-					$("#sentenceId"+i).attr('name', "sentenceId"+(i-1));
-					$("#sentenceId"+i).attr('id', "sentenceId"+(i-1));
-					$("#sentence"+(i)).attr('name', "sentence"+(i-1));
-					$("#sentence"+(i)).attr('id', "sentence"+(i-1));
-					$("#audio"+(i)).attr('name', "audio"+(i-1));
-					$("#audio"+(i)).attr('data-situ', (i-1));
-					$("#audio"+(i)).attr('id', "audio"+(i-1));
-				}
-			}
-			sumLine--;
 		}
+		for (var i = 0; i < sumLine; i++) {
+			if (curLine < i) {
+				$("#row"+i).attr('data-line', i-1);
+				$("#row"+i).attr('id', "row"+(i-1));
+				$("#sentenceId"+i).attr('name', "sentenceId"+(i-1));
+				$("#sentenceId"+i).attr('id', "sentenceId"+(i-1));
+				$("#sentence"+(i)).attr('name', "sentence"+(i-1));
+				$("#sentence"+(i)).attr('id', "sentence"+(i-1));
+				$("#audio"+(i)).attr('name', "audio"+(i-1));
+				$("#audio"+(i)).attr('data-situ', (i-1));
+				$("#audio"+(i)).attr('id', "audio"+(i-1));
+			}
+		}
+		sumLine--;
 	}
 
 	$("#p4Form").submit( function(eventObj) {

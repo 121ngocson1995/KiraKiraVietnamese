@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\P7ConversationMemorize;
-use Illuminate\Support\Facades\Input;
-use App\Lesson;
-use Redirect;
-use Illuminate\Support\Facades\Validator;
 
 class P7Controller extends Controller
 {
@@ -47,6 +43,7 @@ class P7Controller extends Controller
 
 		return view("activities.P7v2", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
+
 
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
