@@ -7,10 +7,10 @@ use App\P6DialogueMultipleChoice;
 
 class P6Controller extends Controller
 {
-    public function load(Request $request, $lessonNo)
-    {
+	public function load(Request $request, $lessonNo)
+	{
     	// get lesson
-        $lesson = LessonController::getLesson($lessonNo);
+		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
 		// Lấy dữ liệu từ db
@@ -52,5 +52,62 @@ class P6Controller extends Controller
 		$elementData = $all;
 
 		return view("activities.P6v3", compact(['elementData', 'cnt']));
+	}
+
+	public function edit(Request $request)
+	{
+		// dd($request->all());
+		if ($request->has('update')) {
+			foreach ($request->update as $id => $value) {
+				$p6Element = P6DialogueMultipleChoice::where('id', '=', $id)->first();
+
+				$sentences = preg_split('/\r\n/u', $value['dialog']);
+				$dialog = '';
+				for ($i=0; $i < count($sentences); $i++) { 
+					if ($i != 0) {
+						$dialog .= '|';
+					}
+					$dialog .= '- ' . trim(preg_replace('/\s\s+|^-/u', ' ', $sentences[$i]));
+				}
+
+				$p6Element->dialogNo = $value['dialogNo'];
+				$p6Element->dialog = $dialog;
+				$p6Element->correctAnswer = trim(preg_replace('/\s\s+/u', ' ', $value['answers']['correct']));
+				$p6Element->wrongAnswer1 = trim(preg_replace('/\s\s+/u', ' ', $value['answers']['wrong1']));
+				$p6Element->wrongAnswer2 = trim(preg_replace('/\s\s+/u', ' ', $value['answers']['wrong2']));
+
+				$p6Element->save();
+			}
+		}
+
+		if ($request->has('insert')) {
+			foreach ($request->insert as $id => $value) {
+				$sentences = preg_split('/\r\n/u', $value['dialog']);
+				$dialog = '';
+				for ($i=0; $i < count($sentences); $i++) { 
+					if ($i != 0) {
+						$dialog .= '|';
+					}
+					$dialog .= '- ' . trim(preg_replace('/\s\s+|^-/u', ' ', $sentences[$i]));
+				}
+
+				P6DialogueMultipleChoice::create([
+					'lesson_id' => $request->lessonId,
+					'dialogNo' => $value['dialogNo'],
+					'dialog' => $dialog,
+					'correctAnswer' => trim(preg_replace('/\s\s+/u', ' ', $value['answers']['correct'])),
+					'wrongAnswer1' => trim(preg_replace('/\s\s+/u', ' ', $value['answers']['wrong1'])),
+					'wrongAnswer2' => trim(preg_replace('/\s\s+/u', ' ', $value['answers']['wrong2'])),
+					]);
+			}
+		}
+
+		if ($request->has('delete')) {
+			foreach (explode(',', $request->delete) as $id) {
+				P6DialogueMultipleChoice::where('id', '=', $id)->delete();
+			}
+		}
+
+		return Redirect("/listAct".$request->all()['lessonId']);
 	}
 }

@@ -11,6 +11,7 @@ use App\P2WordRecognize;
 use App\P3SentenceMemorize;
 use App\P4SentenceRecognize;
 use App\P5DialogueMemorize;
+use App\P6DialogueMultipleChoice;
 use App\P7ConversationMemorize;
 use App\P10SentenceReorder;
 use App\P11ConversationReorder;
@@ -277,6 +278,12 @@ class LessonController extends Controller
     		}
     		return view('editP5', compact(['p5', 'lessonId']));
     		break;
+
+            case 'p6':
+            $p6 = P6DialogueMultipleChoice::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
+
+            return view('manage.editP6', compact(['p6', 'lessonId']));
+            break;
 
             case 'p10':
             $p10 = P10SentenceReorder::where('lesson_id', '=', $lessonId)->orderBy('sentenceNo')->orderBy('correctOrder')->get();

@@ -455,7 +455,6 @@
 
 	$('textarea').each(function() {
 		this.style.cssText = 'height:' + this.scrollHeight + 'px';
-
 	});
 
 	$('textarea').on('keydown', function() {
