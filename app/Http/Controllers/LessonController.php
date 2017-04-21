@@ -277,6 +277,35 @@ class LessonController extends Controller
     		return view('manage.editP6', compact(['p6', 'lessonId']));
     		break;
 
+    		case 'p7':
+    		$p7 = P7ConversationMemorize::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
+    		$dialogCnt = array();
+    		$contentArr = array();
+    		for ($i=0; $i<count($p7); $i++){
+    			$dup = false;
+    			for ($j=0; $j < count($dialogCnt) ; $j++) { 
+    				if($p7[$i]->dialogNo == $dialogCnt[$j]){
+    					$dup = true;
+    				}
+    			}
+    			if ($dup == false) {
+    				array_push($dialogCnt, $p7[$i]->dialogNo);
+    			}
+    		}
+    		for ($i=0; $i<count($dialogCnt); $i++){
+    			for ($j=0; $j < count($p7) ; $j++) { 
+    				if ($p7[$j]['dialogNo'] == $dialogCnt[$i]) {
+    					$line = explode('|', $p7[$j]['dialogue']);
+    					for ($k=0; $k < count($line)  ; $k++) { 
+    						$line[$k] = explode('*', $line[$k]);
+    					}
+    					array_push($contentArr, $line);
+    				}
+    			}
+    		}
+    		return view('editP7', compact(['p7', 'contentArr', 'lessonId']));
+    		break;
+
     		case 'p8':
     		$p8 = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo')->get();
     		$dialogCnt = array();
