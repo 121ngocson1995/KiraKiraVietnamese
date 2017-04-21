@@ -7,6 +7,24 @@ use App\P10SentenceReorder;
 
 class P10Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
     	// get lesson
@@ -56,9 +74,15 @@ class P10Controller extends Controller
 		return view("activities.P10v2", compact('elementData'));
 	}
 
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request)
 	{
-		// dd($request->all());
 		if ($request->has('update')) {
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
@@ -110,6 +134,6 @@ class P10Controller extends Controller
 			}
 		}
 
-		return Redirect("/listAct".$request->all()['lessonId']);
+		return redirect("/listAct".$request->all()['lessonId']);
 	}
 }

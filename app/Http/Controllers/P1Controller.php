@@ -11,19 +11,42 @@ use Illuminate\Support\Facades\Validator;
 
 class P1Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
-		// get lesson
 		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
 		$elementData = P1WordMemorize::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 
 		return view("activities.P1v3", compact(['elementData', 'firstLineNumber']));
 	}
 	
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
@@ -73,10 +96,9 @@ class P1Controller extends Controller
 				$p1New->lesson_id = $request->all()['lessonID'];
 				$word = $request->all()["wordAdd".$i];
 
-
-					// $this->validate($request, [
-					// 	"word".$i => 'string|max:10',
-					// 	]);
+				// $this->validate($request, [
+				// 	"word".$i => 'string|max:10',
+				// 	]);
 				$p1New->word = $word;
 				$t=time();
 				$t=date("Y-m-d-H-i-s",$t);

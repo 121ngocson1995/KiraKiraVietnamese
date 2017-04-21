@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\Validator;
 
 class P3Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function load(Request $request, $lessonNo)
     {
     	// get lesson
@@ -23,6 +41,13 @@ class P3Controller extends Controller
 		return view("activities.P3v2", compact(['elementData', 'cnt']));
 	}
 
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request) {
 		dd($request);
 		$lesson = Lesson::find($request->all()['lessonID']);

@@ -12,6 +12,24 @@ use Illuminate\Support\Facades\Validator;
 
 class P4Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
 		// get lesson
@@ -35,6 +53,13 @@ class P4Controller extends Controller
 		return view("activities.P4v2", compact(['elementData', 'textRender']));
 	}  
 
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];

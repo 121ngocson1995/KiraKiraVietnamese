@@ -17,6 +17,14 @@ class P11Controller extends Controller
         $this->middleware('auth', ['except' => 'load']);
     }
 
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function load(Request $request, $lessonNo)
     {
     	// get lesson
@@ -46,6 +54,13 @@ class P11Controller extends Controller
     	return view("activities.P11v2", compact(['elementData', 'correctAnswerList']));
     }
 
+    /**
+     * Create a list with all possible answers.
+     *
+     * @param Collection $elementData
+     *
+     * @return Array
+     */
     public function makeAnswerListWithSentence(\Illuminate\Database\Eloquent\Collection $elementData)
     {
         $answerListRaw = array();
@@ -77,6 +92,13 @@ class P11Controller extends Controller
         return $this->arrange($answerListPreArranged);
     }
 
+    /**
+     * Reorder the answer list based on "correctOrder" field.
+     *
+     * @param Array $answerListPreArranged
+     *
+     * @return Array
+     */
     private function arrange($answerListPreArranged)
     {
         $result = array();
@@ -88,15 +110,28 @@ class P11Controller extends Controller
         return $result;
     }
 
+    /**
+     * Perform sorting on the given array.
+     *
+     * @param Array $answer
+     *
+     * @return Array
+     */
     private function sort($answer)
     {
         array_multisort($answer['order'], $answer['sentence']);
         return $answer['sentence'];
     }
 
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request)
     {
-        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 $p11Element = P11ConversationReorder::where('id', '=', $id)->first();

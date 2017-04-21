@@ -7,6 +7,24 @@ use App\P6DialogueMultipleChoice;
 
 class P6Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
     	// get lesson
@@ -17,43 +35,18 @@ class P6Controller extends Controller
 		$elementData = P6DialogueMultipleChoice::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 
-		$all = [];
-
-		foreach ($elementData as $elementValue) {
-			$newElem = (object) array(
-				"dialogNo"  => $elementValue->dialogNo,
-				"dialog"    => $elementValue->dialog,
-				"answers"   => [
-				"correctAnswer" => [
-				"content"   => $elementValue->correctAnswer,
-				"chosen"    => false
-				],
-				"wrongAnswer1" => [
-				"content"   => $elementValue->wrongAnswer1,
-				"chosen"    => false
-				],
-				"wrongAnswer2" => [
-				"content"   => $elementValue->wrongAnswer2,
-				"chosen"    => false
-				]
-				],
-				"answerOrder" => [
-				"correctAnswer",
-				"wrongAnswer1",
-				"wrongAnswer2"
-				]
-				);
-
-			shuffle($newElem->answerOrder);
-
-			$all[] = $newElem;
-		}
-
-		$elementData = $all;
+		$elementData = $this->shuffleAnswer($elementData);
 
 		return view("activities.P6v3", compact(['elementData', 'cnt']));
 	}
 
+    /**
+     * Update database based on user's input.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request)
 	{
 		// dd($request->all());
@@ -109,5 +102,49 @@ class P6Controller extends Controller
 		}
 
 		return Redirect("/listAct".$request->all()['lessonId']);
+	}
+
+    /**
+     * Shuffle data taken from database so that the choices will be given at random.
+     *
+     * @param Collection $elementData
+     *
+     * @return Array
+     */
+	public function shuffleAnswer($elementData)
+	{
+		$all = [];
+
+		foreach ($elementData as $elementValue) {
+			$newElem = (object) array(
+				"dialogNo"  => $elementValue->dialogNo,
+				"dialog"    => $elementValue->dialog,
+				"answers"   => [
+				"correctAnswer" => [
+				"content"   => $elementValue->correctAnswer,
+				"chosen"    => false
+				],
+				"wrongAnswer1" => [
+				"content"   => $elementValue->wrongAnswer1,
+				"chosen"    => false
+				],
+				"wrongAnswer2" => [
+				"content"   => $elementValue->wrongAnswer2,
+				"chosen"    => false
+				]
+				],
+				"answerOrder" => [
+				"correctAnswer",
+				"wrongAnswer1",
+				"wrongAnswer2"
+				]
+				);
+
+			shuffle($newElem->answerOrder);
+
+			$all[] = $newElem;
+
+			return $all;
+		}
 	}
 }
