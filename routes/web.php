@@ -72,6 +72,7 @@ Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditA
 Route::post('/editSitu', 'SituController@edit');
 // Route::get('/users', 'UserController@index');
 Route::resource('/users', 'UserController');
+Route::post('/editAvatar', 'UserController@editAvatar');
 Route::post('/setRole', 'UserController@setRole');
 
 Route::post('/editP1', 'P1Controller@edit');

@@ -1,17 +1,25 @@
 @extends('userLayout')
 
 @section('content')
+
+@php
+$user = \Auth::user();
+@endphp
+
 <script type="text/javascript">
 	$('.listBtn').removeClass('active');
 	$('#li-info').addClass('active');
 </script>
-
+<link href="http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot">
 <style>
+
 	div.teacher_img {
 		margin-bottom: 1em;
 	}
 	.teacher_img .img_container {
-		max-width: 250px;
+		width: 250px;
+		height: 250px;
+		overflow: hidden;
 	}
 	.teacher_img img {
 		width: 600px;
@@ -84,11 +92,44 @@
 		font-size: 0.7em;
 		color: #8c8c8c;
 	}
+	.img_container {
+		cursor: pointer;
+	}
+	.avatar_img {
+		background: url("{{ asset('img/avatar/' . $user->avatar) }}") no-repeat center;
+		background-size: cover;
+		width: 100%;
+		height: 100%;
+	}
+	.img_container .img-box {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		border: 7px solid transparent;
+		overflow: hidden;
+	}
+	.img_container .img-box:after {
+		content: "";
+		position: absolute;
+		transform: translate(95px, -165px);
+		font-family: "Glyphicons Halflings";
+		font-size: 3.33333em;
+		color: #fff;
+		text-shadow: 2px 2px 10px #000;
+		opacity: 0;
+		display: none;
+	}
+	.img_container:hover .img-box:after {
+		opacity: 1;
+		display: block;
+	}
+	.img_container:hover img {
+		opacity: 0.6;
+	}
+	.img_container:hover .image-avatar {
+		/*opacity: 0.8;*/
+	}
 </style>
-
-@php
-	$user = \Auth::user();
-@endphp
 
 <div class="container">
 	@if (session('msg'))
@@ -101,7 +142,9 @@
 
 		<div class="row container-fluid author">
 			<div class="teacher_img">
-				<div class="img_container"><img class="img-circle" src="{{ asset('img/avatar/' . $user->avatar) }}"></div>
+				<div class="img_container"><div class="img-box">
+					<div class="avatar_img"></div>
+				</div></div>
 			</div>
 			<div class="{{ $errors->has('username') ? ' has-error' : '' }}" style="text-align: center;">
 				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
@@ -221,12 +264,37 @@
 			<button type="submit" id="save" class="btn btn-success">Save changes</button>
 		</div>
 	</form>
+	{!! Form::open(array('url'=>'/editAvatar','method'=>'POST', 'files'=>true, 'id' =>'avatarForm')) !!}
+	{{ csrf_field() }}
+	<input type="file" class="uploadAvatar" name="avatar" accept="image/*" style="display: none;">
+	{!! Form::close() !!}
 </div>
 
 <script>
 	function changeTextboxWidth(input) {
 		input.size= parseInt(input.value.length);
 	}
+
+	$('.img_container').click(function() {
+		$('input.uploadAvatar').click();
+	});
+
+	$('input.uploadAvatar').on('change', function() {
+		document.getElementById('avatarForm').submit();
+	});
+
+	$("#avatarForm").on('submit',(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: "/editAvatar",
+			type: "put",
+			data: new FormData(this),
+		}).done(function (data) {
+			alert('okay');
+		}).fail(function () {
+			alert('Your request could not be done at the moment');
+		});
+	}));
 </script>
 @stop
 

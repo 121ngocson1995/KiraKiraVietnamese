@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -158,5 +159,21 @@ class UserController extends Controller
 		$userData->save();
 
 		return redirect("/userManage");
+	}
+
+	public function editAvatar(Request $request)
+	{
+		$destinationPath = 'avatar'; 
+		$extension = $request->avatar->extension();
+
+		$fileName = "Avatar_" . \Auth::user()->id . "_" . $request->_token . '.' . $extension;
+
+		$path = 'img/avatar';
+		Input::file("avatar")->move($path, $fileName);
+		
+		\Auth::user()->avatar = $fileName;
+		\Auth::user()->save();
+
+		return back();
 	}
 }
