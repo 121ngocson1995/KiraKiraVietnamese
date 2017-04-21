@@ -49,36 +49,34 @@ class SituController extends Controller{
 	}
 
 	public function edit(Request $request) {
-		// dd($request->all());
 
-		$lesson = Lesson::find($request->all()['situaID']);
-		$totalOld = $request->all()['sumOrigin'];
-		$totalNew = $request->all()['sumLine'];
+		$lesson = Lesson::find($request->all()['lessonID']);
+		$totalNew = $request->all()['sumOrigin'];
 
-		if($totalNew >= $totalOld){
-			$validate = array();
-			for ($i=1; $i <= $totalOld ; $i++) { 
-				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->get();
+		for ($i=1; $i <= $totalNew ; $i++) { 
+			if ($request->exists("situationId".$i)) {
+				$situEdit = Situation::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["situationId".$i])->get();
+				
 				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
 				$dialog_validate = explode("|",$dialog);
 
 				$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTrans".$i]);
 				$dialogTrans_validate = explode("|",$dialog_translate);
 
-				$validate['dialog'] = $dialog_validate;
-				$validate['dialogTrans'] = $dialogTrans_validate;
+				// $validate['dialog'] = $dialog_validate;
+				// $validate['dialogTrans'] = $dialogTrans_validate;
 				
-				$messages = [
-				'max'    => 'The :attribute has maximum :max characters per sentence.',
-				];
+				// $messages = [
+				// 'max'    => 'The :attribute has maximum :max characters per sentence.',
+				// ];
 
-				Validator::make($validate, [
-					'dialog.*' => 'string|max:80',
-					'dialogTrans.*' => 'string|max:80',
-					], $messages)->validate();
+				// Validator::make($validate, [
+				// 	'dialog.*' => 'string|max:80',
+				// 	'dialogTrans.*' => 'string|max:80',
+				// 	], $messages)->validate();
 				// dd();
-				$SituaEdit[0]->dialog = $dialog;
-				$SituaEdit[0]->dialog_translate =  $dialog_translate;
+				$situEdit[0]->dialog = $dialog;
+				$situEdit[0]->dialog_translate =  $dialog_translate;
 				if($request->exists("imgPath".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
@@ -86,7 +84,7 @@ class SituController extends Controller{
 					$newName = "Situation_img/S".$i."-".$t.".".substr($oldName,-3,3);
 
 					rename($oldName, $newName);
-					$SituaEdit[0]->thumbnail = $newName;
+					$situEdit[0]->thumbnail = $newName;
 				}else if($request->exists("image".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
@@ -95,9 +93,9 @@ class SituController extends Controller{
 					$fileName = "S".$i."-".$t.'.'.$extension;
 					Input::file("image".$i)->move($destinationPath, $fileName);
 					$newName = "Situation_img/S".$i."-".$t.".".$extension;
-					$SituaEdit[0]->thumbnail = $newName;
+					$situEdit[0]->thumbnail = $newName;
 				}else{
-					$SituaEdit[0]->thumbnail = "";
+					$situEdit[0]->thumbnail = "";
 				}
 
 				if($request->exists("audioPath".$i)){
@@ -106,7 +104,7 @@ class SituController extends Controller{
 					$oldName = $request->all()["audioPath".$i];
 					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
 					rename($oldName, $newName);
-					$SituaEdit[0]->audio = $newName;
+					$situEdit[0]->audio = $newName;
 				}else if($request->exists("audio".$i)){
 
 					$t=time();
@@ -119,130 +117,72 @@ class SituController extends Controller{
 					Input::file("audio".$i)->move($destinationPath, $fileName);
 					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.'.'.$extension;
 
-					$SituaEdit[0]->audio = $newName;
+					$situEdit[0]->audio = $newName;
 				}else{
-					$SituaEdit[0]->audio = "";
+					$situEdit[0]->audio = "";
 				}
-				$SituaEdit[0]->save();
+				$situEdit[0]->save();
 			}
 
-			if ($totalNew > $totalOld) {
-				for ($i=$totalOld+1; $i <= $totalNew ; $i++) { 
-					$SituaNew = new Situation;
-					$SituaNew->situationNo = $i;
-					$SituaNew->lesson_id = $request->all()['situaID'];
-					$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
-					$dialog_translate = str_replace("\n", "|", $request->all()["dialogTrans".$i]);
-					$SituaNew->dialog = $dialog;
-					$SituaNew->dialog_translate = $dialog_translate;
+			$sumAdd = $request->all()['sumAdd'];
+			for ($i=1; $i <= $sumAdd ; $i++) { 
+				if ($request->exists("dialogAdd".$i)) {
 
-					if($request->exists("imgPath".$i)){
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$oldName = $request->all()["imgPath".$i];
-						$newName = "Situation_img/S".$i."-".$t.".".substr($oldName,-3,3);
+					$situNew = new Situation;
+					$situNew->situationNo = $totalNew - 1 + $i;
+					$situNew->lesson_id = $request->all()['lessonID'];
 
-						rename($oldName, $newName);
-						$SituaNew->thumbnail = $newName;
-					}else if($request->exists("image".$i)){
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$destinationPath = 'Situation_img'; 
-						$extension = Input::file("image".$i)->getClientOriginalExtension();
-						$fileName = "S".$i."-".$t.'.'.$extension;
-						Input::file("image".$i)->move($destinationPath, $fileName);
-						$newName = "Situation_img/S".$i."-".$t.".".$extension;
-						$SituaNew->thumbnail = $newName;
-					}else{
-						$SituaNew->thumbnail = "";
-					}
+					$dialog = str_replace("\n", "|", $request->all()["dialogAdd".$i]);
+					$dialog_validate = explode("|",$dialog);
 
-					if($request->exists("audioPath".$i)){
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$oldName = $request->all()["audioPath".$i];
-						$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
-						rename($oldName, $newName);
-						$SituaNew->audio = $newName;
-					}else if($request->exists("audio".$i)){
+					$dialog_translate = str_replace("\r\n", "|", $request->all()["dialogTransAdd".$i]);
+					$dialogTrans_validate = explode("|",$dialog_translate);
 
-						$t=time();
-						$t=date("Y-m-d-H-i-s",$t);
-						$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
+					// $validate['dialog'] = $dialog_validate;
+					// $validate['dialogTrans'] = $dialogTrans_validate;
 
-						$extension = Input::file("audio".$i)->getClientOriginalExtension();
-						$fileName = "S".$i."-".$t.'.'.$extension;
+					// $messages = [
+					// 'max'    => 'The :attribute has maximum :max characters per sentence.',
+					// ];
 
-						Input::file("audio".$i)->move($destinationPath, $fileName);
-						$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.'.'.$extension;
+					// Validator::make($validate, [
+					// 	'dialog.*' => 'string|max:80',
+					// 	'dialogTrans.*' => 'string|max:80',
+					// 	], $messages)->validate();
+					$situNew->dialog = $dialog;
+					$situNew->dialog_translate =  $dialog_translate;
 
-						$SituaNew->audio = $newName;
-					}else{
-						$SituaNew->audio = "";
-					}
-					$SituaNew->save();
-
-				}
-			}
-		}else if($totalNew < $totalOld){
-			for ($i=1; $i <= $totalNew ; $i++) { 
-				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->get();
-				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
-				$dialog_translate = str_replace("\n", "|", $request->all()["dialogTrans".$i]);
-				$SituaEdit[0]->dialog = $dialog;
-				$SituaEdit[0]->dialog_translate =  $dialog_translate;
-				if($request->exists("imgPath".$i)){
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$oldName = $request->all()["imgPath".$i];
-					$newName = "Situation_img/S".$i."-".$t.".".substr($oldName,-3,3);
-
-					rename($oldName, $newName);
-					$SituaEdit[0]->thumbnail = $newName;
-				}else if($request->exists("image".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
 					$destinationPath = 'Situation_img'; 
-					$extension = Input::file("image".$i)->getClientOriginalExtension();
+					$extension = Input::file("imageAdd".$i)->getClientOriginalExtension();
 					$fileName = "S".$i."-".$t.'.'.$extension;
-					Input::file("image".$i)->move($destinationPath, $fileName);
+					Input::file("imageAdd".$i)->move($destinationPath, $fileName);
 					$newName = "Situation_img/S".$i."-".$t.".".$extension;
-					$SituaEdit[0]->thumbnail = $newName;
-				}else{
-					$SituaEdit[0]->thumbnail = "";
-				}
-
-				if($request->exists("audioPath".$i)){
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
-					$oldName = $request->all()["audioPath".$i];
-					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
-					rename($oldName, $newName);
-					$SituaEdit[0]->audio = $newName;
-				}else if($request->exists("audio".$i)){
+					$situNew->thumbnail = $newName;
 
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
 					$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
 
-					$extension = Input::file("audio".$i)->getClientOriginalExtension();
-					$fileName = "S".$i."-".$t.'.'.$extension;
+					$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
+					$fileName = $situNew->situationNo."-".$t.'.'.$extension;
 
-					Input::file("audio".$i)->move($destinationPath, $fileName);
-					$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.'.'.$extension;
+					Input::file("audioAdd".$i)->move($destinationPath, $fileName);
+					$newName = "audio/Situation/lesson".$lesson->lessonNo."/".$situNew->situationNo."-".$t.'.'.$extension;
 
-					$SituaEdit[0]->audio = $newName;
-				}else{
-					$SituaEdit[0]->audio = "";
+					$situNew->audio = $newName;
+					$situNew->save();
 				}
-				$SituaEdit[0]->save();
 			}
 
-			for ($i=$totalNew+1; $i <= $totalOld ; $i++) { 
-				$SituaEdit = Situation::where('lesson_id', '=', $request->all()['situaID'])->where('situationNo', '=', $i)->delete();
+			$sumDelete = $request->all()['sumDelete'];
+			for ($i=0; $i <= $sumDelete ; $i++) { 
+				if ($request->exists("delete".$i)) {
+					$situEdit = Situation::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+				}
 			}
+			return Redirect("/listAct".$request->all()['lessonID']);
 		}
-
-		return Redirect("/listAct".$request->all()['situaID']);
 	}
 }
