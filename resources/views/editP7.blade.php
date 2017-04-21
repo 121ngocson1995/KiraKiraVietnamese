@@ -129,7 +129,7 @@
 		addDialog ++;
 		var node_rowBig = document.createElement("div");
 		node_rowBig.setAttribute('class', 'row big');
-		node_rowBig.setAttribute('id', "dialog"+(sumDialog));
+		node_rowBig.setAttribute('id', "dialogAdd"+addDialog);
 		node_rowBig.setAttribute('data-dialogIndex', sumDialog);
 		node_rowBig.setAttribute('data-dialogAdd', addDialog);
 		node_rowBig.setAttribute('data-sumline', 0);
@@ -241,6 +241,7 @@
 	}
 
 	function addLine(button) {
+
 		dialogIndex = $(button).closest('.big').attr('data-dialogIndex');
 		dialogAdd = $(button).closest('.big').attr('data-dialogAdd');
 		sumLine = $(button).closest('.big').attr('data-sumline');
@@ -255,8 +256,14 @@
 		var node_header_spkInput = document.createElement("input");
 		node_header_spkInput.setAttribute('type','text');
 		node_header_spkInput.setAttribute('class','form-control');
-		node_header_spkInput.setAttribute('name',"speakerAdd-"+dialogAdd+"-"+sumLine);
-		node_header_spkInput.setAttribute('id',"speakerAdd-"+dialogAdd+"-"+sumLine);
+		if ($(button).closest('.big').hasClass('origin')) {
+			node_header_spkInput.setAttribute('name',"speaker-"+dialogIndex+"-"+sumLine);
+			node_header_spkInput.setAttribute('id',"speaker-"+dialogIndex+"-"+sumLine);
+		}else{
+			node_header_spkInput.setAttribute('name',"speakerAdd-"+dialogAdd+"-"+sumLine);
+			node_header_spkInput.setAttribute('id',"speakerAdd-"+dialogAdd+"-"+sumLine);	
+		}
+		
 		node_header_spkInput.setAttribute('required','true');
 
 		node_header_speaker.appendChild(node_header_spkInput);
@@ -267,8 +274,13 @@
 		var node_header_diaInput = document.createElement("input");
 		node_header_diaInput.setAttribute('type','text');
 		node_header_diaInput.setAttribute('class','form-control');
-		node_header_diaInput.setAttribute('name',"dialogueAdd-"+dialogAdd+"-"+sumLine);
-		node_header_diaInput.setAttribute('id',"dialogueAdd-"+dialogAdd+"-"+sumLine);
+		if ($(button).closest('.big').hasClass('origin')) {
+			node_header_diaInput.setAttribute('name',"dialogue-"+dialogIndex+"-"+sumLine);
+			node_header_diaInput.setAttribute('id',"dialogue-"+dialogIndex+"-"+sumLine);
+		}else{
+			node_header_diaInput.setAttribute('name',"dialogueAdd-"+dialogAdd+"-"+sumLine);
+			node_header_diaInput.setAttribute('id',"dialogueAdd-"+dialogAdd+"-"+sumLine);	
+		}
 		node_header_diaInput.setAttribute('required','true');
 
 		node_header_dialogue.appendChild(node_header_diaInput);
@@ -331,20 +343,24 @@
 			$(button).closest('.big').empty().remove();
 			for (var i = 0; i < sumDialog; i++) {
 				if (curDialog <  i) {
+					$("#dialogId"+i).attr('name', "dialogId"+(i-1));
+					$("#dialogId"+i).attr('id', "dialogId"+(i-1));
 					$("#dialog"+i).attr('data-dialogIndex', (i-1));
+					var sumLine = $("#dialog"+i).attr('data-sumline');
 					$("#dialog"+i).attr('id', "dialog"+(i-1));	
 					$("#row"+i).attr('data-diaglogIndex', i-1);	
 					$("#row"+i).attr('id', "row"+(i-1));
 					$("#line"+i).html(i);	
 					$("#line"+i).attr('id', "line"+(i-1));
-					var sumLine = $("#diaBody"+i).attr('data-sumline');
 					$("#diaBody"+i).attr('id', "diaBody"+(i-1));
 					for(var j = 0; j < sumLine; j++){
 						$("#row-"+i+"-"+j).attr('id', "row-"+(i-1)+"-"+j);
-						$("#speaker"+i+"-"+j).attr('name', "speaker"+(i-1)+"-"+j);
-						$("#speaker"+i+"-"+j).attr('id', "speaker"+(i-1)+"-"+j);
-						$("#dialogue"+i+"-"+j).attr('name', "dialogue"+(i-1)+"-"+j);
-						$("#dialogue"+i+"-"+j).attr('id', "dialogue"+(i-1)+"-"+j);
+						console.log("#row-"+i+"-"+j);
+						$("#speaker-"+i+"-"+j).attr('name', "speaker-"+(i-1)+"-"+j);
+						console.log("#speaker"+i+"-"+j);
+						$("#speaker-"+i+"-"+j).attr('id', "speaker-"+(i-1)+"-"+j);
+						$("#dialogue-"+i+"-"+j).attr('name', "dialogue-"+(i-1)+"-"+j);
+						$("#dialogue-"+i+"-"+j).attr('id', "dialogue-"+(i-1)+"-"+j);
 						$("#audio"+(i)).attr('data-situ', (i-1));
 						$("#audio"+(i)).attr('id', "audio"+(i-1));
 					}
