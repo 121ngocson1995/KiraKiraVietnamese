@@ -59,14 +59,14 @@ class P7Controller extends Controller
 				$p7Edit_sumLine = $request->all()["dialog".$i];
 				$p7Edit_lines = array();
 				for ($j=0; $j < $p7Edit_sumLine; $j++) { 
-					array_push($p7Edit_lines, $request->all()["speaker-".$i."-".$j].$request->all()["dialogue-".$i."-".$j]);
+					array_push($p7Edit_lines, $request->all()["speaker-".$i."-".$j]."*".$request->all()["dialogue-".$i."-".$j]);
 				}
 				$dialogue ="";
-				for ($i=0; $i < count($p7Edit_lines) ; $i++) { 
-					$dialogue = $dialogue.$p7Edit_lines[$i]."|";
+				for ($k=0; $k < count($p7Edit_lines) ; $k++) { 
+					$dialogue = $dialogue.$p7Edit_lines[$k]."|";
 				}
 				$dialogue = substr_replace($dialogue, "", -1);
-				$dialogue = str_replace(":", ":*", $dialogue);
+
 
 				$messages = [
 				'max'    => 'The :attribute has maximum :max characters per sentence.',
@@ -115,17 +115,16 @@ class P7Controller extends Controller
 
 				$p7New_sumLine = $request->all()["dialogAdd".$i];
 				$p7New_lines = array();
-
+				var_dump($i);
 				for ($j=0; $j < $p7New_sumLine; $j++) { 
-					array_push($p7New_lines, $request->all()["speakerAdd-".$i."-".$j].$request->all()["dialogueAdd-".$i."-".$j]);
+					array_push($p7New_lines, $request->all()["speakerAdd-".$i."-".$j]."*".$request->all()["dialogueAdd-".$i."-".$j]);
 				}
 				$dialogue ="";
-				for ($i=0; $i < count($p7New_lines) ; $i++) { 
-					$dialogue = $dialogue.$p7New_lines[$i]."|";
+				for ($k=0; $k < count($p7New_lines) ; $k++) { 
+					$dialogue = $dialogue.$p7New_lines[$k]."|";
 				}
 				$dialogue = substr_replace($dialogue, "", -1);
-				$dialogue = str_replace(":", ":*", $dialogue);
-				
+				var_dump($dialogue);
 				$messages = [
 				'max'    => 'The :attribute has maximum :max characters per sentence.',
 				];
@@ -134,16 +133,16 @@ class P7Controller extends Controller
 				// 	'dialog.*' => 'string|max:80',
 				// 	], $messages)->validate();
 
-				$p7New->dialog = $dialogue;
+				$p7New->dialogue = $dialogue;
 				$t=time();
 				$t=date("Y-m-d-H-i-s",$t);
 				$destinationPath = "audio/P7/lesson".$lesson->lessonNo;
-
+				var_dump( $request->all()["audioAdd".$i]);
 				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
-				$fileName = $p7New->sentenceNo."-".$t.'.'.$extension;
+				$fileName = $p7New->dialogNo."-".$t.'.'.$extension;
 
 				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
-				$newName = "audio/P7/lesson".$lesson->lessonNo."/".$p7New->sentenceNo."-".$t.'.'.$extension;
+				$newName = "audio/P7/lesson".$lesson->lessonNo."/".$p7New->dialogNo."-".$t.'.'.$extension;
 
 				$p7New->audio = $newName;
 				$p7New->save();
@@ -153,7 +152,14 @@ class P7Controller extends Controller
 		$sumDelete = $request->all()['sumDelete'];
 		for ($i=0; $i <= $sumDelete ; $i++) { 
 			if ($request->exists("delete".$i)) {
-				$p7Delete = P7ConversationMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+
+				$p7Delete = P7ConversationMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->get();
+				$deleteDiaNo = $p7Delete[0]->dialogNo;
+				$p7_editDiaNo =  P7ConversationMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('dialogNo', '>', $deleteDiaNo)->get();
+				for ($j=0; $j < count($p7_editDiaNo) ; $j++) { 
+					$p7_editDiaNo[$i]->dialogNo --;
+				}
+				$p7_editDiaNo->save();
 			}
 		}
 		return Redirect("/listAct".$request->all()['lessonID']);
