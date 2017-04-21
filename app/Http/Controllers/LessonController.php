@@ -31,22 +31,30 @@ class LessonController extends Controller
     	$this->middleware('auth', ['except' => 'getLesson']);
     }
 
+    /**
+     * Fetch the chosen lesson from database
+     * 
+     * @param  integer       $lesson
+     * @param  integer       $course_id
+     * @return Collection
+     */ 
     public static function getLesson($lessonNo, $course_id = 1)
     {
-		// \DB::listen(function($query) {
-		// 	dd($query->sql);
-		// });
     	$lesson = Lesson::where('lessonNo', '=', $lessonNo)->first();
     	return $lesson;
     }
 
+    /**
+     * Return "add lesson" screen
+     * 
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function preAdd()
     {
     	// dummy course và lesson
     	$course_id= 1;
 
     	// Lấy dữ liệu từ db
-
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
     	$lessonCnt = count($lessonData);
@@ -58,6 +66,11 @@ class LessonController extends Controller
     	return view('addLesson', compact('lessonList'));
     }
 
+    /**
+     * Perform inserting to database
+     * 
+     * @param Request   $request
+     */
     public function add(Request $request)
     {
     	// dummy course và lesson
@@ -76,6 +89,11 @@ class LessonController extends Controller
     	return redirect('/');
     }
 
+    /**
+     * Return all lessons
+     * 
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function listLesson()
     {
     	// dummy course và lesson
@@ -87,6 +105,11 @@ class LessonController extends Controller
     	return view('listLesson', compact('lessonData'));
     }
 
+    /**
+     * @param  integer  $lessonNo
+     * 
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function delete($lessonNo) 
     {
     	// dummy course và lesson
@@ -99,6 +122,12 @@ class LessonController extends Controller
     	return redirect('/listLesson');
     }
 
+    /**
+     * Return lesson's information for editing
+     * 
+     * @param  integer      $lessonNo
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function preEdit($lessonNo)
     {
     	// dummy course và lesson
@@ -111,6 +140,12 @@ class LessonController extends Controller
     	return view('editLesson', compact('lessonData'));
     }
 
+    /**
+     * Perform updating lesson
+     * 
+     * @param  Request      $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function edit(Request $request)
     {
     	// dummy course và lesson
@@ -130,6 +165,12 @@ class LessonController extends Controller
     	return view('editLesson', compact('lessonData'));
     } 
 
+    /**
+     * Return a list of the chosen lesson's activities
+     * 
+     * @param  integer      $lessonid
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function listAct($lessonId)
     {
     	$lesson = Lesson::find($lessonId);
@@ -152,33 +193,25 @@ class LessonController extends Controller
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct words';
     	$activity[] = $currentActivity;
 
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p3';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to sentences and repeat';
     	$activity[] = $currentActivity;
-
-
 
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p4';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct sentences';
     	$activity[] = $currentActivity;
 
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p5';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to dialogues and repeat';
     	$activity[] = $currentActivity;
 
-
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p6';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Choose the correct answer';
     	$activity[] = $currentActivity;
-
-
     	
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p7';
@@ -228,6 +261,13 @@ class LessonController extends Controller
     	return view('listAct', compact('lesson'));
     }
 
+    /**
+     * Return "edit activity" screen
+     * 
+     * @param  integer      $lessonId
+     * @param  string       $activityName
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function preEditAct($lessonId, $activityName)
     {
     	// dummy course và lesson

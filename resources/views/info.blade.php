@@ -129,6 +129,22 @@ $user = \Auth::user();
 	.img_container:hover .image-avatar {
 		/*opacity: 0.8;*/
 	}
+	.help-block {
+		font-weight: 600;
+		font-style: italic;
+		color: red;
+		margin-top: 15px;
+	}
+	.modal-dialog {
+		height: 100%;
+		width: 400px;
+		margin: 0 auto !important;
+	}
+	.modal-content {
+		vertical-align: middle;
+		top: 60%;
+		transform: translateY(-70%);
+	}
 </style>
 
 <div class="container">
@@ -145,6 +161,14 @@ $user = \Auth::user();
 				<div class="img_container"><div class="img-box">
 					<div class="avatar_img"></div>
 				</div></div>
+				<div class="help-block ext" style="display: none;">
+					<strong>Only .jpg or .png is accepted</strong>
+				</div>
+				@if ($errors->has('avatar'))
+				<span class="help-block">
+					<strong>{{ $errors->first('avatar') }}</strong>
+				</span>
+				@endif
 			</div>
 			<div class="{{ $errors->has('username') ? ' has-error' : '' }}" style="text-align: center;">
 				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
@@ -261,9 +285,52 @@ $user = \Auth::user();
 			</div>
 		</div>
 		<div class="row save">
+			@if ($errors->has('pass'))
+			<span class="help-block">
+				<strong>{{ $errors->first('pass') }}</strong>
+			</span>
+			@elseif ($errors->has('pass.newPassword'))
+			<span class="help-block">
+				<strong>{{ $errors->first('pass.newPassword') }}</strong>
+			</span>
+			@endif
+			<a href="#custommodal" role="button" class="btn btn-warning" data-toggle="modal" style="font-size: 1.3em;">Change password</a>
 			<button type="submit" id="save" class="btn btn-success">Save changes</button>
 		</div>
 	</form>
+
+	<!-- Modal HTML -->
+	<form method="post" action="/chgPassword">
+		{{ csrf_field() }}
+		<div id="custommodal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Change password</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="oldPassword">Old password:</label>
+							<input id="oldPassword" name="pass[oldPassword]" type="password" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="newPassword">Old password:</label>
+							<input id="newPassword" name="pass[newPassword]" type="password" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="newPasswordConfirm">Old password:</label>
+							<input id="newPasswordConfirm" name="pass[password_confirm]" type="password" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer" style="text-align: center;">
+						<button class="btn btn-success">Change</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 	{!! Form::open(array('url'=>'/editAvatar','method'=>'POST', 'files'=>true, 'id' =>'avatarForm')) !!}
 	{{ csrf_field() }}
 	<input type="file" class="uploadAvatar" name="avatar" accept="image/*" style="display: none;">
@@ -280,6 +347,13 @@ $user = \Auth::user();
 	});
 
 	$('input.uploadAvatar').on('change', function() {
+		var ext = $('.uploadAvatar').val().split('.').pop().toLowerCase();
+		
+		if($.inArray(ext, ['png','jpg']) == -1) {
+			$('.help-block.ext').show();
+			return;
+		}
+
 		document.getElementById('avatarForm').submit();
 	});
 

@@ -53,7 +53,6 @@ class P13Controller extends Controller
      */
     public function edit(Request $request)
     {
-        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 Validator::make($value, [

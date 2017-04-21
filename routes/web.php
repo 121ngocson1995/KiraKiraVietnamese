@@ -60,6 +60,7 @@ Route::get('/lesson{lessonNo}/situations', 'SituController@load');
 
 //start route dummy 
 Route::get('/userManage', 'UserController@load');
+Route::post('/chgPassword', 'UserController@changePassword');
 Route::post('/editUser', 'UserController@edit');
 Route::get('/preAddLesson', 'LessonController@preAdd');
 Route::get('/addLesson', 'LessonController@add');

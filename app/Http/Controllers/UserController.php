@@ -22,63 +22,80 @@ class UserController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function load()
-	{
+    /**
+     * Load data from database.
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */	
+    public function load()
+    {
 		// dummy course và lesson
-		$user_id= Auth::id();
+    	$user_id= Auth::id();
 		// Lấy dữ liệu từ db
-		$userData = User::where('id', '=', $user_id)->get()->toArray();
-		$roleData = Role::get();
-		for ($i=0; $i <count($roleData) ; $i++) { 
-			if ($roleData[$i]->id == $userData[0]['role']) {
-				$userData[0]['roleTitle'] = $roleData[$i]->role_title;
-			}
-		}
-		return view("info", compact('userData'));
-	}
+    	$userData = User::where('id', '=', $user_id)->get()->toArray();
+    	$roleData = Role::get();
+    	for ($i=0; $i <count($roleData) ; $i++) { 
+    		if ($roleData[$i]->id == $userData[0]['role']) {
+    			$userData[0]['roleTitle'] = $roleData[$i]->role_title;
+    		}
+    	}
+    	return view("info", compact('userData'));
+    }
 
-	public function index(Request $request, $type='%', $keyword='%', $pagination=5)
-	{
-		$users = User::latest('created_at')->paginate($pagination);
+    /**
+     * Return new records of users
+     * 
+     * @param  Request  	$request
+     * @param  string 		$type
+     * @param  string 		$keyword
+     * @param  string 		$pagination
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function index(Request $request, $type='%', $keyword='%', $pagination=5)
+    {
+    	$users = User::latest('created_at')->paginate($pagination);
 
-		if($request->ajax()) {
-			if (strcmp($request->input('type'), 'pending') == 0) {
-				$type = array(1);
-			} else if (strcmp($request->input('type'), 'rejected') == 0) {
-				$type = array(0);
-			} else if (strcmp($request->input('type'), 'admins') == 0) {
-				$type = array(10, 100);
-			} else if (strcmp($request->input('type'), 'teachers') == 0) {
-				$type = array(3);
-			} else if (strcmp($request->input('type'), 'learners') == 0) {
-				$type = array(2);
-			} else {
-				$type = Role::all()->pluck('id')->toArray();
-			}
+    	if($request->ajax()) {
+    		if (strcmp($request->input('type'), 'pending') == 0) {
+    			$type = array(1);
+    		} else if (strcmp($request->input('type'), 'rejected') == 0) {
+    			$type = array(0);
+    		} else if (strcmp($request->input('type'), 'admins') == 0) {
+    			$type = array(10, 100);
+    		} else if (strcmp($request->input('type'), 'teachers') == 0) {
+    			$type = array(3);
+    		} else if (strcmp($request->input('type'), 'learners') == 0) {
+    			$type = array(2);
+    		} else {
+    			$type = Role::all()->pluck('id')->toArray();
+    		}
 
-			$users;
-			if (!$request->has('keyword')) {
-				$users = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
-			} else {
-				$keyword = '%' . $request->keyword . '%';
+    		$users;
+    		if (!$request->has('keyword')) {
+    			$users = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
+    		} else {
+    			$keyword = '%' . $request->keyword . '%';
 
-				$searchUsername = User::whereIn('role', $type)->where('username', 'like', $keyword)->latest('created_at');
-				$searchFirstname = User::whereIn('role', $type)->where('first_name', 'like', $keyword)->latest('created_at');
-				$searchLastname = User::whereIn('role', $type)->where('last_name', 'like', $keyword)->latest('created_at');
-				$searchEmail = User::whereIn('role', $type)->where('email', 'like', $keyword)->latest('created_at');
+    			$searchUsername = User::whereIn('role', $type)->where('username', 'like', $keyword)->latest('created_at');
+    			$searchFirstname = User::whereIn('role', $type)->where('first_name', 'like', $keyword)->latest('created_at');
+    			$searchLastname = User::whereIn('role', $type)->where('last_name', 'like', $keyword)->latest('created_at');
+    			$searchEmail = User::whereIn('role', $type)->where('email', 'like', $keyword)->latest('created_at');
 
-				$query = $searchUsername->union($searchFirstname)->union($searchLastname)->union($searchEmail);
-				
-				$userList = $query->get();
-				$count = $userList->count();
-				$slice = $userList->slice($pagination * ((integer)($request->page) - 1), $pagination);
-				
+    			$query = $searchUsername->union($searchFirstname)->union($searchLastname)->union($searchEmail);
+
+    			$userList = $query->get();
+    			$count = $userList->count();
+    			$slice = $userList->slice($pagination * ((integer)($request->page) - 1), $pagination);
+
 				// $userList = $query->skip($pagination * ((integer)($request->page) - 1))->take($pagination)->get();
 
-				$users = new LengthAwarePaginator($slice, $count, $pagination, null, [
-					'path' => $request->path,
-					]);
-			}
+    			$users = new LengthAwarePaginator($slice, $count, $pagination, null, [
+    				'path' => $request->path,
+    				]);
+    		}
 
 			// dd(User::whereIn('role', $type)->where(function($query) {
 			// 	$query->where('username', 'like', $keyword)
@@ -86,21 +103,27 @@ class UserController extends Controller
 			// 		  ->orWhere('email', 'like', $keyword)
 			// 		  ->orWhere('email', 'like', $keyword);
 			// }->latest('created_at')->toSql());
-			
-			if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
 
-				return view('userList.applicants', ['users' => $users])->render();
+    		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
 
-			} else {
+    			return view('userList.applicants', ['users' => $users])->render();
 
-				return view('userList.normal', ['users' => $users])->render();
+    		} else {
 
-			}
-		}
+    			return view('userList.normal', ['users' => $users])->render();
 
-		return view('userList.index', compact(['users']));
-	}
+    		}
+    	}
 
+    	return view('userList.index', compact(['users']));
+    }
+
+	/**
+	 * Update user's role
+	 * 
+	 * @param  Request      $request
+	 * @return void
+	 */
 	public function setRole(Request $request)
 	{
 		Validator::make($request->all(), [
@@ -116,6 +139,12 @@ class UserController extends Controller
 		$user->save();
 	}
 
+	/**
+	 * Perform editing user's information
+	 * 
+	 * @param  Request     $request
+	 * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+	 */
 	public function edit(Request $request)
 	{
 		// Lấy dữ liệu từ db;
@@ -161,8 +190,20 @@ class UserController extends Controller
 		return redirect("/userManage");
 	}
 
+	/**
+	 * Update user's avatar
+	 * @param  Request    $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function editAvatar(Request $request)
 	{
+		Validator::make($request->all(), [
+			'avatar' => 'file|image|mimes:jpg,png|dimensions:max_width=1000,max_height=1000|max:1024',
+			],
+			[
+			'dimensions' => 'The maximum size of your avatar is :max_widthx:max_height pixels or 1mb',
+			])->validate();
+
 		$destinationPath = 'avatar'; 
 		$extension = $request->avatar->extension();
 
@@ -173,6 +214,43 @@ class UserController extends Controller
 		
 		\Auth::user()->avatar = $fileName;
 		\Auth::user()->save();
+
+		return back();
+	}
+
+	public function changePassword(Request $request)
+	{
+		$user = \Auth::user();
+		Validator::extend('authenticated', function ($attribute, $value, $parameters, $validator) {
+			return \Hash::check($value['oldPassword'], $user->password);
+		});
+
+		Validator::extend('differentPass', function ($attribute, $value, $parameters, $validator) {
+			return strcmp($value['oldPassword'], $value['newPassword']) == 0 ? false : true;
+		});
+
+		Validator::extend('confirm', function ($attribute, $value, $parameters, $validator) {
+			return strcmp($value['password_confirm'], $value['newPassword']) == 0 ? true : false;
+		});
+
+		Validator::make($request->all(), [
+			'pass' => 'authenticated|differentPass',
+			'pass.newPassword' => 'required|min:6|max:24',
+			'pass' => 'confirm',
+			],
+			[
+			'authenticated' => 'Your entered current password didn\'t match our record',
+			'different_pass' => 'Your new password is the same as the current one',
+			'required' => 'New password required',
+			'min' => 'Password must be at minimumof :min characters',
+			'max' => 'Password must be at maxium of :max characters',
+			'confirm' => 'Your password confirmation does not math',
+			])->validate();
+
+		// dd($request->pass['newPassword']);
+
+		$user->password = \Hash::make($request->pass['newPassword']);
+		$user->save();
 
 		return back();
 	}
