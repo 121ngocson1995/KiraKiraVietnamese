@@ -65,14 +65,12 @@
 	<div class="title"><h2>Edit Practice 5: Listen to dialogues and repeat for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP5','method'=>'POST', 'files'=>true, 'id' =>'p5Form')) !!}
 	<div id="p5Div">
-		<input type="hidden" name="lessonID" value="{{$lessonId}}">
-		@if (count($p5))
-		
+		<input type="hidden" name="lessonID" value="{{$p5[0]->lesson_id}}">
 		@for ($i = 0; $i < count($p5)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
 				<label for="dialog{{$i}}">dialog</label>
-				<textarea class="form-control textarea" name="dialog{{$i}}" required="true" id="dialog{{$i}}" data-dialog="{{$p5[$i]->dialogArr}}" required></textarea>
+				<textarea class="form-control textarea" name="dialog{{$i}}" id="dialog{{$i}}" data-dialog="{{$p5[$i]->dialogArr}}" required></textarea>
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$i}}">Audio</label>
@@ -84,14 +82,13 @@
 			<input type="hidden" id="dialogId{{$i}}" class="id" name="dialogId{{$i}}" value="{{$p5[$i]->id}}">
 		</div>
 		@endfor
-		@endif
 	</div>
-	<br>
 	<div class="row" style="text-align: center;">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
 	</div>
 	{!! Form::close() !!}
+
 </div>
 <script type="text/javascript">
 	var p5 = <?php echo json_encode($p5); ?>;
@@ -192,22 +189,21 @@
 			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
 			document.getElementById('p5Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
-			
-			for (var i = 0; i < sumLine; i++) {
-				if (curLine < i) {
-					$("#row"+i).attr('data-line', i-1);	
-					$("#row"+i).attr('id', "row"+(i-1));
-					$("#dialogId"+i).attr('name', "dialogId"+(i-1));
-					$("#dialogId"+i).attr('id', "dialogId"+(i-1));
-					$("#dialog"+(i)).attr('name', "dialog"+(i-1));
-					$("#dialog"+(i)).attr('id', "dialog"+(i-1));
-					$("#audio"+(i)).attr('name', "audio"+(i-1));
-					$("#audio"+(i)).attr('data-situ', (i-1));
-					$("#audio"+(i)).attr('id', "audio"+(i-1));
-				}
-			}
-			sumLine--;
 		}
+		for (var i = 0; i < sumLine; i++) {
+			if (curLine < i) {
+				$("#row"+i).attr('data-line', i-1);	
+				$("#row"+i).attr('id', "row"+(i-1));
+				$("#dialogId"+i).attr('name', "dialogId"+(i-1));
+				$("#dialogId"+i).attr('id', "dialogId"+(i-1));
+				$("#dialog"+(i)).attr('name', "dialog"+(i-1));
+				$("#dialog"+(i)).attr('id', "dialog"+(i-1));
+				$("#audio"+(i)).attr('name', "audio"+(i-1));
+				$("#audio"+(i)).attr('data-situ', (i-1));
+				$("#audio"+(i)).attr('id', "audio"+(i-1));
+			}
+		}
+		sumLine--;
 	}
 
 	$("#p5Form").submit( function(eventObj) {
