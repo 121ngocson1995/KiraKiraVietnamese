@@ -218,6 +218,12 @@ class UserController extends Controller
 		return back();
 	}
 
+	/**
+	 * Update password
+	 * 
+	 * @param  Request     $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function changePassword(Request $request)
 	{
 		$user = \Auth::user();
@@ -246,8 +252,6 @@ class UserController extends Controller
 			'max' => 'Password must be at maxium of :max characters',
 			'confirm' => 'Your password confirmation does not math',
 			])->validate();
-
-		// dd($request->pass['newPassword']);
 
 		$user->password = \Hash::make($request->pass['newPassword']);
 		$user->save();
