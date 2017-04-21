@@ -86,6 +86,7 @@ Route::post('/editP8', 'P8Controller@edit');
 Route::post('/editP9', 'P9Controller@edit');
 Route::post('/editP10', 'P10Controller@edit');
 Route::post('/editP11', 'P11Controller@edit');
+Route::post('/editP12', 'P12Controller@edit');
 Route::post('/editP14', 'P14Controller@edit');
 
 

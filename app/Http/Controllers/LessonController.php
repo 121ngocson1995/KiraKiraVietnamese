@@ -15,6 +15,7 @@ use App\P6DialogueMultipleChoice;
 use App\P7ConversationMemorize;
 use App\P10SentenceReorder;
 use App\P11ConversationReorder;
+use App\P12GroupInteraction;
 use App\P14SentencePattern;
 
 class LessonController extends Controller
@@ -305,6 +306,12 @@ class LessonController extends Controller
             $p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
             return view('manage.editP11', compact(['p11', 'lessonId']));
+            break;
+
+            case 'p12':
+            $p12 = P12GroupInteraction::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+
+            return view('manage.editP12', compact(['p12', 'lessonId']));
             break;
 
 			case 'p14':
