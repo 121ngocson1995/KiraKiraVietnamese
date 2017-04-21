@@ -46,7 +46,6 @@ class P12Controller extends Controller
      */
 	public function edit(Request $request)
 	{
-		// dd($request->all());
 		if ($request->has('update')) {
 			foreach ($request->update as $id => $value) {
 				Validator::make($value, [
@@ -75,6 +74,12 @@ class P12Controller extends Controller
 				'content' => $value['content'],
 				'content_translate' => $value['content_translate'],
 				]);
+		}
+
+		if ($request->has('delete')) {
+			foreach (explode(',', $request->delete) as $id) {
+				P12GroupInteraction::where('id', '=', $id)->delete();
+			}
 		}
 
 		return Redirect("/listAct".$request->all()['lessonId']);
