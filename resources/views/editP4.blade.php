@@ -69,7 +69,7 @@
 <div class="container">
 	<div class="title"><h2>Edit Practice 4: Listen and find the correct sentences for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
-		Enter disired content for each situation by writing into appropriate text fields.
+		Add new sentences or change existing ones by writing into appropriate text fields and uploading new audio files.
 	</div>
 	{!! Form::open(array('url'=>'editP4','method'=>'POST', 'files'=>true, 'id' =>'p4Form')) !!}
 	<div id="p4Div">
