@@ -131,27 +131,6 @@
                             <img style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
                         </div>
                             
-                        {{--</div>                      
-                         <div class="row">
-                            <div class="col-md-12">
-                                <table class="table">
-                                    <tbody class="extendtable">
-                                        <td style="font-weight: 700;">Mẹ yêu không nào</td>
-                                        @for ($k = 0; $k < count($contentArr[1]) ; $k++)
-                                        <tr>
-                                            <td>{{ $contentArr[1][$k]}}</td>
-                                        </tr>
-                                        @endfor
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div style="padding-top: 40%;">
-                            <h3>Composer: Lê Xuân Thọ</h3>
-                            <h3>Pianist: Nguyễn Thành</h3>
-                        </div> --}}
-
                     </div>
                     
                 </div>
