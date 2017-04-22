@@ -210,7 +210,7 @@ class UserController extends Controller
 	public function editAvatar(Request $request)
 	{
 		Validator::make($request->all(), [
-			'avatar' => 'file|image|mimes:jpg,png|dimensions:max_width=1000,max_height=1000|max:1024',
+			'avatar' => 'file|image|mimes:jpeg,png|dimensions:max_width=2000,max_height=2000|max:1024',
 			],
 			[
 			'dimensions' => 'The maximum size of your avatar is :max_widthx:max_height pixels or 1mb',
