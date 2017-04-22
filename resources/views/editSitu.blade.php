@@ -8,8 +8,13 @@
 {{-- <script src="{{ asset('themes/explorer/theme.js') }}" type="text/javascript"></script> --}}
 <style type="text/css">
 	div.title {
+		padding: 0 2em;
 		text-align: center;
-		margin-bottom: 3em;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
 	}
 	label.situNo {
 		font-size: 1.4em;
@@ -62,7 +67,10 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit situations for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit situations for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Enter disired content for each situation by writing into appropriate text fields.
+	</div>
 	{!! Form::open(array('url'=>'editSitu','method'=>'POST', 'files'=>true, 'id' =>'situationForm')) !!}
 	<div id="situForm">
 		<input type="hidden" name="lessonID" value="{{ $lessonId}}">

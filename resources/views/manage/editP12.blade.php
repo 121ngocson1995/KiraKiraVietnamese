@@ -3,12 +3,21 @@
 @section('header-more')
 
 <style type="text/css">
+	div.title {
+		padding: 0 2em;
+		text-align: center;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
+	}
 	.sentence-input {
 		/*width: 100%;*/
 		display: inline-block;
 	}
 	#wrapper {
-		padding: 2em 4em;
+		padding: 1em 4em;
 	}
 	textarea {
 		resize: vertical;
@@ -62,6 +71,10 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
+	<div class="title"><h2>Edit Practice 12: Group interaction for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Change requirement's content and translation by writing into text fields below
+	</div>
 	<div id="wrapper">
 		<form id="p12Form" method="post" action="/editP12">
 			{{ csrf_field() }}

@@ -3,12 +3,21 @@
 @section('header-more')
 
 <style type="text/css">
+	div.title {
+		padding: 0 2em;
+		text-align: center;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
+	}
 	.sentence-input {
 		/*width: 100%;*/
 		display: inline-block;
 	}
 	#wrapper {
-		padding: 2em 4em;
+		padding: 1em 4em;
 	}
 	div.sentence-holder {
 		padding: 3em 0;
@@ -112,6 +121,10 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
+	<div class="title"><h2>Edit Practice 10: Reorder the words to make the complete sentence for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Add or change sentences and words by writing into appropriate text fields below.
+	</div>
 	<div id="wrapper">
 		<form id="p10Form" method="post" action="/editP10">
 			{{ csrf_field() }}
@@ -163,9 +176,9 @@
 	/**
 	 * Call function to change textbox's width
 	 */
-	$('input').each(function() {
-		changeTextboxWidth(this);
-	});
+	 $('input').each(function() {
+	 	changeTextboxWidth(this);
+	 });
 
 	/**
 	 * Change textbox's width
@@ -174,112 +187,112 @@
 	 *
 	 * @return {void}
 	 */
-	function changeTextboxWidth(input) {
-		input.size = parseInt(input.value.length) + 1;
-	}
+	 function changeTextboxWidth(input) {
+	 	input.size = parseInt(input.value.length) + 1;
+	 }
 
 	/**
 	 * Add a new sentence
 	 *
 	 * @return {void}
 	 */
-	function addSentence() {
-		var div = document.createElement('div');
-		div.className = 'row sentence-holder';
-		div.setAttribute('data-insert-sentence-id', ++toAdd);
+	 function addSentence() {
+	 	var div = document.createElement('div');
+	 	div.className = 'row sentence-holder';
+	 	div.setAttribute('data-insert-sentence-id', ++toAdd);
 
-		var divSentenceNo = document.createElement('div');
-		divSentenceNo.className = 'sentenceNo';
+	 	var divSentenceNo = document.createElement('div');
+	 	divSentenceNo.className = 'sentenceNo';
 
-		var label = document.createElement('label');
-		label.innerHTML = (++sentenceNo) + '.';
-		divSentenceNo.appendChild(label);
-		div.appendChild(divSentenceNo);
+	 	var label = document.createElement('label');
+	 	label.innerHTML = (++sentenceNo) + '.';
+	 	divSentenceNo.appendChild(label);
+	 	div.appendChild(divSentenceNo);
 
-		var sentenceParts = document.createElement('div');
-		sentenceParts.className = 'sentenceParts';
-		
-		sentenceParts.appendChild(createWord(sentenceNo));
-		div.appendChild(sentenceParts);
+	 	var sentenceParts = document.createElement('div');
+	 	sentenceParts.className = 'sentenceParts';
 
-		var addPart = document.createElement('div');
-		addPart.className = 'addPart';
+	 	sentenceParts.appendChild(createWord(sentenceNo));
+	 	div.appendChild(sentenceParts);
 
-		var button = document.createElement('button');
-		button.className = 'addPartBtn';
-		button.setAttribute('type', 'button');
+	 	var addPart = document.createElement('div');
+	 	addPart.className = 'addPart';
 
-		var i = document.createElement('i');
-		i.className =  'fa fa-plus-circle fa-2x';
-		button.appendChild(i);
+	 	var button = document.createElement('button');
+	 	button.className = 'addPartBtn';
+	 	button.setAttribute('type', 'button');
 
-		$(button).click(function() {
-			addWord(this);
-		});
+	 	var i = document.createElement('i');
+	 	i.className =  'fa fa-plus-circle fa-2x';
+	 	button.appendChild(i);
 
-		addPart.appendChild(button);
-		div.appendChild(addPart);
+	 	$(button).click(function() {
+	 		addWord(this);
+	 	});
 
-		var deleteSentence = document.createElement('div');
-		deleteSentence.className = 'deleteSentence';
+	 	addPart.appendChild(button);
+	 	div.appendChild(addPart);
 
-		button = document.createElement('button');
-		button.className = 'horizontal close';
-		button.setAttribute('type', 'button');
+	 	var deleteSentence = document.createElement('div');
+	 	deleteSentence.className = 'deleteSentence';
 
-		i = document.createElement('i');
-		i.className = 'fa fa-trash';
-		button.appendChild(i);
+	 	button = document.createElement('button');
+	 	button.className = 'horizontal close';
+	 	button.setAttribute('type', 'button');
 
-		$(button).click(function() {
-			var sentence = $(this).closest('.sentence-holder');
-			$(sentence).find('input.wordText').each(function() {
-				if($(this).attr('name').indexOf('update') != -1) {
-					var name = $(this).attr('name');
+	 	i = document.createElement('i');
+	 	i.className = 'fa fa-trash';
+	 	button.appendChild(i);
 
-					var id = parseInt(name.split('[')[1].replace(']', ''));
+	 	$(button).click(function() {
+	 		var sentence = $(this).closest('.sentence-holder');
+	 		$(sentence).find('input.wordText').each(function() {
+	 			if($(this).attr('name').indexOf('update') != -1) {
+	 				var name = $(this).attr('name');
 
-					if (toDelete) {
-						toDelete += ',';
-					}
-					toDelete += id;
-				}
-			});
+	 				var id = parseInt(name.split('[')[1].replace(']', ''));
 
-			sentence.next().remove();
-			sentence.remove();
+	 				if (toDelete) {
+	 					toDelete += ',';
+	 				}
+	 				toDelete += id;
+	 			}
+	 		});
 
-			sentenceNo = $('div.row.sentence-holder').length;
-			for (var i = 0; i < $('div.sentence-holder').length; i++) {
-				$('div.sentence-holder').eq(i).find('label')[0].innerHTML = '' + (i+1) + '.';
-				$('div.sentence-holder').eq(i).find('input[type="hidden"]').attr('value', '' + (i+1));
-			}
-		});
+	 		sentence.next().remove();
+	 		sentence.remove();
 
-		deleteSentence.appendChild(button);
-		div.appendChild(deleteSentence);
+	 		sentenceNo = $('div.row.sentence-holder').length;
+	 		for (var i = 0; i < $('div.sentence-holder').length; i++) {
+	 			$('div.sentence-holder').eq(i).find('label')[0].innerHTML = '' + (i+1) + '.';
+	 			$('div.sentence-holder').eq(i).find('input[type="hidden"]').attr('value', '' + (i+1));
+	 		}
+	 	});
 
-		$(div).hover(function() {
-			$(this).find('button.addPartBtn').fadeIn(60);
-			$(this).find('.deleteSentence').fadeIn(60);
-		}, function() {
-			$(this).find('button.addPartBtn').fadeOut(60);
-			$(this).find('.deleteSentence').fadeOut(60);
-		});
+	 	deleteSentence.appendChild(button);
+	 	div.appendChild(deleteSentence);
 
-		document.getElementsByClassName('sentences')[0].appendChild(div);
-		var hr = document.createElement('hr')
-		document.getElementsByClassName('sentences')[0].appendChild(hr);
+	 	$(div).hover(function() {
+	 		$(this).find('button.addPartBtn').fadeIn(60);
+	 		$(this).find('.deleteSentence').fadeIn(60);
+	 	}, function() {
+	 		$(this).find('button.addPartBtn').fadeOut(60);
+	 		$(this).find('.deleteSentence').fadeOut(60);
+	 	});
 
-		$('.sentences').find('input').last().focus();
-	}
+	 	document.getElementsByClassName('sentences')[0].appendChild(div);
+	 	var hr = document.createElement('hr')
+	 	document.getElementsByClassName('sentences')[0].appendChild(hr);
+
+	 	$('.sentences').find('input').last().focus();
+	 }
 
 	/**
 	 * Store id of content to be deleted
 	 * 
 	 * @type {String}
 	 */	
-	var toDelete = '';
+	 var toDelete = '';
 
 	/**
 	 * Delete a sentence
@@ -288,39 +301,39 @@
 	 *
 	 * @return {[type]}
 	 */
-	function deleteSentence(sentence) {
-		$(sentence).find('.word').each(function() {
-			deleteWord($(this));
-		});
+	 function deleteSentence(sentence) {
+	 	$(sentence).find('.word').each(function() {
+	 		deleteWord($(this));
+	 	});
 
-		sentence.next().remove();
-		sentence.remove();
+	 	sentence.next().remove();
+	 	sentence.remove();
 
-		sentenceNo = $('div.row.sentence-holder').length;
-		for (var i = 0; i < $('div.sentence-holder').length; i++) {
-			$('div.sentence-holder').eq(i).find('label')[0].innerHTML = '' + (i+1) + '.';
-			$('div.sentence-holder').eq(i).find('input[type="hidden"]').attr('value', '' + (i+1));
-		}
-	}
+	 	sentenceNo = $('div.row.sentence-holder').length;
+	 	for (var i = 0; i < $('div.sentence-holder').length; i++) {
+	 		$('div.sentence-holder').eq(i).find('label')[0].innerHTML = '' + (i+1) + '.';
+	 		$('div.sentence-holder').eq(i).find('input[type="hidden"]').attr('value', '' + (i+1));
+	 	}
+	 }
 
 	/**
 	 * Add a new word
 	 *
 	 * @param {void}
 	 */
-	function addWord(button) {
-		var sentenceParts = $(button).closest('div.sentence-holder').find('.sentenceParts');
-		var existedWords = sentenceParts.find('.word');
-		var wordsCount = existedWords.length;
+	 function addWord(button) {
+	 	var sentenceParts = $(button).closest('div.sentence-holder').find('.sentenceParts');
+	 	var existedWords = sentenceParts.find('.word');
+	 	var wordsCount = existedWords.length;
 
-		var word = 0;
-		toAdd++;
-		var newSentenceNo = parseInt($(button).closest('.sentence-holder').find('label')[0].innerHTML.replace('.' ,''));
+	 	var word = 0;
+	 	toAdd++;
+	 	var newSentenceNo = parseInt($(button).closest('.sentence-holder').find('label')[0].innerHTML.replace('.' ,''));
 
-		sentenceParts[0].appendChild(createWord(newSentenceNo));
+	 	sentenceParts[0].appendChild(createWord(newSentenceNo));
 
-		$(sentenceParts).find('input').last().focus();
-	}
+	 	$(sentenceParts).find('input').last().focus();
+	 }
 
 	/**
 	 * Delete a word
@@ -329,20 +342,20 @@
 	 *
 	 * @return {[type]}
 	 */
-	function deleteWord(word) {
-		if(word.find('.wordText').attr('name').indexOf('update') != -1) {
-			var name = word.find('.wordText').attr('name');
+	 function deleteWord(word) {
+	 	if(word.find('.wordText').attr('name').indexOf('update') != -1) {
+	 		var name = word.find('.wordText').attr('name');
 
-			var id = parseInt(name.split('[')[1].replace(']', ''));
+	 		var id = parseInt(name.split('[')[1].replace(']', ''));
 
-			if (toDelete) {
-				toDelete += ',';
-			}
-			toDelete += id;
-		}
+	 		if (toDelete) {
+	 			toDelete += ',';
+	 		}
+	 		toDelete += id;
+	 	}
 
-		word.remove();
-	}
+	 	word.remove();
+	 }
 
 	/**
 	 * Return newly created word object
@@ -351,120 +364,120 @@
 	 *
 	 * @return {DOM Object}
 	 */
-	function createWord(sentenceNo=null) {
-		var word = document.createElement('div');
-		word.className = 'word';
+	 function createWord(sentenceNo=null) {
+	 	var word = document.createElement('div');
+	 	word.className = 'word';
 
-		var inputSentenceNo = document.createElement('input');
-		inputSentenceNo.setAttribute('type', 'hidden');
-		inputSentenceNo.setAttribute('name', 'insert[' + toAdd + '][sentenceNo]');
-		inputSentenceNo.setAttribute('value', sentenceNo ? sentenceNo.toString() : '1');
-		word.appendChild(inputSentenceNo);
+	 	var inputSentenceNo = document.createElement('input');
+	 	inputSentenceNo.setAttribute('type', 'hidden');
+	 	inputSentenceNo.setAttribute('name', 'insert[' + toAdd + '][sentenceNo]');
+	 	inputSentenceNo.setAttribute('value', sentenceNo ? sentenceNo.toString() : '1');
+	 	word.appendChild(inputSentenceNo);
 
-		var button = document.createElement('button');
-		button.className ='close deleteOption';
-		button.setAttribute('type', 'button');
-		button.setAttribute('aria-label', 'Delete');
+	 	var button = document.createElement('button');
+	 	button.className ='close deleteOption';
+	 	button.setAttribute('type', 'button');
+	 	button.setAttribute('aria-label', 'Delete');
 
-		var span = document.createElement('span');
-		span.setAttribute('aria-hidden', 'true');
-		span.innerHTML = '×';
-		button.appendChild(span);
+	 	var span = document.createElement('span');
+	 	span.setAttribute('aria-hidden', 'true');
+	 	span.innerHTML = '×';
+	 	button.appendChild(span);
 
-		$(button).click(function() {
-			deleteWord($(this).closest('div.word'));
-		});
+	 	$(button).click(function() {
+	 		deleteWord($(this).closest('div.word'));
+	 	});
 
-		word.appendChild(button);
+	 	word.appendChild(button);
 
-		var input = document.createElement('input');
-		input.className = 'form-control wordText';
-		input.setAttribute('type', 'text');
-		input.setAttribute('maxlength', '191');
-		input.setAttribute('name', 'insert[' + toAdd + '][word]');
-		input.setAttribute('size', '2');
-		input.setAttribute('required', '');
+	 	var input = document.createElement('input');
+	 	input.className = 'form-control wordText';
+	 	input.setAttribute('type', 'text');
+	 	input.setAttribute('maxlength', '191');
+	 	input.setAttribute('name', 'insert[' + toAdd + '][word]');
+	 	input.setAttribute('size', '2');
+	 	input.setAttribute('required', '');
 
-		$(button).click(function() {
-			deleteWord($(this).closest('div.word'));
-		});
+	 	$(button).click(function() {
+	 		deleteWord($(this).closest('div.word'));
+	 	});
 
-		$(input).on('keypress', function() {
-			changeTextboxWidth(this);
-		});
+	 	$(input).on('keypress', function() {
+	 		changeTextboxWidth(this);
+	 	});
 
-		word.appendChild(input);
+	 	word.appendChild(input);
 
-		$(word).hover(function() {
-			$(this).find('button.deleteOption').fadeIn(60);
-		}, function() {
-			$(this).find('button.deleteOption').fadeOut(60);
-		});
+	 	$(word).hover(function() {
+	 		$(this).find('button.deleteOption').fadeIn(60);
+	 	}, function() {
+	 		$(this).find('button.deleteOption').fadeOut(60);
+	 	});
 
-		return word;
-	}
+	 	return word;
+	 }
 
 	/**
 	 * Show Add sentence button when hovering on a sentence
 	 */
-	$('div.sentence-holder').hover(function() {
-		$(this).find('button.addPartBtn').fadeIn(60);
-		$(this).find('.deleteSentence').fadeIn(60);
-	}, function() {
-		$(this).find('button.addPartBtn').fadeOut(60);
-		$(this).find('.deleteSentence').fadeOut(60);
-	});
+	 $('div.sentence-holder').hover(function() {
+	 	$(this).find('button.addPartBtn').fadeIn(60);
+	 	$(this).find('.deleteSentence').fadeIn(60);
+	 }, function() {
+	 	$(this).find('button.addPartBtn').fadeOut(60);
+	 	$(this).find('.deleteSentence').fadeOut(60);
+	 });
 
 	/**
 	 * Show Delete button when hovering on a word
 	 */
-	$('.word').hover(function() {
-		$(this).find('button.deleteOption').fadeIn(60);
-	}, function() {
-		$(this).find('button.deleteOption').fadeOut(60);
-	});
+	 $('.word').hover(function() {
+	 	$(this).find('button.deleteOption').fadeIn(60);
+	 }, function() {
+	 	$(this).find('button.deleteOption').fadeOut(60);
+	 });
 
 	/**
 	 * Delete word upon button click
 	 */
-	$('button.deleteOption').click(function() {
-		deleteWord($(this).closest('div.word'));
-	});
+	 $('button.deleteOption').click(function() {
+	 	deleteWord($(this).closest('div.word'));
+	 });
 
 	/**
 	 * Add a new word upon button click
 	 */
-	$('button.addPartBtn').click(function() {
-		addWord(this);
-	});
+	 $('button.addPartBtn').click(function() {
+	 	addWord(this);
+	 });
 
 	/**
 	 * Add a new sentence upon button click
 	 */
-	$('button#newSentenceBtn').click(function() {
-		addSentence();
-	});
+	 $('button#newSentenceBtn').click(function() {
+	 	addSentence();
+	 });
 
 	/**
 	 * Delete a sentence upon button click
 	 */
-	$('.deleteSentence button').click(function() {
-		deleteSentence($(this).closest('.sentence-holder'));
-	});
+	 $('.deleteSentence button').click(function() {
+	 	deleteSentence($(this).closest('.sentence-holder'));
+	 });
 
 	/**
 	 * Add a list of id of element to delete to the submiting form
 	 */
-	$("#p10Form").submit( function(eventObj) {
-		console.log(toDelete);
-		if (toDelete) {
-			$('<input />').attr('type', 'hidden')
-			.attr('name', 'delete')
-			.attr('value', toDelete)
-			.appendTo('#p10Form');
-			return true;
-		}
-	});
+	 $("#p10Form").submit( function(eventObj) {
+	 	console.log(toDelete);
+	 	if (toDelete) {
+	 		$('<input />').attr('type', 'hidden')
+	 		.attr('name', 'delete')
+	 		.attr('value', toDelete)
+	 		.appendTo('#p10Form');
+	 		return true;
+	 	}
+	 });
 
-</script>
-@stop
+	</script>
+	@stop

@@ -8,8 +8,13 @@
 {{-- <script src="{{ asset('themes/explorer/theme.js') }}" type="text/javascript"></script> --}}
 <style type="text/css">
 	div.title {
+		padding: 0 2em;
 		text-align: center;
-		margin-bottom: 3em;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
 	}
 	label.situNo {
 		font-size: 1.4em;
@@ -62,28 +67,31 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 1: Listen to words and repeat for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 1: Listen to words and repeat for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Add new words or change existing ones by writing into appropriate text fields and uploading new audio files.
+	</div>
 	{!! Form::open(array('url'=>'editP1','method'=>'POST', 'files'=>true, 'id' =>'p1Form')) !!}
 	<div id="p1Div">
 		<input type="hidden" name="lessonID" value="{{$p1[0]->lesson_id}}">
 		@for ($i = 1; $i <= count($p1)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
-			<div class="col-xs-4">
+			<div class="col-xs-6">
 				<label for="word{{$i}}">Word</label>
-				<input type="text" id="word{{$i}}" class="form-control"  name="word{{$i}}" value="{{$p1[$i-1]->word}}">
+				<input type="text" id="word{{$i}}" class="form-control" name="word{{$i}}" value="{{$p1[$i-1]->word}}">
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-5">
 				<label for="audio{{$i}}">Audio</label>
 				<input id="audio{{$i}}" name="audio{{$i}}" type="file" class="file undone audio" data-situ="{{$i}}" data-path-audio="{{$p1[$i-1]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
-			<div class="col-xs-4 ">
+			<div class="col-xs-1 ">
 				<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
 			</div>
 			<input type="hidden" id="wordId{{$i}}" class="id" name="wordId{{$i}}" value="{{$p1[$i-1]->id}}">
 		</div>
 		@endfor
 	</div>
-	<div class="row" style="text-align: center;">
+	<div class="row" style="text-align: center; margin-top: 2em">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
 	</div>
@@ -115,7 +123,7 @@
 
 		/* Create label Situation n */
 		var div_word = document.createElement("div");
-		div_word.setAttribute('class', "col-xs-4");
+		div_word.setAttribute('class', "col-xs-6");
 
 		label_word = document.createElement("label");
 		label_word.setAttribute('for', 'wordAdd'+ addLine);
@@ -130,7 +138,7 @@
 		div_word.appendChild(label_word);
 		div_word.appendChild(word_input);
 		var div_audio = document.createElement("div");
-		div_audio.setAttribute('class', "col-xs-4");
+		div_audio.setAttribute('class', "col-xs-5");
 
 		label = document.createElement("label");
 		label.setAttribute('for', 'audioAdd'+ addLine);
@@ -151,7 +159,7 @@
 		div_audio.appendChild(audio_input);
 
 		var div_btn = document.createElement("div");
-		div_btn.setAttribute('class', "col-xs-4");
+		div_btn.setAttribute('class', "col-xs-1");
 
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');

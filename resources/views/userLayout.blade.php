@@ -173,7 +173,7 @@
 <div style="">
 
 	<div class="nav-side-menu" >
-		<div class="brand">User Profile</div>
+		<div class="brand">Management Console</div>
 		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
 		<div class="menu-list">

@@ -3,12 +3,21 @@
 @section('header-more')
 
 <style type="text/css">
+	div.title {
+		padding: 0 2em;
+		text-align: center;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
+	}
 	.sentence-input {
 		/*width: 100%;*/
 		display: inline-block;
 	}
 	#wrapper {
-		padding: 2em 4em;
+		padding: 1em 4em;
 	}
 	.close-col {
 		text-align: center;
@@ -104,6 +113,10 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
+	<div class="title"><h2>Edit Practice 11: Read and reorder the the sentences to make a complete dialogue for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Change words and sentences' order by writing into text fields below
+	</div>
 	<div id="wrapper">
 		<form id="p11Form" method="post" action="/editP11">
 			{{ csrf_field() }}

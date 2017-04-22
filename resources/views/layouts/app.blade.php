@@ -106,14 +106,6 @@
     </div>
 
     <div id="page-content-wrapper" style="width: 100%; margin-top: 65px;">
-        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-            @if(Session::has('alert-' . $msg))
-            <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>{{ Session::get('alert-' . $msg) }}</strong>
-            </div>
-            @endif
-        @endforeach
         @yield('body')
     </div>
 

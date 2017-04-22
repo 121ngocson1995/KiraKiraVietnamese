@@ -8,8 +8,13 @@
 {{-- <script src="{{ asset('themes/explorer/theme.js') }}" type="text/javascript"></script> --}}
 <style type="text/css">
 	div.title {
+		padding: 0 2em;
 		text-align: center;
-		margin-bottom: 3em;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
 	}
 	label.situNo {
 		font-size: 1.4em;
@@ -62,28 +67,31 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 5: Listen to dialogues and repeat for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 5: Listen to dialogues and repeat for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Add new dialogues or change existing ones by writing into appropriate text fields and uploading new audio files.
+	</div>
 	{!! Form::open(array('url'=>'editP5','method'=>'POST', 'files'=>true, 'id' =>'p5Form')) !!}
 	<div id="p5Div">
 		<input type="hidden" name="lessonID" value="{{$p5[0]->lesson_id}}">
 		@for ($i = 0; $i < count($p5)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
-			<div class="col-xs-4">
+			<div class="col-xs-6">
 				<label for="dialog{{$i}}">dialog</label>
 				<textarea class="form-control textarea" name="dialog{{$i}}" id="dialog{{$i}}" data-dialog="{{$p5[$i]->dialogArr}}" required></textarea>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-5">
 				<label for="audio{{$i}}">Audio</label>
 				<input id="audio{{$i}}" name="audio{{$i}}" type="file" class="file undone audio" data-situ="{{$i}}" data-path-audio="{{$p5[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
-			<div class="col-xs-4 ">
+			<div class="col-xs-1">
 				<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
 			</div>
 			<input type="hidden" id="dialogId{{$i}}" class="id" name="dialogId{{$i}}" value="{{$p5[$i]->id}}">
 		</div>
 		@endfor
 	</div>
-	<div class="row" style="text-align: center;">
+	<div class="row" style="text-align: center; margin-top: 2em">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
 	</div>
@@ -118,7 +126,7 @@
 
 		/* Create label Situation n */
 		var div_dialog  = document.createElement("div");
-		div_dialog .setAttribute('class', "col-xs-4");
+		div_dialog .setAttribute('class', "col-xs-6");
 
 		label_dialog  = document.createElement("label");
 		label_dialog.setAttribute('for', 'dialogAdd'+ addLine);
@@ -133,7 +141,7 @@
 		div_dialog.appendChild(label_dialog );
 		div_dialog.appendChild(dialog_textarea);
 		var div_audio = document.createElement("div");
-		div_audio.setAttribute('class', "col-xs-4");
+		div_audio.setAttribute('class', "col-xs-5");
 
 		label = document.createElement("label");
 		label.setAttribute('for', 'audioAdd'+ addLine);
@@ -154,7 +162,7 @@
 		div_audio.appendChild(audio_input);
 
 		var div_btn = document.createElement("div");
-		div_btn.setAttribute('class', "col-xs-4");
+		div_btn.setAttribute('class', "col-xs-1");
 
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');

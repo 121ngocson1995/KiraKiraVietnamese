@@ -8,8 +8,13 @@
 {{-- <script src="{{ asset('themes/explorer/theme.js') }}" type="text/javascript"></script> --}}
 <style type="text/css">
 	div.title {
+		padding: 0 2em;
 		text-align: center;
-		margin-bottom: 3em;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
 	}
 	label.situNo {
 		font-size: 1.4em;
@@ -56,13 +61,23 @@
 		width: 10em;
 		margin: 0 0.5em;
 	}
+	.header {
+		margin-top: 2em;
+		margin-bottom: 1em;
+	}
+	input {
+		margin: 3px;
+	}
 </style>
 <script type="text/javascript">
 	$('.listBtn').removeClass('active');
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 7: Practice speaking after dialogues for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 7: Practice speaking after dialogues for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Add new conversations or change existing ones by writing into appropriate text fields and uploading new audio files.
+	</div>
 	{!! Form::open(array('url'=>'editP7','method'=>'POST', 'files'=>true, 'id' =>'p7Form')) !!}
 	<div id="p7Div">
 		<input type="hidden" name="lessonID" value="{{$lessonId}}">
@@ -75,26 +90,26 @@
 				</label>
 				<button id="newLineBtn" onclick="addLine(this);" style="margin-left: 10px" class="btn btn-primary" type="button"><i class="fa fa-plus" data-diaglogIndex="{{$i}}" ></i><span class="newLineBtnText">Add new Line</span></button>		
 			</div>
-			<div class="col-xs-7 " id="diaBody{{$i}}">
+			<div class="col-xs-8" id="diaBody{{$i}}">
 				<div class="row">
-					<div class="col-xs-5">	
+					<div class="col-xs-3">	
 						<label for="speaker{{$i}}">Speaker</label>
 					</div>
-					<div class="col-xs-5">
+					<div class="col-xs-8">
 						<label for="dialogue{{$i}}">Dialogue</label>
 					</div>
-					<div class="col-xs-2">
+					<div class="col-xs-1">
 					</div>
 				</div>
 				@for ($j = 0; $j < count($contentArr[$i]); $j++)
 				<div class="row" id="row-{{$i}}-{{$j}}" data-curLine="{{$j}}">
-					<div class="col-xs-5">	
+					<div class="col-xs-3">	
 						<input type="text" class="form-control " name="speaker-{{$i.'-'.$j}}" id="speaker-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][0]}}" ></input>
 					</div>
-					<div class="col-xs-5">
+					<div class="col-xs-8">
 						<input type="text" class="form-control " name="dialogue-{{$i.'-'.$j}}" " id="dialogue-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][1]}}" required></input>
 					</div>
-					<div class="col-xs-2">
+					<div class="col-xs-1">
 						<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
 					</div>
 				</div>
@@ -104,7 +119,7 @@
 				<label for="audio{{$i}}">Audio</label>
 				<input id="audio{{$i}}" name="audio{{$i}}" type="file" class="file undone audio" data-situ="{{$i}}" data-path-audio="{{$p7[$i]->audio}}" data-show-upload="false" data-show-caption="true" data-allowed-file-extensions='["mp3"]'>
 			</div>
-			<div class="col-xs-2 ">
+			<div class="col-xs-1">
 				<button type="button" class="deleteBtn " onclick="deleteDialog(this)"><i class="fa fa-trash"></i></button>
 			</div>
 			<input type="hidden" id="dialogId{{$i}}" class="id" name="dialogId{{$i}}" value="{{$p7[$i]->id}}">
@@ -162,7 +177,7 @@
 		node_title.appendChild(node_title_btn);
 
 		var node_header = document.createElement("div");
-		node_header.setAttribute('class', 'col-xs-7');
+		node_header.setAttribute('class', 'col-xs-8');
 		node_header.setAttribute('id', 'diaBody'+sumDialog);
 
 		var node_header_row = document.createElement("div");
@@ -170,7 +185,7 @@
 
 
 		var node_header_speaker = document.createElement("div");
-		node_header_speaker.setAttribute('class', 'col-xs-5');
+		node_header_speaker.setAttribute('class', 'col-xs-3');
 
 		var node_header_spkLabel = document.createElement("label");
 		node_header_spkLabel.setAttribute('for', 'speaker'+sumDialog);
@@ -179,7 +194,7 @@
 		node_header_speaker.appendChild(node_header_spkLabel);
 
 		var node_header_dialogue = document.createElement("div");
-		node_header_dialogue.setAttribute('class', 'col-xs-5');
+		node_header_dialogue.setAttribute('class', 'col-xs-8');
 
 		var node_header_diaLabel = document.createElement("label");
 		node_header_diaLabel.setAttribute('for', 'dialogue'+sumDialog);
@@ -214,7 +229,7 @@
 		node_audio.appendChild(audio_input);
 
 		var div_btn = document.createElement("div");
-		div_btn.setAttribute('class', "col-xs-2");
+		div_btn.setAttribute('class', "col-xs-1");
 
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');
@@ -251,7 +266,7 @@
 
 
 		var node_header_speaker = document.createElement("div");
-		node_header_speaker.setAttribute('class', 'col-xs-5');
+		node_header_speaker.setAttribute('class', 'col-xs-3');
 
 		var node_header_spkInput = document.createElement("input");
 		node_header_spkInput.setAttribute('type','text');
@@ -269,7 +284,7 @@
 		node_header_speaker.appendChild(node_header_spkInput);
 
 		var node_header_dialogue = document.createElement("div");
-		node_header_dialogue.setAttribute('class', 'col-xs-5');
+		node_header_dialogue.setAttribute('class', 'col-xs-8');
 
 		var node_header_diaInput = document.createElement("input");
 		node_header_diaInput.setAttribute('type','text');
@@ -286,7 +301,7 @@
 		node_header_dialogue.appendChild(node_header_diaInput);
 
 		var node_header_btn = document.createElement("div");
-		node_header_btn.setAttribute('class', 'col-xs-2');
+		node_header_btn.setAttribute('class', 'col-xs-1');
 
 		var header_btn = document.createElement("button");
 		header_btn.setAttribute('type','button');

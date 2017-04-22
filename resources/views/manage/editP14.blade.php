@@ -3,8 +3,17 @@
 @section('header-more')
 
 <style type="text/css">
+	div.title {
+		padding: 0 2em;
+		text-align: center;
+		margin-top: 2em;
+	}
+	div.description {
+		padding: 0 3em;
+		margin-bottom: 2em;
+	}
 	#wrapper {
-		padding: 2em 1em;
+		padding: 1em 1em;
 	}
 	button.close {
 		color: black;
@@ -127,6 +136,10 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
+	<div class="title"><h2>Edit Practice 14: Learn by heart the following sentence patterns for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="row description" style="text-align: center; font-size: 1.5em">
+		Add new sentence's pattern or change existing ones by writing into appropriate text fields below.
+	</div>
 	<div id="wrapper">
 		<form id="p14Form" method="post" action="/editP14">
 			{{ csrf_field() }}
