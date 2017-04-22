@@ -8,15 +8,38 @@ use Illuminate\Support\Facades\Input;
 use App\Lesson;
 use Redirect;
 use Illuminate\Support\Facades\Validator;
+
 class P7Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *　データベースからデータをロードする。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
 		// get lesson
+		//　レッスンを取る。
 		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-    		// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P7ConversationMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
 		$dialogCnt = array();
@@ -47,11 +70,15 @@ class P7Controller extends Controller
 		return view("activities.P7v2", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 
-	/**
-	 * ABV
-	 * @param  Request $request
-	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
-	 */
+
+    /**
+     * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
@@ -159,6 +186,8 @@ class P7Controller extends Controller
 		}
 
 
+
 		return redirect("/listAct".$request->all()['lessonID']);
+
 	}
 }

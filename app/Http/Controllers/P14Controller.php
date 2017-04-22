@@ -8,13 +8,35 @@ use \DB;
 
 class P14Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *　データベースからデータをロードする。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function load(Request $request, $lessonNo)
     {
         // get lesson
+        //　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
         $lesson_id = $lesson->id;
 
-        // Lấy dữ liệu từ db
+        // Load data from Database
+        // データベースからデータを出す。
         $elementData = P14SentencePattern::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo')->get();
 
         $sentences = array();
@@ -30,9 +52,16 @@ class P14Controller extends Controller
         return view("activities.P14", compact(['sentences'])); 
     }
 
+    /**
+     * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request)
     {
-        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 $p14Element = P14SentencePattern::where('id', '=', $id)->first();

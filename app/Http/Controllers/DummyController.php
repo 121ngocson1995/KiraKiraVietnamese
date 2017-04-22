@@ -10,18 +10,25 @@ class DummyController extends Controller
     public function load(Request $request, $lessonNo, $activity)
     {
     	/*
-    	** Lấy đường dẫn từ request
-    	** Ví dụ localhost:8080/dummy sẽ cho ra $activity == dummy
+    	** Get link from request
+        ** For example localhost:8080/dummy will give $activity == dummy
+        *
+        ** 要求からリンクを取る。
+        ** 例えば　「localhost:8080/dummy」から「$activity == dummy」が取られる。
     	*/
 
     	/*
-    	** Tạo đường dẫn đầy đủ
+    	** Create full path.
+        **　完全なリンクを作成する。
     	*/
         $filePath = storage_path() . "/dummy/{$activity}.json";
 
 		/*
     	** Kiểm tra xem đường dẫn và tên file có khớp nhau
     	** Nếu false -> kết thúc
+        **
+        **　リンクとファイル名は同じかどうかチェックする。
+        **　失敗なら　－＞　終わる。
     	*/
         if (!File::exists($filePath)) {
             dd("Tên file không khớp đường dẫn");
@@ -30,14 +37,23 @@ class DummyController extends Controller
 	    /*
     	** Đọc data từ file và parse sang object
     	** Sửa $dummy = json_decode($dummyData); thành
-    	** $dummy = json_decode($dummyData, trưe);
-    	** để parse data sang array
+    	** $dummy = json_decode($dummyData, true);
+    	** để parse data sang array 
+        **
+        ** ファイルからデータを読み、オブジェクトにパーズする。
+        **　「$dummy = json_decode($dummyData);」から
+        **　「$dummy = json_decode($dummyData, true);」　に直す。
+        **　アレイでパーズを保存する。
     	*/
+        
         $dummyData = File::get($filePath);
         $dummy = json_decode($dummyData);
         /*
         ** Thực hiện xử lý riêng cho từng màn hình
         ** Nếu không định sẵn xử lý, mặc định chuyển đến view tương ứng
+        ** 
+        ** 各画面に処理することを実施する。
+        ** 処理が固定されなければ、自動的に該当の画面に連れる。
         */
         switch ($activity) {
             case 'Situation':

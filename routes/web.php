@@ -60,6 +60,7 @@ Route::get('/lesson{lessonNo}/situations', 'SituController@load');
 
 //start route dummy 
 Route::get('/userManage', 'UserController@load');
+Route::post('/chgPassword', 'UserController@changePassword');
 Route::post('/editUser', 'UserController@edit');
 Route::get('/preAddLesson', 'LessonController@preAdd');
 Route::get('/addLesson', 'LessonController@add');
@@ -86,7 +87,10 @@ Route::post('/editP8', 'P8Controller@edit');
 Route::post('/editP9', 'P9Controller@edit');
 Route::post('/editP10', 'P10Controller@edit');
 Route::post('/editP11', 'P11Controller@edit');
+Route::post('/editP12', 'P12Controller@edit');
+Route::post('/editP13', 'P13Controller@edit');
 Route::post('/editP14', 'P14Controller@edit');
+Route::post('/editExtensions', 'ExtendController@edit');
 
 
     //end route dummy

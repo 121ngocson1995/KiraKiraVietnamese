@@ -187,10 +187,21 @@
 	var toAdd = 0;
 	var sentenceNo = {{ $sentenceNo }};
 
+	/**
+	 * Change textbox's size on keyboard pressing
+	 * 
+	 * @param  {DOM Object}
+	 * @return {void}
+	 */
 	function changeTextboxWidth(input) {
 		input.size= parseInt(input.value.length);
 	}
 
+	/**
+	 * Create a new sentence
+	 * 
+	 * @return {void}
+	 */
 	function newSentence() {
 		var div = document.createElement('div');
 		div.className = 'row sentence';
@@ -285,8 +296,20 @@
 		document.getElementById('sentencesHolder').appendChild(hr);
 	}
 
+	/**
+	 * Store id of content to be deleted
+	 * 
+	 * @type {String}
+	 */
 	var toDelete = '';
 
+	/**
+	 * Delete a sentence
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function deleteSentence(sentence) {
 		if (sentence.attr('data-sentence-id')) {
 			if (toDelete) {
@@ -304,6 +327,13 @@
 		}
 	}
 
+	/**
+	 * Create a new sentence part
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function newPart(button) {
 		var tabble = $(button).closest('div.sentenceParts-holder').find('.tabble');
 		var existedSentenceParts = tabble.find('.sentenceParts');
@@ -334,10 +364,13 @@
 		}
 	}
 
-	function deletePart(argument) {
-		// body...
-	}
-
+	/**
+	 * Create a new option
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function newOption(button) {
 		var newOption = $(button.previousElementSibling).clone();
 		$(newOption).find('textarea')[0].innerHTML = '';
@@ -354,6 +387,13 @@
 		$(newOption).insertBefore(button);
 	}
 
+	/**
+	 * Delete an option
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function deleteOption(button) {
 		if($(button).closest('div.sentenceParts')[0].children.length == 2) {
 			$(button).closest('div.sentenceParts').remove();
@@ -363,6 +403,13 @@
 		$(button).closest('div.option').remove();
 	}
 
+	/**
+	 * Creat a sentence part's DOM object
+	 *
+	 * @param  {string}
+	 *
+	 * @return {DOM Object}
+	 */
 	function createPart(optionName = null) {
 		var sentenceParts = document.createElement('div');
 		sentenceParts.className = 'sentenceParts';
@@ -397,6 +444,13 @@
 		return sentenceParts;
 	}
 
+	/**
+	 * Create sentence option's DOM object
+	 *
+	 * @param  {string}
+	 *
+	 * @return {DOM Object}
+	 */
 	function createOption(optionName) {
 		var option = document.createElement('div');
 		option.className = 'option aligned';
@@ -445,18 +499,30 @@
 		return option;
 	}
 
+	/**
+	 * Create a new sentence upon button click
+	 */
 	$('#newSentenceBtn').click(function() {
 		newSentence();
 	});
 
+	/**
+	 * Create a new sentence part upon button click
+	 */
 	$('.addPartBtn').click(function() {
 		newPart(this);
 	});
 
+	/**
+	 * Change textarea's height based on input's row
+	 */
 	$('textarea').each(function() {
 		this.style.cssText = 'height:' + this.scrollHeight + 'px';
 	});
 
+	/**
+	 * Determine and change textarea's height upon keyboard press
+	 */
 	$('textarea').on('keydown', function() {
 		var el = this;
 		setTimeout(function(){
@@ -464,20 +530,32 @@
 		},0);
 	});
 
+	/**
+	 * Show delete option button by hovering on a sentence part
+	 */
 	$('.option').hover(function() {
 		$(this.firstElementChild).fadeIn(60);
 	}, function() {
 		$(this.firstElementChild).fadeOut(60);
 	});
 
+	/**
+	 * Delete a sentence option upon button click
+	 */
 	$('button.close.deleteOption').click(function() {
 		deleteOption(this);
 	});
 
+	/**
+	 * Create a new sentence option upon button blick
+	 */
 	$('button.addInputBtn').click(function() {
 		newOption(this.parentElement);
 	});
 
+	/**
+	 * Show add and delete button by hovering on a sentence
+	 */
 	$('.row.sentence').hover(function() {
 		$(this).find('button.addPartBtn').fadeIn(60);
 		$(this).find('.deleteSentence').fadeIn(60);
@@ -486,6 +564,9 @@
 		$(this).find('.deleteSentence').fadeOut(60);
 	})
 
+	/**
+	 * Show add option button by hovering on a sentence part
+	 */
 	$('.sentenceParts').hover(function() {
 		$(this).find('button.addInputBtn').fadeIn(60);
 		$(this).find('button.deleteInputBtn').fadeIn(60);
@@ -494,10 +575,16 @@
 		$(this).find('button.deleteInputBtn').fadeOut(60);
 	});
 
+	/**
+	 * Delete a sentence upon button click
+	 */
 	$('button.horizontal.close').click(function() {
 		deleteSentence($(this).closest('div.row.sentence'));
 	});
 
+	/**
+	 * Add a list of id of element to delete to the submiting form
+	 */
 	$("#p14Form").submit( function(eventObj) {
 		if (toDelete) {
 			$('<input />').attr('type', 'hidden')

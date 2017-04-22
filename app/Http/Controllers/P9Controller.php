@@ -11,13 +11,35 @@ use Illuminate\Support\Facades\Validator;
 
 class P9Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *　データベースからデータをロードする。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
-		// get lesson
-		$lesson = LessonController::getLesson($lessonNo);
+
+		//　レッスンを取る。
+        $lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P9ConversationFillSentence::where('lesson_id', '=', $lesson_id)->get();
 		$dialogCnt = array();
 		$cnt = count($elementData);

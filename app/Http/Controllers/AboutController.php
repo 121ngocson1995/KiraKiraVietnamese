@@ -9,14 +9,14 @@ use App\Lesson;
 
 class AboutController extends Controller
 {
-    //
      public function load()
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
 		$course_id= 1;
     	
-    	// Lấy dữ liệu từ db
-
+    	// Load data from Database
+        // データベースからデータをロードする。
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
     	$lessonCnt = count($lessonData);

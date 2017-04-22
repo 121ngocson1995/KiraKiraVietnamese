@@ -12,13 +12,35 @@ use Illuminate\Support\Facades\Validator;
 
 class P4Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *　データベースからデータをロードする。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
 		// get lesson
+		//　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P4SentenceRecognize::where('lesson_id', '=', $lesson_id)->get();
 
 		$textRender = array();
@@ -35,6 +57,14 @@ class P4Controller extends Controller
 		return view("activities.P4v2", compact(['elementData', 'textRender']));
 	}  
 
+    /**
+     * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];

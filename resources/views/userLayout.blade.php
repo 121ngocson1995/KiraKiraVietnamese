@@ -6,7 +6,7 @@
 <!-- Bootstrap -->
 
 <!-- Bootstrap Form Helpers -->
-<link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
+{{-- <link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen"> --}}
 
 <style type="text/css">
 	body {
@@ -207,8 +207,8 @@
 		@yield('content')
 	</div>
 	<!-- Bootstrap Form Helpers -->
-	<script src="js/bootstrap-formhelpers.min.js"></script>
-	<script src="js/bootstrap-formhelpers-countries.js"></script>
+	{{-- <script src="js/bootstrap-formhelpers.min.js"></script> --}}
+	{{-- <script src="js/bootstrap-formhelpers-countries.js"></script> --}}
 
 	<script>
 		$('#menu-content li').click(function() {

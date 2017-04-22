@@ -9,6 +9,7 @@ class P11Controller extends Controller
 {
     /**
     * Create a new controller instance.
+    *　新しいインスタントのコントローラーを作成する。
     *
     * @return void
     */
@@ -17,13 +18,24 @@ class P11Controller extends Controller
         $this->middleware('auth', ['except' => 'load']);
     }
 
+    /**
+     * Load data from database.
+     *　データベースからデータをロードする。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function load(Request $request, $lessonNo)
     {
     	// get lesson
+        //　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
         $lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
     	$initOrder = [];
     	$correctAnswer = [];
@@ -46,6 +58,14 @@ class P11Controller extends Controller
     	return view("activities.P11v2", compact(['elementData', 'correctAnswerList']));
     }
 
+    /**
+     * Create a list with all possible answers.
+     *　すべての可能な回答のリストを作成する。
+     *
+     * @param Collection $elementData
+     *
+     * @return Array
+     */
     public function makeAnswerListWithSentence(\Illuminate\Database\Eloquent\Collection $elementData)
     {
         $answerListRaw = array();
@@ -77,6 +97,14 @@ class P11Controller extends Controller
         return $this->arrange($answerListPreArranged);
     }
 
+    /**
+     * Reorder the answer list based on "correctOrder" field.
+     *　「correctOrder」によって、回答のリストを並べ替える。
+     *
+     * @param Array $answerListPreArranged
+     *
+     * @return Array
+     */
     private function arrange($answerListPreArranged)
     {
         $result = array();
@@ -88,15 +116,30 @@ class P11Controller extends Controller
         return $result;
     }
 
+    /**
+     * Perform sorting on the given array.
+     *　指定されたアレイで並べ替えることを行う。
+     *
+     * @param Array $answer
+     *
+     * @return Array
+     */
     private function sort($answer)
     {
         array_multisort($answer['order'], $answer['sentence']);
         return $answer['sentence'];
     }
 
+    /**
+     * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request)
     {
-        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 $p11Element = P11ConversationReorder::where('id', '=', $id)->first();

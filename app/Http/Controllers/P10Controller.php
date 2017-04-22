@@ -7,18 +7,41 @@ use App\P10SentenceReorder;
 
 class P10Controller extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'load']);
+    }
+    
+    /**
+     * Load data from database.
+     *　データベースからデータを出す。
+     *
+     * @param Request $request
+     * @param integer $lessonNo
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
 	public function load(Request $request, $lessonNo)
 	{
     	// get lesson
+    	//　レッスンを取る。
 		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$data = P10SentenceReorder::where('lesson_id', '=', $lesson_id)->orderBy('sentenceNo', 'asc')->get();
 
 		$curSentenceNo = 0;
 
-		/* restructure elementData */
+		// restructure elementData 
+		// 「elementData」を再構築する。
 		$elementData = array();
 		$curElement = array();
 		foreach ($data as $dataValue) {
@@ -34,7 +57,8 @@ class P10Controller extends Controller
 		}
 		$elementData[] = $curElement;
 
-		/* shuffle words in elementData */
+		//　shuffle words in elementData 
+		//　「elementData 」での単語を苦しむ。
 		for ($i=0; $i < count($elementData); $i++) { 
 			$initOrder = [];
 			foreach ($elementData[$i] as $elementValue) {
@@ -56,9 +80,16 @@ class P10Controller extends Controller
 		return view("activities.P10v2", compact('elementData'));
 	}
 
+    /**
+     * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function edit(Request $request)
 	{
-		// dd($request->all());
 		if ($request->has('update')) {
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
@@ -110,6 +141,6 @@ class P10Controller extends Controller
 			}
 		}
 
-		return Redirect("/listAct".$request->all()['lessonId']);
+		return redirect("/listAct".$request->all()['lessonId']);
 	}
 }

@@ -11,6 +11,7 @@ class P10SentenceReorder extends Model
 
     /**
      * The attributes that are mass assignable.
+     *　割り当て可能な属性。
      *
      * @var array
      */
@@ -20,6 +21,7 @@ class P10SentenceReorder extends Model
 
     /**
 	 * Get the parent lesson.
+     * 親レッスンを取る。
 	 */
 	public function lesson()
 	{

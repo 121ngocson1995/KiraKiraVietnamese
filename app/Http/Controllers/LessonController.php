@@ -17,13 +17,17 @@ use App\P8ConversationFillWord;
 use App\P9ConversationFillSentence;
 use App\P10SentenceReorder;
 use App\P11ConversationReorder;
+use App\P12GroupInteraction;
+use App\P13Text;
 use App\P14SentencePattern;
+use App\LanguageCulture;
 
 
 class LessonController extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -32,21 +36,35 @@ class LessonController extends Controller
     	$this->middleware('auth', ['except' => 'getLesson']);
     }
 
+    /**
+     * Fetch the chosen lesson from database
+     * データベースから選択したレッスンをフェッチする。
+     * 
+     * @param  integer       $lesson
+     * @param  integer       $course_id
+     * @return Collection
+     */ 
     public static function getLesson($lessonNo, $course_id = 1)
     {
-		// \DB::listen(function($query) {
-		// 	dd($query->sql);
-		// });
     	$lesson = Lesson::where('lessonNo', '=', $lessonNo)->first();
     	return $lesson;
     }
 
+    /**
+     * Return "add lesson" screen
+     * 「add lesson」画面をリターンする。
+
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function preAdd()
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
+
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
 
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
@@ -59,12 +77,20 @@ class LessonController extends Controller
     	return view('addLesson', compact('lessonList'));
     }
 
+    /**
+     * Perform inserting to database
+     * データベースへの挿入を実行する。
+     * 
+     * @param Request   $request
+     */
     public function add(Request $request)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonNew = new Lesson;
     	$lessonNew->course_id = $course_id;
     	$lessonNew->lessonNo = $request->all()['lsnNo'];
@@ -77,47 +103,80 @@ class LessonController extends Controller
     	return redirect('/');
     }
 
+    /**
+     * Return all lessons
+     * 全てのレッスンをリターンする。
+     * 
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function listLesson()
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
 
     	return view('listLesson', compact('lessonData'));
     }
 
+    /**
+     * @param  integer  $lessonNo
+     * 
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function delete($lessonNo) 
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonNo)->delete();
 
     	return redirect('/listLesson');
     }
 
+    /**
+     * Return lesson's information for editing
+     * 編集のため、レッスンの情報をリターンする。
+     * 
+     * @param  integer      $lessonNo
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function preEdit($lessonNo)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonNo)->get();
 
     	return view('editLesson', compact('lessonData'));
     }
 
+    /**
+     * Perform updating lesson
+     * 更新レッスンを行う。
+     *
+     * @param  Request      $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function edit(Request $request)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($request->all()['lesson_id']);
     	$lessonEdit->course_id = $course_id;
     	$lessonEdit->lessonNo = $request->all()['lsnNo'];
@@ -131,6 +190,13 @@ class LessonController extends Controller
     	return view('editLesson', compact('lessonData'));
     } 
 
+    /**
+     * Return a list of the chosen lesson's activities
+     * 選択したレッスンのリストをリターンする。
+     * 
+     * @param  integer      $lessonid
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function listAct($lessonId)
     {
     	$lesson = Lesson::find($lessonId);
@@ -153,33 +219,25 @@ class LessonController extends Controller
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct words';
     	$activity[] = $currentActivity;
 
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p3';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to sentences and repeat';
     	$activity[] = $currentActivity;
-
-
 
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p4';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen and find the correct sentences';
     	$activity[] = $currentActivity;
 
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p5';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Listen to dialogues and repeat';
     	$activity[] = $currentActivity;
 
-
-
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p6';
     	$currentActivity->content = 'Practice ' . ++$practiceNo . ': Choose the correct answer';
     	$activity[] = $currentActivity;
-
-
     	
     	$currentActivity = new \stdClass;
     	$currentActivity->name = 'p7';
@@ -229,12 +287,22 @@ class LessonController extends Controller
     	return view('listAct', compact('lesson'));
     }
 
+    /**
+     * Return "edit activity" screen
+     * 「edit activity」画面をリターンする。
+     * 
+     * @param  integer      $lessonId
+     * @param  string       $activityName
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function preEditAct($lessonId, $activityName)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($lessonId);
     	switch ($activityName) {
     		case 'situations':
@@ -368,35 +436,53 @@ class LessonController extends Controller
     		case 'p11':
     		$p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		return view('manage.editP11', compact(['p11', 'lessonId']));
-    		break;
+            return view('manage.editP11', compact(['p11', 'lessonId']));
+            break;
 
-    		case 'p14':
-    		$p14 = P14SentencePattern::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+            case 'p12':
+            $p12 = P12GroupInteraction::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		for ($pId = 0; $pId < count($p14); $pId++) {
-    			$sentence = $p14[$pId]->sentence;
-    			$sentencePart = explode('*', $sentence);
-    			$sentenceParts = array();
+            return view('manage.editP12', compact(['p12', 'lessonId']));
+            break;
 
-    			for ($i=0; $i < count($sentencePart); $i++) { 
-    				if(empty($sentencePart[$i])) {
-    					array_splice($sentencePart, $i, $i+1);
-    					$i--;
-    					continue;
-    				}
+            case 'p13':
+            $p13 = P13Text::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    				$partOption = explode('|', $sentencePart[$i]);
-    				$sentenceParts[] = $partOption;
-    			}
+            return view('manage.editP13', compact(['p13', 'lessonId']));
+            break;
 
-    			$p14[$pId]->sentenceParts = $sentenceParts;
-    		}
-    		return view('manage.editp14', compact(['p14', 'lessonId']));
-    		break;
+            case 'p14':
+            $p14 = P14SentencePattern::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		default:
-    		return redirect('/');
+            for ($pId = 0; $pId < count($p14); $pId++) {
+                $sentence = $p14[$pId]->sentence;
+                $sentencePart = explode('*', $sentence);
+                $sentenceParts = array();
+
+                for ($i=0; $i < count($sentencePart); $i++) { 
+                    if(empty($sentencePart[$i])) {
+                        array_splice($sentencePart, $i, $i+1);
+                        $i--;
+                        continue;
+                    }
+
+                    $partOption = explode('|', $sentencePart[$i]);
+                    $sentenceParts[] = $partOption;
+                }
+
+                $p14[$pId]->sentenceParts = $sentenceParts;
+            }
+            return view('manage.editP14', compact(['p14', 'lessonId']));
+            break;
+
+            case 'extensions':
+            $ext = LanguageCulture::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+
+            return view('manage.editExt', compact(['ext', 'lessonId']));
+            break;
+
+            default:
+            return redirect('/');
     		break;
     	}
     } 

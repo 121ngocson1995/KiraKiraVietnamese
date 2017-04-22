@@ -129,12 +129,47 @@ $user = \Auth::user();
 	.img_container:hover .image-avatar {
 		/*opacity: 0.8;*/
 	}
+	.help-block {
+		font-weight: 600;
+		font-style: italic;
+		color: red;
+		margin-top: 15px;
+	}
+	.modal-dialog {
+		height: 100%;
+		width: 400px;
+		margin: 0 auto !important;
+	}
+	.modal-content {
+		vertical-align: middle;
+		top: 60%;
+		transform: translateY(-70%);
+	}
 </style>
 
 <div class="container">
 	@if (session('msg'))
 	<div class="alert alert-success">
 		{{ session('msg') }}
+	</div>
+	@endif
+		@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+			@if(Session::has('alert-' . $msg))
+			<div class="alert alert-success alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>{{ Session::get('alert-' . $msg) }}</strong>
+			</div>
+			@endif
+		@endforeach
+	@if ($errors->has('pass'))
+	<div class="alert alert-danger alert-dismissable">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>{{ $errors->first('pass') }}</strong>
+	</div>
+	@elseif ($errors->has('pass.newPassword'))
+	<div class="alert alert-danger alert-dismissable">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>{{ $errors->first('pass.newPassword') }}</strong>
 	</div>
 	@endif
 	<form action="editUser" method="post">
@@ -145,6 +180,14 @@ $user = \Auth::user();
 				<div class="img_container"><div class="img-box">
 					<div class="avatar_img"></div>
 				</div></div>
+				<div class="help-block ext" style="display: none;">
+					<strong>Only .jpg or .png is accepted</strong>
+				</div>
+				@if ($errors->has('avatar'))
+				<span class="help-block">
+					<strong>{{ $errors->first('avatar') }}</strong>
+				</span>
+				@endif
 			</div>
 			<div class="{{ $errors->has('username') ? ' has-error' : '' }}" style="text-align: center;">
 				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
@@ -174,7 +217,7 @@ $user = \Auth::user();
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="first-name" class="cols-sm-2 control-label">First name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox first-name" name="first-name" id="first-name" size="{{ !$user->first_nam || strcmp($user->first_nam, '') == 0 ?: strlen($user->first_nam) }}" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
+						<input type="text" class="textbox first-name" name="first-name" id="first-name" size="{{ !$user->first_name || strcmp($user->first_name, '') == 0 ?: strlen($user->first_name) }}" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
 					</div>
 				</div>
 
@@ -185,10 +228,10 @@ $user = \Auth::user();
 				@endif
 			</div>
 			<div class="col-sm-4 form-group{{ $errors->has('last-name') ? ' has-error' : '' }}">
-				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Last name:</label></div>
+				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="last-name" class="cols-sm-2 control-label">Last name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox last-name" name="last-name" id="last-name" size="{{ !$user->last_nam || strcmp($user->last_nam, '') == 0 ?: strlen($user->last_nam) }}" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
+						<input type="text" class="textbox last-name" name="last-name" id="last-name" size="{{ !$user->last_name || strcmp($user->last_name, '') == 0 ?: strlen($user->last_name) }}" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
 					</div>
 				</div>
 
@@ -199,7 +242,7 @@ $user = \Auth::user();
 				@endif
 			</div>
 			<div class="col-sm-4 form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-				<div class="label-wrapper"><i class="fa fa-flag fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Gender:</label></div>
+				<div class="label-wrapper"><i class="fa fa-flag fa" aria-hidden="true"></i><label for="gender" class="cols-sm-2 control-label">Gender:</label></div>
 				<div>
 					<div class="input-group">
 						<select class="textbox" id="gender" name="gender">
@@ -261,9 +304,43 @@ $user = \Auth::user();
 			</div>
 		</div>
 		<div class="row save">
+			<a href="#custommodal" role="button" class="btn btn-warning" data-toggle="modal" style="font-size: 1.3em;">Change password</a>
 			<button type="submit" id="save" class="btn btn-success">Save changes</button>
 		</div>
 	</form>
+
+	<!-- Modal HTML -->
+	<form method="post" action="/chgPassword">
+		{{ csrf_field() }}
+		<div id="custommodal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Change password</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="oldPassword">Old password:</label>
+							<input id="oldPassword" name="pass[oldPassword]" type="password" class="form-control" maxlength="24" required>
+						</div>
+						<div class="form-group">
+							<label for="newPassword">New password:</label>
+							<input id="newPassword" name="pass[newPassword]" type="password" class="form-control" maxlength="24" required>
+						</div>
+						<div class="form-group">
+							<label for="newPasswordConfirm">Confirm new password:</label>
+							<input id="newPasswordConfirm" name="pass[password_confirm]" type="password" class="form-control" maxlength="24" required>
+						</div>
+					</div>
+					<div class="modal-footer" style="text-align: center;">
+						<button class="btn btn-success">Change</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 	{!! Form::open(array('url'=>'/editAvatar','method'=>'POST', 'files'=>true, 'id' =>'avatarForm')) !!}
 	{{ csrf_field() }}
 	<input type="file" class="uploadAvatar" name="avatar" accept="image/*" style="display: none;">
@@ -280,6 +357,13 @@ $user = \Auth::user();
 	});
 
 	$('input.uploadAvatar').on('change', function() {
+		var ext = $('.uploadAvatar').val().split('.').pop().toLowerCase();
+		
+		if($.inArray(ext, ['png','jpg']) == -1) {
+			$('.help-block.ext').show();
+			return;
+		}
+
 		document.getElementById('avatarForm').submit();
 	});
 
