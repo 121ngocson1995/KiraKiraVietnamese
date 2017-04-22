@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\P7ConversationMemorize;
-
+use Illuminate\Support\Facades\Input;
+use App\Lesson;
+use Redirect;
+use Illuminate\Support\Facades\Validator;
 class P7Controller extends Controller
 {
 	public function load(Request $request, $lessonNo)
@@ -44,7 +47,11 @@ class P7Controller extends Controller
 		return view("activities.P7v2", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 
-
+	/**
+	 * ABV
+	 * @param  Request $request
+	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 */
 	public function edit(Request $request) {
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
@@ -152,6 +159,6 @@ class P7Controller extends Controller
 		}
 
 
-		return Redirect("/listAct".$request->all()['lessonID']);
+		return redirect("/listAct".$request->all()['lessonID']);
 	}
 }

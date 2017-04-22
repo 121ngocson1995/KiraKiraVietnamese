@@ -13,9 +13,12 @@ use App\P4SentenceRecognize;
 use App\P5DialogueMemorize;
 use App\P6DialogueMultipleChoice;
 use App\P7ConversationMemorize;
+use App\P8ConversationFillWord;
+use App\P9ConversationFillSentence;
 use App\P10SentenceReorder;
 use App\P11ConversationReorder;
 use App\P14SentencePattern;
+
 
 class LessonController extends Controller
 {
@@ -307,7 +310,7 @@ class LessonController extends Controller
     		break;
 
     		case 'p8':
-    		$p8 = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo')->get();
+    		$p8 = P8ConversationFillWord::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
     		$dialogCnt = array();
 
     		for ($i=0; $i< count($p8); $i++){
@@ -320,10 +323,30 @@ class LessonController extends Controller
     			if ($dup == false) {
     				array_push($dialogCnt, $p8[$i]->dialogNo);
     			}
-
+    			$p8[$i]->line = explode('*', $p8[$i]->line);
     			$p8[$i]->answer = explode(',', $p8[$i]->answer);
     		}
     		return view('editP8', compact(['p8', 'dialogCnt', 'lessonId']));
+    		break;
+
+    		case 'p9':
+    		$p9 = P9ConversationFillSentence::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
+    		$dialogCnt = array();
+
+    		for ($i=0; $i< count($p9); $i++){
+    			$dup = false;
+    			for ($j=0; $j < count($dialogCnt) ; $j++) { 
+    				if($p9[$i]->dialogNo == $dialogCnt[$j]){
+    					$dup = true;
+    				}
+    			}
+    			if ($dup == false) {
+    				array_push($dialogCnt, $p9[$i]->dialogNo);
+    			}
+    			$p9[$i]->line = explode('*', $p9[$i]->line);
+    			$p9[$i]->answer = explode(',', $p9[$i]->answer);
+    		}
+    		return view('editp9', compact(['p9', 'dialogCnt', 'lessonId']));
     		break;
 
     		case 'p10':

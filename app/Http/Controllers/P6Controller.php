@@ -56,7 +56,7 @@ class P6Controller extends Controller
 
 	public function edit(Request $request)
 	{
-		// dd($request->all());
+		dd($request->all());
 		if ($request->has('update')) {
 			foreach ($request->update as $id => $value) {
 				$p6Element = P6DialogueMultipleChoice::where('id', '=', $id)->first();

@@ -262,7 +262,7 @@
 
 					var node_img = document.createElement("img");
 					node_img.setAttribute("class", "wordCloud");
-					node_img.setAttribute('style', " opacity: 0; width: 80%;");
+					node_img.setAttribute('style', " opacity: 0; width: 60%;");
 					node_img.setAttribute('src', "{{ asset('img/P8/word.svg') }}");
 					node_img.setAttribute('alt', "start button");
 
@@ -446,7 +446,7 @@ onmousedown="return false;">
 			<div class="flexContainer" style="display: flex">
 				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.3em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="opacity: 0; width: 80%;" src="{{ asset('img/P8/word.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 60%;" src="{{ asset('img/P8/word.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>

@@ -65,12 +65,13 @@
 	<div class="title"><h2>Edit Practice 2: Listen and find the correct words for lesson {{ $lessonId }}</h2></div>
 	{!! Form::open(array('url'=>'editP2','method'=>'POST', 'files'=>true, 'id' =>'p2Form')) !!}
 	<div id="p2Div">
-		<input type="hidden" name="lessonID" value="{{$p2[0]->lesson_id}}">
+		<input type="hidden" name="lessonID" value="{{$lessonId}}">
+		@if (count($p2) )
 		@for ($i = 1; $i <= count($p2)  ; $i++)
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-4">
 				<label for="word{{$i}}">Word</label>
-				<input type="text" id="word{{$i}}" class="form-control"  name="word{{$i}}" value="{{$p2[$i-1]->word}}">
+				<input type="text" id="word{{$i}}" class="form-control" required="true" name="word{{$i}}" value="{{$p2[$i-1]->word}}">
 			</div>
 			<div class="col-xs-4">
 				<label for="audio{{$i}}">Audio</label>
@@ -82,7 +83,9 @@
 			<input type="hidden" id="wordId{{$i}}" class="id" name="wordId{{$i}}" value="{{$p2[$i-1]->id}}">
 		</div>
 		@endfor
+		@endif
 	</div>
+	<br>
 	<div class="row" style="text-align: center;">
 		<button type="submit" class="btn btn-success editSituControl"><i class="fa fa-save" style="margin-right: 0.5em"></i>Save</button>
 		<button type="button" class="btn btn-primary editSituControl" onclick="AddRow()"><i class="fa fa-plus" style="margin-right: 0.5em"></i>Add</button>
@@ -95,8 +98,6 @@
 	var sumLine = p2.length;
 	var deleteLine = 0;
 	var addLine = 0;
-
-
 	$("#p2Form").submit( function(eventObj) {
 		$('<input />').attr('type', 'hidden')
 		.attr('name', "sumLine")
@@ -104,7 +105,6 @@
 		.appendTo('#p2Form');
 		return true;
 	});
-
 	function AddRow() {
 		addLine++;
 		sumLine++;
@@ -112,30 +112,24 @@
 		node_rowBig.setAttribute('class', 'row');
 		node_rowBig.setAttribute('id', "row"+(sumLine));
 		node_rowBig.setAttribute('data-line', sumLine);
-
 		/* Create label Situation n */
 		var div_word = document.createElement("div");
 		div_word.setAttribute('class', "col-xs-4");
-
 		label_word = document.createElement("label");
 		label_word.setAttribute('for', 'wordAdd'+ addLine);
 		label_word.innerHTML = 'Word';
-
 		var word_input = document.createElement("input");
 		word_input.setAttribute('type', "text");
 		word_input.setAttribute('class', "form-control");
 		word_input.setAttribute('name', "wordAdd"+ addLine);
 		word_input.setAttribute('required', "true");
-
 		div_word.appendChild(label_word);
 		div_word.appendChild(word_input);
 		var div_audio = document.createElement("div");
 		div_audio.setAttribute('class', "col-xs-4");
-
 		label = document.createElement("label");
 		label.setAttribute('for', 'audioAdd'+ addLine);
 		label.innerHTML = 'Audio';
-
 		var audio_input = document.createElement("input");
 		audio_input.setAttribute('type', 'file');
 		audio_input.setAttribute('required', 'true');
@@ -146,36 +140,27 @@
 		audio_input.setAttribute('data-show-upload', "false");
 		audio_input.setAttribute('data-show-caption', "true");
 		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
-
 		div_audio.appendChild(label);
 		div_audio.appendChild(audio_input);
-
 		var div_btn = document.createElement("div");
 		div_btn.setAttribute('class', "col-xs-4");
-
 		var deleteBtn = document.createElement("button");
 		deleteBtn.setAttribute('type', 'button');
 		deleteBtn.setAttribute('class', 'deleteBtn');
 		deleteBtn.setAttribute('onclick', 'deleteRow(this)');
-
 		var icon = document.createElement("i");
 		icon.setAttribute('class', 'fa fa-trash');
 		deleteBtn.appendChild(icon);
-
 		div_btn.appendChild(deleteBtn);
-
 		node_rowBig.appendChild(div_word);
 		node_rowBig.appendChild(div_audio);
 		node_rowBig.appendChild(div_btn);
-
 		document.getElementById("p2Div").appendChild(node_rowBig);
-
 		var $input = $('input.file[type=file]');
 		if ($input.length) {
 			$input.fileinput();
 		}
 	}
-
 	function deleteRow(button) {
 		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');
@@ -186,42 +171,39 @@
 			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
 			document.getElementById('p2Form').appendChild(node_delete);
 			$(button).closest('.row').empty().remove();
-		}
-		for (var i = 0; i < sumLine; i++) {
-			if (curLine < i) {
-				$("#row"+i).attr('data-line', i-1);
-				$("#row"+i).attr('id', "row"+(i-1));
-				$("#wordId"+i).attr('name', "wordId"+(i-1));
-				$("#wordId"+i).attr('id', "wordId"+(i-1));
-				$("#word"+(i)).attr('name', "word"+(i-1));
-				$("#word"+(i)).attr('id', "word"+(i-1));
-				$("#audio"+(i)).attr('name', "audio"+(i-1));
-				$("#audio"+(i)).attr('data-situ', (i-1));
-				$("#audio"+(i)).attr('id', "audio"+(i-1));
+			
+			for (var i = 0; i < sumLine; i++) {
+				if (curLine < i) {
+					$("#row"+i).attr('data-line', i-1);
+					$("#row"+i).attr('id', "row"+(i-1));
+					$("#wordId"+i).attr('name', "wordId"+(i-1));
+					$("#wordId"+i).attr('id', "wordId"+(i-1));
+					$("#word"+(i)).attr('name', "word"+(i-1));
+					$("#word"+(i)).attr('id', "word"+(i-1));
+					$("#audio"+(i)).attr('name', "audio"+(i-1));
+					$("#audio"+(i)).attr('data-situ', (i-1));
+					$("#audio"+(i)).attr('id', "audio"+(i-1));
+				}
 			}
+			sumLine--;
 		}
-		sumLine--;
 	}
-
 	$("#p2Form").submit( function(eventObj) {
 		var node_delete = document.createElement('input');
 		node_delete.setAttribute('type', 'hidden');
 		node_delete.setAttribute('name', 'sumDelete');
 		node_delete.setAttribute('value', deleteLine);
 		document.getElementById('p2Form').appendChild(node_delete);
-
 		var node_add = document.createElement('input');
 		node_add.setAttribute('type', 'hidden');
 		node_add.setAttribute('name', 'sumAdd');
 		node_add.setAttribute('value', addLine);
 		document.getElementById('p2Form').appendChild(node_add);
-
 		var node_origin = document.createElement("input");
 		node_origin.setAttribute('type', 'hidden');
 		node_origin.setAttribute('name',"sumOrigin");
 		node_origin.setAttribute('value', $('.origin').length);
 		document.getElementById('p2Form').appendChild(node_origin);
-
 		$('.undone').each(function() {
 			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
 				$('<input />').attr('type', 'hidden')
@@ -232,19 +214,16 @@
 			}
 		})
 	})
-
 	$(document).ready(function () {
 		$('.file.undone').on('change', function(event) {
 			var filename = this.value;
 			var extension = filename.split('.').pop();
-
 			if ($(this).hasClass('audio')) {
 				if (extension == 'mp3') {
 					$(this).removeClass('undone');
 					return;
 				}
 			}
-
 			$(this).addClass('undone');
 		});
 	});
