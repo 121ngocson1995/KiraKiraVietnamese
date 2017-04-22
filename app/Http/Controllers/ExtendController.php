@@ -61,6 +61,11 @@ class ExtendController extends Controller
 			return view("activities.Extendv2", compact(['elementData', 'contentArr','titleArr', 'cnt'])); 
 		}
 	}
+
+	public function edit(Request $request)
+	{
+		dd($request->all());
+	}
 }
 
 

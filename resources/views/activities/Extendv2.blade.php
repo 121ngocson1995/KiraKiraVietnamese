@@ -2,6 +2,7 @@
 
 @section('header-more')
 
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <style type="text/css">
     .partName {
         color: white;
@@ -62,6 +63,86 @@
     #imgStart {
         cursor: pointer;
     }
+    article {
+    	padding-top: 5%;
+    }
+    blockquote {
+    	float: none;
+    	padding: 0;
+    	border-top: initial;
+    	border-bottom: initial;
+    }
+	.container2:before {
+		transform: translateY(-30%);
+	}
+	.container2:after {
+		transform: translateY(10%);
+	}
+	.quote-text {
+		text-align: center;
+	}
+	.quote-detail {
+		font-family: 'Lobster', cursive;
+		font-size: 4em;
+		display: inline;
+	}
+	.fa.fa-quote-left {
+		position: absolute;
+		transform: translate(-50px);
+		font-size: 2em;
+	}
+	.fa.fa-quote-right {
+		position: absolute;
+		transform: translate(10px, 60px);
+		font-size: 2em;
+	}
+	.quote-box {
+	  border-radius: 15px;
+	  position: relative;
+	  margin: 10% auto auto auto;
+	  width: 450px;
+	  padding: 40px 60px;
+	  display: table;
+	  background-color: #fff;
+	}
+	.quote-box .quote-text {
+	  text-align: center;
+	  width: 450px;
+	  height: auto;
+	  clear: both;
+	  font-weight: 500;
+	  font-size: 1.75em;
+	  opacity: 0;
+	}
+	.quote-box .quote-text i {
+	  font-size: 1.0em;
+	  margin-right: 0.4em;
+	}
+	.quote-box .buttons .button#tweet-quote, .quote-box .buttons .button#tumblr-quote, .quote-box .buttons .button#googleplus-quote, .quote-box .buttons .button#facebook-quote {
+	  float: left;
+	  padding: 0px;
+	  padding-top: 8px;
+	  text-align: center;
+	  font-size: 1.2em;
+	  margin-right: 5px;
+	  height: 30px;
+	  width: 40px;
+	}
+	.quote-box .buttons .button#new-quote {
+	  float: right;
+	}
+
+	#image-quote {
+	  float:right;
+	  margin-right:2px;
+	}
+	div.table-responsive.play {
+		left: 0 !important;
+		position: initial !important;
+		transform: initial !important;
+		padding-top: 10px;
+		margin-right: 2em;
+	}
 </style>
 
 @stop
@@ -153,18 +234,21 @@
                                 <h2>{{ $typeVn[$elementData[$i]->type] }}</h2>
                                 <h3>{{ $typeEn[$elementData[$i]->type] }}</h2>
                             </div>
+                            <div class="row" style=" margin: 2em 0 0">
+                            	<h3 style="font-style: italic;">{{ $elementData[$i]->title }}</h3>
+                            </div>
                             <div>
-                                <p>
+                                <div class="col-sm-5 col-sm-offset-1" style="text-align: center; font-weight: bold; margin-top: 1em; margin-bottom: 1em">
                                     <span>Composer: </span>
                                     <span>{{ $elementData[$i]->song_composer }}</span>
-                                </p>
-                                <p>
+                                </div>
+                                <div class="col-sm-5" style="text-align: center; font-weight: bold; margin-top: 1em; margin-bottom: 1em">
                                     <span>Performer: </span>
                                     <span>{{ $elementData[$i]->song_performer }}</span>
-                                </p>
+                                </div>
                             </div>
-                            <div style="vertical-align: center;">
-                                <img class="limit" style="width: 80%; padding-left: 18%;" src=" {{ asset($thumbArr[1][0]) }} ">
+                            <div style="text-align: center;">
+                                <img class="limit" style="width: 80%;" src=" {{ asset($thumbArr[1][0]) }} ">
                             </div>
                         </div>
                     </div>
@@ -212,17 +296,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody class="extendtable">
-                                                @for ($k = 0; $k < count($contentArr[$i]) ; $k++)
-                                                <tr>
-                                                    <td>{{ $contentArr[$i][$k]}}</td>
-                                                </tr>
-                                                @endfor
-                                            </tbody>
-                                        </table>
-                                    </div>
+
+                                	<div class="quote-text">
+                                	    <i class="fa fa-quote-left"> </i>
+
+                                	    <div class="quote-detail">
+                                	    @for ($k = 0; $k < count($contentArr[$i]) ; $k++)
+											{{ $contentArr[$i][$k]}}
+										@endfor
+										</div>
+
+                                	    <i class="fa fa-quote-right"></i>
+                                	  </div>
                                 </div>
                             </div>
                         </div>
@@ -275,20 +360,22 @@
                                     <h3>{{ $typeEn[$elementData[$i]->type] }}</h2>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody class="extendtable">
-                                                @for ($k = 0; $k < count($contentArr[$i]) ; $k++)
-                                                <tr>
-                                                    <td>{{ $contentArr[$i][$k]}}</td>
-                                                </tr>
-                                                @endfor
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+	                            <div class="row" style="text-align: center;">
+									<div style="display: inline-block; width: auto;">
+									<div class="table-responsive play">
+										    <table class="table">
+										        <tbody class="extendtable">
+										            @foreach (explode('|', $elementData[$i]->content) as $line)
+										            <tr>
+										                <td>{{ $line }}</td>
+										            </tr>
+										            @endforeach
+										        </tbody>
+										    </table>
+										</div>
+									</div>
+									<img src="{{ asset($elementData[$i]->thumbnail) }}" style="max-height: 300px; vertical-align: initial;" alt="">
+
                             </div>
                         </div>
                     </div>

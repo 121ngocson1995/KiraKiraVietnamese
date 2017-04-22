@@ -18,6 +18,7 @@ use App\P11ConversationReorder;
 use App\P12GroupInteraction;
 use App\P13Text;
 use App\P14SentencePattern;
+use App\LanguageCulture;
 
 class LessonController extends Controller
 {
@@ -402,32 +403,38 @@ class LessonController extends Controller
             return view('manage.editP13', compact(['p13', 'lessonId']));
             break;
 
-			case 'p14':
-			$p14 = P14SentencePattern::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+            case 'p14':
+            $p14 = P14SentencePattern::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		for ($pId = 0; $pId < count($p14); $pId++) {
-    			$sentence = $p14[$pId]->sentence;
-    			$sentencePart = explode('*', $sentence);
-    			$sentenceParts = array();
+            for ($pId = 0; $pId < count($p14); $pId++) {
+                $sentence = $p14[$pId]->sentence;
+                $sentencePart = explode('*', $sentence);
+                $sentenceParts = array();
 
-    			for ($i=0; $i < count($sentencePart); $i++) { 
-    				if(empty($sentencePart[$i])) {
-    					array_splice($sentencePart, $i, $i+1);
-    					$i--;
-    					continue;
-    				}
+                for ($i=0; $i < count($sentencePart); $i++) { 
+                    if(empty($sentencePart[$i])) {
+                        array_splice($sentencePart, $i, $i+1);
+                        $i--;
+                        continue;
+                    }
 
-    				$partOption = explode('|', $sentencePart[$i]);
-    				$sentenceParts[] = $partOption;
-    			}
+                    $partOption = explode('|', $sentencePart[$i]);
+                    $sentenceParts[] = $partOption;
+                }
 
-    			$p14[$pId]->sentenceParts = $sentenceParts;
-    		}
-    		return view('manage.editP14', compact(['p14', 'lessonId']));
-    		break;
+                $p14[$pId]->sentenceParts = $sentenceParts;
+            }
+            return view('manage.editP14', compact(['p14', 'lessonId']));
+            break;
 
-    		default:
-    		return redirect('/');
+            case 'extensions':
+            $ext = LanguageCulture::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
+
+            return view('manage.editExt', compact(['ext', 'lessonId']));
+            break;
+
+            default:
+            return redirect('/');
     		break;
     	}
     } 
