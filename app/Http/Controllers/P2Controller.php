@@ -14,6 +14,7 @@ class P2Controller extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -24,6 +25,7 @@ class P2Controller extends Controller
     
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -32,10 +34,11 @@ class P2Controller extends Controller
      */
 	public function load(Request $request, $lessonNo)
 	{
-    	// get lesson
+    	 //　レッスンを取る。
 		$lesson = LessonController::getLesson($lessonNo);
 
 		// get P2
+		// P2を取る。
 		$elementData = P2WordRecognize::where('lesson_id', '=', $lesson->id)->get();
 
 		$textRender = array();
@@ -54,6 +57,7 @@ class P2Controller extends Controller
 
     /**
      * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
      *
      * @param Request $request
      *

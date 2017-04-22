@@ -14,6 +14,7 @@ class UserController extends Controller
 {
 	/**
 	* Create a new controller instance.
+	*　新しいインスタントのコントローラーを作成する。
 	*
 	* @return void
 	*/
@@ -24,6 +25,7 @@ class UserController extends Controller
 
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -32,9 +34,12 @@ class UserController extends Controller
      */	
     public function load()
     {
-		// dummy course và lesson
+		// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$user_id= Auth::id();
-		// Lấy dữ liệu từ db
+
+		// Load data from Database
+        // データベースからデータを出す。
     	$userData = User::where('id', '=', $user_id)->get()->toArray();
     	$roleData = Role::get();
     	for ($i=0; $i <count($roleData) ; $i++) { 
@@ -47,6 +52,7 @@ class UserController extends Controller
 
     /**
      * Return new records of users
+     * 新しいユーザーの記録をリターンする。
      * 
      * @param  Request  	$request
      * @param  string 		$type
@@ -120,6 +126,7 @@ class UserController extends Controller
 
 	/**
 	 * Update user's role
+	 * ユーザーの役割を更新する。
 	 * 
 	 * @param  Request      $request
 	 * @return void
@@ -141,13 +148,15 @@ class UserController extends Controller
 
 	/**
 	 * Perform editing user's information
+	 * ユーザーの情報を編集することを行う。
 	 * 
 	 * @param  Request     $request
 	 * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
 	 */
 	public function edit(Request $request)
 	{
-		// Lấy dữ liệu từ db;
+		// Load data from database.
+		//データベースからデータをロードする。
 		$user_id= Auth::id();
 		$userData = User::find($user_id);
 
@@ -192,6 +201,8 @@ class UserController extends Controller
 
 	/**
 	 * Update user's avatar
+	 *　ユーザーのアバターを更新する。　
+	 *
 	 * @param  Request    $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
@@ -220,6 +231,7 @@ class UserController extends Controller
 
 	/**
 	 * Update user's password
+	 * ユーザーのパスワードを更新する。
 	 * 
 	 * @param  Request     $request
 	 * @return \Illuminate\Http\RedirectResponse

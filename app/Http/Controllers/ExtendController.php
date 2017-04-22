@@ -9,6 +9,7 @@ class ExtendController extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -19,6 +20,7 @@ class ExtendController extends Controller
        
     /**
      * Load data from database.
+     * データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -27,11 +29,9 @@ class ExtendController extends Controller
      */
 	public function load(Request $request, $lessonNo)
 	{
-    	// get lesson
+    	
         $lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
-
-		// Lấy dữ liệu từ db
 		$elementData = LanguageCulture::where('lesson_id', '=', $lesson_id)->get();
 		$cnt = count($elementData);
 

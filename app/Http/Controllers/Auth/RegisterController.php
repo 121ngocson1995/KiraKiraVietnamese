@@ -13,11 +13,14 @@ class RegisterController extends Controller
     /*
     |--------------------------------------------------------------------------
     | Register Controller
+    | 登録のコントローラー
     |--------------------------------------------------------------------------
     |
     | This controller handles the registration of new users as well as their
     | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
+    | provide this functionality without requiring any additional code.　
+    | このコントローラーは、新しい登録するユーザーとそれらの検証と作成の同様に処理する。
+    | デフォルトで、このコントローラーは特性を使用して、追加ルールを必要とせずにこの機能を提供する。
     |
     */
 
@@ -25,6 +28,7 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
+     *　登録の後にユーザーをリダイレクトするの所です。
      *
      * @var string
      */
@@ -32,6 +36,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -42,6 +47,7 @@ class RegisterController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
+     *　着信登録要求のため、バリデータを取る。
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -71,6 +77,7 @@ class RegisterController extends Controller
 
     /**
      * Save CV file into storage for later review..
+     *　レビューのため、ストレージでCVファイルを保存する。
      *
      * @param  Request  $request
      * @return string
@@ -90,6 +97,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
+     *　有効な登録の後、新しいインスタントのユーザーを作成する。
      *
      * @param  array  $data
      * @return User
