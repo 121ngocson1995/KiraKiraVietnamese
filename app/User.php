@@ -11,6 +11,7 @@ class User extends Authenticatable
 
     /**
      * Get the role associated with the user.
+     *　ユーザーに関連付けられた役割を取る。
      */
     public function role()
     {
@@ -19,6 +20,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
+     *　割り当て可能な属性。
      *
      * @var array
      */
@@ -28,6 +30,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
+     *　アレイのため、属性が隠されたたほうがいい。
      *
      * @var array
      */
@@ -37,6 +40,7 @@ class User extends Authenticatable
     
     /**
      * Get the courses added by the administrator.
+     *　コースが管理者に追加されたのを取る。
      */
     public function added_courses()
     {
@@ -44,6 +48,7 @@ class User extends Authenticatable
     }
     /**
      * Get the courses last updated by the administrator.
+     *　コースが管理者に最終更新されたのを取る。
      */
     public function updated_courses()
     {
@@ -51,6 +56,7 @@ class User extends Authenticatable
     }
     /**
      * Get the lessons added by the administrator.
+     *　レッスンが管理者に追加されたのを取る。
      */
     public function added_lessons()
     {
@@ -58,6 +64,7 @@ class User extends Authenticatable
     }
     /**
      * Get the lessons last updated by the administrator.
+     *　レッスンが管理者に最終更新されたのを取る。
      */
     public function updated_lessons()
     {

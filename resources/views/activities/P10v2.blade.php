@@ -316,6 +316,7 @@
 				}
 
 				/* change position of draggable element along with drop target */
+				//  ドロップタゲットと一緒にドラッグの可能な位置変更する。
 				$('.dropWord').each(function() {
 					if ($(this).data('curDrag') != ui.draggable) {
 						rePosition($(this), $(this).data('curDrag'));
@@ -327,6 +328,7 @@
 				dropTarget.css('width', dropInitialWidth);
 
 				/* change position of draggable element along with drop target */
+				// ドロップタゲットと一緒にドラッグの可能な要素位置変更する。
 				$('.dropWord').each(function() {
 					if ($(this).data('curDrag') != ui.draggable) {
 						rePosition($(this), $(this).data('curDrag'));
@@ -335,6 +337,7 @@
 			},
 			drop: function(event, ui) {
 				/* exhange draggable element if drop target already have one */
+				// ドロップタゲットが１つあったら、ドラッグの可能な要素を交換する。
 				if($(this).data('curDrag')) {
 					var lastDrag = $(this).data('curDrag');
 					
@@ -364,6 +367,7 @@
 				}
 
 				/* place draggable element at the middle of drop target */
+				// ドロップタゲットの中間でドラッグの可能な要素を位置する。
 				var dropTarget = $(this);
 				dropTarget.css('width', ui.draggable.css('width'));
 
@@ -396,6 +400,7 @@
 
 	function rePosition(drop, drag) {
 		/* change position of draggable element along with drop target */
+		// ドロップタゲットと一緒にドラッグの可能な要素位置変更する。
 		if (drop.data('curDrag')) {
 			drag.position({
 				my: "center",

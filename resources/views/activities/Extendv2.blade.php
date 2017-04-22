@@ -190,6 +190,7 @@
             <div class="content_body">
             @if ($elementData[$i]->type == 0)
             <!-- Hình ảnh Việt Nam -->
+            {{-- ベトナムのイメージ --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 carousel fix">
@@ -226,6 +227,7 @@
                 </div>
             @elseif ($elementData[$i]->type == 1)
             <!-- Bài hát cho em -->
+            {{-- 子供たちの音楽 --}}
                 <a href="#part1" class="panelt" ></a>
                 <div class="song_body">
                     <div class="container">
@@ -256,6 +258,7 @@
                 </div>
             @elseif ($elementData[$i]->type == 2)
             <!-- Em đọc thơ -->
+            {{-- 詩 --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 carousel fix">
@@ -284,7 +287,9 @@
                     </div>
                 </div>
             @elseif ($elementData[$i]->type == 3)
+
             <!-- Thành ngữ - Tục ngữ - Ca dao -->
+            {{-- イディオム --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 carousel fix">
@@ -314,7 +319,9 @@
                     </div>
                 </div>
             @elseif ($elementData[$i]->type == 4)
+
             <!-- Thử đoán nào -->
+            {{-- 謎 --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 carousel fix">
@@ -351,6 +358,8 @@
                
             @elseif ($elementData[$i]->type == 5)
             <!-- Cùng chơi các bạn ơi -->
+            {{-- ゲーム --}}
+
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 carousel fix">
@@ -391,7 +400,7 @@
 
     @for($i=0; $i<$cnt; $i++)
         @if ($elementData[$i]->type == 4)
-            <!-- Modal -->
+            <!-- Modal ・モデル-->
             <div class="modal fade" id="myModal{{ $i+1 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{ $i+1 }}">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">

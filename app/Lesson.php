@@ -13,6 +13,7 @@ class Lesson extends Model
 
     /**
 	 * Get the administrator that added the lesson.
+     * レッスンを追加した管理者を取る。
 	 */
 	public function administrator_added()
 	{
@@ -21,6 +22,7 @@ class Lesson extends Model
 
     /**
 	 * Get the administrator that last updated the lesson.
+     * レッスンを最終更新した管理者を取る。
 	 */
 	public function administrator_last_updated()
 	{
@@ -30,6 +32,7 @@ class Lesson extends Model
 
     /**
      * Get the situations belongs to the lesson.
+    　*　レッスンンに属する「situations」を取る。
      */
     public function situations()
     {
@@ -38,6 +41,7 @@ class Lesson extends Model
 
     /**
      * Get the P1Element belongs to the lesson.
+     *　レッスンンに属する「P1Element」を取る。
      */
     public function p1()
     {
@@ -46,6 +50,7 @@ class Lesson extends Model
 
     /**
      * Get the P2Element belongs to the lesson.
+    　*　レッスンンに属する「P2Element」を取る。
      */
     public function p2()
     {
@@ -54,6 +59,7 @@ class Lesson extends Model
 
     /**
      * Get the P3Element belongs to the lesson.
+     *　レッスンンに属する「P3Element」を取る。
      */
     public function p3()
     {
@@ -62,6 +68,7 @@ class Lesson extends Model
 
     /**
      * Get the P4Element belongs to the lesson.
+     *　レッスンンに属する「P4Element」を取る。
      */
     public function p4()
     {
@@ -70,6 +77,7 @@ class Lesson extends Model
 
     /**
      * Get the P5Element belongs to the lesson.
+     *　レッスンンに属する「P5Element」を取る。
      */
     public function p5()
     {
@@ -78,6 +86,7 @@ class Lesson extends Model
 
     /**
      * Get the P6Element belongs to the lesson.
+     *　レッスンンに属する「P6Element」を取る。
      */
     public function p6()
     {
@@ -86,6 +95,7 @@ class Lesson extends Model
 
     /**
      * Get the P7Element belongs to the lesson.
+     *　レッスンンに属する「P7Element」を取る。
      */
     public function p7()
     {
@@ -94,6 +104,7 @@ class Lesson extends Model
 
     /**
      * Get the P8Element belongs to the lesson.
+     *　レッスンンに属する「P8Element」を取る。
      */
     public function p8()
     {
@@ -102,6 +113,7 @@ class Lesson extends Model
 
     /**
      * Get the P9Element belongs to the lesson.
+     *　レッスンンに属する「P9Element」を取る。
      */
     public function p9()
     {
@@ -110,6 +122,7 @@ class Lesson extends Model
 
     /**
      * Get the P10Element belongs to the lesson.
+     *　レッスンンに属する「P10Element」を取る。
      */
     public function p10()
     {
@@ -118,6 +131,7 @@ class Lesson extends Model
 
     /**
      * Get the P11Element belongs to the lesson.
+     *　レッスンンに属する「P11Element」を取る。
      */
     public function p11()
     {
@@ -126,6 +140,7 @@ class Lesson extends Model
 
     /**
      * Get the P12Element belongs to the lesson.
+     *　レッスンンに属する「P12Element」を取る。
      */
     public function p12()
     {
@@ -134,6 +149,7 @@ class Lesson extends Model
 
     /**
      * Get the P13Element belongs to the lesson.
+     *　レッスンンに属する「P13Element」を取る。
      */
     public function p13()
     {
@@ -142,6 +158,7 @@ class Lesson extends Model
 
     /**
      * Get the P14Element belongs to the lesson.
+     *　レッスンンに属する「P14Element」を取る。
      */
     public function p14()
     {
@@ -150,6 +167,7 @@ class Lesson extends Model
 
     /**
      * Get the Extensions belongs to the lesson.
+     *　レッスンンに属する「Extensions」を取る。
      */
     public function languageCultures()
     {
@@ -157,7 +175,8 @@ class Lesson extends Model
     }
 
     /**
-     * Get the Extensions belongs to the lesson.
+     * Get the lessonNotes belongs to the lesson.
+     *　レッスンンに属する「lessonNotes」を取る。
      */
     public function lessonNotes()
     {

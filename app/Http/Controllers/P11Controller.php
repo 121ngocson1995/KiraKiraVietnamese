@@ -9,6 +9,7 @@ class P11Controller extends Controller
 {
     /**
     * Create a new controller instance.
+    *　新しいインスタントのコントローラーを作成する。
     *
     * @return void
     */
@@ -19,6 +20,7 @@ class P11Controller extends Controller
 
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -28,10 +30,12 @@ class P11Controller extends Controller
     public function load(Request $request, $lessonNo)
     {
     	// get lesson
+        //　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
         $lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
     	$initOrder = [];
     	$correctAnswer = [];
@@ -56,6 +60,7 @@ class P11Controller extends Controller
 
     /**
      * Create a list with all possible answers.
+     *　すべての可能な回答のリストを作成する。
      *
      * @param Collection $elementData
      *
@@ -94,6 +99,7 @@ class P11Controller extends Controller
 
     /**
      * Reorder the answer list based on "correctOrder" field.
+     *　「correctOrder」によって、回答のリストを並べ替える。
      *
      * @param Array $answerListPreArranged
      *
@@ -112,6 +118,7 @@ class P11Controller extends Controller
 
     /**
      * Perform sorting on the given array.
+     *　指定されたアレイで並べ替えることを行う。
      *
      * @param Array $answer
      *
@@ -125,6 +132,7 @@ class P11Controller extends Controller
 
     /**
      * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
      *
      * @param Request $request
      *

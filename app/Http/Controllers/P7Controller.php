@@ -13,6 +13,7 @@ class P7Controller extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -23,6 +24,7 @@ class P7Controller extends Controller
     
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -32,10 +34,12 @@ class P7Controller extends Controller
 	public function load(Request $request, $lessonNo)
 	{
 		// get lesson
+		//　レッスンを取る。
 		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-    		// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
 		$elementData = P7ConversationMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
 		$cnt = count($elementData);
 		$dialogCnt = array();
@@ -68,6 +72,7 @@ class P7Controller extends Controller
 
     /**
      * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
      *
      * @param Request $request
      *

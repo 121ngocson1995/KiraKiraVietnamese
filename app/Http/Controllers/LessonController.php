@@ -24,6 +24,7 @@ class LessonController extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -34,6 +35,7 @@ class LessonController extends Controller
 
     /**
      * Fetch the chosen lesson from database
+     * データベースから選択したレッスンをフェッチする。
      * 
      * @param  integer       $lesson
      * @param  integer       $course_id
@@ -47,15 +49,20 @@ class LessonController extends Controller
 
     /**
      * Return "add lesson" screen
-     * 
+     * 「add lesson」画面をリターンする。
+
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function preAdd()
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
+
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
+
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
     	$lessonCnt = count($lessonData);
@@ -69,15 +76,18 @@ class LessonController extends Controller
 
     /**
      * Perform inserting to database
+     * データベースへの挿入を実行する。
      * 
      * @param Request   $request
      */
     public function add(Request $request)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonNew = new Lesson;
     	$lessonNew->course_id = $course_id;
     	$lessonNew->lessonNo = $request->all()['lsnNo'];
@@ -92,15 +102,18 @@ class LessonController extends Controller
 
     /**
      * Return all lessons
+     * 全てのレッスンをリターンする。
      * 
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function listLesson()
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
 
     	return view('listLesson', compact('lessonData'));
@@ -113,10 +126,12 @@ class LessonController extends Controller
      */
     public function delete($lessonNo) 
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonNo)->delete();
 
@@ -125,16 +140,19 @@ class LessonController extends Controller
 
     /**
      * Return lesson's information for editing
+     * 編集のため、レッスンの情報をリターンする。
      * 
      * @param  integer      $lessonNo
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function preEdit($lessonNo)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$courseData = Course::where('id', '=', $course_id)->get();
     	$lessonData = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonNo)->get();
 
@@ -143,16 +161,19 @@ class LessonController extends Controller
 
     /**
      * Perform updating lesson
-     * 
+     * 更新レッスンを行う。
+     *
      * @param  Request      $request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($request->all()['lesson_id']);
     	$lessonEdit->course_id = $course_id;
     	$lessonEdit->lessonNo = $request->all()['lsnNo'];
@@ -168,6 +189,7 @@ class LessonController extends Controller
 
     /**
      * Return a list of the chosen lesson's activities
+     * 選択したレッスンのリストをリターンする。
      * 
      * @param  integer      $lessonid
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
@@ -264,6 +286,7 @@ class LessonController extends Controller
 
     /**
      * Return "edit activity" screen
+     * 「edit activity」画面をリターンする。
      * 
      * @param  integer      $lessonId
      * @param  string       $activityName
@@ -271,10 +294,12 @@ class LessonController extends Controller
      */
     public function preEditAct($lessonId, $activityName)
     {
-    	// dummy course và lesson
+    	// Dummy course and lesson
+        // コースとレッスンをダミーする。
     	$course_id= 1;
 
-    	// Lấy dữ liệu từ db
+    	// Load data from Database
+        // データベースからデータを出す。
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($lessonId);
     	switch ($activityName) {
     		case 'situations':

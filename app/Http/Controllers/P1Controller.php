@@ -13,6 +13,7 @@ class P1Controller extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -23,6 +24,7 @@ class P1Controller extends Controller
     
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -42,6 +44,7 @@ class P1Controller extends Controller
 	
     /**
      * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
      *
      * @param Request $request
      *

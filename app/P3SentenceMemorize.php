@@ -8,6 +8,7 @@ class P3SentenceMemorize extends Model
 {
     /**
 	 * Get the parent lesson.
+	 * 親レッスンを取る。
 	 */
 
     use SoftDeletes;

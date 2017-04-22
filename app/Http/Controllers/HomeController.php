@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -18,7 +19,8 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     *　アプリケーションのダッシュボードを表す。
+     *　
      * @return \Illuminate\Http\Response
      */
     public function index()

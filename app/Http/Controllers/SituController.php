@@ -14,6 +14,7 @@ class SituController extends Controller{
 
     /**
      * Create a new controller instance.
+     *　新しいインスタントのコントローラーを作成する。
      *
      * @return void
      */
@@ -24,6 +25,7 @@ class SituController extends Controller{
 
     /**
      * Load data from database.
+     *　データベースからデータをロードする。
      *
      * @param Request $request
      * @param integer $lessonNo
@@ -32,10 +34,12 @@ class SituController extends Controller{
      */
 	public function load(Request $request, $lessonNo){
     	// get lesson
+    	//　レッスンを取る。
 		$lesson = LessonController::getLesson($lessonNo);
 		$lesson_id = $lesson->id;
 
-		// Lấy dữ liệu từ db
+		// Load data from Database
+        // データベースからデータを出す。
 		$noteData = LessonNote::where('lesson_id', '=', $lesson_id)->orderBy('noteNo', 'asc')->get();
 		$cnt = count($noteData);
 		if ($cnt != 0)
@@ -63,6 +67,7 @@ class SituController extends Controller{
 
     /**
      * Update database based on user's input.
+     *　ユーザーからの入力によって、データベースを更新する。
      *
      * @param Request $request
      *

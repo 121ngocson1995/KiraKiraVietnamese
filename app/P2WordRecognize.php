@@ -9,6 +9,7 @@ class P2WordRecognize extends Model
 	use SoftDeletes;
     /**
 	 * Get the parent lesson.
+	 * 親レッスンを取る。
 	 */
 	public function lesson()
 	{
