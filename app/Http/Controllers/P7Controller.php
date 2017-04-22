@@ -70,6 +70,7 @@ class P7Controller extends Controller
 		return view("activities.P7v2", compact(['elementData', 'contentArr', 'audioArr', 'dialogCnt']));
 	}  
 
+
     /**
      * Update database based on user's input.
      *　ユーザーからの入力によって、データベースを更新する。
@@ -184,6 +185,9 @@ class P7Controller extends Controller
 			}
 		}
 
-		return Redirect("/listAct".$request->all()['lessonID']);
+
+
+		return redirect("/listAct".$request->all()['lessonID']);
+
 	}
 }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class P9ConversationFillSentence extends Model
+class P8ConversationFillWord extends Model
 {
 	use SoftDeletes;
     /**
