@@ -172,6 +172,11 @@
 	var toAdd = -1;
 	var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length : 0;
 
+	/**
+	 * Create a new sentence
+	 *
+	 * @return {void}
+	 */
 	function newSentence() {
 		var tr = document.createElement('tr');
 		tr.className = 'sentence';
@@ -264,6 +269,11 @@
 		document.getElementsByTagName('tbody')[0].appendChild(tr);
 	}
 
+	/**
+	 * Store id of content to be deleted
+	 *
+	 * @type {String}
+	 */
 	var toDelete = '';
 
 	function deleteSentence(sentenceRow) {
@@ -287,6 +297,13 @@
 		}
 	}
 
+	/**
+	 * Delete an order
+	 *
+	 * @param  {integer}
+	 *
+	 * @return {[type]}
+	 */
 	function deleteOrder(orderColumn) {
 		if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
 			return;
@@ -312,6 +329,11 @@
 		}
 	}
 
+	/**
+	 * Create a new order
+	 *
+	 * @return {void}
+	 */
 	function newOrder() {
 		for (var i = 0; i < $('tr.sentence').length; i++) {
 			var tr = $('tr.sentence')[i];
@@ -352,6 +374,11 @@
 		$(closeHolder).append("&nbsp;");
 	}
 
+	/**
+	 * Check if the entered order is in the correct format
+	 *
+	 * @return {Boolean}
+	 */
 	function isOrderFormatCorrect() {
 		var orderList = new Array;
 		for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
@@ -384,6 +411,13 @@
 		return true;
 	}
 
+	/**
+	 * Show alert message
+	 *
+	 * @param  {string}
+	 *
+	 * @return {void}
+	 */
 	function alert(message) {
 		var div = document.createElement('div');
 		div.className = 'alert alert-warning fade in';
@@ -409,6 +443,13 @@
 		$('#error').prepend(div);
 	}
 
+	/**
+	 * Highlight the error section
+	 *
+	 * @param  {string}
+	 *
+	 * @return {void}
+	 */
 	function markError(orderNo) {
 		for (var i = 0; i < $('tr.sentence').length; i++) {
 			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
@@ -421,6 +462,13 @@
 		}
 	}
 
+	/**
+	 * Unhighlight the error section
+	 *
+	 * @param  {integer}
+	 *
+	 * @return {void}
+	 */
 	function unmarkError(orderNo) {
 		for (var i = 0; i < $('tr.sentence').length; i++) {
 			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
@@ -429,6 +477,13 @@
 		}
 	}
 
+	/**
+	 * Highlight a column
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function focusCol(input) {
 		var index = [].indexOf.call(input.parentNode.children, input);
 		
@@ -437,6 +492,13 @@
 		}
 	}
 
+	/**
+	 * Unhighlight a column
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function blurCol(input) {
 		var index = [].indexOf.call(input.parentNode.children, input);
 
@@ -445,31 +507,37 @@
 		}
 	}
 
+	/**
+	 * Create a new sentence
+	 */
 	$('#newSentenceBtn').click(function() {
 		newSentence();
 	});
 
+	/**
+	 * Create a new order
+	 */
 	$('#newOrderBtn').click(function() {
 		newOrder();
 	});
 
+	/**
+	 * Delete a sentence upon button click
+	 */
 	$('.horizontal.close').click(function() {
 		deleteSentence($(this).closest('tr'));
 	})
 
+	/**
+	 * Delete an order upon button click
+	 */
 	$('.vertical.close').click(function() {
 		deleteOrder([].indexOf.call(this.parentNode.children, this));
 	})
 
-	$('.pill-toggle').click(function(e) {
-		e.preventDefault();
-		$('.pill-toggle').parent().removeClass('active');
-		$(this).parent().addClass('active');
-
-		var orderNo = $(this).attr('id').replace('answer', '');
-		showOrder(orderNo);
-	});
-
+	/**
+	 * Highlight a column when user click an input belonging to that column
+	 */
 	$('input.order-input')
 	.focus(function() {
 		focusCol(this);
@@ -477,6 +545,9 @@
 		blurCol(this);
 	});
 
+	/**
+	 * Add a list of id of element to delete to the submiting form
+	 */
 	$("#p11Form").submit( function(eventObj) {
 		if(!isOrderFormatCorrect()) {
 			return false;

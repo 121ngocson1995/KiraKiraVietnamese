@@ -160,14 +160,29 @@
 	var toAdd = 0;
 	var sentenceNo = {{ $sentenceNo }};
 
+	/**
+	 * Call function to change textbox's width
+	 */
 	$('input').each(function() {
 		changeTextboxWidth(this);
 	});
 
+	/**
+	 * Change textbox's width
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
 	function changeTextboxWidth(input) {
 		input.size = parseInt(input.value.length) + 1;
 	}
 
+	/**
+	 * Add a new sentence
+	 *
+	 * @return {void}
+	 */
 	function addSentence() {
 		var div = document.createElement('div');
 		div.className = 'row sentence-holder';
@@ -259,8 +274,20 @@
 		$('.sentences').find('input').last().focus();
 	}
 
+	/**
+	 * Store id of content to be deleted
+	 * 
+	 * @type {String}
+	 */	
 	var toDelete = '';
 
+	/**
+	 * Delete a sentence
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {[type]}
+	 */
 	function deleteSentence(sentence) {
 		$(sentence).find('.word').each(function() {
 			deleteWord($(this));
@@ -276,6 +303,11 @@
 		}
 	}
 
+	/**
+	 * Add a new word
+	 *
+	 * @param {void}
+	 */
 	function addWord(button) {
 		var sentenceParts = $(button).closest('div.sentence-holder').find('.sentenceParts');
 		var existedWords = sentenceParts.find('.word');
@@ -290,6 +322,13 @@
 		$(sentenceParts).find('input').last().focus();
 	}
 
+	/**
+	 * Delete a word
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {[type]}
+	 */
 	function deleteWord(word) {
 		if(word.find('.wordText').attr('name').indexOf('update') != -1) {
 			var name = word.find('.wordText').attr('name');
@@ -305,6 +344,13 @@
 		word.remove();
 	}
 
+	/**
+	 * Return newly created word object
+	 *
+	 * @param  {integer}
+	 *
+	 * @return {DOM Object}
+	 */
 	function createWord(sentenceNo=null) {
 		var word = document.createElement('div');
 		word.className = 'word';
@@ -358,6 +404,9 @@
 		return word;
 	}
 
+	/**
+	 * Show Add sentence button when hovering on a sentence
+	 */
 	$('div.sentence-holder').hover(function() {
 		$(this).find('button.addPartBtn').fadeIn(60);
 		$(this).find('.deleteSentence').fadeIn(60);
@@ -366,28 +415,46 @@
 		$(this).find('.deleteSentence').fadeOut(60);
 	});
 
+	/**
+	 * Show Delete button when hovering on a word
+	 */
 	$('.word').hover(function() {
 		$(this).find('button.deleteOption').fadeIn(60);
 	}, function() {
 		$(this).find('button.deleteOption').fadeOut(60);
 	});
 
+	/**
+	 * Delete word upon button click
+	 */
 	$('button.deleteOption').click(function() {
 		deleteWord($(this).closest('div.word'));
 	});
 
+	/**
+	 * Add a new word upon button click
+	 */
 	$('button.addPartBtn').click(function() {
 		addWord(this);
 	});
 
+	/**
+	 * Add a new sentence upon button click
+	 */
 	$('button#newSentenceBtn').click(function() {
 		addSentence();
 	});
 
+	/**
+	 * Delete a sentence upon button click
+	 */
 	$('.deleteSentence button').click(function() {
 		deleteSentence($(this).closest('.sentence-holder'));
 	});
 
+	/**
+	 * Add a list of id of element to delete to the submiting form
+	 */
 	$("#p10Form").submit( function(eventObj) {
 		console.log(toDelete);
 		if (toDelete) {

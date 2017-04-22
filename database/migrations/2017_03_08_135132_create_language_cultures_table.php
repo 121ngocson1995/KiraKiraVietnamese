@@ -32,7 +32,7 @@ class CreateLanguageCulturesTable extends Migration
                 *  5: game
                 */
             $table->string('title')->nullable();
-            $table->mediumText('content');
+            $table->mediumText('content')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('audio')->nullable();
             $table->string('video')->nullable();

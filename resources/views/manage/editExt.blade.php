@@ -63,7 +63,6 @@
 		padding: 10px 10px 0 10px;
 	}
 	
-
 	button {
 		outline: none;
 	}
@@ -164,7 +163,7 @@
 			@if ($element->type == 0)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" disabled="" readonly="readonly">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
@@ -212,7 +211,7 @@
 			@elseif ($element->type == 1)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" readonly="">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
@@ -256,7 +255,7 @@
 			@elseif ($element->type == 2)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" readonly="">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
@@ -278,14 +277,14 @@
 			@elseif ($element->type == 3)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" readonly="">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
 				<div class="row">
 					<div class="col-sm-12 form-group">
-						<label for="updateidiom{{ $element->id }}-title">Idioms – Proverbs – Folk-song:</label>
-						<textarea id="updateidiom{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control idiom-content" placeholder="Enter an idiom, a proverb or a folk song" value="{{ $element->title }}" required="">{{ $element->content }}</textarea>
+						<label for="updateidiom{{ $element->id }}-content">Idioms – Proverbs – Folk-song:</label>
+						<textarea id="updateidiom{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control idiom-content" placeholder="Enter an idiom, a proverb or a folk song" required="">{{ $element->content }}</textarea>
 					</div>
 				</div>
 			</div>
@@ -293,7 +292,7 @@
 			@elseif ($element->type == 4)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" readonly="">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
@@ -327,7 +326,7 @@
 			@elseif ($element->type == 5)
 
 			<div id="update{{ $element->id }}" class="tab-pane fade in">
-				<input type="hidden" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
+				<input type="hidden" class="extInfo" name="update[{{ $element->id }}][type]" value="{{ $element->type }}">
 				<input type="hidden" name="prefix" value="update[{{ $element->id }}]" readonly="">
 				<input type="hidden" name="imgNo" value="{{ count($imgNo) }}" readonly="">
 
@@ -412,7 +411,7 @@
 	 	input.id = 'insert-image-' + insertId + '-caption';
 	 	input.type = 'text';
 	 	input.className = 'form-control';
-	 	input.name = tabContent.find('input[name="prefix"]')[0].value + '][caption][]';
+	 	input.name = tabContent.find('input[name="prefix"]')[0].value + '[caption][]';
 	 	input.setAttribute('required', '');
 	 	col5.appendChild(input);
 	 	imageHolder.appendChild(col5);
@@ -429,7 +428,7 @@
 	 	input.id = 'insert-image-' + insertId + '-image';
 	 	input.type = 'file';
 	 	input.className = 'file';
-	 	input.name = tabContent.find('input[name="prefix"]')[0].value + '[image][]';
+	 	input.name = tabContent.find('input[name="prefix"]')[0].value + '[image][' + tabContent.find('.imageHolder').length + ']';
 	 	input.setAttribute('data-show-upload', 'false');
 	 	input.setAttribute('data-show-caption', 'true');
 	 	input.setAttribute('data-allowed-file-extensions', '["jpg","png"]');
@@ -481,8 +480,12 @@
 
 	 	// var totoalImg = imgNo[parseInt(row.closest('.tab-content').find('input[name="imgNo"]')[0].value)];
 	 	var imgCnt = 1;
+	 	console.log(row.closest('.tab-pane'));
+	 	var prefix = parent.closest('.tab-pane').find('input[name="prefix"]')[0].value;
 	 	parent.find('.imageHolder').each(function() {
-	 		$(this).find('label.imgNo').html(imgCnt++ + '.');
+	 		$(this).find('label.imgNo').html(imgCnt + '.');
+	 		$(this).find('input[type="file"]').attr('name', prefix + '[image][' + imgCnt-1 + ']');
+	 		imgCnt++
 	 	});
 	 }
 
@@ -497,12 +500,13 @@
 	  	tabPane.className = 'tab-pane fade in active';
 
 	  	var inputType = document.createElement('input');
+	  	inputType.className = 'extInfo';
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '0');
 	  	tabPane.appendChild(inputType);
 
-	  	var inputType = document.createElement('input');
+	  	inputType = document.createElement('input');
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'prefix');
 	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
@@ -644,9 +648,16 @@
 	  	tabPane.className = 'tab-pane fade in active';
 
 	  	var inputType = document.createElement('input');
+	  	inputType.className = 'extInfo';
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '1');
+	  	tabPane.appendChild(inputType);
+
+	  	inputType = document.createElement('input');
+	  	inputType.setAttribute('type', 'hidden');
+	  	inputType.setAttribute('name', 'prefix');
+	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
 	  	tabPane.appendChild(inputType);
 
 	  	var rowBig = document.createElement('div');
@@ -742,15 +753,15 @@
 	  	col6.className = 'col-sm-6 form-group';
 
 	  	label = document.createElement('label');
-	  	label.for = 'insert-song-' + insertId + '-thumbnail';
+	  	label.for = 'insert-song-' + insertId + '-song';
 	  	label.innerHTML = 'Upload song:';
 	  	col6.appendChild(label);
 
 	  	input = document.createElement('input');
-	  	input.id = 'insert-song-' + insertId + '-thumbnail';
+	  	input.id = 'insert-song-' + insertId + '-song';
 	  	input.type = 'file';
 	  	input.className = 'file';
-	  	input.name = 'insert[' + insertId + '][thumbnail]';
+	  	input.name = 'insert[' + insertId + '][song]';
 	  	input.setAttribute('required', '');
 	  	input.setAttribute('data-show-upload', 'false');
 	  	input.setAttribute('data-show-caption', 'true');
@@ -767,13 +778,13 @@
 
 	  	label = document.createElement('label');
 	  	label.for = 'insert-song-' + insertId + '-content';
-	  	label.innerHTML = 'Upload sheet music:';
+	  	label.innerHTML = 'Lyrics:';
 	  	col12.appendChild(label);
 
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-song-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control song-content';
+	  	textarea.className = 'form-control song-lyrics';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('rows', '10');
 	  	textarea.setAttribute('required', '');
@@ -804,14 +815,21 @@
 	  * @return {void}
 	  */
 	  function addPoemPart() {
-	  	var tabPane = document.createElement('input');
+	  	var tabPane = document.createElement('div');
 	  	tabPane.id = 'insert' + insertId;
 	  	tabPane.className = 'tab-pane fade in active';
 
-	  	var inputType = document.createElement('div');
+	  	var inputType = document.createElement('input');
+	  	inputType.className = 'extInfo';
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '2');
+	  	tabPane.appendChild(inputType);
+
+	  	inputType = document.createElement('input');
+	  	inputType.setAttribute('type', 'hidden');
+	  	inputType.setAttribute('name', 'prefix');
+	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
 	  	tabPane.appendChild(inputType);
 
 	  	var rowBig = document.createElement('div');
@@ -853,10 +871,10 @@
 	  	col12.appendChild(label);
 
 	  	var textarea = document.createElement('textarea');
-	  	textarea.id = 'insert-poem-' + insertId + '-title';
+	  	textarea.id = 'insert-poem-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control';
-	  	textarea.name = 'insert[' + insertId + '][title]';
+	  	textarea.className = 'form-control poem-content';
+	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('required', '');
 	  	textarea.setAttribute('rows', '8');
 	  	textarea.setAttribute('placeholder', 'Enter content of the poem');
@@ -880,14 +898,21 @@
 	  * @return {void}
 	  */
 	  function addIdiomPart() {
-	  	var tabPane = document.createElement('input');
+	  	var tabPane = document.createElement('div');
 	  	tabPane.id = 'insert' + insertId;
 	  	tabPane.className = 'tab-pane fade in active';
 
-	  	var inputType = document.createElement('div');
+	  	var inputType = document.createElement('input');
+	  	inputType.className = 'extInfo';
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '3');
+	  	tabPane.appendChild(inputType);
+
+	  	inputType = document.createElement('input');
+	  	inputType.setAttribute('type', 'hidden');
+	  	inputType.setAttribute('name', 'prefix');
+	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
 	  	tabPane.appendChild(inputType);
 
 	  	var rowBig = document.createElement('div');
@@ -897,15 +922,15 @@
 	  	col12.className = 'col-sm-12 form-group';
 
 	  	var label = document.createElement('label');
-	  	label.for = 'insert-idiom-' + insertId + '-title';
+	  	label.for = 'insert-idiom-' + insertId + '-content';
 	  	label.innerHTML = 'Idioms – Proverbs – Folk-song:';
 	  	col12.appendChild(label);
 
 	  	var textarea = document.createElement('textarea');
-	  	textarea.id = 'insert-idiom-' + insertId + '-title';
+	  	textarea.id = 'insert-idiom-' + insertId + '-content';
 	  	textarea.type = 'text';
 	  	textarea.className = 'form-control idiom-content';
-	  	textarea.name = 'insert[' + insertId + '][title]';
+	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('required', '');
 	  	textarea.setAttribute('placeholder', 'Enter an idiom, a proverb or a folk song');
 	  	col12.appendChild(textarea);
@@ -928,14 +953,20 @@
 	  * @return {void}
 	  */
 	  function addRiddlePart() {
-	  	var tabPane = document.createElement('input');
+	  	var tabPane = document.createElement('div');
 	  	tabPane.id = 'insert' + insertId;
 	  	tabPane.className = 'tab-pane fade in active';
 
-	  	var inputType = document.createElement('div');
+	  	var inputType = document.createElement('input');
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '4');
+	  	tabPane.appendChild(inputType);
+
+	  	inputType = document.createElement('input');
+	  	inputType.setAttribute('type', 'hidden');
+	  	inputType.setAttribute('name', 'prefix');
+	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
 	  	tabPane.appendChild(inputType);
 
 	  	var rowBig = document.createElement('div');
@@ -976,7 +1007,7 @@
 
 	  	label = document.createElement('label');
 	  	label.for = 'insert-riddle-' + insertId + '-answer';
-	  	label.innerHTML = 'Upload illustration:';
+	  	label.innerHTML = 'Answer:';
 	  	col6.appendChild(label);
 
 	  	input = document.createElement('input');
@@ -1058,9 +1089,16 @@
 	  	tabPane.className = 'tab-pane fade in active';
 
 	  	var inputType = document.createElement('input');
+	  	inputType.className = 'extInfo';
 	  	inputType.setAttribute('type', 'hidden');
 	  	inputType.setAttribute('name', 'insert[' + insertId + '][type]');
 	  	inputType.setAttribute('value', '5');
+	  	tabPane.appendChild(inputType);
+
+	  	inputType = document.createElement('input');
+	  	inputType.setAttribute('type', 'hidden');
+	  	inputType.setAttribute('name', 'prefix');
+	  	inputType.setAttribute('value', 'insert[' + insertId + ']');
 	  	tabPane.appendChild(inputType);
 
 	  	var rowBig = document.createElement('div');
@@ -1158,19 +1196,37 @@
 	  	insertId++;
 	  }
 
+	  /**
+	   * Store id of content to be deleted
+	   * 
+	   * @type {String}
+	   */
+	   var toDelete = '';
+
 	 /**
 	  * Delete chosen tab pane
 	  *
 	  * @return {void}
 	  */
 	  function deletePart(button) {
+	  	var deleteId = $(button).closest('li').find('a').attr('href');
+	  	var deletePaneInfo = $(deleteId).find('.extInfo');
+	  	if (deletePaneInfo.length) {
+	  		deletePaneInfoDetail = deletePaneInfo.attr('name').split('[');
+	  		if(deletePaneInfoDetail[0] == 'update') {
+	  			if (toDelete) {
+	  				toDelete += ',';
+	  			}
+	  			toDelete += deletePaneInfoDetail[1].replace(']', '');
+	  		}
+	  	}
+
 	  	var oldTabNav = $('.nav-tabs li.active');
 	  	var oldTabPane = $('.tab-content div.active');
 
 	  	if (oldTabNav[0] == $(button).closest('li')[0]) {
-	  		console.log('a');
 	  		oldTabNav = $(button).closest('li').prev();
-	  		oldTabPaneId = $(button).closest('li').prev().find('a').attr('href');
+	  		var oldTabPaneId = $(button).closest('li').prev().find('a').attr('href');
 	  		oldTabPane = $(oldTabPaneId);
 	  	}
 
@@ -1195,7 +1251,7 @@
 	  	var a = document.createElement('a');
 	  	a.setAttribute('data-toggle', 'tab');
 	  	a.setAttribute('href', '#' + pane_id);
-	  	a.innerHTML = type;
+	  	a.innerHTML = type + ' ';
 	  	var i = document.createElement('i');
 	  	i.className = 'fa fa-times deletePart';
 	  	$(i).click(function() {
@@ -1206,40 +1262,88 @@
 	  	$(li).insertBefore($('#addPartBtn'));
 	  }
 
+	  /**
+	   * Add a new image to the current Images panel
+	   */
 	  $('.newImageBtn').click(function() {
 	  	newImage(this);
 	  });
 
+	  /**
+	   * Delete a row containing image information from Images pane
+	   */
 	  $('.deleteImage').click(function() {
 	  	deleteImage($(this).closest('div.row'));
 	  });
 
+	  /**
+	   * Add an "Images" pane
+	   */
 	  $('.addPart.images').click(function() {
 	  	addImagesPart();
 	  });
 
+	  /**
+	   * Add a "Song" pane
+	   */
 	  $('.addPart.song').click(function() {
 	  	addSongPart();
 	  });
 
+	  /**
+	   * Add a "Poem" pane
+	   */
 	  $('.addPart.poem').click(function() {
 	  	addPoemPart();
 	  });
 
+	  /**
+	   * Add a "Idiom" pane
+	   */
 	  $('.addPart.idiom').click(function() {
 	  	addIdiomPart();
 	  });
 
+	  /**
+	   * Add a "Riddle" pane
+	   */
 	  $('.addPart.riddle').click(function() {
 	  	addRiddlePart();
 	  });
 
+	  /**
+	   * Add a "Riddle" pane
+	   */
 	  $('.addPart.play').click(function() {
 	  	addPlayPart();
 	  });
 
+	  /**
+	   * Delete a pane
+	   */
 	  $('.nav-tabs .deletePart').click(function() {
 	  	deletePart(this);
+	  });
+
+	  /**
+	   * Add a list of id of element to delete to the submiting form
+	   */
+	  $("#extForm").submit( function(eventObj) {
+	  	var extensionNo = 1;
+	  	$('.tab-pane').each(function() {
+	  		$('<input />').attr('type', 'hidden')
+	  		.attr('name', $(this).find('input[name="prefix"]')[0].value + '[extensionNo]')
+	  		.attr('value', extensionNo++)
+	  		.appendTo('#extForm');
+	  	});
+
+	  	if (toDelete) {
+	  		$('<input />').attr('type', 'hidden')
+	  		.attr('name', 'delete')
+	  		.attr('value', toDelete)
+	  		.appendTo('#extForm');
+	  		return true;
+	  	}
 	  });
 
 	</script>
