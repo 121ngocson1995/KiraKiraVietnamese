@@ -126,6 +126,7 @@
 
 		/**
 		 * set value for question textbox
+		 *　質問のテキストボックスの値をセットする。
 		 *
 		 * @return void
 		 */
