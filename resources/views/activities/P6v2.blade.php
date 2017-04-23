@@ -142,6 +142,11 @@
 	var questionsDone = 0;
 	var correctAnswerNo = 0;
 
+	/**
+	 * switch to next question
+	 * @param  {DOM}   button [description]
+	 * @return {void}        [description]
+	 */
 	function next(button) {
 		if (button.innerHTML == "Next") {
 			switchQuestion(currentQuestion + 1);
@@ -150,6 +155,11 @@
 		}
 	}
 
+	/**
+	 * set data when switch question
+	 * @param  {string} questionId 
+	 * @return {void}
+	 */
 	function switchQuestion(questionId) {
 
 		var btnNext = document.getElementsByClassName('btnNext')[0];
@@ -290,6 +300,11 @@
 		}
 	}
 
+	/**
+	 * check correct of answer
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function checkAnswer(button) {
 		var giveMark = true
 
@@ -327,6 +342,12 @@
 		}
 	}
 
+	/**
+	 * set mark
+	 * @param  {DOM} button  
+	 * @param  {boolean} correctChoice 
+	 * @return {void} 
+	 */
 	function markBtn(button, correctChoice) {
 		if (button == ".btn-answer" /*&& currentQuestion == lastQuestion && questionsDone == lastQuestion + 1*/) {
 			document.getElementsByClassName('btnNext')[0].disabled = false;
@@ -374,6 +395,10 @@
 		$(button).prop('disabled', true);
 	}
 
+	/**
+	 * show result
+	 * @return {void} 
+	 */
 	function showResult() {
 		var btnNext = document.getElementsByClassName('btnNext')[0];
 		// btnNext.innerHTML = 'Redo';
