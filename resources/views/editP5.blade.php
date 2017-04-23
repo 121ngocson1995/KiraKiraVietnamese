@@ -115,6 +115,11 @@
 		.appendTo('#p5Form');
 		return true;
 	});
+
+	/**
+	 *  Add new row of sentence and audio
+	 *  @return {void}
+	 */
 	function AddRow() {
 		addLine++;
 		sumLine++;
@@ -171,6 +176,12 @@
 			$input.fileinput();
 		}
 	}
+
+	/**
+	 * delete new row of sentence and audio
+	 * @param  {DOM} button
+	 * @return {void}   
+	 */
 	function deleteRow(button) {
 		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');

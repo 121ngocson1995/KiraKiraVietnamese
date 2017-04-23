@@ -162,8 +162,8 @@
 		 });
 
 		/**
-		 * add new answer for dialog
-		 * @param {[button]}
+		 * add new answer for a question in dialog
+		 * @param {DOM} button
 		 * @return {void}
 		 */
 		 function addAnswer(button){
@@ -187,7 +187,8 @@
 		 }
 
 		/**
-		 * @return {void}[add new dialog]
+		 * Add a new dialog
+		 * @return {void}
 		 */
 		 function addDialog(){
 		 	addedDialog ++;
@@ -297,6 +298,11 @@
 
 		 }
 
+		 	/**
+		 	 * 	delete a dialog
+		 	 * @param  {DOM} button 
+		 	 * @return {void}      
+		 	 */
 		 function deleteDialog(button){
 		 	if(confirm("Are you sure you want to delete?")){
 		 		
@@ -319,7 +325,11 @@
 		 	}
 		 }
 		 
-
+		 	/**
+		 	 * 	delete a sentence of dialog
+		 	 * @param  {DOM} button 
+		 	 * @return {void}    
+		 	 */
 		 function deleteRow(button){
 		 	if(confirm("Are you sure you want to delete?")){
 		 		if($(button).closest('.row').hasClass('origin')){
@@ -334,6 +344,11 @@
 		 	}
 		 }
 
+		 /**
+		  * 	Add new a sentence of dialog
+		  * @param {DOM} button 
+		  * @return {void}
+		  */
 		 function addRow(button){
 
 		 	var node_row = document.createElement('div');

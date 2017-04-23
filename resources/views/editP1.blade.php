@@ -115,6 +115,7 @@
 
 	/**
 	 * Add new row of word and audio
+	 * @return {void}
 	 */
 	function AddRow() {
 		addLine++;
@@ -176,7 +177,7 @@
 	/**
 	 * delete a row of word and audio
 	 * @param  {DOM} button 
-	 * @return {type}        
+	 * @return {void}       
 	 */
 	function deleteRow(button) {
 		deleteLine++;

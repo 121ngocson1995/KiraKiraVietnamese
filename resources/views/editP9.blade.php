@@ -121,46 +121,39 @@
 			start();
 		}
 
-		/**
-		 * set value for question textbox
-		 * @return void
-		 */
-		 function start(){
-		 	for (var i = 0; i < dialogCnt.length; i++) {
-		 		for (var j = 0; j < p9.length; j++) {
-		 			if (p9[j]['dialogNo'] == dialogCnt[i]) {
-		 				var curLine ='';
-		 				for (var k = 0; k < p9[j]['line'].length; k++) {
-		 					curLine = curLine + p9[j]['line'][k] + "\u3007";
-		 				}
-		 				curLine = curLine.slice(0, -1);
-		 				$("#dia"+i+"line"+j).val(curLine);
-		 			}
-		 		}
-		 	}
-		 }
+		
+		function start(){
+			for (var i = 0; i < dialogCnt.length; i++) {
+				for (var j = 0; j < p9.length; j++) {
+					if (p9[j]['dialogNo'] == dialogCnt[i]) {
+						var curLine ='';
+						for (var k = 0; k < p9[j]['line'].length; k++) {
+							curLine = curLine + p9[j]['line'][k] + "\u3007";
+						}
+						curLine = curLine.slice(0, -1);
+						$("#dia"+i+"line"+j).val(curLine);
+					}
+				}
+			}
+		}
 
-		/**
-		 * prevent client delete symbol "\u3007" in textbox
-		 * @param  {input}
-		 * @return void
-		 */
-		 $('.question').each(function() {
-		 	this.addEventListener("keydown", function(e) {
-		 		var start = this.selectionStart,
-		 		end = this.selectionEnd,
-		 		value = this.value,
-		 		key = e.keyCode;
 
-		 		if (key == 8 && value[start-1] == "\u3007") e.preventDefault();
-		 		if (key == 46 && value[start] == "\u3007") e.preventDefault();
-		 		if ((key == 8 || key == 46) && value.substring(start, end).indexOf("\u3007") != -1) e.preventDefault();
-		 	}, false);
-		 });
+		$('.question').each(function() {
+			this.addEventListener("keydown", function(e) {
+				var start = this.selectionStart,
+				end = this.selectionEnd,
+				value = this.value,
+				key = e.keyCode;
+
+				if (key == 8 && value[start-1] == "\u3007") e.preventDefault();
+				if (key == 46 && value[start] == "\u3007") e.preventDefault();
+				if ((key == 8 || key == 46) && value.substring(start, end).indexOf("\u3007") != -1) e.preventDefault();
+			}, false);
+		});
 
 		/**
 		 * add new answer for dialog
-		 * @param {[button]}
+		 * @param {DOM}
 		 * @return {void}
 		 */
 		 function addAnswer(button){
@@ -174,17 +167,18 @@
 		 	node_input.setAttribute('type', 'text');
 		 	if ($(button).closest('.row').hasClass('origin')) {
 		 		node_input.setAttribute('name', "update["+id+"]["+dialog+"]["+line+"][answer][]");
-			}else{
-				node_input.setAttribute('name', "insert["+dialog+"]["+line+"][answer][]");
-			}
+		 	}else{
+		 		node_input.setAttribute('name', "insert["+dialog+"]["+line+"][answer][]");
+		 	}
 		 	node_input.setAttribute('class', 'form-control answer');
 		 	node_input.setAttribute('required', 'true');
-		 
+
 		 	document.getElementById($(button).closest('.row').find('.answercontent').attr('id')).appendChild(node_input);
 		 }
 
 		/**
-		 * @return {void}[add new dialog]
+		 * Add a new dialog
+		 * @return {void}
 		 */
 		 function addDialog(){
 		 	addedDialog ++;
@@ -294,114 +288,128 @@
 
 		 }
 
-		 function deleteDialog(button){
-		 	if(confirm("Are you sure you want to delete?")){
-		 		
-		 		deleteDia ++;
-		 		var node_delete = document.createElement('input');
-		 		node_delete.setAttribute('type', 'hidden');
-		 		node_delete.setAttribute('name', 'deleteDia'+deleteDia);
-		 		node_delete.setAttribute('value', $(button).closest('.big').attr('data-dialog'));
-		 		document.getElementById('p9Form').appendChild(node_delete);
-		 		
-		 		var deleteIndex = $(button).closest('.big').find('.dialogIndex').html();
-		 		console.log($(button).closest('.big').find('.dialogIndex'));
-		 		$('.dialogIndex').each(function() {
-		 			if ($(this).html() > deleteIndex) {
-		 				var curIndex = $(this).html();
-		 				$(this).html( curIndex-1);
-		 			}
-		 		});
-		 		$(button).closest('.big').empty().remove();
-		 	}
-		 }
-		 
+		 /**
+		  * Delete a dialog
+		  * @param  {DOM} button 
+		  * @return {void}
+		  */
+		  function deleteDialog(button){
+		  	if(confirm("Are you sure you want to delete?")){
 
-		 function deleteRow(button){
-		 	if(confirm("Are you sure you want to delete?")){
-		 		if($(button).closest('.row').hasClass('origin')){
-		 			rowDelete++;
-		 			var node_delete = document.createElement('input');
-		 			node_delete.setAttribute('type', 'hidden');
-		 			node_delete.setAttribute('name', 'delete'+rowDelete);
-		 			node_delete.setAttribute('value', $(button).closest('.row').attr('data-id'));
-		 			document.getElementById('p9Form').appendChild(node_delete);
-		 		}
-		 		$(button).closest('.row').empty();
-		 	}
-		 }
+		  		deleteDia ++;
+		  		var node_delete = document.createElement('input');
+		  		node_delete.setAttribute('type', 'hidden');
+		  		node_delete.setAttribute('name', 'deleteDia'+deleteDia);
+		  		node_delete.setAttribute('value', $(button).closest('.big').attr('data-dialog'));
+		  		document.getElementById('p9Form').appendChild(node_delete);
 
-		 function addRow(button){
+		  		var deleteIndex = $(button).closest('.big').find('.dialogIndex').html();
+		  		console.log($(button).closest('.big').find('.dialogIndex'));
+		  		$('.dialogIndex').each(function() {
+		  			if ($(this).html() > deleteIndex) {
+		  				var curIndex = $(this).html();
+		  				$(this).html( curIndex-1);
+		  			}
+		  		});
+		  		$(button).closest('.big').empty().remove();
+		  	}
+		  }
 
-		 	var node_row = document.createElement('div');
-		 	node_row.setAttribute('class', 'row ');
-		 	node_row.setAttribute('data-dialog', $(button).attr('data-diaNo'));
-		 	node_row.setAttribute('data-line', $(button).closest('.big').find('.question').length);
+		 /**
+		 	 * 	delete a sentence of dialog
+		 	 * @param  {DOM} button 
+		 	 * @return {void}    
+		 	 */
+		 	 function deleteRow(button){
+		 	 	if(confirm("Are you sure you want to delete?")){
+		 	 		if($(button).closest('.row').hasClass('origin')){
+		 	 			rowDelete++;
+		 	 			var node_delete = document.createElement('input');
+		 	 			node_delete.setAttribute('type', 'hidden');
+		 	 			node_delete.setAttribute('name', 'delete'+rowDelete);
+		 	 			node_delete.setAttribute('value', $(button).closest('.row').attr('data-id'));
+		 	 			document.getElementById('p9Form').appendChild(node_delete);
+		 	 		}
+		 	 		$(button).closest('.row').empty();
+		 	 	}
+		 	 }
+		 	 
+		  /**
+		  * 	Add new a sentence of dialog
+		  * @param {DOM} button 
+		  * @return {void}
+		  */
+		  function addRow(button){
 
-		 	var node_question = document.createElement('div');
-		 	node_question.setAttribute('class', 'col-xs-5 questioncontent');
+		  	var node_row = document.createElement('div');
+		  	node_row.setAttribute('class', 'row ');
+		  	node_row.setAttribute('data-dialog', $(button).attr('data-diaNo'));
+		  	node_row.setAttribute('data-line', $(button).closest('.big').find('.question').length);
 
-		 	var input_question = document.createElement('input');
-		 	input_question .setAttribute('type', 'text');
-		 	input_question .setAttribute('class', 'question form-control');
-		 	input_question .setAttribute('required', 'true');
-		 	input_question .setAttribute('name', "insert["+$(button).attr('data-diaNo')+"]["+$(button).closest('.big').find('.question').length+"][line]");
+		  	var node_question = document.createElement('div');
+		  	node_question.setAttribute('class', 'col-xs-5 questioncontent');
 
-		 	node_question.appendChild(input_question);
+		  	var input_question = document.createElement('input');
+		  	input_question .setAttribute('type', 'text');
+		  	input_question .setAttribute('class', 'question form-control');
+		  	input_question .setAttribute('required', 'true');
+		  	input_question .setAttribute('name', "insert["+$(button).attr('data-diaNo')+"]["+$(button).closest('.big').find('.question').length+"][line]");
 
-		 	var node_answer = document.createElement('div');
-		 	node_answer.setAttribute('class', 'col-xs-5 answercontent');
-		 	node_answer.setAttribute('id', 'dia'+$(button).attr('data-diaNo')+'line'+$(button).closest('.big').find('.question').length+'answer');
+		  	node_question.appendChild(input_question);
+
+		  	var node_answer = document.createElement('div');
+		  	node_answer.setAttribute('class', 'col-xs-5 answercontent');
+		  	node_answer.setAttribute('id', 'dia'+$(button).attr('data-diaNo')+'line'+$(button).closest('.big').find('.question').length+'answer');
 
 
-		 	var node_btn = document.createElement('div');
-		 	node_btn.setAttribute('class', 'col-xs-2');
+		  	var node_btn = document.createElement('div');
+		  	node_btn.setAttribute('class', 'col-xs-2');
 
-		 	var btn_add = document.createElement('button');
-		 	btn_add.setAttribute('type', 'button');
-		 	btn_add.setAttribute('class', 'form-control btn-primary col-xs-2');
-		 	btn_add.setAttribute('onclick', 'addAnswer(this)');
+		  	var btn_add = document.createElement('button');
+		  	btn_add.setAttribute('type', 'button');
+		  	btn_add.setAttribute('class', 'form-control btn-primary col-xs-2');
+		  	btn_add.setAttribute('onclick', 'addAnswer(this)');
 
-		 	var icon_add = document.createElement('i');
-		 	icon_add.setAttribute('style', 'margin-right: 0.5em');
-		 	icon_add.setAttribute('class', 'fa fa-plus');
+		  	var icon_add = document.createElement('i');
+		  	icon_add.setAttribute('style', 'margin-right: 0.5em');
+		  	icon_add.setAttribute('class', 'fa fa-plus');
 
-		 	btn_add.appendChild(icon_add);
+		  	btn_add.appendChild(icon_add);
 
-		 	var btn_delete = document.createElement('button');
-		 	btn_delete.setAttribute('type', 'button');
-		 	btn_delete.setAttribute('class', 'deleteBtn col-xs-2');
-		 	btn_delete.setAttribute('onclick', 'deleteRow(this)');
+		  	var btn_delete = document.createElement('button');
+		  	btn_delete.setAttribute('type', 'button');
+		  	btn_delete.setAttribute('class', 'deleteBtn col-xs-2');
+		  	btn_delete.setAttribute('onclick', 'deleteRow(this)');
 
-		 	var icon_delete = document.createElement('i');
-		 	icon_delete.setAttribute('style', 'margin-right: 0.5em');
-		 	icon_delete.setAttribute('class', 'fa fa-trash');
+		  	var icon_delete = document.createElement('i');
+		  	icon_delete.setAttribute('style', 'margin-right: 0.5em');
+		  	icon_delete.setAttribute('class', 'fa fa-trash');
 
-		 	btn_delete.appendChild(icon_delete);
+		  	btn_delete.appendChild(icon_delete);
 
-		 	node_btn.appendChild(btn_add);
-		 	node_btn.appendChild(btn_delete);
+		  	node_btn.appendChild(btn_add);
+		  	node_btn.appendChild(btn_delete);
 
-		 	node_row.appendChild(node_question);
-		 	node_row.appendChild(node_answer);
-		 	node_row.appendChild(node_btn);
+		  	node_row.appendChild(node_question);
+		  	node_row.appendChild(node_answer);
+		  	node_row.appendChild(node_btn);
 
-		 	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
-		 }
+		  	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
+		  }
 
-		 $("#p9Form").submit( function(eventObj) {
+		  $("#p9Form").submit( function(eventObj) {
 
-		 	var node_delete_dia = document.createElement('input');
-		 	node_delete_dia.setAttribute('type', 'hidden');
-		 	node_delete_dia.setAttribute('name', 'sumDeleteDia');
-		 	node_delete_dia.setAttribute('value', deleteDia);
-		 	document.getElementById('p9Form').appendChild(node_delete_dia);
+		  	var node_delete_dia = document.createElement('input');
+		  	node_delete_dia.setAttribute('type', 'hidden');
+		  	node_delete_dia.setAttribute('name', 'sumDeleteDia');
+		  	node_delete_dia.setAttribute('value', deleteDia);
+		  	document.getElementById('p9Form').appendChild(node_delete_dia);
 
-		 	var node_delete_row = document.createElement('input');
-		 	node_delete_row.setAttribute('type', 'hidden');
-		 	node_delete_row.setAttribute('name', 'sumDeleteRow');
-		 	node_delete_row.setAttribute('value', rowDelete);
-		 	document.getElementById('p9Form').appendChild(node_delete_row);
-		 });
+		  	var node_delete_row = document.createElement('input');
+		  	node_delete_row.setAttribute('type', 'hidden');
+		  	node_delete_row.setAttribute('name', 'sumDeleteRow');
+		  	node_delete_row.setAttribute('value', rowDelete);
+		  	document.getElementById('p9Form').appendChild(node_delete_row);
+		  });
 		</script>
 		@stop

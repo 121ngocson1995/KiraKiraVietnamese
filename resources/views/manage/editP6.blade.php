@@ -134,6 +134,10 @@
 	var toAdd = 0;
 	var dialogNo = {{ $dialogNo }};
 
+	/**
+	 * Add new pairs of question and answer
+	 * @return {void} 
+	 */
 	function newDialog() {
 		var dialogHolder = document.createElement('div');
 		dialogHolder.className = 'row dialog-holder';
@@ -280,6 +284,11 @@
 
 	var toDelete = '';
 
+	/**
+	 * delete pairs of question and answer
+	 * @param  {DOM} dialog 
+	 * @return {void}   
+	 */
 	function deleteDialog(dialog) {
 		if (dialog.attr('data-dialog-id')) {
 			if (toDelete) {
