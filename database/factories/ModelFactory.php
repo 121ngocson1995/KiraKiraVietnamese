@@ -54,7 +54,7 @@ $factory->define(\App\Course::class, function (Faker\Generator $faker) {
         'description' => $faker->sentences,
         'age' => $faker->numberBetween(1, 100),
         'author' => $faker->name,
-        'added_by' => str_random(10),
-        'last_updated_by' => str_random(10),
+        'added_by' => 1,
+        'last_updated_by' => 1,
     ];
 });
