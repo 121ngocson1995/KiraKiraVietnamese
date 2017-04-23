@@ -13,6 +13,7 @@ class LessonControllerTest extends TestCase
 	{
 		$course = factory(\App\Course::class, 1)->create();
 
+		parent::setUp();
 		$lesson = \App\Lesson::create([
 			'course_id' => $course->id,
 			'lessonNo' => 1,
