@@ -10,7 +10,7 @@ class LoginController extends Controller
     /*
     |--------------------------------------------------------------------------
     | Login Controller
-    | ログインのコントローラー
+    | ログインコントローラー
     |--------------------------------------------------------------------------
     |
     | This controller handles authenticating users for the application and
@@ -25,7 +25,7 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *　ログイン後にユーザーをリダイレクトするの所です。
+     *　ログイン後にユーザーをリダイレクトする場所です。
      *
      * @var string
      */
@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *　新しいインスタントのコントローラーを作成する。
+     *　新しいコントローラーのインスタンスを作成する。
      *
      * @return void
      */

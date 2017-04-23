@@ -14,7 +14,7 @@ class P4Controller extends Controller
 {
     /**
      * Create a new controller instance.
-     *　新しいインスタントのコントローラーを作成する。
+     *　新しいコントローラーのインスタンスを作成する。
      *
      * @return void
      */
