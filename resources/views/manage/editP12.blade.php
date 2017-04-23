@@ -136,6 +136,7 @@
 
 	/**
 	 * Delete the chosen requirement
+	 * 選択する要求を削除する。
 	 * @return {void}
 	 */
 	function deleteContent() {
@@ -150,6 +151,7 @@
 
 	/**
 	 * Insert new requirement
+	 * 新しい要求を挿入する。
 	 * @return {void}
 	 */
 	function addContent() {
@@ -230,7 +232,8 @@
 	}
 
 	/**
-	 * Show delete button when hovering on paragraph
+	 * Show Delete button when hovering on paragraph
+	 *　段落にホバリングをすると「Delete」ボタンを表す。
 	 * @return {void}
 	 */
 	$('#wrapper').hover(function() {
@@ -241,16 +244,20 @@
 
 	/**
 	 * Trigger addContent function
+	 *　「addContent」機能をトリガーする。
 	 */
 	$('.addContent').click(addContent);
 
 	/**
-	 * Trigerr deleteContent function
+	 * Trigger deleteContent function
+	 *　「deleteContent」機能をトリガーする。
 	 */
 	$('.deleteContent').click(deleteContent);
 
 	/**
 	 * Attach to form the list of id of requirement to delete
+	 *　削除するように、フォームに要求のイドのリスクを付ける。
+	 *
 	 * @return {void}
 	 */
 	$("#p12Form").submit( function(eventObj) {

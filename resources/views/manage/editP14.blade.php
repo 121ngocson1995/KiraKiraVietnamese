@@ -202,6 +202,7 @@
 
 	/**
 	 * Change textbox's size on keyboard pressing
+	 * 押すキーボードでテキストボックスのサイズを変更する。
 	 * 
 	 * @param  {DOM Object}
 	 * @return {void}
@@ -212,6 +213,7 @@
 
 	/**
 	 * Create a new sentence
+	 * 新しいセンテンスを作成する。
 	 * 
 	 * @return {void}
 	 */
@@ -311,6 +313,7 @@
 
 	/**
 	 * Store id of content to be deleted
+	 * 削除する内容のイドを保存する。
 	 * 
 	 * @type {String}
 	 */
@@ -318,6 +321,7 @@
 
 	/**
 	 * Delete a sentence
+	 *　センテンスを削除する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -342,6 +346,7 @@
 
 	/**
 	 * Create a new sentence part
+	 * 新しいセンテンスの一部を作成する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -379,6 +384,7 @@
 
 	/**
 	 * Create a new option
+	 * 新しいオプションを作成する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -402,6 +408,7 @@
 
 	/**
 	 * Delete an option
+	 *　オプションを削除する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -418,6 +425,7 @@
 
 	/**
 	 * Creat a sentence part's DOM object
+	 *　文章部分の「DOM」のオブジェクトを作成する。
 	 *
 	 * @param  {string}
 	 *
@@ -459,6 +467,7 @@
 
 	/**
 	 * Create sentence option's DOM object
+	 *　文章のオプションの「DOM」オブジェクトを作成する。
 	 *
 	 * @param  {string}
 	 *
@@ -514,6 +523,7 @@
 
 	/**
 	 * Create a new sentence upon button click
+	  * ボタンをクリックすると、新しいセンテンスを作成する。
 	 */
 	$('#newSentenceBtn').click(function() {
 		newSentence();
@@ -521,6 +531,7 @@
 
 	/**
 	 * Create a new sentence part upon button click
+	 * ボタンをクリックすると、新しい文章部分を作成する。
 	 */
 	$('.addPartBtn').click(function() {
 		newPart(this);
@@ -528,6 +539,7 @@
 
 	/**
 	 * Change textarea's height based on input's row
+	 *　入力行によって、テキストエリアの高さを変更する。
 	 */
 	$('textarea').each(function() {
 		this.style.cssText = 'height:' + this.scrollHeight + 'px';
@@ -535,6 +547,7 @@
 
 	/**
 	 * Determine and change textarea's height upon keyboard press
+	 *　キーボードをクリックすると、テキストエリアの高さを決定して変更する。
 	 */
 	$('textarea').on('keydown', function() {
 		var el = this;
@@ -545,6 +558,7 @@
 
 	/**
 	 * Show delete option button by hovering on a sentence part
+	 *　文章部分にホバリングすると、「Delete」オプションを表す。
 	 */
 	$('.option').hover(function() {
 		$(this.firstElementChild).fadeIn(60);
@@ -554,13 +568,15 @@
 
 	/**
 	 * Delete a sentence option upon button click
+	 * ボタンをクリックすると、センテンスオプションを削除する。
 	 */
 	$('button.close.deleteOption').click(function() {
 		deleteOption(this);
 	});
 
 	/**
-	 * Create a new sentence option upon button blick
+	 * Create a new sentence option upon button ｃlick
+	 * ボタンをクリックすると、新しいセンテンスオプションを作成する。
 	 */
 	$('button.addInputBtn').click(function() {
 		newOption(this.parentElement);
@@ -568,6 +584,7 @@
 
 	/**
 	 * Show add and delete button by hovering on a sentence
+	 * センテンスでのホバイングによって、「Add」と「Delete」ボタンを表示する。
 	 */
 	$('.row.sentence').hover(function() {
 		$(this).find('button.addPartBtn').fadeIn(60);
@@ -579,6 +596,7 @@
 
 	/**
 	 * Show add option button by hovering on a sentence part
+	 * 文章部分でのホバイングによって、「Add」オプションを表示する。
 	 */
 	$('.sentenceParts').hover(function() {
 		$(this).find('button.addInputBtn').fadeIn(60);
@@ -590,6 +608,7 @@
 
 	/**
 	 * Delete a sentence upon button click
+	 * ボタンをクリックすると、センテンスを削除する。
 	 */
 	$('button.horizontal.close').click(function() {
 		deleteSentence($(this).closest('div.row.sentence'));
@@ -597,6 +616,7 @@
 
 	/**
 	 * Add a list of id of element to delete to the submiting form
+	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
 	$("#p14Form").submit( function(eventObj) {
 		if (toDelete) {
