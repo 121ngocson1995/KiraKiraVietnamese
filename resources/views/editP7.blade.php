@@ -142,6 +142,8 @@
 
 	/**
 	 * 	Add new Dialog
+	 *　新たなダイアログを追加する。
+	 *
 	 */
 	 function AddDialog() {
 	 	addDialog ++;
@@ -259,7 +261,9 @@
 	 }
 
 	 /**
-	  * 	Add new sentence of selected dialog
+	  * Add new sentence of selected dialog
+	  *　選択したダイアログのセンテンスを追加する。
+	  *
 	  * @param {DOM} button 
 	  */
 	  function addLine(button) {
@@ -332,6 +336,8 @@
 
 	 /**
 	  * delete a sentence of selected dialog
+	  *　選択したダイアログのセンテンスを削除する。　
+	  *
 	  * @param  {DOM} button 
 	  * @return {void}
 	  */
@@ -360,6 +366,8 @@
 
 	  /**
 	   * delete a dialog
+	   *　ダイアログを削除する。
+	   *
 	   * @param  {DOM} button 
 	   * @return {void}
 	   */

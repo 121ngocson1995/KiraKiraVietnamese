@@ -153,6 +153,8 @@
 
 		/**
 		 * add new answer for dialog
+		 *　新たなダイアログの回答を追加する。
+		 *
 		 * @param {DOM}
 		 * @return {void}
 		 */
@@ -178,6 +180,8 @@
 
 		/**
 		 * Add a new dialog
+		 *　新たなダイアログを追加する。
+		 *　
 		 * @return {void}
 		 */
 		 function addDialog(){
@@ -290,6 +294,8 @@
 
 		 /**
 		  * Delete a dialog
+		  *　ダイアログを削除する。
+		  *
 		  * @param  {DOM} button 
 		  * @return {void}
 		  */
@@ -317,6 +323,8 @@
 
 		 /**
 		 	 * 	delete a sentence of dialog
+		 	 * 	ダイアログのセンテンスを削除する。
+		 	 * 	
 		 	 * @param  {DOM} button 
 		 	 * @return {void}    
 		 	 */
@@ -335,7 +343,9 @@
 		 	 }
 		 	 
 		  /**
-		  * 	Add new a sentence of dialog
+		  * Add new a sentence of dialog
+		  * 新たなダイアログのセンテンスを追加する。
+		  * 
 		  * @param {DOM} button 
 		  * @return {void}
 		  */

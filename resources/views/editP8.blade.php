@@ -126,6 +126,7 @@
 
 		/**
 		 * set value for question textbox
+		 *
 		 * @return void
 		 */
 		 function start(){
@@ -145,6 +146,8 @@
 
 		/**
 		 * prevent client delete symbol "\u3007" in textbox
+		 *　クライアントからテキストボックスの「\u3007」記号を防ぐ。
+		 *
 		 * @param  {input}
 		 * @return void
 		 */
@@ -163,6 +166,8 @@
 
 		/**
 		 * add new answer for a question in dialog
+		 *　ダイアログで質問に新たな回答を追加する。　
+		 *
 		 * @param {DOM} button
 		 * @return {void}
 		 */
@@ -188,6 +193,8 @@
 
 		/**
 		 * Add a new dialog
+		 *　新たなダイアログを追加する。
+		 *
 		 * @return {void}
 		 */
 		 function addDialog(){
@@ -300,6 +307,8 @@
 
 		 	/**
 		 	 * 	delete a dialog
+		 	 *　ダイアログを削除する。
+		 	 *
 		 	 * @param  {DOM} button 
 		 	 * @return {void}      
 		 	 */
@@ -326,7 +335,9 @@
 		 }
 		 
 		 	/**
-		 	 * 	delete a sentence of dialog
+		 	 * delete a sentence of dialog
+		 	 *　ダイアログのセンテンスを削除する。
+		 	 *　
 		 	 * @param  {DOM} button 
 		 	 * @return {void}    
 		 	 */
@@ -345,7 +356,9 @@
 		 }
 
 		 /**
-		  * 	Add new a sentence of dialog
+		  * Add a　new sentence of dialog
+		 　*　新たなダイアログのセンテンスを追加する。
+		 　*
 		  * @param {DOM} button 
 		  * @return {void}
 		  */

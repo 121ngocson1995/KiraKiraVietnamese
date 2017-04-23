@@ -115,6 +115,8 @@
 
 	/**
 	 * Add new row of word and audio
+	 * 単語と音響の行を追加する。
+	 *
 	 * @return {void}
 	 */
 	function AddRow() {
@@ -176,6 +178,8 @@
 
 	/**
 	 * delete a row of word and audio
+	 * 単語と音響の行を削除する。
+	 * 
 	 * @param  {DOM} button 
 	 * @return {void}       
 	 */
