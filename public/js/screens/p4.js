@@ -4,6 +4,11 @@ var tlFinalScore;
 
 initAudio();
 
+/**
+ * check correct of word
+ * @param  {DOM} word
+ * @return {void}
+ */
 function check(word) {
 	if (isCorrect(word)) {
 		displayCorrect(word);
@@ -12,10 +17,19 @@ function check(word) {
 	}
 }
 
+/**
+ * set attribute for correct word
+ * @param  {DOM}  word 
+ * @return {Boolean}   
+ */
 function isCorrect(word) {
 	return 'audio' + $(word).find('p').attr("id") == playingSample;
 }
-
+/**
+ * display Correct word
+ * @param  {DOM} button 
+ * @return {void}       
+ */
 function displayCorrect(button) {
 	$(button).removeClass("notChosen");
 	$(button).addClass("p2correctWord");
@@ -27,6 +41,11 @@ function displayCorrect(button) {
 	correctSFX();
 }
 
+/**
+ * display Wrong word
+ * @param  {DOM} button 
+ * @return {void}       
+ */
 function displayWrong(button) {
 	$(button).removeClass("notChosen");
 	$(button).addClass("p2wrongWord");
@@ -34,6 +53,10 @@ function displayWrong(button) {
 	wrongSFX();
 }
 
+/**
+ * display happy icon
+ * @return {void}       
+ */
 function happyFace() {
 	var smiley = document.getElementById('smiley');
 	smiley.classList.remove("happy");
@@ -42,6 +65,10 @@ function happyFace() {
 	smiley.classList.add("happy");
 }
 
+/**
+ * display sad icon
+ * @return {void}       
+ */
 function sadFace() {
 	var smiley = document.getElementById('smiley');
 	smiley.classList.remove("happy");
@@ -50,6 +77,10 @@ function sadFace() {
 	smiley.classList.add("normal");
 }
 
+/**
+ * init data
+ * @return {void} 
+ */
 function start() {
 	if (playTimeout) {
 		clearTimeout(playTimeout);
@@ -78,6 +109,10 @@ function start() {
 	});
 }
 
+/**
+ * set data to restart 
+ * @return {void} 
+ */
 function restart() {
 	if (playTimeout) {
 		clearTimeout(playTimeout);
@@ -96,6 +131,10 @@ function restart() {
 	hideWords();
 }
 
+/**
+ * set data to reset audio
+ * @return {void} 
+ */
 function resetAudio() {
 	$('audio').each(function() {
 		this.pause();
@@ -103,6 +142,10 @@ function resetAudio() {
 	});
 }
 
+/**
+ * show score
+ * @return {void} 
+ */
 function showScore() {
 	if(tlFinalScore) {
 		tlFinalScore.seek(0).pause();
@@ -113,6 +156,10 @@ function showScore() {
 	}
 }
 
+/**
+ * set animation happy face
+ * @return {void} 
+ */
 function showSmiley() {
 	if (!$('#smiley').is(':visible')) {
 		$('#smiley').fadeIn(500);
@@ -123,6 +170,10 @@ function showSmiley() {
 	}
 }
 
+/**
+ * create init score
+ * @return {void} 
+ */
 function initScore() {
 	$('#resultContainer').show();
 	document.getElementById('correct').innerHTML = '0';
@@ -133,6 +184,10 @@ function initScore() {
 	}
 }
 
+/**
+ * set animation hide word
+ * @return {void} 
+ */
 function hideWords() {
 	var tl = new TimelineMax({
 		onComplete: init
@@ -140,6 +195,10 @@ function hideWords() {
 	tl.staggerFromTo('.wordSpan', 0.5, {opactiry:1, scale:1}, {opacity:0, scale:0}, 0.2);
 }
 
+/**
+ * set init data
+ * @return {void} 
+ */
 function init() {
 	shuffle(elementData);
 	shuffle(textRender);
@@ -149,6 +208,10 @@ function init() {
 	initAudio();
 }
 
+/**
+ * set animation show word
+ * @return {void} 
+ */
 function showWords() {
 	var tl = new TimelineMax({
 		onComplete: function() {
@@ -175,6 +238,12 @@ function shuffle(o) {
 	return o;
 }
 
+/**
+ * set animation change score
+ * @param  {string} text 
+ * @param  {string} to   
+ * @return {void}      
+ */
 function changeScore(text, to) {
 	var text = $('#'+text);
 	var box = text.parent();
@@ -186,6 +255,11 @@ function changeScore(text, to) {
 
 var playTimeout;
 
+/**
+ * set animation hide word
+ * @param {int} index
+ * @return {void} 
+ */
 function playSample(index) {
 	if(index == $("#sampleGroup audio").length) {
 		$('.wordSpan').unbind('click');
@@ -204,6 +278,10 @@ function playSample(index) {
 	}, $('#sampleGroup').children().eq(index)[0].duration * 1000);
 }
 
+/**
+ * set animation start progress bar
+ * @return {void} 
+ */
 function startProgressbar() {
 	if (docBar) {
 		docBar.animate(0);
@@ -212,6 +290,10 @@ function startProgressbar() {
 
 var hideSmiley;
 
+/**
+ * set animation show result
+ * @return {void} 
+ */
 function showResult() {
 	$(".notChosen").removeClass("notChosen").addClass("p2wrongWord");
 	$("#wordGroup").find("button").prop("disabled", true);
@@ -232,6 +314,10 @@ function showResult() {
 var wordTime = 0;
 var wordNo = 0;
 
+/**
+ * set init word data
+ * @return {void} 
+ */
 function initWords() {
 	var wordRow = document.getElementById('wordRow');
 
@@ -266,6 +352,10 @@ function initWords() {
 	}
 }
 
+/**
+ * set init audio data
+ * @return {void} 
+ */
 function initAudio() {
 	var sampleGroup = document.getElementById('sampleGroup');
 
@@ -289,6 +379,11 @@ function initAudio() {
 	}
 }
 
+/**
+ * set audio duration
+ * @param {double} duration 
+ * @return {void} 
+ */
 function checkTickLoad(duration) {
 	wordNo++;
 	wordTime += duration;
@@ -305,6 +400,11 @@ function checkTickLoad(duration) {
 	}
 }
 
+/**
+ * set audio duration
+ * @param {double} duration 
+ * @return {void} 
+ */
 function buildProgressBar(totalTime) {
 	docBar = new ProgressBar.Line("#progressbarContainer", {
 		strokeWidth: 1,
