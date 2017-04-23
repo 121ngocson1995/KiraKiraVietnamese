@@ -61,6 +61,11 @@
 	var docBar;
 	var playingSample = -1;
 
+	/**
+	 * choose word and check it order
+	 * @param  {DOM} button 
+	 * @return {void}        
+	 */
 	function chooseWord(button) {
 		if ('audio' + $(button).attr("id") == playingSample) {
 			correctChoice(button);
@@ -69,6 +74,11 @@
 		}
 	}
 
+	/**
+	 * set correct Choice
+	 * @param  {DOM} button 
+	 * @return {void}  
+	 */
 	function correctChoice(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("correctWord");
@@ -77,11 +87,22 @@
 		changeScore('correct', '' + (parseInt(document.getElementById('correct').innerHTML)  + 1));
 	}
 
+	/**
+	 * set correct Choice
+	 * @param  {DOM} button 
+	 * @return {void}  
+	 */
 	function wrongChoice(button) {
 		$(button).removeClass("notChosen");
 		$(button).addClass("wrongWord");
 	}
 
+
+	/**
+	 * set init data
+	 * 
+	 * @return {void}  
+	 */
 	function start() {
 		chosenOrder = 0;
 
@@ -99,6 +120,10 @@
 		// startCountdown();
 	}
 
+	/**
+	 * set init score
+	 * @return {void}  
+	 */
 	function initScore() {
 		$('#result').show();
 		document.getElementById('scoreText').innerHTML = 'Score: ';
@@ -106,6 +131,10 @@
 		document.getElementById('total').innerHTML = '/0';
 	}
 
+	/**
+	 * change score 
+	 * @return {void}  
+	 */
 	function changeScore(text, to) {
 		var text = $('#'+text);
 		var box = text.parent();
@@ -115,6 +144,11 @@
 		  .to(box, 0.25, {scale:1, ease:Power2.easeOut});
 	}
 
+	/**
+	 * play clicked word
+	 * @param  {int} index
+	 * @return {void}  
+	 */
 	function playSample(index) {
 		if(index == $("#sampleGroup audio").length) {
 			showResult();
@@ -132,6 +166,10 @@
 		}, $('#sampleGroup').children().eq(index)[0].duration * 1000);
 	}
 
+	/**
+	 * start progress bar
+	 * @return {void}  
+	 */
 	function startProgress() {
 		if (docBar) {
 			docBar.animate(0);
@@ -182,6 +220,10 @@
 	// 	$("#btnRestart").show();
 	// }
 
+	/**
+	 * show result
+	 * @return {void}  
+	 */
 	function showResult() {
 		$(".notChosen").removeClass("notChosen").addClass("wrongWord");
 		$("#wordGroup").find("button").prop("disabled", true);
