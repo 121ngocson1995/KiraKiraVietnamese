@@ -148,6 +148,7 @@
 
 	/**
 	 * Delete the chosen paragraph
+	 *　選択する段落を削除する。
 	 * @return {void}
 	 */
 	function deleteContent() {
@@ -162,6 +163,8 @@
 
 	/**
 	 * Insert new paragraph
+	 *　新しい段落を挿入する。
+	 *
 	 * @return {void}
 	 */
 	function addContent() {
@@ -263,6 +266,7 @@
 
 	/**
 	 * Show delete button when hovering on paragraph
+	 *　段落にホバリングをすると「Delete」ボタンを表す。
 	 * @return {void}
 	 */
 	$('#wrapper').hover(function() {
@@ -273,16 +277,19 @@
 
 	/**
 	 * Trigger addContent function
+	 *　「addContent」機能をトリガーする。
 	 */
 	$('.addContent').click(addContent);
 
 	/**
 	 * Trigerr deleteContent function
+	 *　「deleteContent」機能をトリガーする。
 	 */
 	$('.deleteContent').click(deleteContent);
 
 	/**
 	 * Attach to form the list of id of paragraph to delete
+	 *　削除するように、フォームに要求のイドのリスクを付ける。
 	 * @return {void}
 	 */
 	$("#p13Form").submit( function(eventObj) {

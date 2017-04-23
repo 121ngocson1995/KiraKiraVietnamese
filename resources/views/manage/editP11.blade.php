@@ -187,6 +187,7 @@
 
 	/**
 	 * Create a new sentence
+	 * 新しいセンテンスを作成する。
 	 *
 	 * @return {void}
 	 */
@@ -284,6 +285,7 @@
 
 	/**
 	 * Store id of content to be deleted
+	 * 削除する内容のイドを保存する。
 	 *
 	 * @type {String}
 	 */
@@ -312,7 +314,7 @@
 
 	/**
 	 * Delete an order
-	 *
+	 *　順序を削除する。
 	 * @param  {integer}
 	 *
 	 * @return {[type]}
@@ -344,6 +346,7 @@
 
 	/**
 	 * Create a new order
+	 * 新しい順序を作成する。
 	 *
 	 * @return {void}
 	 */
@@ -389,6 +392,7 @@
 
 	/**
 	 * Check if the entered order is in the correct format
+	 * 入力した順序を正しいフォーマットするかどうかチェックする。
 	 *
 	 * @return {Boolean}
 	 */
@@ -426,6 +430,7 @@
 
 	/**
 	 * Show alert message
+	 * 警告メッセージを表示する。
 	 *
 	 * @param  {string}
 	 *
@@ -458,7 +463,8 @@
 
 	/**
 	 * Highlight the error section
-	 *
+	 *　間違いの部分を強調表示する。
+	 * 
 	 * @param  {string}
 	 *
 	 * @return {void}
@@ -477,6 +483,7 @@
 
 	/**
 	 * Unhighlight the error section
+	 *　間違いの部分ハイライトを消す。
 	 *
 	 * @param  {integer}
 	 *
@@ -492,6 +499,7 @@
 
 	/**
 	 * Highlight a column
+	 *　列を強調表示する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -507,6 +515,7 @@
 
 	/**
 	 * Unhighlight a column
+	 *　列のハイライトを消す。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -522,6 +531,7 @@
 
 	/**
 	 * Create a new sentence
+	 *　新しいセンテンスを作成する。
 	 */
 	$('#newSentenceBtn').click(function() {
 		newSentence();
@@ -529,6 +539,7 @@
 
 	/**
 	 * Create a new order
+	 *　新しい順序を作成する。
 	 */
 	$('#newOrderBtn').click(function() {
 		newOrder();
@@ -536,6 +547,7 @@
 
 	/**
 	 * Delete a sentence upon button click
+	 * ボタンをクリックすると、センテンスを削除する。
 	 */
 	$('.horizontal.close').click(function() {
 		deleteSentence($(this).closest('tr'));
@@ -543,6 +555,7 @@
 
 	/**
 	 * Delete an order upon button click
+	 * ボタンをクリックすると、順序を削除する。
 	 */
 	$('.vertical.close').click(function() {
 		deleteOrder([].indexOf.call(this.parentNode.children, this));
@@ -550,6 +563,7 @@
 
 	/**
 	 * Highlight a column when user click an input belonging to that column
+	 * ユーザーから入力をクリックすると、その列の入力を強調表示する。
 	 */
 	$('input.order-input')
 	.focus(function() {
@@ -560,6 +574,7 @@
 
 	/**
 	 * Add a list of id of element to delete to the submiting form
+	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
 	$("#p11Form").submit( function(eventObj) {
 		if(!isOrderFormatCorrect()) {

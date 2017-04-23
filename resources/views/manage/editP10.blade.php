@@ -175,6 +175,7 @@
 
 	/**
 	 * Call function to change textbox's width
+	 * テキストボックスの幅を変更するように機能を呼び出す。
 	 */
 	 $('input').each(function() {
 	 	changeTextboxWidth(this);
@@ -182,6 +183,7 @@
 
 	/**
 	 * Change textbox's width
+	 * テキストボックスの幅を変更する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -193,7 +195,8 @@
 
 	/**
 	 * Add a new sentence
-	 *
+	 *　新しいセンテンスを追加する。
+	 * 
 	 * @return {void}
 	 */
 	 function addSentence() {
@@ -289,13 +292,14 @@
 
 	/**
 	 * Store id of content to be deleted
-	 * 
+	 * 削除する内容のイドを保存する。
 	 * @type {String}
 	 */	
 	 var toDelete = '';
 
 	/**
 	 * Delete a sentence
+	 *　センテンスを削除する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -318,6 +322,7 @@
 
 	/**
 	 * Add a new word
+	 *　新しい単語を追加する。
 	 *
 	 * @param {void}
 	 */
@@ -337,6 +342,7 @@
 
 	/**
 	 * Delete a word
+	 *　単語を削除する。
 	 *
 	 * @param  {DOM Object}
 	 *
@@ -359,6 +365,7 @@
 
 	/**
 	 * Return newly created word object
+	 *　新しい作成する単語のオブジェクトをリターンする。
 	 *
 	 * @param  {integer}
 	 *
@@ -419,6 +426,8 @@
 
 	/**
 	 * Show Add sentence button when hovering on a sentence
+	 *　センテンスにホバリングをすると「Add　sentence」ボタンを表す。
+	 *
 	 */
 	 $('div.sentence-holder').hover(function() {
 	 	$(this).find('button.addPartBtn').fadeIn(60);
@@ -430,6 +439,7 @@
 
 	/**
 	 * Show Delete button when hovering on a word
+	 *　単語にホバリングすると、「Delete」ボタンを表す。
 	 */
 	 $('.word').hover(function() {
 	 	$(this).find('button.deleteOption').fadeIn(60);
@@ -439,6 +449,8 @@
 
 	/**
 	 * Delete word upon button click
+	 * ボタンをクリックすると、単語を削除する。
+	 * 
 	 */
 	 $('button.deleteOption').click(function() {
 	 	deleteWord($(this).closest('div.word'));
@@ -446,6 +458,7 @@
 
 	/**
 	 * Add a new word upon button click
+	 * ボタンをクリックすると、新しい単語を追加する。
 	 */
 	 $('button.addPartBtn').click(function() {
 	 	addWord(this);
@@ -453,6 +466,7 @@
 
 	/**
 	 * Add a new sentence upon button click
+	 * ボタンをクリックすると、新しいセンテンスを追加する。
 	 */
 	 $('button#newSentenceBtn').click(function() {
 	 	addSentence();
@@ -460,6 +474,7 @@
 
 	/**
 	 * Delete a sentence upon button click
+	 * ボタンをクリックすると、センテンスを削除する。
 	 */
 	 $('.deleteSentence button').click(function() {
 	 	deleteSentence($(this).closest('.sentence-holder'));
@@ -467,6 +482,7 @@
 
 	/**
 	 * Add a list of id of element to delete to the submiting form
+	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
 	 $("#p10Form").submit( function(eventObj) {
 	 	console.log(toDelete);
