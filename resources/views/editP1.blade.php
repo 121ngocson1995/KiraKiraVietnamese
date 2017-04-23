@@ -103,7 +103,6 @@
 <script type="text/javascript">
 	var p1 = <?php echo json_encode($p1); ?>;
 	var sumLine = p1.length;
-	console.log(sumLine);
 	var deleteLine = 0;
 	var addLine = 0;
 	$("#p1Form").submit( function(eventObj) {

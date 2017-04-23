@@ -178,7 +178,7 @@
 				}
 
 				var node = document.createElement("div");
-				node.setAttribute('style', 'font-size: 1.3em; padding: 15px');	
+				node.setAttribute('style', 'font-size: 1.0em; padding: 15px');	
 				textNode = document.createTextNode(line);
 				node.appendChild(textNode);
 				document.getElementById("content_id").appendChild(node);
@@ -205,7 +205,7 @@
 		}
 		for (var j = 0; j < dialogline.length; j++) {
 			var node = document.createElement("div");
-			node.setAttribute('style', 'font-size: 1.3em; padding: 15px');
+			node.setAttribute('style', 'font-size: 1.0em; padding: 15px');
 			curline = dialogline[j]['line'].split("*");
 			var index = 0;
 			for (var k = 0; k < curline.length; k++) {
@@ -251,7 +251,7 @@
 
 					var node_p = document.createElement("p");
 					node_p.setAttribute('class', 'tbn word ui-state-default');
-					node_p.setAttribute('style', " opacity: 0; font-size: 1.3em;");
+					node_p.setAttribute('style', " opacity: 0; font-size: 1.0em;");
 
 					var textnode = document.createTextNode(dialogAnswer[i]['answer'][j]);
 
@@ -429,7 +429,7 @@ onmousedown="return false;">
 </div>
 <br>
 <div id="content" style="padding: 0 5%;">
-	<div id="wordGroup" class="col-sm-4" style=" text-align: center;">
+	<div id="wordGroup" class="col-xs-4" style=" text-align: center;">
 		@php
 		$dialogAnswer = array();
 		for ($i=0; $i < count($elementData) ; $i++) { 
@@ -444,9 +444,9 @@ onmousedown="return false;">
 		@if (strcmp($dialogAnswer[$i]->answer[$j], "") != 0 )
 		<div class="wordSpan dragWord " id="d0line{{$i}}answer{{$j}}" data-answer-content="{{$dialogAnswer[$i]->answer[$j]}}" style="display: inline-block;">
 			<div class="flexContainer" style="display: flex">
-				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.3em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
+				<p class="tbn word ui-state-default"  style=" opacity: 0; font-size: 1.0em;">{{$dialogAnswer[$i]->answer[$j]}}</p>
 				<div class="btnBg">
-					<img class="wordCloud" style="opacity: 0; width: 60%;" src="{{ asset('img/P8/word.svg') }}" alt="start button">
+					<img class="wordCloud" style="opacity: 0; width: 45%;" src="{{ asset('img/P8/word.svg') }}" alt="start button">
 				</div>
 			</div>
 		</div>
@@ -454,14 +454,14 @@ onmousedown="return false;">
 		@endfor	
 		@endfor
 	</div>
-	<div id="content_id" class="col-sm-5" style=" text-align:left;" >
+	<div id="content_id" class="col-xs-5" style=" text-align:left;" >
 		@for ($i = 0; $i < count($elementData) ; $i++)
 		@if ($elementData[$i]->dialogNo == 0)
 		@php
 		$curline = explode('*', $elementData[$i]->line);
 		$index = 0;
 		@endphp
-		<div style="font-size: 1.3em; padding: 15px">
+		<div style="font-size: 1.0em; padding: 15px">
 			@for ($j = 0; $j < count($curline) ; $j++)
 			@if ($index != count($curline)-1)
 			{{$curline[$j]}}<div id="d0line{{$i}}question{{$j}}" data-answer-content="{{$elementData[$i]->answer[$j]}}" class="blank-sqr dropWord"></div>
@@ -476,7 +476,7 @@ onmousedown="return false;">
 		@endif
 		@endfor
 	</div>
-	<div class="col-sm-3" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px " >
+	<div class="col-xs-3" style="text-align: center; vertical-align: middle; float: right; margin-bottom: 20px " >
 		<div id="countdown" ></div>
 		<div id="result" style="font-size: 45px text-align: center; "></div>
 	</div>
