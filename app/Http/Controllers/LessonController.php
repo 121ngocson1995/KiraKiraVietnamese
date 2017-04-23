@@ -414,7 +414,7 @@ class LessonController extends Controller
     			$p9[$i]->line = explode('*', $p9[$i]->line);
     			$p9[$i]->answer = explode(',', $p9[$i]->answer);
     		}
-    		return view('editp9', compact(['p9', 'dialogCnt', 'lessonId']));
+    		return view('editP9', compact(['p9', 'dialogCnt', 'lessonId']));
     		break;
 
     		case 'p10':
