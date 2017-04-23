@@ -158,6 +158,11 @@
 	// 	$(this).val(lines.join(''));
 	// });
 
+
+	/**
+	 * Add a new situation
+	 * @return {void}
+	 */
 	function AddRow() {
 		rowAdded++;
 		var node_rowBig = document.createElement("div");
@@ -304,6 +309,11 @@
 		sumLine++;
 	}
 
+	/**
+	 * delete a situation 
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function deleteRow(button) {
 		deletedRow++;
 		var curLine = $(button).closest('.row').attr('data-line');
