@@ -352,6 +352,12 @@ $user = \Auth::user();
 </div>
 
 <script>
+
+	/**
+	 * change Textbox Width 
+	 * @param  {DOM} input 
+	 * @return {void}     
+	 */
 	function changeTextboxWidth(input) {
 		input.size= parseInt(input.value.length);
 	}

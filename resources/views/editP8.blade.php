@@ -126,6 +126,8 @@
 
 		/**
 		 * set value for question textbox
+		 *　質問のテキストボックスの値をセットする。
+		 *
 		 * @return void
 		 */
 		 function start(){
@@ -145,6 +147,8 @@
 
 		/**
 		 * prevent client delete symbol "\u3007" in textbox
+		 *　クライアントからテキストボックスの「\u3007」記号を防ぐ。
+		 *
 		 * @param  {input}
 		 * @return void
 		 */
@@ -162,8 +166,10 @@
 		 });
 
 		/**
-		 * add new answer for dialog
-		 * @param {[button]}
+		 * add new answer for a question in dialog
+		 *　ダイアログで質問に新たな回答を追加する。　
+		 *
+		 * @param {DOM} button
 		 * @return {void}
 		 */
 		 function addAnswer(button){
@@ -187,7 +193,10 @@
 		 }
 
 		/**
-		 * @return {void}[add new dialog]
+		 * Add a new dialog
+		 *　新たなダイアログを追加する。
+		 *
+		 * @return {void}
 		 */
 		 function addDialog(){
 		 	addedDialog ++;
@@ -297,6 +306,13 @@
 
 		 }
 
+		 	/**
+		 	 * 	delete a dialog
+		 	 *　ダイアログを削除する。
+		 	 *
+		 	 * @param  {DOM} button 
+		 	 * @return {void}      
+		 	 */
 		 function deleteDialog(button){
 		 	if(confirm("Are you sure you want to delete?")){
 		 		
@@ -319,7 +335,13 @@
 		 	}
 		 }
 		 
-
+		 	/**
+		 	 * delete a sentence of dialog
+		 	 *　ダイアログのセンテンスを削除する。
+		 	 *　
+		 	 * @param  {DOM} button 
+		 	 * @return {void}    
+		 	 */
 		 function deleteRow(button){
 		 	if(confirm("Are you sure you want to delete?")){
 		 		if($(button).closest('.row').hasClass('origin')){
@@ -334,6 +356,13 @@
 		 	}
 		 }
 
+		 /**
+		  * Add a　new sentence of dialog
+		 　*　新たなダイアログのセンテンスを追加する。
+		 　*
+		  * @param {DOM} button 
+		  * @return {void}
+		  */
 		 function addRow(button){
 
 		 	var node_row = document.createElement('div');

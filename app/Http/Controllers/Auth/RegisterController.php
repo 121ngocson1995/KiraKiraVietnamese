@@ -19,7 +19,7 @@ class RegisterController extends Controller
     | This controller handles the registration of new users as well as their
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.　
-    | このコントローラーは、新しい登録するユーザーとそれらの検証と作成の同様に処理する。
+    | このコントローラーは、新しいユーザーの登録とそのユーザーの検証と作成を処理する。
     | デフォルトで、このコントローラーは特性を使用して、追加ルールを必要とせずにこの機能を提供する。
     |
     */
@@ -36,7 +36,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *　新しいインスタントのコントローラーを作成する。
+     *　新しいコントローラーのインスタンスを作成する。
      *
      * @return void
      */

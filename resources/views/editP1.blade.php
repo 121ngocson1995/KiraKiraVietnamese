@@ -103,7 +103,6 @@
 <script type="text/javascript">
 	var p1 = <?php echo json_encode($p1); ?>;
 	var sumLine = p1.length;
-	console.log(sumLine);
 	var deleteLine = 0;
 	var addLine = 0;
 	$("#p1Form").submit( function(eventObj) {
@@ -113,6 +112,13 @@
 		.appendTo('#p1Form');
 		return true;
 	});
+
+	/**
+	 * Add new row of word and audio
+	 * 単語と音響の行を追加する。
+	 *
+	 * @return {void}
+	 */
 	function AddRow() {
 		addLine++;
 		sumLine++;
@@ -169,6 +175,14 @@
 			$input.fileinput();
 		}
 	}
+
+	/**
+	 * delete a row of word and audio
+	 * 単語と音響の行を削除する。
+	 * 
+	 * @param  {DOM} button 
+	 * @return {void}       
+	 */
 	function deleteRow(button) {
 		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');

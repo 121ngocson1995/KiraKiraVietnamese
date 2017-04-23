@@ -114,6 +114,12 @@
 		.appendTo('#p4Form');
 		return true;
 	});
+
+	/**
+	 * Add new row of sentence and audio
+	 * センテンスと音響の行を追加する。
+	 * @return {void}
+	 */
 	function AddRow() {
 		addLine++;
 		sumLine++;
@@ -170,6 +176,14 @@
 			$input.fileinput();
 		}
 	}
+
+	/**
+	 * delete new row of sentence and audio
+	 *　センテンスと音響の行を削除する。
+	 *
+	 * @param  {DOM} button 
+	 * @return {void} 
+	 */
 	function deleteRow(button) {
 		deleteLine++;
 		var curLine = $(button).closest('.row').attr('data-line');

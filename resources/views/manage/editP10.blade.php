@@ -175,7 +175,7 @@
 
 	/**
 	 * Call function to change textbox's width
-	 * テキストボックスの幅を変更するように機能を呼び出す。
+	 * テキストボックスの幅を変更する機能を呼び出す。
 	 */
 	 $('input').each(function() {
 	 	changeTextboxWidth(this);
@@ -365,8 +365,7 @@
 
 	/**
 	 * Return newly created word object
-	 *　新しい作成する単語のオブジェクトをリターンする。
-	 *
+	 * 新しく作成した単語のオブジェクトをリターンする。
 	 * @param  {integer}
 	 *
 	 * @return {DOM Object}

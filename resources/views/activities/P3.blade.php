@@ -29,6 +29,11 @@
 	var audio_context;
 	var recorder;
 
+	/**
+	 * choose word and play it audio
+	 * @param  {string} audioPath 
+	 * @return {void}        
+	 */
 	function playWord(audioPath) {
 		var auRecord = document.getElementById("sample");
 
@@ -36,6 +41,11 @@
 		auRecord.play();
 	}
 
+	/**
+	 * change play button icon
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function toggleSample(button) {
 		if ($('#sample')[0].paused) {
 			$('#sample')[0].play();
@@ -44,20 +54,39 @@
 		}
 	}
 
+	/**
+	 * set play icon
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function playSample(button) {
 		$('#sample')[0].pause();
 		$('#sample')[0].currentTime = 0;
 		$('#sample')[0].play();
 	}
 
+	/**
+	 * set replay icon
+	 * @return {void} 
+	 */
 	function imgToReplay() {
 		$('#playSample').attr('src', "{{ asset('img/icons/sample_replay.svg') }}");
 	}
 
+	/**
+	 * set stop icon
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function imgToPause(button) {
 		$('#playSample').attr('src', "{{ asset('img/icons/sample_pause.svg') }}");
 	}
 
+	/**
+	 * change record button icon
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function toggleRecord(button) {
 		if ($(button).hasClass('startRecord')) {
 			startRecording(button);
@@ -66,12 +95,23 @@
 		}
 	}
 
+
+	/**
+	 * create component for record through micro
+	 * @param  {stream} stream 
+	 * @return {void} 
+	 */
 	function startUserMedia(stream) {
 		var input = audio_context.createMediaStreamSource(stream);
 
 		recorder = new Recorder(input);
 	}
 
+	/**
+	 * Start record
+	 * @param  {DOM} button 
+	 * @return {void} 
+	 */
 	function startRecording(button) {
 		recorder && recorder.record();
 		$(button).removeClass('startRecord');
@@ -94,6 +134,11 @@
 		}, 5000);
 	}
 
+	/**
+	 * Stop record
+	 * @param  {DOM} button 
+	 * @return {void} 
+	 */
 	function stopRecording(button) {
 		recorder && recorder.stop();
 
@@ -112,6 +157,10 @@
 		$('.stopRecord').parent().find('.progress').hide();
 	}
 
+	/**
+	 * create recorded file
+	 * @return {void} 
+	 */
 	function createMedia() {
 		recorder && recorder.exportWAV(function(blob) {
 			var url = URL.createObjectURL(blob);
@@ -122,6 +171,11 @@
 		});
 	}
 
+	/**
+	 * start progress bar
+	 * @param  {int} id
+	 * @return {void}  
+	 */
 	function startProgress(id) {
 		var elem = document.getElementById(id);
 		$(elem).closest('.progress').show();

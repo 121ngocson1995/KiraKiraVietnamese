@@ -158,6 +158,13 @@
 	// 	$(this).val(lines.join(''));
 	// });
 
+
+	/**
+	 * Add a new situation
+	 * 新たな「situation」を追加する。
+	 * 	
+	 * @return {void}
+	 */
 	function AddRow() {
 		rowAdded++;
 		var node_rowBig = document.createElement("div");
@@ -166,6 +173,7 @@
 		node_rowBig.setAttribute('data-line', sumLine);
 
 		/* Create label Situation n */
+		/* 「Situation 」ラベルを作成する。 */
 
 		var div_label = document.createElement("div");
 
@@ -191,6 +199,7 @@
 		node_rowBig.appendChild(div_label);
 
 		/* Create first row (dialog, dialog_translate) */
+		/* 最初の(dialog, dialog_translate)行を作成する。 */
 
 		var bigDiv = document.createElement("div");
 		var row = document.createElement("div");
@@ -239,6 +248,7 @@
 		bigDiv.appendChild(row);
 
 		/* Create second row (image upload, audio upload) */
+		/* 二列目の (image upload, audio upload)行を作成する。 */
 
 		row = document.createElement("div");
 		row.setAttribute('class', 'row');
@@ -304,6 +314,13 @@
 		sumLine++;
 	}
 
+	/**
+	 * delete a situation 
+	 * 「situation 」を削除する。
+	 * 
+	 * @param  {DOM} button
+	 * @return {void} 
+	 */
 	function deleteRow(button) {
 		deletedRow++;
 		var curLine = $(button).closest('.row').attr('data-line');
