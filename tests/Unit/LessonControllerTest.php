@@ -22,7 +22,6 @@ class LessonControllerTest extends TestCase
 			'added_by' => str_random(10),
 			'last_updated_by' => str_random(10),
 			]);
-		}
 
 		$retrieve_lesson = \App\Lesson::find(1);
 
@@ -30,3 +29,4 @@ class LessonControllerTest extends TestCase
 		$this->assertEquals($retrieve_lesson->id, $lesson->id);
 		$this->assertEquals($retrieve_lesson->id, $lesson->id);
 	}
+}
