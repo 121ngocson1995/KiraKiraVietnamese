@@ -22,35 +22,35 @@ class Navigate
         $lessonAct;
         $preAct = new \stdClass;
         $nextAct = new \stdClass;
-
+        // dd($activity);
         for ($i=0; $i < count($lessons); $i++) {
             if ($lessons[$i]->lessonNo == $lessonNo) {
                 $lessonAct = $lessons[$i]->activity;
                 $checkExist = true;
             }
             if ($checkExist) {
-                for ($i=0; $i < count($lessonAct); $i++) {
-                    if ($lessonAct[$i]->name == $activity) {
-                        if ($i == 0) {
+                for ($j=0; $j < count($lessonAct); $j++) {
+                    if ($lessonAct[$j]->name == $activity) {
+                        if ($j == 0) {
                             $preAct->link = "lessons";
                             $preAct->name = "View all lessons";
-                        } else if ($i > 0 && strcmp($lessonAct[$i-1]->name, "situations") == 0) {
-                            $preAct->link = "lesson".$lessonNo."/".$lessonAct[$i-1]->name;
+                        } else if ($j > 0 && strcmp($lessonAct[$j-1]->name, "situations") == 0) {
+                            $preAct->link = "lesson".$lessonNo."/".$lessonAct[$j-1]->name;
                             $preAct->name = "Situations";
                         } else {
-                            $preAct->link = "lesson".$lessonNo."/".$lessonAct[$i-1]->name;
-                            $preAct->name = $lessonAct[$i-1]->name;
+                            $preAct->link = "lesson".$lessonNo."/".$lessonAct[$j-1]->name;
+                            $preAct->name = $lessonAct[$j-1]->name;
                         }
 
-                        if ($i == count($lessonAct)-1) {
+                        if ($j == count($lessonAct)-1) {
                             $nextAct->link = "lessons";
                             $nextAct->name = "View all lessons";
-                        } else if ($i < count($lessonAct)-1 && strcmp($lessonAct[$i+1]->name, "extensions") == 0) {
-                            $nextAct->link = "lesson".$lessonNo."/".$lessonAct[$i+1]->name;
+                        } else if ($j < count($lessonAct)-1 && strcmp($lessonAct[$j+1]->name, "extensions") == 0) {
+                            $nextAct->link = "lesson".$lessonNo."/".$lessonAct[$j+1]->name;
                             $nextAct->name = "Language and Culture";
                         } else {
-                            $nextAct->link = "lesson".$lessonNo."/".$lessonAct[$i+1]->name;
-                            $nextAct->name = $lessonAct[$i+1]->name;
+                            $nextAct->link = "lesson".$lessonNo."/".$lessonAct[$j+1]->name;
+                            $nextAct->name = $lessonAct[$j+1]->name;
                         }
                     }
                 }
