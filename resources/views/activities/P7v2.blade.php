@@ -96,6 +96,8 @@
 
 	 /**
 	 * set image source
+	 *　イメージソースをセットする。
+	 *
 	 * @return {void}
 	 */
 	function preloadImage() {
@@ -115,6 +117,7 @@
 
 	/**
 	 * create component for record through micro
+	 * マイクロから記録にコンポーネントを作成する。
 	 * @param  {stream} stream 
 	 * @return {void} 
 	 */

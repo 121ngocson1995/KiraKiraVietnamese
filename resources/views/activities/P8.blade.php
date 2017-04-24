@@ -116,6 +116,8 @@
 
 	/**
 	 * edit dialog
+	 * ダイアログを変更する。
+	 * 
 	 * @param  {DOM} elementData 
 	 * @param  {int} dialogNow   
 	 * @param  {array} dialogCnt   
@@ -147,6 +149,7 @@
 
 	/**
 	 * choose dialog
+	 * ダイアログを選択する。
 	 * @param  {DOM} element    
 	 * @return {void}           
 	 */
@@ -206,6 +209,8 @@
 
 	/**
 	 * edit Question content
+	 * 質問の内容を変更する。
+	 * 
 	 * @param  {DOM} elementData 
 	 * @param  {int} dialogNow   
 	 * @return {void}           
@@ -248,6 +253,8 @@
 
 	/**
 	 * edit dialog answer
+	　*　ダイアログの回答を変更する。	
+	　*
 	 * @param  {DOM} elementData 
 	 * @param  {int} dialogNow     
 	 * @return {void}           
@@ -302,6 +309,8 @@
 
 	/**
 	 * edit dialog control
+	 *　ダイアログのコントローラーを変更する。
+	 *
 	 * @param  {DOM} elementData 
 	 * @param  {int} dialogNow      
 	 * @return {void}           
@@ -329,6 +338,8 @@
 
 	/**
 	 * check correct of answer
+	 *　回答をチェックする。
+	 *
 	 * @param  {DOM} elementData 
 	 * @param  {array} rightAnswerCnt     
 	 * @return {void}           
@@ -396,6 +407,8 @@
 
 	/**
 	 * return answer list
+	 *　回答のリストをリターンする。
+	 *
 	 * @param  {DOM} elementData 
 	 * @param  {int} dialogNow     
 	 * @return {array}           
@@ -421,6 +434,8 @@
 
 	/**
 	 * show result   
+	 *　結果を表示する。
+	 *
 	 * @return {void}           
 	 */
 	function showResult() {
@@ -564,6 +579,8 @@ onmousedown="return false;">
 
 	/**
 	 * init drop answer 
+	 *　回答のドロップを初期化する。　
+	 *
 	 * @return {void}           
 	 */
 	function initDroppable() {
@@ -613,6 +630,7 @@ onmousedown="return false;">
 				accept: '.'+answer_class,
 				drop: function(event, ui) {
 					/* place draggable element at the middle of drop target */
+					/* ドロップターゲットの中間でドラッグ可能要素を位置する。 */
 					var dropTarget = $(this);
 					dropTarget.css('width', 'auto');
 					ui.draggable.position({
@@ -651,6 +669,8 @@ onmousedown="return false;">
 
 	/**
 	 * set drop answer position
+	 *　回答の位置をセットする。
+	 *
 	 * @return {void}           
 	 */
 	function rePosition(drop, drag) {
