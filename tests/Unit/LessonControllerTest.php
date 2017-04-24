@@ -17,13 +17,13 @@ class LessonControllerTest extends TestCase
 
 		// parent::setUp();
 		$lesson = \App\Lesson::create([
-			'course_id' => $course->id,
+			'course_id' => $course[0]->id,
 			'lessonNo' => 1,
-			'lesson_name' => $faker->sentence,
-			'description' => $faker->sentences,
+			'lesson_name' => $str_random(10,true),
+			'description' => $faker->sentences(3,true),
 			'author' => $faker->name,
-			'added_by' => str_random(10),
-			'last_updated_by' => str_random(10),
+			'added_by' => str_random(10,true),
+			'last_updated_by' => str_random(10,true),
 			]);
 
 		$retrieve_lesson = \App\Lesson::find(1);
