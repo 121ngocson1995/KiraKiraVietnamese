@@ -13,15 +13,10 @@ class LessonControllerTest extends TestCase
 	{
 		$course = factory(\App\Course::class, 1)->create();
 
-		// dd($course[0]->id);
-
-		// parent::setUp();
 		$lesson = factory(\App\Lesson::class, 1)->create([
 			'course_id' => $course[0]->id,
 			]);
 
-		$retrieve_lesson = \App\Lesson::find(1);
-
-		$this->assertEquals($retrieve_lesson->id, $lesson->id);
+		$this->assertEquals($course[0]->id, $lesson[0]->id);
 	}
 }
