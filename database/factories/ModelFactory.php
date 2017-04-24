@@ -33,7 +33,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\App\Lesson::class, function (Faker\Generator $faker) {
+$factory->define(App\Lesson::class, function (Faker\Generator $faker) {
     return [
         'course_id' => $faker->unique()->safeEmail,
         'lessonNo' => $faker->numberBetween(1, 100),
@@ -47,9 +47,9 @@ $factory->define(\App\Lesson::class, function (Faker\Generator $faker) {
 
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\App\Course::class, function (Faker\Generator $faker) {
+$factory->define(App\Course::class, function (Faker\Generator $faker) {
     return [
-        'thumbnail' => str_random(10),
+        'thumbnail' => str_random(10, true),
         'name' => $faker->name,
         'description' => $faker->sentences,
         'age' => $faker->numberBetween(1, 100),
