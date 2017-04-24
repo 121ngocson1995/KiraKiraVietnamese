@@ -16,7 +16,7 @@ class P14SentencePattern extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson_id', 'sentenceNo', 'sentence',
+        'course_id', 'lessonNo', 'lesson_name', 'description', 'author', 'added_by', 'last_updated_by',
     ];
 
     /**
