@@ -6,9 +6,13 @@ initAudio();
 
 /**
  * check correct of word
+ *　単語が正しいかどうかチェックする。
+ * 
  * @param  {DOM} word
  * @return {void}
  */
+
+
 function check(word) {
 	if (isCorrect(word)) {
 		displayCorrect(word);
@@ -19,6 +23,8 @@ function check(word) {
 
 /**
  * set attribute for correct word
+ * 正しい単語に属性をセットする。
+ * 
  * @param  {DOM}  word 
  * @return {Boolean}   
  */
@@ -27,6 +33,8 @@ function isCorrect(word) {
 }
 /**
  * display Correct word
+ * 正しい単語を表示する。
+ * 
  * @param  {DOM} button 
  * @return {void}       
  */
@@ -43,6 +51,8 @@ function displayCorrect(button) {
 
 /**
  * display Wrong word
+ * 間違った単語を表示する。
+ * 
  * @param  {DOM} button 
  * @return {void}       
  */
@@ -55,6 +65,8 @@ function displayWrong(button) {
 
 /**
  * display happy icon
+ * 幸せなアイコンを表示する。
+ * 
  * @return {void}       
  */
 function happyFace() {
@@ -67,6 +79,8 @@ function happyFace() {
 
 /**
  * display sad icon
+ * 悲しいアイコンを表示する。
+ * 
  * @return {void}       
  */
 function sadFace() {
@@ -79,6 +93,8 @@ function sadFace() {
 
 /**
  * init data
+ * データを初期化する。
+ * 
  * @return {void} 
  */
 function start() {
@@ -111,6 +127,8 @@ function start() {
 
 /**
  * set data to restart 
+ * 再起動するようにデータをセットする。
+ *
  * @return {void} 
  */
 function restart() {
@@ -133,6 +151,7 @@ function restart() {
 
 /**
  * set data to reset audio
+ *　再起動するようにオーディオをセットする。
  * @return {void} 
  */
 function resetAudio() {
@@ -144,6 +163,8 @@ function resetAudio() {
 
 /**
  * show score
+ *　点数を表示する。
+ *
  * @return {void} 
  */
 function showScore() {
@@ -158,6 +179,8 @@ function showScore() {
 
 /**
  * set animation happy face
+ *　笑顔のアニメーションをセットする。
+ *
  * @return {void} 
  */
 function showSmiley() {
@@ -172,6 +195,8 @@ function showSmiley() {
 
 /**
  * create init score
+ *　初期化点数を作成する。
+ *
  * @return {void} 
  */
 function initScore() {
@@ -186,6 +211,8 @@ function initScore() {
 
 /**
  * set animation hide word
+ *　単語を隠すアニメーションをセットする。
+ *
  * @return {void} 
  */
 function hideWords() {
@@ -197,6 +224,8 @@ function hideWords() {
 
 /**
  * set init data
+ *　データを初期化する。
+ *
  * @return {void} 
  */
 function init() {
@@ -210,6 +239,8 @@ function init() {
 
 /**
  * set animation show word
+ *　単語を表示するアニメーションをセットする。
+ *
  * @return {void} 
  */
 function showWords() {
@@ -240,6 +271,7 @@ function shuffle(o) {
 
 /**
  * set animation change score
+ *　点数を変更するアニメーションをセットする。
  * @param  {string} text 
  * @param  {string} to   
  * @return {void}      
@@ -257,6 +289,8 @@ var playTimeout;
 
 /**
  * set animation hide word
+ *　単語を隠すアニメーションをセットする。
+ *
  * @param {int} index
  * @return {void} 
  */
@@ -280,6 +314,8 @@ function playSample(index) {
 
 /**
  * set animation start progress bar
+ *　プログレスバーを起動するアニメーションをセットする。
+ *
  * @return {void} 
  */
 function startProgressbar() {
@@ -292,6 +328,8 @@ var hideSmiley;
 
 /**
  * set animation show result
+ *　結果を表示するアニメーションをセットする。
+ *
  * @return {void} 
  */
 function showResult() {
@@ -316,6 +354,8 @@ var wordNo = 0;
 
 /**
  * set init word data
+ *　単語のデータを初期化する。　
+ *
  * @return {void} 
  */
 function initWords() {
@@ -354,6 +394,8 @@ function initWords() {
 
 /**
  * set init audio data
+ *　オーディオのデータを初期化する。　
+ *
  * @return {void} 
  */
 function initAudio() {
@@ -381,6 +423,8 @@ function initAudio() {
 
 /**
  * set audio duration
+ *　オーディオの期間をセットする。
+ *
  * @param {double} duration 
  * @return {void} 
  */
@@ -402,6 +446,8 @@ function checkTickLoad(duration) {
 
 /**
  * set audio duration
+ *　オーディオの期間をセットする。
+ *　
  * @param {double} duration 
  * @return {void} 
  */
