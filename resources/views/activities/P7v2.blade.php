@@ -93,6 +93,11 @@
 	var busyPlay, busyReplay, busyRecord, 
 		enabledPlay, enabledReplay, enabledRecord, 
 		disabledPlay, disabledReplay, disabledRecord;
+
+	 /**
+	 * set image source
+	 * @return {void}
+	 */
 	function preloadImage() {
 		busyReplay = new Image();
 		busyReplay.src = '{{ asset('img/testAnimate/replay-blu.png') }}';
@@ -108,6 +113,11 @@
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
 
+	/**
+	 * create component for record through micro
+	 * @param  {stream} stream 
+	 * @return {void} 
+	 */
 	function startUserMedia(stream) {
 		var input = audio_context.createMediaStreamSource(stream);
 

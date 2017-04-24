@@ -2,6 +2,11 @@ var audio_context;
 var recorder;
 var tl;
 
+/**
+ * choose dialog
+ * @param  {DOM} button 
+ * @return {void} 
+ */
 function chooseDialog(button){
 	$('.dialogBtn').removeClass('selected').prop('disabled', false);
 	$(button).addClass('selected').prop('disabled', true);
@@ -22,6 +27,10 @@ function chooseDialog(button){
 	editAudio(elementData[dialogNow]);
 }
 
+/**
+ * toggle PlaySample button
+ * @return {void}
+ */
 function togglePlaySample() {
 	if (conversationIsPlaying()) {
 		stopReadConversation();
@@ -30,10 +39,18 @@ function togglePlaySample() {
 	}
 }
 
+/**
+ * return id of playing conversation 
+ * @return {string} 
+ */
 function conversationIsPlaying() {
 	return !$('#sample')[0].paused;
 }
 
+/**
+ * stop playing audio 
+ * @return {void} [description]
+ */
 function stopReplay() {
 	if ($('#auRecord')[0].currentTime != 0) {
 		$('#auRecord')[0].pause();
@@ -47,6 +64,11 @@ function stopReplay() {
 	enableControl('wordWrap');
 }
 
+/**
+ * edit content
+ * @param  {DOM} element 
+ * @return {void}   
+ */
 function editContent(element) {
 	$('.wordWrap').unbind('click');
 
@@ -90,6 +112,11 @@ function editContent(element) {
 	});
 }
 
+/**
+ * edit audio
+ * @param  {DOM} element 
+ * @return {void}  
+ */
 function editAudio(element) {
 	document.getElementById('sample').setAttribute('src', assetPath + element.audio);
 	document.getElementById('sample').load();
@@ -99,6 +126,10 @@ var recordTimeout;
 var playRecordTimeout;
 var readConversationTimeout;
 
+/**
+ * play conversation audio
+ * @return {void} 
+ */
 function readConversation() {
 	pulseDialogHolder();
 
@@ -118,6 +149,10 @@ function readConversation() {
 	disableControl('record');
 }
 
+/**
+ * stop conversation audio
+ * @return {void} 
+ */
 function stopReadConversation() {
 	$('#sample')[0].pause();
 	$('#sample')[0].currentTime = 0;
@@ -129,6 +164,10 @@ function stopReadConversation() {
 	enableControl('record');
 }
 
+/**
+ * set conversation anmation
+ * @return {void} 
+ */
 function pulseDialogHolder() {
 	button = document.getElementsByClassName('wordWrap')[0];
 	button.classList.remove("flipInY");
@@ -137,6 +176,10 @@ function pulseDialogHolder() {
 	button.classList.add("pulse");
 }
 
+/**
+ * play record audio
+ * @return {void} 
+ */
 function playRecord() {
 	if ( $('#auRecord').attr('src') ) {
 		$('#auRecord')[0].pause();
@@ -171,6 +214,11 @@ function playRecord() {
 	}
 }
 
+/**
+ * disable Control button
+ * @param  {DOM} control
+ * @return {void}  
+ */
 function disableControl(control) {
 	if (control != 'wordWrap') {
 		controlHolder = document.getElementsByClassName(control)[0];
@@ -190,6 +238,11 @@ function disableControl(control) {
 	}
 }
 
+/**
+ * enable Control button
+ * @param  {DOM} control
+ * @return {void}  
+ */
 function enableControl(control) {
 	if (control != 'wordWrap') {
 		controlHolder = document.getElementsByClassName(control)[0];
@@ -216,6 +269,11 @@ function enableControl(control) {
 	}
 }
 
+/**
+ * set animation Control button
+ * @param  {DOM} control
+ * @return {void}  
+ */
 function busyControl(control) {
 	controlHolder = document.getElementsByClassName(control)[0];
 	while (controlHolder.firstChild) {
@@ -236,6 +294,11 @@ function busyControl(control) {
 
 var isRecording = false;
 
+/**
+ * start record
+ * @param  {DOM} control
+ * @return {void}  
+ */
 function startRecording(button) {
 	isRecording = true;
 	recorder && recorder.record();
@@ -265,6 +328,11 @@ function startRecording(button) {
 	}, 500);
 }
 
+/**
+ * stop record
+ * @param  {DOM} control
+ * @return {void}  
+ */
 function stopRecording(enableButtons) {
 	isRecording = false;
 	recorder && recorder.stop();
@@ -281,7 +349,11 @@ function stopRecording(enableButtons) {
 		enableControl('wordWrap');
 	}
 }
-
+/**
+	 * create component for record through micro
+	 * @param  {stream} stream 
+	 * @return {void} 
+	 */
 function createMedia() {
 	recorder && recorder.exportWAV(function(blob) {
 		var url = URL.createObjectURL(blob);

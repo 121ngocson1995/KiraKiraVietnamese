@@ -114,6 +114,13 @@
 		checkFinish.push({dialogNo:(i), finish:false});
 	}
 
+	/**
+	 * edit dialog
+	 * @param  {DOM} elementData 
+	 * @param  {int} dialogNow   
+	 * @param  {array} dialogCnt   
+	 * @return {void}           
+	 */
 	function edit(elementData, dialogNow, dialogCnt){
 		while (document.getElementById("content_id").firstChild) {
 			document.getElementById("content_id").removeChild(document.getElementById("content_id").firstChild);
@@ -138,6 +145,11 @@
 		});
 	}
 
+	/**
+	 * choose dialog
+	 * @param  {DOM} element    
+	 * @return {void}           
+	 */
 	function chooseD(element){
 
 		dialogNow = element.getAttribute('id');
@@ -192,6 +204,12 @@
 
 	}
 
+	/**
+	 * edit Question content
+	 * @param  {DOM} elementData 
+	 * @param  {int} dialogNow   
+	 * @return {void}           
+	 */
 	function editContent(elementData, dialogNow) {
 		var textNode;
 		var dialogline = new Array();
@@ -228,6 +246,12 @@
 		} 
 	}
 
+	/**
+	 * edit dialog answer
+	 * @param  {DOM} elementData 
+	 * @param  {int} dialogNow     
+	 * @return {void}           
+	 */
 	function editAnswer(elementData,dialogNow) {
 		var dialogAnswer = new Array();
 		for (i=0; i < elementData.length ; i++) { 
@@ -276,6 +300,12 @@
 		}
 	}
 
+	/**
+	 * edit dialog control
+	 * @param  {DOM} elementData 
+	 * @param  {int} dialogNow      
+	 * @return {void}           
+	 */
 	function editButtonGr(dialogCnt, dialogNow){
 		while (document.getElementById("btn-group").firstChild) {
 			document.getElementById("btn-group").removeChild(document.getElementById("btn-group").firstChild);
@@ -297,6 +327,12 @@
 
 	}
 
+	/**
+	 * check correct of answer
+	 * @param  {DOM} elementData 
+	 * @param  {array} rightAnswerCnt     
+	 * @return {void}           
+	 */
 	function checkAnswer(elementData , rightAnswerCnt){
 		var dialogAnswer = new Array();
 		var result;
@@ -358,6 +394,12 @@
 	// 	}
 	// }
 
+	/**
+	 * return answer list
+	 * @param  {DOM} elementData 
+	 * @param  {int} dialogNow     
+	 * @return {array}           
+	 */
 	function getDialogAnswer(elementData, dialogNow) {
 		var dialogAnswer = new Array();
 		var answerCnt = 0;
@@ -377,6 +419,10 @@
 		return answerCnt;
 	}
 
+	/**
+	 * show result   
+	 * @return {void}           
+	 */
 	function showResult() {
 		var result = document.createElement("span");
 		result.setAttribute('style','font-size:25px;');
@@ -516,7 +562,10 @@ onmousedown="return false;">
 		});
 	}
 
-
+	/**
+	 * init drop answer 
+	 * @return {void}           
+	 */
 	function initDroppable() {
 		// $('.dropWord').each(function() {
 		// 	console.log($(this));
@@ -600,7 +649,10 @@ onmousedown="return false;">
 		
 	}
 
-
+	/**
+	 * set drop answer position
+	 * @return {void}           
+	 */
 	function rePosition(drop, drag) {
 		/* change position of draggable element along with drop target */
 		if (drop.data('curDrag')) {
