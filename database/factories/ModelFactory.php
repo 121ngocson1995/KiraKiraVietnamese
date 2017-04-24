@@ -35,11 +35,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Lesson::class, function (Faker\Generator $faker) {
     return [
-        'course_id' => $faker->unique()->safeEmail,
+        'course_id' => $faker->numberBetween(1, 100),
         'lessonNo' => $faker->numberBetween(1, 100),
         'lesson_name' => $faker->sentence,
-        'description' => $faker->sentences,
-        'author' => $faker->name,
+        'description' => $faker->sentences(2,true),
+        'author' => str_random(2,true),
         'added_by' => 1,
         'last_updated_by' => 1,
     ];
