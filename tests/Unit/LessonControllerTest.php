@@ -13,7 +13,7 @@ class LessonControllerTest extends TestCase
 	{
 		$course = factory(\App\Course::class, 1)->create();
 
-		dd($course);
+		dd($course[0]->id);
 
 		parent::setUp();
 		$lesson = \App\Lesson::create([
