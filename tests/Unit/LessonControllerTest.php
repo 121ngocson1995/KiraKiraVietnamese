@@ -16,7 +16,7 @@ class LessonControllerTest extends TestCase
 		// dd($course[0]->id);
 
 		// parent::setUp();
-		$lesson = \App\Lesson::create([
+		$lesson = factory(\App\Lesson::class, 1)->create([
 			'course_id' => $course[0]->id,
 			]);
 
