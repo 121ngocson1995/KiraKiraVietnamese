@@ -13,9 +13,9 @@ class LessonControllerTest extends TestCase
 	{
 		$course = factory(\App\Course::class, 1)->create();
 
-		dd($course[0]->id);
+		// dd($course[0]->id);
 
-		parent::setUp();
+		// parent::setUp();
 		$lesson = \App\Lesson::create([
 			'course_id' => $course->id,
 			'lessonNo' => 1,
@@ -28,8 +28,6 @@ class LessonControllerTest extends TestCase
 
 		$retrieve_lesson = \App\Lesson::find(1);
 
-		$this->assertEquals($retrieve_lesson->id, $lesson->id);
-		$this->assertEquals($retrieve_lesson->id, $lesson->id);
 		$this->assertEquals($retrieve_lesson->id, $lesson->id);
 	}
 }
