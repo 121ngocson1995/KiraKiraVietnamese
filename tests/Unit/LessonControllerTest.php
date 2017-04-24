@@ -17,6 +17,6 @@ class LessonControllerTest extends TestCase
 			'course_id' => $course[0]->id,
 			]);
 
-		$this->assertEquals($course[0]->id, $lesson[0]->id);
+		$this->assertEquals($course[0]->id, $lesson[0]->course_id);
 	}
 }
