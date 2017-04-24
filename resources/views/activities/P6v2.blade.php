@@ -1,4 +1,4 @@
-@extends('activities.layout.activityLayout')
+　@extends('activities.layout.activityLayout')
 
 @section('header-more')
 
@@ -144,6 +144,8 @@
 
 	/**
 	 * switch to next question
+	 * 次の質問を切り替える。
+	 * 
 	 * @param  {DOM}   button [description]
 	 * @return {void}        [description]
 	 */
@@ -157,6 +159,8 @@
 
 	/**
 	 * set data when switch question
+	 * 質問を切り替える時データをセットする。
+	 * 
 	 * @param  {string} questionId 
 	 * @return {void}
 	 */
@@ -302,6 +306,8 @@
 
 	/**
 	 * check correct of answer
+	 * 回答が正しいかちぇっくする。
+	 * 
 	 * @param  {DOM} button
 	 * @return {void} 
 	 */
@@ -344,6 +350,8 @@
 
 	/**
 	 * set mark
+	 * 点数をセットする。
+	 * 
 	 * @param  {DOM} button  
 	 * @param  {boolean} correctChoice 
 	 * @return {void} 
@@ -397,6 +405,8 @@
 
 	/**
 	 * show result
+	 * 結果を表示する。
+	 * 
 	 * @return {void} 
 	 */
 	function showResult() {
