@@ -50,10 +50,10 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) {
 $factory->define(App\Course::class, function (Faker\Generator $faker) {
     return [
         'thumbnail' => str_random(10, true),
-        'name' => $faker->name,
-        'description' => $faker->sentences,
+        'name' => str_random(10, true),
+        'description' => $faker->sentences(3, true),
         'age' => $faker->numberBetween(1, 100),
-        'author' => $faker->name,
+        'author' => str_random(10, true),
         'added_by' => 1,
         'last_updated_by' => 1,
     ];
