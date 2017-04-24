@@ -12,6 +12,16 @@ class Lesson extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *　割り当て可能な属性。
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'course_id', 'lessonNo', 'lesson_name', 'description', 'author', 'added_by', 'last_updated_by',
+    ];
+
+    /**
 	 * Get the administrator that added the lesson.
      * レッスンを追加した管理者を取る。
 	 */
