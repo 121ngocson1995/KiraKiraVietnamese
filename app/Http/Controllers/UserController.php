@@ -114,9 +114,8 @@ class UserController extends Controller
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
     			for ($i=0; $i < count($users); $i++) { 
-    				$value = $users[$i];
+    				$value = $users[$i]->cv;
     				$disk = \Storage::disk('s3-hidden');
-	    			dd($disk->exists($value));
     				if ($disk->exists($value))
     				{
     					$command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
@@ -130,7 +129,7 @@ class UserController extends Controller
 		    				//$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
 
     					$generate_url = $request->getUri();
-    					dd($generate_url);
+    					$users[$i]->cv = $generate_url;
     				}
     			}
 
