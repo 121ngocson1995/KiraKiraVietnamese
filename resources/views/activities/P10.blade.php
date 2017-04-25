@@ -208,7 +208,10 @@
 	window.onload = function() {
 		initDroppable();
 	}
-
+	/**
+	 * init drop answer 
+	 * @return {void}           
+	 */
 	function initDroppable() {
 		$(".dragWord").draggable({
 			create: function(){
@@ -311,6 +314,10 @@
 
 	document.getElementById('normal').checked = true;
 
+	/**
+	 * set drop answer position
+	 * @return {void}           
+	 */
 	function rePosition(drop, drag) {
 		/* change position of draggable element along with drop target */
 		if (drop.data('curDrag')) {
@@ -324,7 +331,10 @@
 			});
 		}
 	}
-
+	/**
+	 * check correct of answer   
+	 * @return {void}           
+	 */
 	function checkAnswer() {
 		var order = [];
 		sentence = [];
@@ -354,6 +364,11 @@
 		}
 	}
 
+	/**
+	 * show correct answer
+	 * @param  {array} correctSentence 
+	 * @return {void}                 
+	 */
 	function showCorrect(correctSentence) {
 		var result = document.createElement("span");
 		result.className = 'result';
@@ -379,6 +394,10 @@
 		}
 	}
 
+	/**
+	 * show wrong answer
+	 * @return {void}                 
+	 */
 	function showWrong() {
 		var resultDiv = document.getElementById("result");
 		emptyDiv(resultDiv);
@@ -393,11 +412,21 @@
 		});
 	}
 
+	/**
+	 * display score 
+	 * @param  {array} correctSentence 
+	 * @return {void}                 
+	 */
 	function showScore(isCorrect) {
 		$('#correct').html(isCorrect ? ++correctNo : correctNo);
 		$('#total').html('/' + ++totalQuestion + (totalQuestion == 1 ? ' try' : ' tries'));
 	}
 
+	/**
+	 * merge word part user dropped to result sentence 
+	 * @param  {array} correctSentence 
+	 * @return {string} result                 
+	 */
 	function mergeWord(correctSentence) {
 		var result = '';
 		var lastIndex = correctSentence.length - 1;
@@ -417,6 +446,11 @@
 		return result;
 	}
 
+	/**
+	 * Make result sentence start with capital 
+	 * @param  {string} sentence 
+	 * @return {string} fixed sentence                 
+	 */
 	function toSentenceCase(sentence) {
 		var fixedSentence = "";
 		var n=sentence.split(".");
@@ -440,6 +474,12 @@
 		return fixedSentence;
 	}
 
+	/**
+	 * change to new sentence  
+	 * @param  {int} index 
+	 * @param {boolean} isNext
+	 * @return {void}             
+	 */
 	function changeSentence(index, isNext) {
 		var droppable = document.getElementById('droppable');
 		emptyDiv(droppable);
@@ -492,6 +532,11 @@
 		initDroppable();
 	}
 
+	/**
+	 * get new word randum order
+	 * @param  {int} elementDataIndex [description]
+	 * @return {[type]}                  [description]
+	 */
 	function shuffleWords(elementDataIndex) {
 		var doAgain = true;
 		while(doAgain) {
@@ -508,11 +553,21 @@
 		}
 	}
 
+	/**
+	 * get randum element order of given array 
+	 * @param {array} o
+	 * @return {array} o
+	 */
 	function Shuffle(o) {
 		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 		return o;
 	};
 
+	/**
+	 * clear all content in given div tag
+	 * @param  {DOM} div 
+	 * @return {void}
+	 */
 	function emptyDiv(div) {
 		while(div.firstChild){
 			div.removeChild(div.firstChild);
