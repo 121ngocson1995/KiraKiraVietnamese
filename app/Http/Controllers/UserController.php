@@ -113,7 +113,7 @@ class UserController extends Controller
 
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
-    			dd(count($users));
+    			// dd(count($users));
     			for ($i=0; $i < count($users); $i++) { 
     				$value = $users[$i];
     				$disk = \Storage::disk('s3-hidden');
@@ -121,6 +121,7 @@ class UserController extends Controller
     				{
     					$command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
     						'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
+    						'Key' => $value->cv,
     						'ResponseContentDisposition' => 'attachment;'
 		    				//for download
     						]);
@@ -129,7 +130,7 @@ class UserController extends Controller
 		    				//$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
 
     					$generate_url = $request->getUri();
-    					dd($generate_url);
+    					// dd($generate_url);
     				}
     			}
 
