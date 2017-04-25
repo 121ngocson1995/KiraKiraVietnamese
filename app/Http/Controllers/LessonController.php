@@ -5,6 +5,7 @@ use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Lesson;
+use App\LessonNote;
 use App\Situation;
 use App\P1WordMemorize;
 use App\P2WordRecognize;
@@ -306,12 +307,17 @@ class LessonController extends Controller
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($lessonId);
     	switch ($activityName) {
     		case 'situations':
-    		$situation = Situation::where('lesson_id', '=', $lessonId)->get();
-    		for ($i=0; $i<count($situation); $i++){
-    			$situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
-    			$situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
+            $situation = Situation::where('lesson_id', '=', $lessonId)->get();
+            for ($i=0; $i<count($situation); $i++){
+                $situation[$i]->dialogArr = str_replace( "|","\n", $situation[$i]->dialog);
+                $situation[$i]->dialogTransArr = str_replace( "|","\n", $situation[$i]->dialog_translate);
+            }
+
+    		$note = LessonNote::where('lesson_id', '=', $lessonId)->orderBy('noteNo')->get();
+    		for ($i=0; $i<count($note); $i++){
+    			$note[$i]->content = str_replace( "|","\n", $note[$i]->content);
     		}
-    		return view('editSitu', compact(['situation', 'lessonId']));
+    		return view('editSitu', compact(['situation', 'note', 'lessonId']));
     		break;
 
     		case 'p1':
