@@ -136,20 +136,18 @@
 
 		<div class="noteRow">
 			@if (count($note))
-
 			<hr class="images">
 			@for ($i = 0; $i < count($note); $i++)
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
 						<label for="note">Lesson note:</label>
-						<button type="button" data-id="{{$situation[$i]->id}}" class="deleteNoteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
-						<textarea class="form-control" name="note" id="note" rows="5" required>{{ $note[$i]->content }}</textarea>
+						<button type="button" data-id="{{$note[$i]->id}}" class="deleteNoteBtn" onclick="deleteNote(this)"><i class="fa fa-trash"></i></button>
+						<textarea class="form-control note" name="updateNote[{{$note[$i]->id}}][note]" id="note" rows="5" required>{{ $note[$i]->content }}</textarea>
 					</div>
 				</div>
 			</div>
 			@endfor
-
 			@endif
 		</div>
 	</div>
@@ -169,7 +167,7 @@
 <script type="text/javascript">
 	var rowAdded = 0;
 	var situation = <?php echo json_encode($situation); ?>;
-
+	var deletedNote = 0;
 	var sumLine = situation.length; 
 	var deletedRow = 0;
 	var maxLength = 80;
@@ -375,108 +373,133 @@
 	 				$("#audio"+(i)).attr('id', "audio"+(i-1));
 	 			}
 	 		}
-
 	 		sumLine--;
 	 	}
 	 }
 
-	 function addNote() {
-	 	var abc = document.createElement('div');
-	 	abc.innerHTML = '<div class="col-md-12"><div class="form-group"><label for="note">Lesson note:</label><button type="button" data-id="" class="deleteNoteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button><textarea class="form-control" name="note" id="note" rows="5" required></textarea></div></div>';
-	 	
-	 	document.getElementsByClassName('noteRow')[0].appendChild(abc);
-	 }
+	 /**
+	  * add new note
+	  * @return {void}
+	  */
+	  function addNote() {
+	  	var abc = document.createElement('div');
+	  	abc.innerHTML = '<div class="col-md-12"><div class="form-group"><label for="note">Lesson note:</label><button type="button" data-id="" class="deleteNoteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button><textarea class="form-control note" name="insertNote['+$('.note').length+'][note]" id="note" rows="5" required></textarea></div></div>';
+	  	document.getElementsByClassName('noteRow')[0].appendChild(abc);
+	  }
 
-	 $("#situationForm").submit( function(eventObj) {
+	 /**
+	  * delete a note 
+	  * @param  {DOM} button 
+	  * @return {void} 
+	  */
+	  function deleteNote(button) {
+	  	deleteNote ++;
+	  	if(confirm("Are you sure you want to delete?")){
+	  		var node_delete = document.createElement('input');
+	  		node_delete.setAttribute('type', 'hidden');
+	  		node_delete.setAttribute('name', 'deleteNote'+deletedNote);
+	  		node_delete.setAttribute('value', $(button).attr('data-id'));
+	  		document.getElementById('situationForm').appendChild(node_delete);
+	  		$(button).closest('.row').empty().remove();
+	  	}
+	  }
 
-	 	var node_delete = document.createElement('input');
-	 	node_delete.setAttribute('type', 'hidden');
-	 	node_delete.setAttribute('name', 'sumDelete');
-	 	node_delete.setAttribute('value', deletedRow);
-	 	document.getElementById('situationForm').appendChild(node_delete);
+	  $("#situationForm").submit( function(eventObj) {
 
-	 	var node_add = document.createElement('input');
-	 	node_add.setAttribute('type', 'hidden');
-	 	node_add.setAttribute('name', 'sumAdd');
-	 	node_add.setAttribute('value', rowAdded);
-	 	document.getElementById('situationForm').appendChild(node_add);
+	  	var node_delete = document.createElement('input');
+	  	node_delete.setAttribute('type', 'hidden');
+	  	node_delete.setAttribute('name', 'sumDelete');
+	  	node_delete.setAttribute('value', deletedRow);
+	  	document.getElementById('situationForm').appendChild(node_delete);
 
-	 	var node_hidden = document.createElement("input");
-	 	node_hidden.setAttribute('type', 'hidden');
-	 	node_hidden.setAttribute('name',"sumOrigin");
-	 	node_hidden.setAttribute('value', $('.origin').length);
+	  	var node_delete = document.createElement('input');
+	  	node_delete.setAttribute('type', 'hidden');
+	  	node_delete.setAttribute('name', 'sumNoteDelete');
+	  	node_delete.setAttribute('value', deletedNote);
+	  	document.getElementById('situationForm').appendChild(node_delete);
 
-	 	document.getElementById("situForm").appendChild(node_hidden);
+	  	var node_add = document.createElement('input');
+	  	node_add.setAttribute('type', 'hidden');
+	  	node_add.setAttribute('name', 'sumAdd');
+	  	node_add.setAttribute('value', rowAdded);
+	  	document.getElementById('situationForm').appendChild(node_add);
 
-	 	$('<input />').attr('type', 'hidden')
-	 	.attr('name', "sumLine")
-	 	.attr('value', sumLine)
-	 	.appendTo('#situationForm');
-	 	return true;
+	  	var node_hidden = document.createElement("input");
+	  	node_hidden.setAttribute('type', 'hidden');
+	  	node_hidden.setAttribute('name',"sumOrigin");
+	  	node_hidden.setAttribute('value', $('.origin').length);
 
-	 });
+	  	document.getElementById("situForm").appendChild(node_hidden);
 
-	 $("#situationForm").submit( function(eventObj) {
-	 	var validateFail = false;
-	 	$('.row.situationRow').each(function() {
-	 		var situaNo = parseInt($(this).attr('data-line')) + 1;
-	 		var dialog_text = $("#dialog"+situaNo).val();
-	 		var dialogTrans_text = $("#dialogTrans"+situaNo).val();
-	 		var dialog_count = dialog_text.split("\n").length;
-	 		var dialogTrans_count = dialogTrans_text.split("\n").length;
+	  	$('<input />').attr('type', 'hidden')
+	  	.attr('name', "sumLine")
+	  	.attr('value', sumLine)
+	  	.appendTo('#situationForm');
+	  	return true;
 
-	 		if (dialog_count != dialogTrans_count) {
-	 			document.getElementById("dialog"+situaNo).style.borderColor = "red";
-	 			document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
-	 			validateFail = true;
-	 		}else{
-	 			document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
-	 			document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
-	 		}
-	 	})
+	  });
 
-	 	if (validateFail) {
-	 		alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
-	 		return false;
-	 	}
+	  $("#situationForm").submit( function(eventObj) {
+	  	var validateFail = false;
+	  	$('.row.situationRow').each(function() {
+	  		var situaNo = parseInt($(this).attr('data-line')) + 1;
+	  		var dialog_text = $("#dialog"+situaNo).val();
+	  		var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+	  		var dialog_count = dialog_text.split("\n").length;
+	  		var dialogTrans_count = dialogTrans_text.split("\n").length;
 
-	 	$('.undone').each(function() {
-	 		if($(this).hasClass('image') && $(this).attr('data-path-image') != ''){
-	 			$('<input />').attr('type', 'hidden')
-	 			.attr('name', "imgPath"+$(this).attr('data-situ'))
-	 			.attr('value', $(this).attr('data-path-image'))
-	 			.appendTo('#situationForm');
-	 			return true;
-	 		}else if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
-	 			$('<input />').attr('type', 'hidden')
-	 			.attr('name', "audioPath"+$(this).attr('data-situ'))
-	 			.attr('value', $(this).attr('data-path-audio'))
-	 			.appendTo('#situationForm');
-	 			return true;
-	 		}
-	 	})
-	 });
+	  		if (dialog_count != dialogTrans_count) {
+	  			document.getElementById("dialog"+situaNo).style.borderColor = "red";
+	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
+	  			validateFail = true;
+	  		}else{
+	  			document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
+	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
+	  		}
+	  	})
 
-	 $(document).ready(function () {
-	 	$('.file.undone').on('change', function(event) {
-	 		var filename = this.value;
-	 		var extension = filename.split('.').pop();
+	  	if (validateFail) {
+	  		alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
+	  		return false;
+	  	}
 
-	 		if($(this).hasClass('image')) {
-	 			if (extension == 'jpg' || extension == 'png') {
-	 				$(this).removeClass('undone');
-	 				return;
-	 			}
-	 		} else if ($(this).hasClass('audio')) {
-	 			if (extension == 'mp3') {
-	 				$(this).removeClass('undone');
-	 				return;
-	 			}
-	 		}
+	  	$('.undone').each(function() {
+	  		if($(this).hasClass('image') && $(this).attr('data-path-image') != ''){
+	  			$('<input />').attr('type', 'hidden')
+	  			.attr('name', "imgPath"+$(this).attr('data-situ'))
+	  			.attr('value', $(this).attr('data-path-image'))
+	  			.appendTo('#situationForm');
+	  			return true;
+	  		}else if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
+	  			$('<input />').attr('type', 'hidden')
+	  			.attr('name', "audioPath"+$(this).attr('data-situ'))
+	  			.attr('value', $(this).attr('data-path-audio'))
+	  			.appendTo('#situationForm');
+	  			return true;
+	  		}
+	  	})
+	  });
 
-	 		$(this).addClass('undone');
-	 	});
-	 });
+	  $(document).ready(function () {
+	  	$('.file.undone').on('change', function(event) {
+	  		var filename = this.value;
+	  		var extension = filename.split('.').pop();
+
+	  		if($(this).hasClass('image')) {
+	  			if (extension == 'jpg' || extension == 'png') {
+	  				$(this).removeClass('undone');
+	  				return;
+	  			}
+	  		} else if ($(this).hasClass('audio')) {
+	  			if (extension == 'mp3') {
+	  				$(this).removeClass('undone');
+	  				return;
+	  			}
+	  		}
+
+	  		$(this).addClass('undone');
+	  	});
+	  });
 
 	</script>
 	@stop

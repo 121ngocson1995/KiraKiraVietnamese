@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Situation;
+use App\LessonNote;
 use App\Lesson;
 use Redirect;
-use App\LessonNote;
 use Illuminate\Support\Facades\Validator;
 
 class SituController extends Controller{
@@ -74,7 +74,7 @@ class SituController extends Controller{
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
 	public function edit(Request $request) {
-
+		// dd($request->all());
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
 
@@ -205,6 +205,33 @@ class SituController extends Controller{
 			for ($i=0; $i <= $sumDelete ; $i++) { 
 				if ($request->exists("delete".$i)) {
 					$situEdit = Situation::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+				}
+			}
+
+			if ($request->exists("updateNote")) {
+				foreach ($request->updateNote as $id => $noteEdit) {
+					$noteUpdate = LessonNote::where('id', '=', $id)->first();
+					$content = str_replace("\r\n", '|', $noteEdit['note']);
+					$noteUpdate->content = $content;
+					$noteUpdate->save();
+				}
+			}
+
+			if ($request->exists("insertNote")) {
+				foreach ($request->insertNote as $noteNo => $noteEdit) {
+					$noteNew = new LessonNote;
+					$noteNew->lesson_id = $request->all()['lessonID'];
+					$noteNew->noteNo = $noteNo;
+					$content = str_replace("\r\n", '|', $noteEdit['note']);
+					$noteNew->content = $content;
+					$noteNew->save();
+				}
+			}
+
+			$sumNoteDelete = $request->all()['sumNoteDelete'];
+			for ($i=0; $i <= $sumNoteDelete ; $i++) { 
+				if ($request->exists("deleteNote".$i)) {
+					$lessonDelete = LessonNote::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["deleteNote".$i])->delete();
 				}
 			}
 			return Redirect("/listAct".$request->all()['lessonID']);
