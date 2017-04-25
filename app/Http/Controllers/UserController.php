@@ -130,7 +130,7 @@ class UserController extends Controller
 		    				//$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
 
     					$generate_url = $request->getUri();
-    					// dd($generate_url);
+    					dd($generate_url);
     				}
     			}
 
