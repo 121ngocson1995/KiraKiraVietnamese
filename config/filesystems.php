@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 's3',
+    'default' => 's3-public',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,12 +55,21 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
+        's3-hidden' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
+        ],
+
+        's3-public' => [
+            'driver' => 's3',
+            'key' => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET'),
+            'region' => env('AWS_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+            'visibility' => 'public',
         ],
 
     ],

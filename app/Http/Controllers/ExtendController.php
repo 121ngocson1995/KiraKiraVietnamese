@@ -91,8 +91,8 @@ class ExtendController extends Controller
     						$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     						$fileName = 'L' . $lessonNo . '_Culture_Slideshow_' . $index . $request->_token . '.' . $extension;
 
-    						$path = 'img/Culture/lesson' . $lessonNo;
-    						Input::file('update.' . $id . '.image.' . $index)->move($path, $fileName);
+                            $path = 'public/img/Culture/lesson' . $lessonNo;
+                            $image->storeAs($path, $fileName);
 
     						$dbImages[(integer)$index] = $path . '/' . $fileName;
     					}
