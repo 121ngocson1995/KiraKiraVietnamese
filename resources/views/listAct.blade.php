@@ -37,7 +37,6 @@
 		<a class="btn btn-info activityBtn" href="/lesson{{ $lesson->id }}/preEdit{{ $activity->name }}" class="activityBtn">{{ $activity->content }}</a>
 		</div>
 		@endforeach
-		<div><a class="btn btn-info" href="/addAct"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create new activity</a></div>
 	</div>
 </div>
 @stop

@@ -217,7 +217,7 @@ $user = \Auth::user();
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="first-name" class="cols-sm-2 control-label">First name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox first-name" name="first-name" id="first-name" size="{{ !$user->first_name || strcmp($user->first_name, '') == 0 ?: strlen($user->first_name) }}" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
+						<input type="text" class="textbox first-name" name="first-name" id="first-name" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required>
 					</div>
 				</div>
 
@@ -231,7 +231,7 @@ $user = \Auth::user();
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="last-name" class="cols-sm-2 control-label">Last name:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="text" class="textbox last-name" name="last-name" id="last-name" size="{{ !$user->last_name || strcmp($user->last_name, '') == 0 ?: strlen($user->last_name) }}" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required onkeypress="changeTextboxWidth(this)">
+						<input type="text" class="textbox last-name" name="last-name" id="last-name" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required>
 					</div>
 				</div>
 
@@ -264,7 +264,7 @@ $user = \Auth::user();
 				<div class="label-wrapper"><i class="fa fa-envelope fa" aria-hidden="true"></i><label for="email" class="cols-sm-2 control-label">Email:</label></div>
 				<div>
 					<div class="input-group">
-						<input type="email" class="textbox email" name="email" id="email" size="{{ !$user->email || strcmp($user->email, '') == 0 ?: strlen($user->email) }}" value="{{ $user->email }}" maxlength="191" required onkeypress="changeTextboxWidth(this)">
+						<input type="email" class="textbox email" name="email" id="email" value="{{ $user->email }}" maxlength="191" required>
 					</div>
 				</div>
 

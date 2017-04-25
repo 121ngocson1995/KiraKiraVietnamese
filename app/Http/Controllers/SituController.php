@@ -78,7 +78,7 @@ class SituController extends Controller{
 		$lesson = Lesson::find($request->all()['lessonID']);
 		$totalNew = $request->all()['sumOrigin'];
 
-		for ($i=1; $i <= $totalNew ; $i++) { 
+		for ($i=0; $i < $totalNew ; $i++) { 
 			if ($request->exists("situationId".$i)) {
 				$situEdit = Situation::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["situationId".$i])->get();
 				
@@ -113,7 +113,7 @@ class SituController extends Controller{
 				}else if($request->exists("image".$i)){
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
-					$destinationPath = 'Situation_img'; 
+					$destinationPath = 'Situation_img';
 					$extension = Input::file("image".$i)->getClientOriginalExtension();
 					$fileName = "S".$i."-".$t.'.'.$extension;
 					Input::file("image".$i)->move($destinationPath, $fileName);
