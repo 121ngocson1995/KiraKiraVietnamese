@@ -80,7 +80,6 @@ class UserController extends Controller
     		} else {
     			$type = Role::all()->pluck('id')->toArray();
     		}
-
     		$users;
     		if (!$request->has('keyword')) {
     			$users = User::whereIn('role', $type)->latest('created_at')->paginate($pagination);
@@ -112,7 +111,27 @@ class UserController extends Controller
 			// 		  ->orWhere('email', 'like', $keyword);
 			// }->latest('created_at')->toSql());
 
+
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
+    			dd(count($users));
+    			for ($i=0; $i < count($users); $i++) { 
+    				$value = $users[$i];
+    				$disk = \Storage::disk('s3-hidden');
+    				if ($disk->exists($value))
+    				{
+    					$command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
+    						'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
+    						'ResponseContentDisposition' => 'attachment;'
+		    				//for download
+    						]);
+
+    					$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
+		    				//$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
+
+    					$generate_url = $request->getUri();
+    					dd($generate_url);
+    				}
+    			}
 
     			return view('userList.applicants', ['users' => $users])->render();
 
