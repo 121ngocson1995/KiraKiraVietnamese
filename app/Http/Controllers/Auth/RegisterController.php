@@ -93,8 +93,6 @@ class RegisterController extends Controller
 
         $path = $request->cv->storeAs('public/cv', $fileName);
 
-        dd('$path');
-        
         return $path;
     }
 
