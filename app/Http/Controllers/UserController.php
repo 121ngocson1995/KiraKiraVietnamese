@@ -113,10 +113,10 @@ class UserController extends Controller
 
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
-    			dd(count($users));
     			for ($i=0; $i < count($users); $i++) { 
     				$value = $users[$i];
     				$disk = \Storage::disk('s3-hidden');
+	    			dd($disk->exists($value));
     				if ($disk->exists($value))
     				{
     					$command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
