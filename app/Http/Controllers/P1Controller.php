@@ -89,11 +89,11 @@ class P1Controller extends Controller
 
 					//---------------- NEW ----------------//
 
-    				$data = $request["audio".$i];
-    				$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
-    				$fileName = $i."-".$t.'.'.$extension;
-    				$extension = $data->extension();
-    				$newName = $data->storeAs($destinationPath, $fileName);
+    				$data = $request["audio".$i];	// tạo biến chứa file
+    				$destinationPath = "audio/P1/lesson".$lesson->lessonNo; // tạo đường dẫn
+    				$extension = $data->extension();	// tạo biến chứa đuôi file
+    				$fileName = $i."-".$t.'.'.$extension;	// tạo tên file đầy đủ
+    				$newName = $data->storeAs($destinationPath, $fileName);	// lưu file vào disk mặc định trong filesystems.php
 
 					//---------------- END ----------------//
 
