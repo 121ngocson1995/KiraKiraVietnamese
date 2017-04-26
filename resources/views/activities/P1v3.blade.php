@@ -70,7 +70,12 @@
 <script>
 	var audio_context;
 	var recorder;
-	var assetPath = '{{ asset('') }}';
+	var assetPath = '{{ \Storage::url('') }}';
+	// bản chất: tạo đường dẫn " \Storage::url('') + đường dẫn trong db "
+	// tham khảo line 7 trong p1.js
+	// \Storage::url('') lấy giá trị của url trong filesystems.php
+	// đối với local:  đường dẫn là : localhost:8000/storage/public/...
+	// đối với server: đường dẫn là : https://s3-ap-southeast-1.amazonaws.com/kirakiravn/public/...
 
 	var busyPlay, busyReplay, busyRecord, 
 	enabledPlay, enabledReplay, enabledRecord, 
