@@ -118,15 +118,10 @@ class UserController extends Controller
     				$disk = \Storage::disk('s3-hidden');
     				if ($disk->exists($value))
     				{
-    					$command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
-    						'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
-    						'Key' => $value->cv,
-    						'ResponseContentDisposition' => 'attachment;'
-		    				//for download
-    						]);
-
+    					$command = $disk->getDriver()->getAdapter()->getClient()->getObjectUrl( \Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+10 minutes');
+    					dd($command);
     					$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
-		    				//$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
+                                                //$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
 
     					$generate_url = $request->getUri();
     					$users[$i]->cv = $generate_url;
