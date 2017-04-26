@@ -91,10 +91,9 @@ class ExtendController extends Controller
     						$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     						$fileName = 'L' . $lessonNo . '_Culture_Slideshow_' . $index . $request->_token . '.' . $extension;
 
-                            $path = 'public/img/Culture/lesson' . $lessonNo;
-                            $image->storeAs($path, $fileName);
+                            $path = $image->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
-    						$dbImages[(integer)$index] = $path . '/' . $fileName;
+    						$dbImages[(integer)$index] = $path;
     					}
 
     					$newImages = '';
@@ -119,10 +118,9 @@ class ExtendController extends Controller
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Song_' .  $id . $request->_token . '.' . $extension;
 
-    					$path = 'img/Culture/lesson' . $lessonNo;
-    					Input::file('update.' . $id . '.thumbnail')->move($path, $fileName);
+    					$path = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
-    					$extElement->thumbnail = $path . '/' . $fileName;
+    					$extElement->thumbnail = $path;
     				}
 
     				if (array_key_exists('song', $value)) {
@@ -130,10 +128,9 @@ class ExtendController extends Controller
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Song_' .  $id . $request->_token . '.' . $extension;
 
-    					$path = 'audio/Culture/lesson' . $lessonNo;
-    					Input::file('update.' . $id . '.song')->move($path, $fileName);
+    					$path = $value['song']->storeAs('public/audio/Culture/lesson' . $lessonNo, $fileName);
 
-    					$extElement->audio = $path . '/' . $fileName;
+    					$extElement->audio = $path;
     				}
 
     				$extElement->save();
@@ -154,10 +151,9 @@ class ExtendController extends Controller
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Riddle_Thumbnail_' .  $id . $request->_token . '.' . $extension;
 
-    					$path = 'img/Culture/lesson' . $lessonNo;
-    					Input::file('update.' . $id . '.thumbnail')->move($path, $fileName);
+    					$path = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
-    					$extElement->thumbnail = $path . '/' . $fileName;
+    					$extElement->thumbnail = $path;
     				}
 
     				$extElement->save();
@@ -170,10 +166,9 @@ class ExtendController extends Controller
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Game_Thumbnail_' .  $id . $request->_token . '.' . $extension;
 
-    					$path = 'img/Culture/lesson' . $lessonNo;
-    					Input::file('update.' . $id . '.thumbnail')->move($path, $fileName);
+    					$path = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
-    					$extElement->thumbnail = $path . '/' . $fileName;
+    					$extElement->thumbnail = $path;
     				}
 
     				$extElement->save();
@@ -199,10 +194,9 @@ class ExtendController extends Controller
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Slideshow_' . $index . $request->_token . '.' . $extension;
 
-    					$path = 'img/Culture/lesson' . $lessonNo;
-    					Input::file('insert.' . $id . '.image.' . $index)->move($path, $fileName);
+    					$path = $image->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
-    					$dbImages[(integer)$index] = $path . '/' . $fileName;
+    					$dbImages[(integer)$index] = $path;
     				}
 
     				$newImages = '';
@@ -226,14 +220,12 @@ class ExtendController extends Controller
     				$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     				$fileName_img = 'L' . $lessonNo . '_Culture_Song_' .  $id . $request->_token . '.' . $extension_img;
 
-    				$path_img = 'img/Culture/lesson' . $lessonNo;
-    				Input::file('insert.' . $id . '.thumbnail')->move($path_img, $fileName_img);
+    				$path_img = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
     				$extension_au = $value['song']->extension();
     				$fileName_au = 'L' . $lessonNo . '_Culture_Song_' .  $id . $request->_token . '.' . $extension_au;
 
-    				$path_au = 'audio/Culture/lesson' . $lessonNo;
-    				Input::file('insert.' . $id . '.song')->move($path_au, $fileName_au);
+    				$path_au = $value['song']->storeAs('public/audio/Culture/lesson' . $lessonNo, $fileName);
 
     				LanguageCulture::create([
     					'lesson_id' => $request->lessonId,
@@ -241,9 +233,9 @@ class ExtendController extends Controller
     					'type' => 1,
     					'title' => $value['title'],
     					'content' => preg_replace('/\r\n/u', '|', $value['content']),
-    					'thumbnail' => $path_img . '/' . $fileName_img,
+    					'thumbnail' => $path_img,
     					'audio' => $path_au . '/' . $fileName_au,
-    					'song_composer' => $path_au . '/' . $fileName_au,
+    					'song_composer' => $path_au,
     					'song_performer' => $value['performer'],
     					]);
     			} else if ((integer)($value['type']) == 2) {
@@ -266,8 +258,7 @@ class ExtendController extends Controller
     				$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     				$fileName = 'L' . $lessonNo . '_Culture_Riddle_Thumbnail_' .  $id . $request->_token . '.' . $extension;
 
-    				$path = 'img/Culture/lesson' . $lessonNo;
-    				Input::file('insert.' . $id . '.thumbnail')->move($path, $fileName);
+    				$path = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
     				LanguageCulture::create([
     					'lesson_id' => $request->lessonId,
@@ -275,7 +266,7 @@ class ExtendController extends Controller
     					'type' => 4,
     					'title' => $value['title'],
     					'content' => preg_replace('/\r\n/u', '|', $value['content']),
-    					'thumbnail' => $path . '/' . $fileName,
+    					'thumbnail' => $path,
     					'riddle_answer' => $value['answer'],
     					]);
     			} else if ((integer)($value['type']) == 5) {
@@ -283,8 +274,7 @@ class ExtendController extends Controller
     				$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     				$fileName = 'L' . $lessonNo . '_Culture_Game_Thumbnail_' .  $id . $request->_token . '.' . $extension;
 
-    				$path = 'img/Culture/lesson' . $lessonNo;
-    				Input::file('update.' . $id . '.thumbnail')->move($path, $fileName);
+    				$path = $value['thumbnail']->storeAs('public/img/Culture/lesson' . $lessonNo, $fileName);
 
     				LanguageCulture::create([
     					'lesson_id' => $request->lessonId,
@@ -292,7 +282,7 @@ class ExtendController extends Controller
     					'type' => 5,
     					'title' => $value['title'],
     					'content' => preg_replace('/\r\n/u', '|', $value['content']),
-    					'thumbnail' => $path . '/' . $fileName,
+    					'thumbnail' => $path,
     					]);
     			}
     		}

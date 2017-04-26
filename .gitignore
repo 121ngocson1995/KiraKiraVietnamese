@@ -96,3 +96,4 @@ routes/web.php
 *.log
 public/img/avatar/Avatar_7_DooywIPCT8F43nQBcDJMY2ZwHYST2X2GzrLOwuvS.jpeg
 public/img/avatar/Avatar_7_CXBz9erZo0zVYeNmGJ32kUU4w0UHy4cZxfi1ogj0.png
+config/filesystems.php

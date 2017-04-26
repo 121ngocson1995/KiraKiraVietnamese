@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 's3-public',
+    'default' => 'local',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,9 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => 'storage',
+            'url' => '/storage',
+            'visibility' => 'public',
         ],
 
         'public' => [
@@ -63,7 +65,7 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-        's3-public' => [
+        's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),

@@ -113,20 +113,20 @@ class UserController extends Controller
 
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
-    			for ($i=0; $i < count($users); $i++) { 
-    				$value = $users[$i]->cv;
-    				$disk = \Storage::disk('s3-hidden');
-    				if ($disk->exists($value))
-    				{
-    					$command = $disk->getDriver()->getAdapter()->getClient()->getObjectUrl( \Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+10 minutes');
-    					dd($command);
-    					$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
-                                                //$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
+    			// for ($i=0; $i < count($users); $i++) { 
+    			// 	$value = $users[$i]->cv;
+    			// 	$disk = \Storage::disk('s3-hidden');
+    			// 	if ($disk->exists($value))
+    			// 	{
+    			// 		$command = $disk->getDriver()->getAdapter()->getClient()->getObjectUrl( \Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+10 minutes');
+    			// 		dd($command);
+    			// 		$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
+       //                                          //$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
 
-    					$generate_url = $request->getUri();
-    					$users[$i]->cv = $generate_url;
-    				}
-    			}
+    			// 		$generate_url = $request->getUri();
+    			// 		$users[$i]->cv = $generate_url;
+    			// 	}
+    			// }
 
     			return view('userList.applicants', ['users' => $users])->render();
 
