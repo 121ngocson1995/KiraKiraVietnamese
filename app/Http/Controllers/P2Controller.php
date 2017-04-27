@@ -110,8 +110,6 @@ class P2Controller extends Controller
     				//---------------- END ----------------//
 
     				$p2Edit[0]->audio = $newName;
-    			}else{
-    				$p2Edit[0]->audio = "";
     			}
     			$p2Edit[0]->save();
     		}

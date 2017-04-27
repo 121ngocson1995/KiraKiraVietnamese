@@ -101,8 +101,6 @@ class P5Controller extends Controller
     			$newName = $data->storeAs($destinationPath, $fileName);
 
 					$p5Edit[0]->audio = $newName;
-				}else{
-					$p5Edit[0]->audio = "";
 				}
 				$p5Edit[0]->save();
 			}

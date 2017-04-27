@@ -134,8 +134,6 @@ class P7Controller extends Controller
     				$newName = $data->storeAs($destinationPath, $fileName);
 
     				$p7Edit[0]->audio = $newName;
-    			}else{
-    				$p7Edit[0]->audio = "";
     			}
     			$p7Edit[0]->save();
     		}

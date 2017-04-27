@@ -105,8 +105,6 @@ class P4Controller extends Controller
     				$newName = $data->storeAs($destinationPath, $fileName);
 
     				$p4Edit[0]->audio = $newName;
-    			}else{
-    				$p4Edit[0]->audio = "";
     			}
     			$p4Edit[0]->save();
     		}

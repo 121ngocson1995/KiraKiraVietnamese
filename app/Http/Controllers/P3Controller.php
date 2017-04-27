@@ -98,8 +98,6 @@ class P3Controller extends Controller
     				$p2New->save();	
 
     				$p3Edit[0]->audio = $newName;
-    			}else{
-    				$p3Edit[0]->audio = "";
     			}
     			$p3Edit[0]->save();
     		}
