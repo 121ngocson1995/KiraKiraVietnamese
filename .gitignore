@@ -1,6 +1,7 @@
 node_modules/
 .gitignore
 config/filesystems.php
+public/storage/*
 
 !vendor/
 
