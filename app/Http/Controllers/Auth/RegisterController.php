@@ -87,7 +87,7 @@ class RegisterController extends Controller
         $t = time();
         $t = date("Y-m-d-H-i-s",$t);
         $destinationPath = 'cv'; 
-        $extension = $request->cv->extension();
+        $extension = $request->cv->getClientOriginalExtension();
 
         $fileName = "CV_" . $request->username . "_" . $t . '.' . $extension;
 

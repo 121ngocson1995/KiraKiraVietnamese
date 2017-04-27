@@ -96,7 +96,7 @@ $user = \Auth::user();
 		cursor: pointer;
 	}
 	.avatar_img {
-		background: url("{{ asset('img/avatar/' . $user->avatar) }}") no-repeat center;
+		background: url("{{ \Storage::url($user->avatar) }}") no-repeat center;
 		background-size: cover;
 		width: 100%;
 		height: 100%;
@@ -296,6 +296,13 @@ $user = \Auth::user();
 							@foreach ($countries as $code => $name)
 								<option value="{{ $code }}">{{ $name }}</option>
 							@endforeach
+							<script>
+								$('select[name="country"] option').each(function() {
+									if(this.value == '{{ $user->country }}') {
+										this.checked = "";
+									}
+								})
+							</script>
 						</select>
 					</div>
 				</div>

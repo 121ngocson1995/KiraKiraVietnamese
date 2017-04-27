@@ -128,7 +128,7 @@ class UserController extends Controller
     			// 		$users[$i]->cv = $generate_url;
     			// 	}
     				
-    				
+    				// dd(\Storage::disk());
     				$s3 = \Storage::disk('s3-hidden');
     				$client = $s3->getDriver()->getAdapter()->getClient();
     				$expiry = "+2 minutes";
@@ -251,16 +251,16 @@ class UserController extends Controller
 			'dimensions' => 'The maximum size of your avatar is :max_widthx:max_height pixels or 1mb',
 			])->validate();
 
+		$user = \Auth::user();
 		$destinationPath = 'avatar'; 
-		$extension = $request->avatar->extension();
+		$extension = $request->avatar->getClientOriginalExtension();
 
-		$fileName = "Avatar_" . \Auth::user()->id . "_" . $request->_token . '.' . $extension;
+		$fileName = "Avatar_" . $user()->id . "_" . $request->_token . '.' . $extension;
 
-		$path = 'img/avatar';
-		Input::file("avatar")->move($path, $fileName);
+		$path = $request->avatar->storeAs('User/img/avatar', $fileName, 's3-hidden');
 		
-		\Auth::user()->avatar = $fileName;
-		\Auth::user()->save();
+		$user()->avatar = $path;
+		$user()->save();
 
 		return back();
 	}
