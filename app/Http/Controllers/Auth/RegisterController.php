@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\UploadedFile;
+// use Illuminate\Http\UploadedFile;
 
 class RegisterController extends Controller
 {
@@ -92,7 +91,7 @@ class RegisterController extends Controller
 
         $fileName = "CV_" . $request->username . "_" . $t . '.' . $extension;
 
-        $path = $request->cv->storeAs('public/cv', $fileName, 's3-hidden');
+        $path = $request->cv->storeAs('public/cv', $fileName);
 
         return $path;
     }
