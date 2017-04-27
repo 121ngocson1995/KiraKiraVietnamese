@@ -102,15 +102,7 @@ class SituController extends Controller{
 				// dd();
     			$situEdit[0]->dialog = $dialog;
     			$situEdit[0]->dialog_translate =  $dialog_translate;
-    			if($request->exists("imgPath".$i)){
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
-    				$oldName = $request->all()["imgPath".$i];
-    				$newName = "Situation_img/S".$i."-".$t.".".substr($oldName,-3,3);
-
-    				rename($oldName, $newName);
-    				$situEdit[0]->thumbnail = $newName;
-    			}else if($request->exists("image".$i)){
+                if($request->exists("image".$i)){
     				$t=time();
     				$t=date("Y-m-d-H-i-s",$t);
     				// $destinationPath = 'Situation_img';
@@ -121,7 +113,7 @@ class SituController extends Controller{
     				
     				$data = $request["image".$i];
     				$destinationPath = 'Situation_img';
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = "S".$i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
@@ -130,14 +122,7 @@ class SituController extends Controller{
     				$situEdit[0]->thumbnail = "";
     			}
 
-    			if($request->exists("audioPath".$i)){
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
-    				$oldName = $request->all()["audioPath".$i];
-    				$newName = "audio/Situation/lesson".$lesson->lessonNo."/S".$i."-".$t.".mp3";
-    				rename($oldName, $newName);
-    				$situEdit[0]->audio = $newName;
-    			}else if($request->exists("audio".$i)){
+    			if($request->exists("audio".$i)){
 
     				$t=time();
     				$t=date("Y-m-d-H-i-s",$t);
@@ -151,7 +136,7 @@ class SituController extends Controller{
     				
     				$data = $request["audio".$i];
     				$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = "S".$i."-".$t.'.'.$getClientOriginalExtension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
