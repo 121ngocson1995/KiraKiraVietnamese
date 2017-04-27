@@ -255,12 +255,12 @@ class UserController extends Controller
 		$destinationPath = 'avatar'; 
 		$extension = $request->avatar->getClientOriginalExtension();
 
-		$fileName = "Avatar_" . $user()->id . "_" . $request->_token . '.' . $extension;
+		$fileName = "Avatar_" . $user->id . "_" . $request->_token . '.' . $extension;
 
 		$path = $request->avatar->storeAs('User/img/avatar', $fileName, 's3-hidden');
 		
-		$user()->avatar = $path;
-		$user()->save();
+		$user->avatar = $path;
+		$user->save();
 
 		return back();
 	}
