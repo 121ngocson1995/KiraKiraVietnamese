@@ -1,0 +1,139 @@
+.partName {
+	color: white;
+	font-size: 2em;
+	font-weight: 700;
+	text-shadow: 2px 2px 5px black;
+}
+.modal-header {
+	background-color: aliceblue;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+.modal-body {
+	text-align: center;
+	margin-bottom: 1em;
+}
+img.riddle-answer {
+	width: 300px;
+	max-width: 100%;
+	height: auto;
+}
+span.riddle-answer {
+	font-size: 2em;
+	font-weight: 600;
+	color: cornflowerblue;
+}
+#btnStart, #btnRestart {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	z-index: 1;
+}
+#btnStart p, #btnRestart p {
+	position: absolute;
+	color: #33ccff;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+#startBtn, #restartBtn {
+	width: 400px;
+	max-width: 40%;
+	margin: auto;
+}
+
+.fa-normal {
+	margin-left: 0 !important;
+}
+.fa-play {
+	margin-left: 0.15em;
+}
+.fa-2x {
+	font-size: 2em;
+}
+#pStart {
+	cursor: pointer;
+}
+#imgStart {
+	cursor: pointer;
+}
+article {
+	padding-top: 5%;
+}
+blockquote {
+	float: none;
+	padding: 0;
+	border-top: initial;
+	border-bottom: initial;
+}
+.container2:before {
+	transform: translateY(-30%);
+}
+.container2:after {
+	transform: translateY(10%);
+}
+.quote-text {
+	text-align: center;
+}
+.quote-detail {
+	font-family: 'Lobster', cursive;
+	font-size: 4em;
+	display: inline;
+}
+.fa.fa-quote-left {
+	position: absolute;
+	transform: translate(-50px);
+	font-size: 2em;
+}
+.fa.fa-quote-right {
+	position: absolute;
+	transform: translate(10px, 60px);
+	font-size: 2em;
+}
+.quote-box {
+	border-radius: 15px;
+	position: relative;
+	margin: 10% auto auto auto;
+	width: 450px;
+	padding: 40px 60px;
+	display: table;
+	background-color: #fff;
+}
+.quote-box .quote-text {
+	text-align: center;
+	width: 450px;
+	height: auto;
+	clear: both;
+	font-weight: 500;
+	font-size: 1.75em;
+	opacity: 0;
+}
+.quote-box .quote-text i {
+	font-size: 1.0em;
+	margin-right: 0.4em;
+}
+.quote-box .buttons .button#tweet-quote, .quote-box .buttons .button#tumblr-quote, .quote-box .buttons .button#googleplus-quote, .quote-box .buttons .button#facebook-quote {
+	float: left;
+	padding: 0px;
+	padding-top: 8px;
+	text-align: center;
+	font-size: 1.2em;
+	margin-right: 5px;
+	height: 30px;
+	width: 40px;
+}
+.quote-box .buttons .button#new-quote {
+	float: right;
+}
+
+#image-quote {
+	float:right;
+	margin-right:2px;
+}
+div.table-responsive.play {
+	left: 0 !important;
+	position: initial !important;
+	transform: initial !important;
+	padding-top: 10px;
+	margin-right: 2em;
+}

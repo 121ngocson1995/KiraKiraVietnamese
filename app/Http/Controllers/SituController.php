@@ -146,7 +146,7 @@ class SituController extends Controller{
         }
 
         $sumAdd = $request->all()['sumAdd'];
-        for ($i=1; $i <= $sumAdd ; $i++) { 
+        for ($i=0; $i < $sumAdd ; $i++) { 
             if ($request->exists("dialogAdd".$i)) {
 
                 $situNew = new Situation;

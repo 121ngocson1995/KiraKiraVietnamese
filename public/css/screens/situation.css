@@ -1,0 +1,73 @@
+* {
+	letter-spacing: .075em;
+}
+#btnStart, #btnRestart {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	z-index: 1;
+}
+button.selected{
+	background-color: #a58895;
+	color:white;
+}
+#btnStart p, #btnRestart p {
+	position: absolute;
+	color: #33ccff;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+#startBtn, #restartBtn {
+	width: 400px;
+	max-width: 40%;
+	margin: auto;
+}
+
+.fa-normal {
+	margin-left: 0 !important;
+}
+.fa-play {
+	margin-left: 0.15em;
+}
+.fa-2x {
+	font-size: 2em;
+}
+
+td {
+	font-size: 32px;
+	font-family: "Open Sans";
+	color: white;
+}
+#pStart {
+	cursor: pointer;
+}
+#imgStart {
+	cursor: pointer;
+}
+td {
+	padding: 0 0 0.2em 0 !important;
+	border-top: initial !important;
+}
+.jumbotron {
+	padding: 1.5em 0 !important;
+	margin-bottom: 0 !important;
+}
+.dialogVi {
+	font-size: 0.9em;
+	font-weight: 500;
+	margin: 0;
+}
+.dialogEn {
+	font-size: 0.6em;
+	font-weight: 400;
+	font-style: italic;
+	margin: 0;
+}
+.note-content {
+	font-size: 1.6em;
+	color: white;
+	padding: 2em !important;
+	border-radius: 20px;
+	background-color: rgba(0, 172, 230, 0.8);
+}
