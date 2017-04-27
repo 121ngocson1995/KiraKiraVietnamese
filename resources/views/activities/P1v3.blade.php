@@ -70,7 +70,7 @@
 <script>
 	var audio_context;
 	var recorder;
-	var assetPath = '{{ \Storage::url('') }}';
+	var assetPath = '{{ mb_substr(\Storage::url('/'),0,-1) }}';
 	// bản chất: tạo đường dẫn " \Storage::url('') + đường dẫn trong db "
 	// tham khảo line 7 trong p1.js
 	// \Storage::url('') lấy giá trị của url trong filesystems.php
