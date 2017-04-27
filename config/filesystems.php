@@ -46,7 +46,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => 'storage',
-            'url' => '/storage/public',
+            'url' => '/storage',
             'visibility' => 'public',
         ],
 

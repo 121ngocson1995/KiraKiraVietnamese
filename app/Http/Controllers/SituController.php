@@ -144,7 +144,7 @@ class SituController extends Controller{
     				
     				$data = $request["audio".$i];
     				$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = "S".$i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
@@ -194,7 +194,7 @@ class SituController extends Controller{
 
     				$data = $request["imageAdd".$i];
     				$destinationPath = 'Situation_img';
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = "S".$i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
@@ -210,7 +210,7 @@ class SituController extends Controller{
 
     				$data = $request["audioAdd".$i];
     				$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = "S".$i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 

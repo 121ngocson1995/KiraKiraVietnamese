@@ -128,7 +128,7 @@ class P7Controller extends Controller
 
     				$data = $request["audio".$i];
     				$destinationPath = "audio/P7/lesson".$lesson->lessonNo;
-    				$extension = $data->extension();
+    				$extension = $data->getClientOriginalExtension();
     				$fileName = $i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
@@ -183,7 +183,7 @@ class P7Controller extends Controller
 
     			$data = $request["audioAdd".$i];
     			$destinationPath = "audio/P7/lesson".$lesson->lessonNo;
-    			$extension = $data->extension();
+    			$extension = $data->getClientOriginalExtension();
     			$fileName = $i."-".$t.'.'.$extension;
     			$newName = $data->storeAs($destinationPath, $fileName);
 
