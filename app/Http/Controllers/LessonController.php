@@ -175,7 +175,7 @@ class LessonController extends Controller
     	// Dummy course and lesson
         // コースとレッスンをダミーする。
     	$course_id= 1;
-
+        dd($request->all());
     	// Load data from Database
         // データベースからデータを出す。
     	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($request->all()['lesson_id']);

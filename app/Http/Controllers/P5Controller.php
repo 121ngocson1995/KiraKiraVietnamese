@@ -85,13 +85,19 @@ class P5Controller extends Controller
 
 					$t=time();
 					$t=date("Y-m-d-H-i-s",$t);
-					$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
+					// $destinationPath = "audio/P5/lesson".$lesson->lessonNo;
 
-					$extension = Input::file("audio".$i)->getClientOriginalExtension();
-					$fileName = $i."-".$t.'.'.$extension;
+					// $extension = Input::file("audio".$i)->getClientOriginalExtension();
+					// $fileName = $i."-".$t.'.'.$extension;
 
-					Input::file("audio".$i)->move($destinationPath, $fileName);
-					$newName = "audio/P5/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+					// Input::file("audio".$i)->move($destinationPath, $fileName);
+					// $newName = "audio/P5/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
+
+					$data = $request["audio".$i];
+    			$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
+    			$extension = $data->extension();
+    			$fileName = $i."-".$t.'.'.$extension;
+    			$newName = $data->storeAs($destinationPath, $fileName);
 
 					$p5Edit[0]->audio = $newName;
 				}else{
@@ -123,13 +129,19 @@ class P5Controller extends Controller
 				$p5New->dialog = $dialog;
 				$t=time();
 				$t=date("Y-m-d-H-i-s",$t);
-				$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
+				// $destinationPath = "audio/P5/lesson".$lesson->lessonNo;
 
-				$extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
-				$fileName = $p5New->sentenceNo."-".$t.'.'.$extension;
+				// $extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
+				// $fileName = $p5New->sentenceNo."-".$t.'.'.$extension;
 
-				Input::file("audioAdd".$i)->move($destinationPath, $fileName);
-				$newName = "audio/P5/lesson".$lesson->lessonNo."/".$p5New->sentenceNo."-".$t.'.'.$extension;
+				// Input::file("audioAdd".$i)->move($destinationPath, $fileName);
+				// $newName = "audio/P5/lesson".$lesson->lessonNo."/".$p5New->sentenceNo."-".$t.'.'.$extension;
+				
+				$data = $request["audioAdd".$i];
+    			$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
+    			$extension = $data->extension();
+    			$fileName = $i."-".$t.'.'.$extension;
+    			$newName = $data->storeAs($destinationPath, $fileName);
 
 				$p5New->audio = $newName;
 				$p5New->save();
