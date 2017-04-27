@@ -95,7 +95,7 @@ class P5Controller extends Controller
 
 					$data = $request["audio".$i];
     			$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
-    			$extension = $data->extension();
+    			$extension = $data->getClientOriginalExtension();
     			$fileName = $i."-".$t.'.'.$extension;
     			$newName = $data->storeAs($destinationPath, $fileName);
 

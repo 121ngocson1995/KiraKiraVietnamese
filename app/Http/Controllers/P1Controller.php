@@ -53,6 +53,7 @@ class P1Controller extends Controller
     public function edit(Request $request) {
     	$lesson = Lesson::find($request->lessonID);
     	$totalNew = $request->all()['sumOrigin'];
+    	// dd($request->all());
     	for ($i=0; $i <= $totalNew ; $i++) { 
     		if ($request->exists("wordId".$i)) {
     			$p1Edit = P1WordMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["wordId".$i])->get();
@@ -65,12 +66,12 @@ class P1Controller extends Controller
     			$p1Edit[0]->wordNo = $i;
 
     			if($request->exists("audioPath".$i)){
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
-    				$oldName = $request->all()["audioPath".$i];
-    				$newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
-    				rename($oldName, $newName);
-    				$p1Edit[0]->audio = $newName;
+    				// $t=time();
+    				// $t=date("Y-m-d-H-i-s",$t);
+    				// $oldName = $request->all()["audioPath".$i];
+    				// $newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+    				// rename($oldName, $newName);
+    				// $p1Edit[0]->audio = $newName;
     			}else if($request->exists("audio".$i)){
 
     				$t=time();
@@ -91,7 +92,8 @@ class P1Controller extends Controller
 
     				$data = $request["audio".$i];	// tạo biến chứa file
     				$destinationPath = "audio/P1/lesson".$lesson->lessonNo; // tạo đường dẫn
-    				$extension = $data->extension();	// tạo biến chứa đuôi file
+    				$extension = $data->getClientOriginalExtension();	// tạo biến chứa đuôi file
+    				// dd($extension);
     				$fileName = $i."-".$t.'.'.$extension;	// tạo tên file đầy đủ
     				$newName = $data->storeAs($destinationPath, $fileName);	// lưu file vào disk mặc định trong filesystems.php
 
@@ -131,7 +133,7 @@ class P1Controller extends Controller
     			$data = $request["audioAdd".$i];
     			$destinationPath = "audio/P1/lesson".$lesson->lessonNo;
     			$fileName = $p1New->wordNo."-".$t.'.'.$extension;
-    			$extension = $data->extension();
+    			$extension = $data->getClientOriginalExtension();
     			$newName = $data->storeAs($destinationPath, $fileName);
 
     			$p1New->audio = $newName;

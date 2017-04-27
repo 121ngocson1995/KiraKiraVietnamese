@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
+use Aws\S3\S3Client;
 
 class UserController extends Controller
 {
@@ -113,7 +114,7 @@ class UserController extends Controller
 
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
-    			// for ($i=0; $i < count($users); $i++) { 
+    			for ($i=0; $i < count($users); $i++) {
     			// 	$value = $users[$i]->cv;
     			// 	$disk = \Storage::disk('s3-hidden');
     			// 	if ($disk->exists($value))
@@ -126,7 +127,16 @@ class UserController extends Controller
     			// 		$generate_url = $request->getUri();
     			// 		$users[$i]->cv = $generate_url;
     			// 	}
-    			// }
+    				
+    				
+    				dd(new S3Client);
+    				$s3 = S3Client::factory([
+    					'key' => \Config::get('filesystems.disks.s3-hidden.key'),
+    					'secret' => \Config::get('filesystems.disks.s3-hidden.secret'),
+    					]);
+    				$url = $s3->getObjectUrl(\Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+1 minute');
+    				dd($url);
+    			}
 
     			return view('userList.applicants', ['users' => $users])->render();
 

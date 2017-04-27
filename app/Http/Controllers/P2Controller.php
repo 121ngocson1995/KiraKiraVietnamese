@@ -102,7 +102,7 @@ class P2Controller extends Controller
 
 					$data = $request["audio".$i];	// tạo biến chứa file
     				$destinationPath = "audio/P2/lesson".$lesson->lessonNo; // tạo đường dẫn
-    				$extension = $data->extension();	// tạo biến chứa đuôi file
+    				$extension = $data->getClientOriginalExtension();	// tạo biến chứa đuôi file
     				$fileName = $i."-".$t.'.'.$extension;	// tạo tên file đầy đủ
     				$newName = $data->storeAs($destinationPath, $fileName);	// lưu file vào disk mặc định trong filesystems.php
 
@@ -140,7 +140,7 @@ class P2Controller extends Controller
 				// 
     			$data = $request["audioAdd".$i];
     			$destinationPath = "audio/P2/lesson".$lesson->lessonNo;
-    			$extension = $data->extension();
+    			$extension = $data->getClientOriginalExtension();
     			$fileName = $i."-".$t.'.'.$extension;
     			$newName = $data->storeAs($destinationPath, $fileName);
     			$p2New->audio = $newName;
