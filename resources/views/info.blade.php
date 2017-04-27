@@ -10,6 +10,8 @@ $user = \Auth::user();
 	$('.listBtn').removeClass('active');
 	$('#li-info').addClass('active');
 </script>
+{{-- <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script> --}}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
 <link href="http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot">
 <style>
 
@@ -153,14 +155,14 @@ $user = \Auth::user();
 		{{ session('msg') }}
 	</div>
 	@endif
-		@foreach (['danger', 'warning', 'success', 'info'] as $msg)
-			@if(Session::has('alert-' . $msg))
-			<div class="alert alert-success alert-dismissable">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>{{ Session::get('alert-' . $msg) }}</strong>
-			</div>
-			@endif
-		@endforeach
+	@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+	@if(Session::has('alert-' . $msg))
+	<div class="alert alert-success alert-dismissable">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>{{ Session::get('alert-' . $msg) }}</strong>
+	</div>
+	@endif
+	@endforeach
 	@if ($errors->has('pass'))
 	<div class="alert alert-danger alert-dismissable">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -216,8 +218,8 @@ $user = \Auth::user();
 			<div class="col-sm-4 form-group{{ $errors->has('first-name') ? ' has-error' : '' }}">
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="first-name" class="cols-sm-2 control-label">First name:</label></div>
 				<div>
-					<div class="input-group">
-						<input type="text" class="textbox first-name" name="first-name" id="first-name" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required>
+					<div class="input-group" style="width: 100%;">
+						<input type="text" class="textbox first-name" name="first-name" id="first-name" value="{{ $user->first_name }}" placeholder="Enter your first name" maxlength="30" required style="width: 100%;">
 					</div>
 				</div>
 
@@ -230,8 +232,8 @@ $user = \Auth::user();
 			<div class="col-sm-4 form-group{{ $errors->has('last-name') ? ' has-error' : '' }}">
 				<div class="label-wrapper"><i class="fa fa-user fa" aria-hidden="true"></i><label for="last-name" class="cols-sm-2 control-label">Last name:</label></div>
 				<div>
-					<div class="input-group">
-						<input type="text" class="textbox last-name" name="last-name" id="last-name" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required>
+					<div class="input-group" style="width: 100%;">
+						<input type="text" class="textbox last-name" name="last-name" id="last-name" value="{{ $user->last_name }}" placeholder="Enter your last name" maxlength="30" required style="width: 100%;">
 					</div>
 				</div>
 
@@ -252,7 +254,7 @@ $user = \Auth::user();
 					</div>
 				</div>
 
-				@if ($errors->has('date-of-birth'))
+				@if ($errors->has('gender'))
 				<div class="help-block">
 					<span>{{ $errors->first('date-of-birth') }}</span>
 				</div>
@@ -263,8 +265,8 @@ $user = \Auth::user();
 			<div class="col-sm-4 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 				<div class="label-wrapper"><i class="fa fa-envelope fa" aria-hidden="true"></i><label for="email" class="cols-sm-2 control-label">Email:</label></div>
 				<div>
-					<div class="input-group">
-						<input type="email" class="textbox email" name="email" id="email" value="{{ $user->email }}" maxlength="191" required>
+					<div class="input-group" style="width: 100%;">
+						<input type="email" class="textbox email" name="email" id="email" value="{{ $user->email }}" maxlength="191" required style="width: 100%;">
 					</div>
 				</div>
 
@@ -277,7 +279,7 @@ $user = \Auth::user();
 			<div class="col-sm-4 form-group{{ $errors->has('date-of-birth') ? ' has-error' : '' }}">
 				<div class="label-wrapper"><i class="fa fa-calendar fa" aria-hidden="true"></i><label for="date-of-birth" class="cols-sm-2 control-label">Date of birth:</label></div>
 				<div>
-					<div class="input-group">
+					<div class="input-group date-of-birth-wrapper">
 						<input type="date" class="textbox date-of-birth" name="date-of-birth" id="date-of-birth" value="{{ $user->date_of_birth }}" maxlength="191" required>
 					</div>
 				</div>
@@ -294,15 +296,8 @@ $user = \Auth::user();
 					<div class="input-group">
 						<select class="textbox" name="country" id="country" style="width: 100%">
 							@foreach ($countries as $code => $name)
-								<option value="{{ $code }}">{{ $name }}</option>
+							<option value="{{ $code }}" {{ strcmp($code, $user->country) == 0 ? 'selected' : '' }}>{{ $name }}</option>
 							@endforeach
-							<script>
-								$('select[name="country"] option').each(function() {
-									if(this.value == '{{ $user->country }}') {
-										this.checked = "";
-									}
-								})
-							</script>
 						</select>
 					</div>
 				</div>
@@ -358,44 +353,71 @@ $user = \Auth::user();
 	{!! Form::close() !!}
 </div>
 
+<script src="{{ asset('js/modernizr-custom.js') }}"></script>
+
 <script>
+
+	if (!Modernizr.inputtypes.date) {
+		jQuery.getScript("{{ asset('js/bootstrap-datepicker.min.js') }}")
+		.done(function(){
+			$('.date-of-birth-wrapper').empty();
+			while(document.getElementsByClassName('date-of-birth-wrapper')[0].firstChild) {
+				document.getElementsByClassName('date-of-birth-wrapper').removeChild(document.getElementsByClassName('date-of-birth-wrapper').firstChild);
+			}
+
+			var input = document.createElement('input');
+			input.name = "date-of-birth";
+			input.id = "date-of-birth";
+			input.type = 'text';
+			input.className = 'textbox date-of-birth';
+			input.value = '{{ $user->date_of_birth }}';
+			input.required = '';
+			$(input).datepicker({
+				format: 'yyyy-mm-dd',
+				weekStart: 1,
+				container: '.date-of-birth-wrapper'
+			});
+
+			document.getElementsByClassName('date-of-birth-wrapper')[0].appendChild(input);
+		});
+    }
 
 	/**
 	 * change Textbox Width 
 	 * @param  {DOM} input 
 	 * @return {void}     
 	 */
-	function changeTextboxWidth(input) {
-		input.size= parseInt(input.value.length);
-	}
+	 function changeTextboxWidth(input) {
+	 	input.size= parseInt(input.value.length);
+	 }
 
-	$('.img_container').click(function() {
-		$('input.uploadAvatar').click();
-	});
+	 $('.img_container').click(function() {
+	 	$('input.uploadAvatar').click();
+	 });
 
-	$('input.uploadAvatar').on('change', function() {
-		var ext = $('.uploadAvatar').val().split('.').pop().toLowerCase();
-		
-		if($.inArray(ext, ['png','jpg']) == -1) {
-			$('.help-block.ext').show();
-			return;
-		}
+	 $('input.uploadAvatar').on('change', function() {
+	 	var ext = $('.uploadAvatar').val().split('.').pop().toLowerCase();
 
-		document.getElementById('avatarForm').submit();
-	});
+	 	if($.inArray(ext, ['png','jpg']) == -1) {
+	 		$('.help-block.ext').show();
+	 		return;
+	 	}
 
-	$("#avatarForm").on('submit',(function(e) {
-		e.preventDefault();
-		$.ajax({
-			url: "/editAvatar",
-			type: "put",
-			data: new FormData(this),
-		}).done(function (data) {
-			alert('okay');
-		}).fail(function () {
-			alert('Your request could not be done at the moment');
-		});
-	}));
-</script>
-@stop
+	 	document.getElementById('avatarForm').submit();
+	 });
+
+	 $("#avatarForm").on('submit',(function(e) {
+	 	e.preventDefault();
+	 	$.ajax({
+	 		url: "/editAvatar",
+	 		type: "put",
+	 		data: new FormData(this),
+	 	}).done(function (data) {
+	 		alert('okay');
+	 	}).fail(function () {
+	 		alert('Your request could not be done at the moment');
+	 	});
+	 }));
+	</script>
+	@stop
 

@@ -114,20 +114,6 @@ class UserController extends Controller
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
     			for ($i=0; $i < count($users); $i++) {
-    			// 	$value = $users[$i]->cv;
-    			// 	$disk = \Storage::disk('s3-hidden');
-    			// 	if ($disk->exists($value))
-    			// 	{
-    			// 		$command = $disk->getDriver()->getAdapter()->getClient()->getObjectUrl( \Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+10 minutes');
-    			// 		dd($command);
-    			// 		$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
-       //                                          //$request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, ‘+15 seconds’);
-
-    			// 		$generate_url = $request->getUri();
-    			// 		$users[$i]->cv = $generate_url;
-    			// 	}
-    				
-    				// dd(\Storage::disk());
     				$s3 = \Storage::disk('s3-hidden');
     				$client = $s3->getDriver()->getAdapter()->getClient();
     				$expiry = "+2 minutes";
@@ -189,7 +175,7 @@ class UserController extends Controller
 		//データベースからデータをロードする。
 		$user_id= Auth::id();
 		$userData = User::find($user_id);
-
+dd($request->all());
 		$todayDate = date("Y/m/d");
 
 		Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {
@@ -222,13 +208,15 @@ class UserController extends Controller
 			[
 			'18yo' => 'You must be 18 years or older',
 			])->validate();
-
+		
 		$userData->first_name = $request->input('first-name');
 		$userData->last_name = $request->input('last-name');
 		$userData->username = $request->input('username');
 		$userData->email = $request->input('email');
 		$userData->date_of_birth = $request->input('date-of-birth');
 		$userData->gender = $request->input('gender');
+		$userData->country = $request->input('country');
+		$userData->language = $request->input('country');
 		$userData->save();
 
 		return redirect("/userManage");
