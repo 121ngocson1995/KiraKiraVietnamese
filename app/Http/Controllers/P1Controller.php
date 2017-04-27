@@ -65,17 +65,18 @@ class P1Controller extends Controller
     			$p1Edit[0]->word = $request->all()['word'.$i];
     			$p1Edit[0]->wordNo = $i;
 
-    			if($request->exists("audioPath".$i)){
+    			// if($request->exists("audioPath".$i)){
     				// $t=time();
     				// $t=date("Y-m-d-H-i-s",$t);
     				// $oldName = $request->all()["audioPath".$i];
     				// $newName = "audio/P1/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
     				// rename($oldName, $newName);
     				// $p1Edit[0]->audio = $newName;
-    			}else if($request->exists("audio".$i)){
+    			// }else 
+                if($request->exists("audio".$i)){
 
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
+                    $t=time();
+                    $t=date("Y-m-d-H-i-s",$t);
 
 
 					//---------------- OLD ----------------//

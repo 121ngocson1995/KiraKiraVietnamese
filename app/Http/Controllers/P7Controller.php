@@ -107,14 +107,15 @@ class P7Controller extends Controller
     			$p7Edit[0]->dialogue = $dialogue;
     			$p7Edit[0]->dialogNo = $i;
 
-    			if($request->exists("audioPath".$i)){
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
-    				$oldName = $request->all()["audioPath".$i];
-    				$newName = "audio/P7/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
-    				rename($oldName, $newName);
-    				$p7Edit[0]->audio = $newName;
-    			}else if($request->exists("audio".$i)){
+    			// if($request->exists("audioPath".$i)){
+    			// 	$t=time();
+    			// 	$t=date("Y-m-d-H-i-s",$t);
+    			// 	$oldName = $request->all()["audioPath".$i];
+    			// 	$newName = "audio/P7/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+    			// 	rename($oldName, $newName);
+    			// 	$p7Edit[0]->audio = $newName;
+    			// }else 
+                if($request->exists("audio".$i)){
 
     				$t=time();
     				$t=date("Y-m-d-H-i-s",$t);

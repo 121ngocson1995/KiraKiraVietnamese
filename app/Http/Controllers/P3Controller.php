@@ -67,14 +67,15 @@ class P3Controller extends Controller
     			$p3Edit[0]->sentence = $request->all()['sentence'.$i];
     			$p3Edit[0]->sentenceNo = $i;
 
-    			if($request->exists("audioPath".$i)){
-    				$t=time();
-    				$t=date("Y-m-d-H-i-s",$t);
-    				$oldName = $request->all()["audioPath".$i];
-    				$newName = "audio/P3/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
-    				rename($oldName, $newName);
-    				$p3Edit[0]->audio = $newName;
-    			}else if($request->exists("audio".$i)){
+    			// if($request->exists("audioPath".$i)){
+    			// 	$t=time();
+    			// 	$t=date("Y-m-d-H-i-s",$t);
+    			// 	$oldName = $request->all()["audioPath".$i];
+    			// 	$newName = "audio/P3/lesson".$lesson->lessonNo."/".$i."-".$t.".mp3";
+    			// 	rename($oldName, $newName);
+    			// 	$p3Edit[0]->audio = $newName;
+    			// }else 
+                if($request->exists("audio".$i)){
 
     				$t=time();
     				$t=date("Y-m-d-H-i-s",$t);
