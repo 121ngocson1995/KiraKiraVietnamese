@@ -137,7 +137,7 @@ class SituController extends Controller{
     				$data = $request["audio".$i];
     				$destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
     				$extension = $data->getClientOriginalExtension();
-    				$fileName = "S".$i."-".$t.'.'.$getClientOriginalExtension;
+    				$fileName = "S".$i."-".$t.'.'.$extension;
     				$newName = $data->storeAs($destinationPath, $fileName);
 
     				$situEdit[0]->audio = $newName;
