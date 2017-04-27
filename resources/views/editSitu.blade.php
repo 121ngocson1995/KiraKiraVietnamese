@@ -95,7 +95,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="dialog{{$i}}">Dialog</label>
-							<textarea class="form-control textarea" name="dialog{{$i}}" id="dialog{{$i}}" data-dialog="{{$situation[$i]->dialogArr}}" required></textarea>
+							<textarea class="form-control textarea" name="dialog{{$i}}" id="dialog{{$i}}" data-dialog="{{$situation[$i]->dialogArr}}" required maxlength="1600"></textarea>
 						</div>
 						@if ($errors->has("dialog".$i))
 						<div class="help-block">
@@ -106,7 +106,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="dialogTrans{{$i}}">Dialog's translation</label>
-							<textarea class="form-control textarea" name="dialogTrans{{$i}}" id="dialogTrans{{$i}}" data-dialog="{{$situation[$i]->dialogTransArr}}" required></textarea>
+							<textarea class="form-control textarea" name="dialogTrans{{$i}}" id="dialogTrans{{$i}}" data-dialog="{{$situation[$i]->dialogTransArr}}" required maxlength="1600"></textarea>
 						</div>
 						@if ($errors->has('dialogTrans'.$i))
 						<div class="help-block">
@@ -242,6 +242,7 @@
 	 	var textarea = document.createElement("textarea");
 	 	textarea.setAttribute('class', 'form-control textarea');
 	 	textarea.setAttribute('required', 'true');
+	 	textarea.setAttribute('maxlength', '1600');
 	 	textarea.setAttribute('name', "dialogAdd"+(rowAdded));
 	 	textarea.setAttribute('id', "dialogAdd"+(rowAdded));
 	 	form_group.appendChild(textarea);
@@ -262,6 +263,7 @@
 	 	textarea = document.createElement("textarea");
 	 	textarea.setAttribute('class', 'form-control textarea');
 	 	textarea.setAttribute('required', 'true');
+	 	textarea.setAttribute('maxlength', '1600');
 	 	textarea.setAttribute('name', "dialogTransAdd"+(rowAdded));
 	 	textarea.setAttribute('id', "dialogTransAdd"+(rowAdded));
 	 	form_group.appendChild(textarea);
@@ -439,8 +441,7 @@
 
 	  });
 
-	  $("#situationForm").submit( function(eventObj) {
-	  	var validateFail = false;
+	  function validate_chgColor() {
 	  	$('.row.situationRow').each(function() {
 	  		var situaNo = parseInt($(this).attr('data-line')) + 1;
 	  		var dialog_text = $("#dialog"+situaNo).val();
@@ -448,7 +449,8 @@
 	  		var dialog_count = dialog_text.split("\n").length;
 	  		var dialogTrans_count = dialogTrans_text.split("\n").length;
 
-	  		if (dialog_count != dialogTrans_count) {
+
+	  		if (dialog_count != dialogTrans_count || validate_checkLength(dialog_text) || validate_checkLength(dialogTrans_text)) {
 	  			document.getElementById("dialog"+situaNo).style.borderColor = "red";
 	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
 	  			validateFail = true;
@@ -457,27 +459,34 @@
 	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
 	  		}
 	  	})
+	  }
 
-	  	if (validateFail) {
+	  function validate_checkLength(text) {
+	  		var checkText = text.split("\n");
+	  		for (var i = 0; i < checkText.length; i++) {
+	  			if (checkText[i].length >80) {
+	  				return false;
+	  			}
+	  		}
+	  		return true;
+	  }
+
+	  function validate_checkLine(situaNo) {
+	  	var dialog_text = $("#dialog"+situaNo).val();
+	  	var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+	  	var dialog_count = dialog_text.split("\n").length;
+	  	var dialogTrans_count = dialogTrans_text.split("\n").length;
+
+	  	if (dialog_count != dialogTrans_count) {
 	  		alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
 	  		return false;
+	  	}else{
+	  		return true;
 	  	}
+	  }
 
-	  	$('.undone').each(function() {
-	  		if($(this).hasClass('image') && $(this).attr('data-path-image') != ''){
-	  			$('<input />').attr('type', 'hidden')
-	  			.attr('name', "imgPath"+$(this).attr('data-situ'))
-	  			.attr('value', $(this).attr('data-path-image'))
-	  			.appendTo('#situationForm');
-	  			return true;
-	  		}else if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
-	  			$('<input />').attr('type', 'hidden')
-	  			.attr('name', "audioPath"+$(this).attr('data-situ'))
-	  			.attr('value', $(this).attr('data-path-audio'))
-	  			.appendTo('#situationForm');
-	  			return true;
-	  		}
-	  	})
+	  $("#situationForm").submit( function(eventObj) {
+	  	 validate_chgColor();
 	  });
 
 	  $(document).ready(function () {
