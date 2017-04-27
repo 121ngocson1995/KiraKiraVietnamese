@@ -128,9 +128,8 @@ class UserController extends Controller
     			// 		$users[$i]->cv = $generate_url;
     			// 	}
     				
-    				if (condition) {
-    					# code...
-    				}
+    				
+    				$s3 = \Storage::disk('s3-hidden');
     				$client = $s3->getDriver()->getAdapter()->getClient();
     				$expiry = "+2 minutes";
 
