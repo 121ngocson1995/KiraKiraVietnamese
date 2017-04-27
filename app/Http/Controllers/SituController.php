@@ -42,6 +42,7 @@ class SituController extends Controller{
         // データベースからデータを出す。
     	$noteData = LessonNote::where('lesson_id', '=', $lesson_id)->orderBy('noteNo', 'asc')->get();
     	$cnt = count($noteData);
+        $note_content;
     	if ($cnt != 0)
     	{
     		for ($i=0; $i<$cnt; $i++){
