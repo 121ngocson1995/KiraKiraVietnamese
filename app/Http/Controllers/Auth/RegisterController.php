@@ -60,9 +60,12 @@ class RegisterController extends Controller
             return strtotime($value) <= strtotime('-18 years');
         });
 
+        $data['nameWord'] = array_merge(explode(' ', $data['first-name']), explode(' ', $data['last-name']));
+        
         return Validator::make($data, [
-            'first-name' => 'required|alpha|max:30',
-            'last-name' => 'required|alpha|max:30',
+            'first-name' => 'required|string|max:30',
+            'last-name' => 'required|string|max:30',
+            'nameWord.*' => 'alpha',
             'username' => 'required|alpha_dash|min:6|max:191|unique:users',
             'email' => 'required|email|max:191|unique:users',
             'password' => 'required|min:6|max:24|confirmed',
