@@ -14,7 +14,6 @@ function switchQuestion(questionId) {
 	if (questionId == 0) {
 		showPaper();
 		$('.btnNext').click(function () {
-			console.log(this);
 			next(this);
 		});
 	} else {

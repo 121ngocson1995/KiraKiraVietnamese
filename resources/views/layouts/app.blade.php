@@ -69,7 +69,7 @@
                         <li role="presentation" class="{{ strcmp(\Request::path(), 'register') == 0 ? 'active' : '' }} navbtn"><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="caret"></span><img src="{{ asset('img/avatar/' . \Auth::user()->avatar) }}" class="dropdown-image"></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="caret"></span><img src="{{ \Storage::url(\Auth::user()->avatar) }}" class="dropdown-image"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                 <li role="presentation"><a href="/userManage">Manage board</a></li>
                                 {{-- <li role="presentation"><a href="#">Payments</a></li> --}}

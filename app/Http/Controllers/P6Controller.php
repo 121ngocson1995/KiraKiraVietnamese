@@ -150,7 +150,7 @@ class P6Controller extends Controller
 
 			$all[] = $newElem;
 
-			return $all;
 		}
+		return $all;
 	}
 }
