@@ -116,7 +116,7 @@
 	var lastQuestion = cnt - 1;
 	var questionsDone = 0;
 	var correctAnswerNo = 0;
-	var assetPath = '{{ asset('') }}';
+	var assetPath = '{{ mb_substr(\Storage::url('/'),0,-1) }}';
 
 	$(document).ready(function() {
 		var tl = new TimelineMax();

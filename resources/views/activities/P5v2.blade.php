@@ -81,7 +81,7 @@
 </script>
 
 <script>
-	var assetPath = '{{ asset('') }}';
+	var assetPath = '{{ mb_substr(\Storage::url('/'),0,-1) }}';
 
 	var busyPlay, busyReplay, busyRecord, 
 		enabledPlay, enabledReplay, enabledRecord, 
@@ -107,6 +107,7 @@
 		disabledRecord = new Image();
 		disabledRecord.src = '{{ asset('img/testAnimate/record-red.png') }}';
 	}
+	
 	/**
 	 * create component for record through micro
 	 * マイクロから記録にコンポーネントを作成する。

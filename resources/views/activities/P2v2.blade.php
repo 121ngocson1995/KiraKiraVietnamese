@@ -116,7 +116,7 @@
 	});
 	
 	var elementData = <?php echo json_encode($elementData); ?>;
-	var assetPath = '{{ \Storage::url('') }}';
+	var assetPath = '{{ mb_substr(\Storage::url('/'),0,-1) }}';
 </script>
 
 <script src="{{ asset('js/screens/p2.js') }}"></script>

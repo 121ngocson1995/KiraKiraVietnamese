@@ -70,7 +70,7 @@
 <script>
 	var audio_context;
 	var recorder;
-	var assetPath = '{{ \Storage::url('') }}';
+	var assetPath = '{{ mb_substr(\Storage::url('/'),0,-1) }}';
 
 	var busyPlay, busyReplay, busyRecord, 
 		enabledPlay, enabledReplay, enabledRecord, 
