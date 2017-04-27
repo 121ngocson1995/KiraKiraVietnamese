@@ -8,7 +8,7 @@
 
 <div class="container" >
   <form action="editLesson" id="lessonForm" method="post">
-  {{ csrf_field() }}
+    {{ csrf_field() }}
     <div class="col-md-6 form-lggggine" >
       <div class="form-group">
         <label for="lsnNo">Lesson number</label>
@@ -60,53 +60,55 @@
   var lessonData = <?php echo json_encode($lessonData); ?>;
   document.getElementById("description").defaultValue = lessonData[0]['description'];
 
-  // $("#lessonForm").submit( function(eventObj) {
-  //   $('.vld-spc').each(function(){
-  //     validate_chgColor(this);
-  //   })
-  //   for (var i = 0; i < $('.vld-spc').length; i++) {
-  //     if(!validate_space($('.vld-spc')[i])){
-  //       return false;
-  //       break;  
-  //     }
-  //     if(!validate_spcChar($('.vld-spc')[i])){
-  //       return false;
-  //       break;  
-  //     }
-  //   }
-  //   return true;
-  // })
+  $("#lessonForm").submit( function(eventObj) {
+    $('.vld-spc').each(function(){
+      validate_chgColor(this);
+    })
+    for (var i = 0; i < $('.vld-spc').length; i++) {
+      if(!validate_space($('.vld-spc')[i])){
+        return false;
+        break;  
+      }
+      if(!validate_spcChar($('.vld-spc')[i])){
+        return false;
+        break;  
+      }
+    }
+    return true;
+  })
 
-  // function validate_space(textElement) {
-  //   var text = textElement.value;
-  //   if( text.trim() == "") {
-  //     alert ('Empty value is not allowed');
-  //     return false;
-  //   }else{
-  //     return true;
-  //   }
-  // }
+  function validate_chgColor(textElement) {
+    var text = textElement.value;
+    var pattern = new RegExp(/[~`!#$%\@^&*+=\-\[\]\\';/{}|\\":<>]/);
+    if( text.trim() == "" || pattern.test(text) || text == "") {
+      $(textElement).attr('style', 'border-color: red;');
+    }else{
+      $(textElement).attr('style', 'border-color: #dddddd;');
+    }
+  }
 
-  // function validate_chgColor(textElement) {
-  //   var text = textElement.value;
-  //   var pattern = new RegExp(/[~`!#$%\@^&*+=\-\[\]\\';/{}|\\":<>]/);
-  //   if( text.trim() == "" || pattern.test(text) || text == "") {
-  //     $(textElement).attr('style', 'border-color: red;');
-  //   }else{
-  //     $(textElement).attr('style', 'border-color: #dddddd;');
-  //   }
-  // }
+  function validate_space(textElement) {
+    var text = textElement.value;
+    if( text.trim() == "") {
+      alert ('Empty value is not allowed');
+      return false;
+    }else{
+      return true;
+    }
+  }
 
-  // function validate_spcChar(textElement){
-  //   var text = textElement.value;
-  //   var pattern = new RegExp(/[~`@!#$%\^&*+=\-\[\]\\';/{}|\\":<>]/);
-  //   if (pattern.test(text)) {
-  //     alert ('Special character is invalid');
-  //     return false;
-  //   }else{
-  //     return true;
-  //   }
-  // }
+
+
+  function validate_spcChar(textElement){
+    var text = textElement.value;
+    var pattern = new RegExp(/[~`@!#$%\^&*+=\-\[\]\\';/{}|\\":<>]/);
+    if (pattern.test(text)) {
+      alert ('Special character is invalid');
+      return false;
+    }else{
+      return true;
+    }
+  }
 
 </script>
 
