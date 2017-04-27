@@ -292,7 +292,7 @@ $user = \Auth::user();
 				<div class="label-wrapper"><i class="fa fa-flag fa" aria-hidden="true"></i><label for="country" class="cols-sm-2 control-label">Living country:</label></div>
 				<div>
 					<div class="input-group">
-						<select class="textbox" name="country" id="country">
+						<select class="textbox" name="country" id="country" style="width: 100%">
 							@foreach ($countries as $code => $name)
 								<option value="{{ $code }}">{{ $name }}</option>
 							@endforeach
