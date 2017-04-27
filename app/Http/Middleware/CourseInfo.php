@@ -23,7 +23,7 @@ class CourseInfo
 
         // $lessons = json_decode(File::get(storage_path() . "/dummy/home.json"));
 
-        $allLessons = Lesson::where('course_id', '=', 1)->get();
+        $allLessons = Lesson::where('course_id', '=', 1)->orderBy('lessonNo')->get();
         $lessons = [];
         foreach ($allLessons as $lesson) {
             $currentLesson = new \stdClass;
