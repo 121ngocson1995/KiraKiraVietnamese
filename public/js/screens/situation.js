@@ -13,7 +13,6 @@ $('#imgStart').click(function() {
 });
 
 function setIndex(node) {
-	var audioArr = <?php echo json_encode($audioArr); ?>;
 	stopAudio();
 	$('.btn').removeClass('selected');
 	node.setAttribute('class', 'btn btn-default selected');

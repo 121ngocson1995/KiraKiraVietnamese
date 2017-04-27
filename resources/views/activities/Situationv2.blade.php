@@ -105,7 +105,10 @@
 
 <script language="JavaScript">
 	var elementData = <?php echo json_encode($elementData); ?>;
+	var audioArr = <?php echo json_encode($audioArr); ?>;
 </script>
+
+<script src="{{ asset('js/screens/situation.js') }}"></script>
 
 @stop
 
