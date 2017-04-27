@@ -66,7 +66,7 @@ Route::get('/preAddLesson', 'LessonController@preAdd');
 Route::get('/addLesson', 'LessonController@add');
 Route::get('/listLesson', 'LessonController@listLesson');
 Route::get('/preEditLesson{lessonNo}', 'LessonController@preEdit');
-Route::get('/editLesson', 'LessonController@edit');
+Route::post('/editLesson', 'LessonController@edit');
 Route::get('/listAct{lessonId}', 'LessonController@listAct');
 Route::get('/deleteLesson{lessonNo}', 'LessonController@delete');
 Route::get('/lesson{lessonId}/preEdit{activityName}', 'LessonController@preEditAct');
