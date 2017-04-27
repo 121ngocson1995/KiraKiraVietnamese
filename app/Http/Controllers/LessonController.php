@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Course;
+use Redirect;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Lesson;
@@ -183,14 +185,30 @@ class LessonController extends Controller
     	// Dummy course and lesson
         // コースとレッスンをダミーする。
         // dd($request->all());
+    	
     	$course_id= 1;
-    	Validator::make($request->all(), [
-    		'lsnNo' => 'required|numeric|max:2147483647|min:1',
+
+    	$curLsnNo = Lesson::where('course_id', '=', $course_id)->find($request->all()['lesson_id'])->lessonNo;
+    	$checkLsnNo = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '<>', $curLsnNo)->pluck('lessonNo')->all();
+    	
+    	// if (in_array($request->all()['lsnNo'], $checkLsnNo)) {
+    	// 	return Redirect::back()->withInput(Input::all())->withErrors(['uniqueNo', 'This lesson number is existed']);
+    	// }	
+    	$array = $request->all();
+    	$array['checkLsnNo'] = $checkLsnNo;
+
+    	Validator::extend('unique_no', function ($attribute, $value, $parameters, $validator) {
+    		return !in_array($value, $validator->getData()[$parameters[0]]);
+    	});
+
+    	Validator::make($array, [
+    		'lsnNo' => 'required|numeric|max:2147483647|min:1|unique_no:checkLsnNo',
     		'lsnName' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:191',
     		'description' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:2000',
     		'lsnAuthor' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:191',
     		],
     		[
+    		'unique_no' => 'This lesson number is existed',
     		])->validate();
 
     	// Load data from Database
@@ -203,9 +221,9 @@ class LessonController extends Controller
     	$lessonEdit->author = $request->all()['lsnAuthor'];
     	$lessonEdit->last_updated_by = Auth::id();
     	$lessonEdit->save();
-    	$lessonData = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonEdit->lessonNo)->get();
+    	
 
-    	return view('editLesson', compact('lessonData'));
+    	return redirect('/listLesson');
     } 
 
     /**
