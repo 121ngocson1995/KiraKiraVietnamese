@@ -91,7 +91,7 @@ class RegisterController extends Controller
 
         $fileName = "CV_" . $request->username . "_" . $t . '.' . $extension;
 
-        $path = $request->cv->storeAs('public/cv', $fileName);
+        $path = $request->cv->storeAs('Applicants/CV', $fileName, 's3-hidden');
 
         return $path;
     }

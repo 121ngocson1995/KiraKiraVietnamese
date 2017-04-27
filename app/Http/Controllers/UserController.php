@@ -128,14 +128,20 @@ class UserController extends Controller
     			// 		$users[$i]->cv = $generate_url;
     			// 	}
     				
-    				
-    				dd(new S3Client);
-    				$s3 = S3Client::factory([
-    					'key' => \Config::get('filesystems.disks.s3-hidden.key'),
-    					'secret' => \Config::get('filesystems.disks.s3-hidden.secret'),
+    				if (condition) {
+    					# code...
+    				}
+    				$client = $s3->getDriver()->getAdapter()->getClient();
+    				$expiry = "+2 minutes";
+
+    				$command = $client->getCommand('GetObject', [
+    					'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
+    					'Key'    => $users[$i]->cv
     					]);
-    				$url = $s3->getObjectUrl(\Config::get('filesystems.disks.s3-hidden.bucket'), $value->cv, '+1 minute');
-    				dd($url);
+
+    				$url = (string) $client->createPresignedRequest($command, $expiry)->getUri();
+
+    				$users[$i]->cv = $url;
     			}
 
     			return view('userList.applicants', ['users' => $users])->render();
