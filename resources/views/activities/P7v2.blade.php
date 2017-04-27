@@ -89,7 +89,7 @@
 
 <script>
 	var elementData = <?php echo json_encode($elementData); ?>;
-	var assetPath = '{{ asset('') }}';
+	var assetPath = '{{ \Storage::url('') }}';
 	var busyPlay, busyReplay, busyRecord, 
 		enabledPlay, enabledReplay, enabledRecord, 
 		disabledPlay, disabledReplay, disabledRecord;

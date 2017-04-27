@@ -138,10 +138,10 @@
         <a href="#part{{ $index }}" class="panelt" ></a>
         <div class="col-sm-4 col-sm-offset-3 col-sm-push-2 image">
           <div id="thumbnailHolder" style="padding-top: 24px; text-align: center;">
-            <img id="thumbnail" class="img" src="{{ asset($elementData[$i]->thumbnail) }}">
+            <img id="thumbnail" class="img" src="{{ \Storage::url($elementData[$i]->thumbnail) }}">
           </div>
           <div id="audioHolder" style="text-align: center;">
-            <audio id="audio{{$i}}" src="{{ asset($elementData[$i]->audio) }}" type="audio/mpeg">
+            <audio id="audio{{$i}}" src="{{ \Storage::url($elementData[$i]->audio) }}" type="audio/mpeg">
             </audio>
           </div>
         </div>

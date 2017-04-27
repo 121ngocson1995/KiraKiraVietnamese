@@ -123,7 +123,7 @@
 	});
 	
 	var elementData = <?php echo json_encode($elementData); ?>;
-	var assetPath = '{{ asset('') }}';
+	var assetPath = '{{ \Storage::url('') }}';
 	
 </script>
 

@@ -11,7 +11,7 @@
     <div class="col-md-6 form-line" >
       <div class="form-group">
         <label for="lsnNo">Lesson number</label>
-        <input type="number" class="form-control " name="lsnNo" id="lsnNo" required="true" value="{{$lessonData[0]->lessonNo}}">
+        <input type="number" class="form-control " min="1" name="lsnNo" id="lsnNo" required="true" value="{{$lessonData[0]->lessonNo}}">
       </div>
       <div class="form-group">
         <label for="lsnName">Lesson name</label>
