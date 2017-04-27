@@ -3,6 +3,8 @@
 @section('header-more')
 
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('exten/css/styles.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 <style type="text/css">
     .partName {
         color: white;
@@ -177,9 +179,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="{{ asset('exten/css/styles.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
-
 <div id="wrapper">
   <div id="mask">
     @for($i=0; $i<$cnt; $i++)
@@ -206,7 +205,7 @@
                                         <div class="item @if ($j == 0)
                                         active
                                         @endif">
-                                        <img src="{{  asset($slide_imgArr[(string)$i][$j]) }}" alt="Slide Image" class="center-block">
+                                        <img src="{{ \Storage::url($slide_imgArr[(string)$i][$j]) }}" alt="Slide Image" class="center-block">
                                         <div class="carousel-caption"><h3 class="partName"> {{ $slide_nameArr[(string)$i][$j] }} </h3></div>
                                     </div>
                                     @endfor
@@ -250,11 +249,11 @@
                                 </div>
                             </div>
                             <div style="text-align: center;">
-                                <img class="limit" style="width: 80%;" src=" {{ asset($thumbArr[1][0]) }} ">
+                                <img class="limit" style="width: 80%;" src=" {{ \Storage::url($thumbArr[1][0]) }} ">
                             </div>
                         </div>
                     </div>
-                    <audio id="audio{{ $i }}" src="{{ asset($elementData[$i]->audio) }}"></audio>
+                    <audio id="audio{{ $i }}" src="{{ \Storage::url($elementData[$i]->audio) }}"></audio>
                 </div>
             @elseif ($elementData[$i]->type == 2)
             <!-- Em đọc thơ -->
@@ -383,7 +382,7 @@
 										    </table>
 										</div>
 									</div>
-									<img src="{{ asset($elementData[$i]->thumbnail) }}" style="max-height: 300px; vertical-align: initial;" alt="">
+									<img src="{{ \Storage::url($elementData[$i]->thumbnail) }}" style="max-height: 300px; vertical-align: initial;" alt="">
 
                             </div>
                         </div>
@@ -409,7 +408,7 @@
                     <h3 class="modal-title writtenFont" id="myModalLabel{{ $i+1 }}">Answer</h3>
                   </div>
                   <div class="modal-body">
-                    <img class="riddle-answer" src="{{ asset($elementData[$i]->thumbnail) }}" alt="answer image">
+                    <img class="riddle-answer" src="{{ \Storage::url($elementData[$i]->thumbnail) }}" alt="answer image">
                     <div><span class="riddle-answer writtenFont">{{ $elementData[$i]->riddle_answer }}</span></div>
                   </div>
                 </div>
