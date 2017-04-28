@@ -175,7 +175,7 @@ class UserController extends Controller
 		//データベースからデータをロードする。
 		$user_id= Auth::id();
 		$userData = User::find($user_id);
-dd($request->all());
+
 		$todayDate = date("Y/m/d");
 
 		Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {

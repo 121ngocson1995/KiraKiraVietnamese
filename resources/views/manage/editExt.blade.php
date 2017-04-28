@@ -161,7 +161,7 @@
 					<li><a class="addPart poem" href="#">Poem</a></li>
 					<li><a class="addPart idiom" href="#">Idiom</a></li>
 					<li><a class="addPart riddle" href="#">Riddle</a></li>
-					<li><a class="addPart play" href="#">Play</a></li>
+					<li><a class="addPart play" href="#">Game</a></li>
 				</ul>
 			</li>
 		</ul>

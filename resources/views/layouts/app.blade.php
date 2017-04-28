@@ -170,7 +170,6 @@
             function createActivity() {
                 $('#activity_menu').children().first().empty();
                 var pracNo = 0;
-                console.log(lessons);
                 var lesson = lessons[expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)];
                 for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
