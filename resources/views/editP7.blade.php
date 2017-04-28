@@ -104,10 +104,10 @@
 				@for ($j = 0; $j < count($contentArr[$i]); $j++)
 				<div class="row" id="row-{{$i}}-{{$j}}" data-curLine="{{$j}}">
 					<div class="col-xs-3">	
-						<input type="text" class="form-control " name="speaker-{{$i.'-'.$j}}" id="speaker-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][0]}}" ></input>
+						<input type="text" class="form-control vld-null" maxlength="20" name="speaker-{{$i.'-'.$j}}" id="speaker-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][0]}}" ></input>
 					</div>
 					<div class="col-xs-8">
-						<input type="text" class="form-control " name="dialogue-{{$i.'-'.$j}}" " id="dialogue-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][1]}}" required></input>
+						<input type="text" class="form-control vld-spc" maxlength="80" name="dialogue-{{$i.'-'.$j}}" " id="dialogue-{{$i.'-'.$j}}" value="{{$contentArr[$i][$j][1]}}" required></input>
 					</div>
 					<div class="col-xs-1">
 						<button type="button" class="deleteBtn " onclick="deleteRow(this)"><i class="fa fa-trash"></i></button>
@@ -140,6 +140,12 @@
 	var deleteDia = 0;
 	var addDialog = 0;
 
+	var $input = $('input.file[type=file]');
+	if ($input.length) {
+		$input.fileinput({
+			maxFileSize: 1000
+		});
+	}
 	/**
 	 * 	Add new Dialog
 	 *　新たなダイアログを追加する。
@@ -256,7 +262,9 @@
 	 	sumDialog++;
 	 	var $input = $('input.file[type=file]');
 	 	if ($input.length) {
-	 		$input.fileinput();
+	 		$input.fileinput({
+	 			maxFileSize: 1000
+	 		});
 	 	}
 	 }
 
@@ -281,7 +289,8 @@
 
 	  	var node_header_spkInput = document.createElement("input");
 	  	node_header_spkInput.setAttribute('type','text');
-	  	node_header_spkInput.setAttribute('class','form-control');
+	  	node_header_spkInput.setAttribute('maxlength','20');
+	  	node_header_spkInput.setAttribute('class','form-control vld-null');
 	  	if ($(button).closest('.big').hasClass('origin')) {
 	  		node_header_spkInput.setAttribute('name',"speaker-"+dialogIndex+"-"+sumLine);
 	  		node_header_spkInput.setAttribute('id',"speaker-"+dialogIndex+"-"+sumLine);
@@ -299,7 +308,8 @@
 
 	  	var node_header_diaInput = document.createElement("input");
 	  	node_header_diaInput.setAttribute('type','text');
-	  	node_header_diaInput.setAttribute('class','form-control');
+	  	node_header_diaInput.setAttribute('maxlength','80');
+	  	node_header_diaInput.setAttribute('class','form-control vld-spc');
 	  	if ($(button).closest('.big').hasClass('origin')) {
 	  		node_header_diaInput.setAttribute('name',"dialogue-"+dialogIndex+"-"+sumLine);
 	  		node_header_diaInput.setAttribute('id',"dialogue-"+dialogIndex+"-"+sumLine);
@@ -371,106 +381,170 @@
 	   * @param  {DOM} button 
 	   * @return {void}
 	   */
-	  function deleteDialog(button) {
-	  	deleteDia++;
-	  	var curDialog = $(button).closest('.big').attr('data-dialogIndex');
-	  	if(confirm("Are you sure you want to delete?")){
-	  		var node_delete = document.createElement('input');
-	  		node_delete.setAttribute('type', 'hidden');
-	  		node_delete.setAttribute('name', 'delete'+deleteDia);
-	  		node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
-	  		document.getElementById('p7Form').appendChild(node_delete);
-	  		$(button).closest('.big').empty().remove();
-	  		for (var i = 0; i < sumDialog; i++) {
-	  			if (curDialog <  i) {
-	  				$("#dialogId"+i).attr('name', "dialogId"+(i-1));
-	  				$("#dialogId"+i).attr('id', "dialogId"+(i-1));
-	  				$("#dialog"+i).attr('data-dialogIndex', (i-1));
-	  				var sumLine = $("#dialog"+i).attr('data-sumline');
-	  				$("#dialog"+i).attr('id', "dialog"+(i-1));	
-	  				$("#row"+i).attr('data-diaglogIndex', i-1);	
-	  				$("#row"+i).attr('id', "row"+(i-1));
-	  				$("#line"+i).html(i);	
-	  				$("#line"+i).attr('id', "line"+(i-1));
-	  				$("#diaBody"+i).attr('id', "diaBody"+(i-1));
-	  				for(var j = 0; j < sumLine; j++){
-	  					$("#row-"+i+"-"+j).attr('id', "row-"+(i-1)+"-"+j);
-	  					console.log("#row-"+i+"-"+j);
-	  					$("#speaker-"+i+"-"+j).attr('name', "speaker-"+(i-1)+"-"+j);
-	  					console.log("#speaker"+i+"-"+j);
-	  					$("#speaker-"+i+"-"+j).attr('id', "speaker-"+(i-1)+"-"+j);
-	  					$("#dialogue-"+i+"-"+j).attr('name', "dialogue-"+(i-1)+"-"+j);
-	  					$("#dialogue-"+i+"-"+j).attr('id', "dialogue-"+(i-1)+"-"+j);
-	  					$("#audio"+(i)).attr('data-situ', (i-1));
-	  					$("#audio"+(i)).attr('id', "audio"+(i-1));
-	  				}
-	  			}
-	  		}
-	  		sumDialog--;
-	  	}
-	  }
+	   function deleteDialog(button) {
+	   	deleteDia++;
+	   	var curDialog = $(button).closest('.big').attr('data-dialogIndex');
+	   	if(confirm("Are you sure you want to delete?")){
+	   		var node_delete = document.createElement('input');
+	   		node_delete.setAttribute('type', 'hidden');
+	   		node_delete.setAttribute('name', 'delete'+deleteDia);
+	   		node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
+	   		document.getElementById('p7Form').appendChild(node_delete);
+	   		$(button).closest('.big').empty().remove();
+	   		for (var i = 0; i < sumDialog; i++) {
+	   			if (curDialog <  i) {
+	   				$("#dialogId"+i).attr('name', "dialogId"+(i-1));
+	   				$("#dialogId"+i).attr('id', "dialogId"+(i-1));
+	   				$("#dialog"+i).attr('data-dialogIndex', (i-1));
+	   				var sumLine = $("#dialog"+i).attr('data-sumline');
+	   				$("#dialog"+i).attr('id', "dialog"+(i-1));	
+	   				$("#row"+i).attr('data-diaglogIndex', i-1);	
+	   				$("#row"+i).attr('id', "row"+(i-1));
+	   				$("#line"+i).html(i);	
+	   				$("#line"+i).attr('id', "line"+(i-1));
+	   				$("#diaBody"+i).attr('id', "diaBody"+(i-1));
+	   				for(var j = 0; j < sumLine; j++){
+	   					$("#row-"+i+"-"+j).attr('id', "row-"+(i-1)+"-"+j);
+	   					console.log("#row-"+i+"-"+j);
+	   					$("#speaker-"+i+"-"+j).attr('name', "speaker-"+(i-1)+"-"+j);
+	   					console.log("#speaker"+i+"-"+j);
+	   					$("#speaker-"+i+"-"+j).attr('id', "speaker-"+(i-1)+"-"+j);
+	   					$("#dialogue-"+i+"-"+j).attr('name', "dialogue-"+(i-1)+"-"+j);
+	   					$("#dialogue-"+i+"-"+j).attr('id', "dialogue-"+(i-1)+"-"+j);
+	   					$("#audio"+(i)).attr('data-situ', (i-1));
+	   					$("#audio"+(i)).attr('id', "audio"+(i-1));
+	   				}
+	   			}
+	   		}
+	   		sumDialog--;
+	   	}
+	   }
 
-	  $("#p7Form").submit( function(eventObj) {
+	   function validate_chgColor() {
+	   	$('.vld-spc').each(function(){
+	   		var text = $(this).val();
+	   		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
+	   		if(text.trim() == "" || pattern.test(text)) {
+	   			$(this).attr('style', 'border-color: red;');
+	   		}else{
+	   			$(this).attr('style', 'border-color: #dddddd;');
+	   		}
+	   	})
 
-	  	$('.big').each(function() {
-	  		if($(this).hasClass('origin')){
-	  			$('<input />').attr('type', 'hidden')
-	  			.attr('name', $(this).attr('id'))
-	  			.attr('value', $(this).attr('data-sumline'))
-	  			.appendTo('#p7Form');
-	  			return true;
-	  		}else{
-	  			$('<input />').attr('type', 'hidden')
-	  			.attr('name', "dialogAdd"+$(this).attr('data-dialogAdd'))
-	  			.attr('value', $(this).attr('data-sumline'))
-	  			.appendTo('#p7Form');
-	  			return true;
-	  		}
-	  	})
+	   }
 
-	  	var node_delete = document.createElement('input');
-	  	node_delete.setAttribute('type', 'hidden');
-	  	node_delete.setAttribute('name', 'sumDelete');
-	  	node_delete.setAttribute('value', deleteDia);
-	  	document.getElementById('p7Form').appendChild(node_delete);
+	   function showMesg(element, msg) {
+	   	if ($(element).parent().find('.alert alert-danger').length) {
+	   		$(element).parent().find('span.help').html(msg);
+	   	} else {
+	   		var div_help = document.createElement('div');
+	   		div_help.className = 'alert alert-danger';
+	   		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	   		$(div_help).insertAfter(element);
+	   	}
+	   }
 
-	  	var node_add = document.createElement('input');
-	  	node_add.setAttribute('type', 'hidden');
-	  	node_add.setAttribute('name', 'sumAdd');
-	  	node_add.setAttribute('value', addDialog);
-	  	document.getElementById('p7Form').appendChild(node_add);
+	   function validate_space(textElement) {
+	   	var text = textElement.value;
+	   	if( text.trim() == "") {
+	   		showMesg(textElement, 'Empty value is not allowed');
+	   		return false;
+	   	}else{
+	   		return true;
+	   	}
+	   }
 
-	  	var node_origin = document.createElement("input");
-	  	node_origin.setAttribute('type', 'hidden');
-	  	node_origin.setAttribute('name',"sumOrigin");
-	  	node_origin.setAttribute('value', $('.origin').length);
-	  	document.getElementById('p7Form').appendChild(node_origin);
+	   function validate_spcChar(textElement){
+	   	var text = textElement.value;
+	   	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
+	   	if (pattern.test(text)) {
+	   		showMesg(textElement, 'Special character is invalid');
+	   		return false;
+	   	}else{
+	   		return true;
+	   	}
+	   }
 
-	  	$('.undone').each(function() {
-	  		if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
-	  			$('<input />').attr('type', 'hidden')
-	  			.attr('name', "audioPath"+$(this).attr('data-situ'))
-	  			.attr('value', $(this).attr('data-path-audio'))
-	  			.appendTo('#p7Form');
-	  			return true;
-	  		}
-	  	})
-	  })
+	   $("#p7Form").submit( function(eventObj) {
+	   	var fail = false;
+	   	validate_chgColor();
+	   	for (var i = 0; i < $('.vld-spc').length; i++) {
+	   		if(!validate_space($('.vld-spc')[i])){
+	   			fail =true;
+	   		}
+	   		if(!validate_spcChar($('.vld-spc')[i])){
+	   			fail =true;
+	   		}
+	   	}
 
-	  $(document).ready(function () {
-	  	$('.file.undone').on('change', function(event) {
-	  		var filename = this.value;
-	  		var extension = filename.split('.').pop();
+	   	for (var i = 0; i < $('.vld-null').length; i++) {
+	   		if(!validate_spcChar($('.vld-null')[i])){
+	   			fail =true;
+	   		}
+	   	}
 
-	  		if ($(this).hasClass('audio')) {
-	  			if (extension == 'mp3') {
-	  				$(this).removeClass('undone');
-	  				return;
-	  			}
-	  		}
+	   	if (fail) {
+	   		return false;
+	   	}
+	   	$('.big').each(function() {
+	   		if($(this).hasClass('origin')){
+	   			$('<input />').attr('type', 'hidden')
+	   			.attr('name', $(this).attr('id'))
+	   			.attr('value', $(this).attr('data-sumline'))
+	   			.appendTo('#p7Form');
+	   			return true;
+	   		}else{
+	   			$('<input />').attr('type', 'hidden')
+	   			.attr('name', "dialogAdd"+$(this).attr('data-dialogAdd'))
+	   			.attr('value', $(this).attr('data-sumline'))
+	   			.appendTo('#p7Form');
+	   			return true;
+	   		}
+	   	})
 
-	  		$(this).addClass('undone');
-	  	});
-	  });
+	   	var node_delete = document.createElement('input');
+	   	node_delete.setAttribute('type', 'hidden');
+	   	node_delete.setAttribute('name', 'sumDelete');
+	   	node_delete.setAttribute('value', deleteDia);
+	   	document.getElementById('p7Form').appendChild(node_delete);
+
+	   	var node_add = document.createElement('input');
+	   	node_add.setAttribute('type', 'hidden');
+	   	node_add.setAttribute('name', 'sumAdd');
+	   	node_add.setAttribute('value', addDialog);
+	   	document.getElementById('p7Form').appendChild(node_add);
+
+	   	var node_origin = document.createElement("input");
+	   	node_origin.setAttribute('type', 'hidden');
+	   	node_origin.setAttribute('name',"sumOrigin");
+	   	node_origin.setAttribute('value', $('.origin').length);
+	   	document.getElementById('p7Form').appendChild(node_origin);
+
+	   	$('.undone').each(function() {
+	   		if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
+	   			$('<input />').attr('type', 'hidden')
+	   			.attr('name', "audioPath"+$(this).attr('data-situ'))
+	   			.attr('value', $(this).attr('data-path-audio'))
+	   			.appendTo('#p7Form');
+	   			return true;
+	   		}
+	   	})
+	   })
+
+	   $(document).ready(function () {
+	   	$('.file.undone').on('change', function(event) {
+	   		var filename = this.value;
+	   		var extension = filename.split('.').pop();
+
+	   		if ($(this).hasClass('audio')) {
+	   			if (extension == 'mp3') {
+	   				$(this).removeClass('undone');
+	   				return;
+	   			}
+	   		}
+
+	   		$(this).addClass('undone');
+	   	});
+	   });
 	</script>
 	@stop
