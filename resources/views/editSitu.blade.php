@@ -97,11 +97,6 @@
 							<label for="dialog{{$i}}">Dialog</label>
 							<textarea class="form-control textarea" name="dialog{{$i}}" id="dialog{{$i}}" data-dialog="{{$situation[$i]->dialogArr}}" required maxlength="1600"></textarea>
 						</div>
-						@if ($errors->has("dialog".$i))
-						<div class="help-block">
-							<span>{{ $errors->first('dialog') }}</span>
-						</div>
-						@endif
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
@@ -406,7 +401,118 @@
 	  	}
 	  }
 
+	  function validate_chgColor() {
+	  	$('.row.situationRow').each(function() {
+	  		var situaNo = parseInt($(this).attr('data-line'));
+	  		var dialog_count = $("#dialog"+situaNo).val().split("\n").length;
+	  		var dialogTrans_count = $("#dialogTrans"+situaNo).val().split("\n").length;
+
+	  		if (!validate_checkLine($(this)) || !validate_space($(this)) || validate_spcChar($(this))) {
+	  			document.getElementById("dialog"+situaNo).style.borderColor = "red";
+	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
+	  		}else{
+	  			document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
+	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
+	  		}
+	  	})
+	  }
+
+	  function showMesg(parentElement, msg) {
+	  	if ($(parentElement).find('.help-block').length) {
+	  		$(parentElement).find('span.help').html(msg);
+	  	} else {
+	  		var div_help = document.createElement('div');
+	  		div_help.className = 'help-block';
+	  		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	  		parentElement.append(div_help);
+	  	}
+	  }
+
+	  function validate_spcChar(element){
+	  	var situaNo = parseInt($(element).attr('data-line'));
+	  	var dialog_text = $("#dialog"+situaNo).val();
+	  	var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+	  	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	  	if (pattern.test(dialog_text) ||pattern.test(dialogTrans_text) ) {
+	  		showMesg(element, 'Special character is invalid');
+	  		return false;
+	  	}else{
+	  		return true;
+	  	}
+	  }
+
+	  function validate_space(element) {
+	  	var situaNo = parseInt($(element).attr('data-line'));
+	  	var dialog_text = $("#dialog"+situaNo).val();
+	  	var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+	  	if( dialog_text.trim() == "" ||dialogTrans_text.trim() == "") {
+	  		showMesg(element, 'Empty value is not allowed');
+	  		return false;
+	  	}else{
+	  		return true;
+	  	}
+	  }
+
+	  function validate_checkLine(element) {
+	  	var situaNo = parseInt($(element).attr('data-line'));
+	  	
+	  	var dialog_text = $("#dialog"+situaNo).val();
+	  	var dialogTrans_text = $("#dialogTrans"+situaNo).val();
+	  	var dialog_count = dialog_text.split("\n").length;
+	  	var dialogTrans_count = dialogTrans_text.split("\n").length;
+
+	  	if (dialog_count != dialogTrans_count ) {
+	  		showMesg(element, "The number of dialog sentence must equal to the dialog translate. Please check again !");
+
+	  		return false;
+	  	}else{
+	  		return true;
+	  	}
+	  }
+
+	  $(document).ready(function () {
+	  	$('.file.undone').on('change', function(event) {
+	  		var filename = this.value;
+	  		var extension = filename.split('.').pop();
+
+	  		if($(this).hasClass('image')) {
+	  			if (extension == 'jpg' || extension == 'png') {
+	  				$(this).removeClass('undone');
+	  				return;
+	  			}
+	  		} else if ($(this).hasClass('audio')) {
+	  			if (extension == 'mp3') {
+	  				$(this).removeClass('undone');
+	  				return;
+	  			}
+	  		}
+
+	  		$(this).addClass('undone');
+	  	});
+	  });
+
 	  $("#situationForm").submit( function(eventObj) {
+	  	validate_chgColor();
+	  	var fail = false;
+	  	for (var i = 0; i < $('.row.situationRow').length; i++) {
+	  		if (!validate_checkLine($('.row.situationRow')[i])) {
+	  			fail =true;
+	  		}
+	  	}
+
+	  	for (var i = 0; i < $('.row.situationRow').length; i++) {
+	  		if (!validate_space($('.row.situationRow')[i])) {
+	  			fail =true;
+	  		}
+	  	}
+	  	for (var i = 0; i < $('.row.situationRow').length; i++) {
+	  		if (!validate_spcChar($('.row.situationRow')[i])) {
+	  			fail =true;
+	  		}
+	  	}
+	  	if (fail) {
+	  		return false;
+	  	}
 
 	  	var node_delete = document.createElement('input');
 	  	node_delete.setAttribute('type', 'hidden');
@@ -439,75 +545,6 @@
 	  	.appendTo('#situationForm');
 	  	return true;
 
-	  });
-
-	  function validate_chgColor() {
-	  	$('.row.situationRow').each(function() {
-	  		var situaNo = parseInt($(this).attr('data-line')) + 1;
-	  		var dialog_text = $("#dialog"+situaNo).val();
-	  		var dialogTrans_text = $("#dialogTrans"+situaNo).val();
-	  		var dialog_count = dialog_text.split("\n").length;
-	  		var dialogTrans_count = dialogTrans_text.split("\n").length;
-
-
-	  		if (dialog_count != dialogTrans_count || validate_checkLength(dialog_text) || validate_checkLength(dialogTrans_text)) {
-	  			document.getElementById("dialog"+situaNo).style.borderColor = "red";
-	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "red";
-	  			validateFail = true;
-	  		}else{
-	  			document.getElementById("dialog"+situaNo).style.borderColor = "transparent";
-	  			document.getElementById("dialogTrans"+situaNo).style.borderColor = "transparent";
-	  		}
-	  	})
-	  }
-
-	  function validate_checkLength(text) {
-	  		var checkText = text.split("\n");
-	  		for (var i = 0; i < checkText.length; i++) {
-	  			if (checkText[i].length >80) {
-	  				return false;
-	  			}
-	  		}
-	  		return true;
-	  }
-
-	  function validate_checkLine(situaNo) {
-	  	var dialog_text = $("#dialog"+situaNo).val();
-	  	var dialogTrans_text = $("#dialogTrans"+situaNo).val();
-	  	var dialog_count = dialog_text.split("\n").length;
-	  	var dialogTrans_count = dialogTrans_text.split("\n").length;
-
-	  	if (dialog_count != dialogTrans_count) {
-	  		alert("The number of dialog sentence must equal to the dialog translate. Please check again !");
-	  		return false;
-	  	}else{
-	  		return true;
-	  	}
-	  }
-
-	  $("#situationForm").submit( function(eventObj) {
-	  	 validate_chgColor();
-	  });
-
-	  $(document).ready(function () {
-	  	$('.file.undone').on('change', function(event) {
-	  		var filename = this.value;
-	  		var extension = filename.split('.').pop();
-
-	  		if($(this).hasClass('image')) {
-	  			if (extension == 'jpg' || extension == 'png') {
-	  				$(this).removeClass('undone');
-	  				return;
-	  			}
-	  		} else if ($(this).hasClass('audio')) {
-	  			if (extension == 'mp3') {
-	  				$(this).removeClass('undone');
-	  				return;
-	  			}
-	  		}
-
-	  		$(this).addClass('undone');
-	  	});
 	  });
 
 	</script>

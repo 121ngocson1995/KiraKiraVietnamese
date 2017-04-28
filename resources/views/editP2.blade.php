@@ -222,20 +222,34 @@
 	 	}
 	 }
 
-	 function validate_chgColor(textElement) {
-	 	var text = textElement.value;
-	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-	 	if(text.trim() == "" || pattern.test(text)) {
-	 		$(textElement).attr('style', 'border-color: red;');
-	 	}else{
-	 		$(textElement).attr('style', 'border-color: #dddddd;');
+	 function validate_chgColor() {
+	 	$('.vld-spc').each(function(){
+	 		var text = $(this).val();
+	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 		if(text.trim() == "" || pattern.test(text)) {
+	 			$(this).attr('style', 'border-color: red;');
+	 		}else{
+	 			$(this).attr('style', 'border-color: #dddddd;');
+	 		}
+	 	})
+	 	
+	 }
+
+	 function showMesg(element, msg) {
+	 	if ($(element).parent().find('.help-block').length) {
+	 		$(element).parent().find('span.help').html(msg);
+	 	} else {
+	 		var div_help = document.createElement('div');
+	 		div_help.className = 'help-block';
+	 		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	 		$(div_help).insertAfter(element);
 	 	}
 	 }
 
 	 function validate_space(textElement) {
 	 	var text = textElement.value;
 	 	if( text.trim() == "") {
-	 		alert ('Empty value is not allowed');
+	 		showMesg(textElement, 'Empty value is not allowed');
 	 		return false;
 	 	}else{
 	 		return true;
@@ -246,7 +260,7 @@
 	 	var text = textElement.value;
 	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
 	 	if (pattern.test(text)) {
-	 		alert ('Special character is invalid');
+	 		showMesg(textElement, 'Special character is invalid');
 	 		return false;
 	 	}else{
 	 		return true;
@@ -254,18 +268,19 @@
 	 }
 
 	 $("#p2Form").submit( function(eventObj) {
-	 	$('.vld-spc').each(function(){
-	 		validate_chgColor(this);
-	 	})
+	 	var fail = false;
+	 	validate_chgColor();
 	 	for (var i = 0; i < $('.vld-spc').length; i++) {
 	 		if(!validate_space($('.vld-spc')[i])){
-	 			return false;
-	 			break;  
+	 			fail =true;
 	 		}
 	 		if(!validate_spcChar($('.vld-spc')[i])){
-	 			return false;
-	 			break;  
+	 			fail =true;
 	 		}
+	 	}
+
+	 	if (fail) {
+	 		return false;
 	 	}
 	 	var node_delete = document.createElement('input');
 	 	node_delete.setAttribute('type', 'hidden');
