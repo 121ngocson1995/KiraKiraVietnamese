@@ -145,7 +145,7 @@
 							<button type="button" class="close deleteOption" aria-label="Delete">
 								<span aria-hidden="true">×</span>
 							</button>
-							<input type="text" class="form-control wordText" maxlength="191" name="update[{{ $word->id }}][word]" onkeypress="changeTextboxWidth(this)" value="{{ $word->word }}" required="">
+							<input type="text" class="form-control wordText vld-spc" maxlength="191" name="update[{{ $word->id }}][word]" onkeypress="changeTextboxWidth(this)" value="{{ $word->word }}" required="">
 						</div>
 						@endforeach
 					</div>
@@ -397,7 +397,7 @@
 	 	word.appendChild(button);
 
 	 	var input = document.createElement('input');
-	 	input.className = 'form-control wordText';
+	 	input.className = 'form-control wordText vld-spc';
 	 	input.setAttribute('type', 'text');
 	 	input.setAttribute('maxlength', '191');
 	 	input.setAttribute('name', 'insert[' + toAdd + '][word]');
@@ -479,12 +479,72 @@
 	 	deleteSentence($(this).closest('.sentence-holder'));
 	 });
 
+	 function validate_chgColor() {
+	 	$('.vld-spc').each(function(){
+	 		var text = $(this).val();
+	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 		if(text.trim() == "" || pattern.test(text)) {
+	 			$(this).attr('style', 'border-color: red;');
+	 		}else{
+	 			$(this).attr('style', 'border-color: #dddddd;');
+	 		}
+	 	})
+	 	
+	 }
+
+	 function showMesg(element, msg) {
+	 	if ($(element).parent().find('.alert alert-danger').length) {
+	 		$(element).parent().find('span.help').html(msg);
+	 	} else {
+	 		var div_help = document.createElement('div');
+	 		div_help.className = 'alert alert-danger';
+	 		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	 		$(div_help).insertAfter(element);
+	 	}
+	 }
+
+	 function validate_space(textElement) {
+	 	var text = textElement.value;
+	 	if( text.trim() == "") {
+	 		showMesg(textElement, 'Empty value is not allowed');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
+
+	 function validate_spcChar(textElement){
+	 	var text = textElement.value;
+	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 	if (pattern.test(text)) {
+	 		showMesg(textElement, 'Special character is invalid');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
+	 
+
+	 
 	/**
 	 * Add a list of id of element to delete to the submiting form
 	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
 	 $("#p10Form").submit( function(eventObj) {
-	 	console.log(toDelete);
+	 	var fail = false;
+	 	validate_chgColor();
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_space($('.vld-spc')[i])){
+	 			fail =true;
+	 		}
+	 		if(!validate_spcChar($('.vld-spc')[i])){
+	 			fail =true;
+	 		}
+	 	}
+
+	 	if (fail) {
+	 		return false;
+	 	}
 	 	if (toDelete) {
 	 		$('<input />').attr('type', 'hidden')
 	 		.attr('name', 'delete')
