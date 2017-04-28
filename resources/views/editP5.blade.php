@@ -250,8 +250,7 @@
 	 	}
 	 }
 
-
-	 function validate_chgColor() {
+	function validate_chgColor() {
 	 	$('.vld-spc').each(function(){
 	 		var text = $(this).val();
 	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
@@ -264,7 +263,7 @@
 	 	
 	 }
 
-	 function showMesg(element, msg) {
+	function showMesg(element, msg) {
 	 	if ($(element).parent().find('.alert alert-danger').length) {
 	 		$(element).parent().find('span.help').html(msg);
 	 	} else {
@@ -275,7 +274,7 @@
 	 	}
 	 }
 
-	 function validate_checkLine(textElement) {
+	function validate_checkLine(textElement) {
 	 	var text = textElement.value;
 	 	var text_count = text.split("\n").length;
 
@@ -287,7 +286,7 @@
 	 	}
 	 }
 
-	 function validate_space(textElement) {
+	function validate_space(textElement) {
 	 	var text = textElement.value;
 	 	if( text.trim() == "") {
 	 		showMesg(textElement, 'Empty value is not allowed');
@@ -297,7 +296,7 @@
 	 	}
 	 }
 
-	 function validate_spcChar(textElement){
+	function validate_spcChar(textElement){
 	 	var text = textElement.value;
 	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
 	 	if (pattern.test(text)) {
@@ -308,7 +307,7 @@
 	 	}
 	 }
 
-	 $("#p5Form").submit( function(eventObj) {
+	$("#p5Form").submit( function(eventObj) {
 	 	var fail = false;
 	 	validate_chgColor();
 	 	for (var i = 0; i < $('.vld-spc').length; i++) {
@@ -353,7 +352,8 @@
 	 		}
 	 	})
 	 })
-	 $(document).ready(function () {
+	
+	$(document).ready(function () {
 	 	$('.file.undone').on('change', function(event) {
 	 		var filename = this.value;
 	 		var extension = filename.split('.').pop();

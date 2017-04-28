@@ -43,28 +43,28 @@ class SituController extends Controller{
     	$noteData = LessonNote::where('lesson_id', '=', $lesson_id)->orderBy('noteNo', 'asc')->get();
     	$cnt = count($noteData);
         $note_content = array();
-    	if ($cnt != 0)
-    	{
-    		for ($i=0; $i<$cnt; $i++){
-    			$note_content[$i] = explode( "|", $noteData[$i]->content);
-    		}
-    	}
+        if ($cnt != 0)
+        {
+          for ($i=0; $i<$cnt; $i++){
+           $note_content[$i] = explode( "|", $noteData[$i]->content);
+       }
+   }
 
-    	$elementData = Situation::where('lesson_id', '=', $lesson_id)->get();
-    	$cnt = count($elementData);
-    	if ($cnt != 0){
-    		for ($i=0; $i<$cnt; $i++){
-    			$dialogArr[$i] = explode( "|", $elementData[$i]->dialog);
-    			$dialogArrEn[$i] = explode( "|", $elementData[$i]->dialog_translate);
-    			$audioArr[$i] =  $elementData[$i]->audio;
-    		}
+   $elementData = Situation::where('lesson_id', '=', $lesson_id)->get();
+   $cnt = count($elementData);
+   if ($cnt != 0){
+      for ($i=0; $i<$cnt; $i++){
+       $dialogArr[$i] = explode( "|", $elementData[$i]->dialog);
+       $dialogArrEn[$i] = explode( "|", $elementData[$i]->dialog_translate);
+       $audioArr[$i] =  $elementData[$i]->audio;
+   }
 
-    		return view("activities.Situationv2", compact(['elementData', 'note_content', 'audioArr', 'dialogArr', 'dialogArrEn'])); 
+   return view("activities.Situationv2", compact(['elementData', 'note_content', 'audioArr', 'dialogArr', 'dialogArrEn'])); 
 
-    	} else {
-    		return view("activities.Situationv2", compact(['elementData', 'note_content']));
-    	}
-    }
+} else {
+  return view("activities.Situationv2", compact(['elementData', 'note_content']));
+}
+}
 
     /**
      * Update database based on user's input.
@@ -174,8 +174,8 @@ class SituController extends Controller{
                 $situNew->dialog = $dialog;
                 $situNew->dialog_translate =  $dialog_translate;
 
-                $t=time();
-                $t=date("Y-m-d-H-i-s",$t);
+                    $t=time();
+                    $t=date("Y-m-d-H-i-s",$t);
     				// $destinationPath = 'Situation_img'; 
     				// $extension = Input::file("imageAdd".$i)->getClientOriginalExtension();
     				// $fileName = "S".$i."-".$t.'.'.$extension;
@@ -184,15 +184,16 @@ class SituController extends Controller{
     				// $situNew->thumbnail = $newName;
 
 
-                $data = $request["imageAdd".$i];
-                $destinationPath = 'Situation_img';
-                $extension = $data->getClientOriginalExtension();
-                $fileName = "S".$i."-".$t.'.'.$extension;
-                $newName = $data->storeAs($destinationPath, $fileName);
-                $situNew->thumbnail = $newName;
+                    $data = $request["imageAdd".$i];
+                    $destinationPath = 'Situation_img';
+                    $extension = $data->getClientOriginalExtension();
+                    $fileName = "S".$i."-".$t.'.'.$extension;
+                    $newName = $data->storeAs($destinationPath, $fileName);
+                    $situNew->thumbnail = $newName;
 
-                $t=time();
-                $t=date("Y-m-d-H-i-s",$t);
+                if($request->exists("audioAdd".$i)){
+                    $t=time();
+                    $t=date("Y-m-d-H-i-s",$t);
 					// $destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
 
 					// $extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
@@ -202,13 +203,14 @@ class SituController extends Controller{
 					// $newName = "audio/Situation/lesson".$lesson->lessonNo."/".$situNew->situationNo."-".$t.'.'.$extension;
 
 
-                $data = $request["audioAdd".$i];
-                $destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
-                $extension = $data->getClientOriginalExtension();
-                $fileName = "S".$i."-".$t.'.'.$extension;
-                $newName = $data->storeAs($destinationPath, $fileName);
+                    $data = $request["audioAdd".$i];
+                    $destinationPath = "audio/Situation/lesson".$lesson->lessonNo;
+                    $extension = $data->getClientOriginalExtension();
+                    $fileName = "S".$i."-".$t.'.'.$extension;
+                    $newName = $data->storeAs($destinationPath, $fileName);
 
-                $situNew->audio = $newName;
+                    $situNew->audio = $newName;
+                }
                 $situNew->save();
             }
         }

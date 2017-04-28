@@ -237,11 +237,11 @@
 	 }
 
 	 function showMesg(element, msg) {
-	 	if ($(element).parent().find('.help-block').length) {
+	 	if ($(element).parent().find('.alert alert-danger').length) {
 	 		$(element).parent().find('span.help').html(msg);
 	 	} else {
 	 		var div_help = document.createElement('div');
-	 		div_help.className = 'help-block';
+	 		div_help.className = 'alert alert-danger';
 	 		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
 	 		$(div_help).insertAfter(element);
 	 	}
@@ -281,8 +281,8 @@
 	 	}
 
 	 	if (fail) {
-	  		return false;
-	  	}
+	 		return false;
+	 	}
 	 	var node_delete = document.createElement('input');
 	 	node_delete.setAttribute('type', 'hidden');
 	 	node_delete.setAttribute('name', 'sumDelete');
