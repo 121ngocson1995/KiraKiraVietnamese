@@ -25,6 +25,7 @@ class CourseInfo
 
         $allLessons = Lesson::where('course_id', '=', 1)->orderBy('lessonNo')->get();
         $lessons = [];
+        $lessonsWithNo = [];
         foreach ($allLessons as $lesson) {
             $currentLesson = new \stdClass;
             $currentLesson->lessonNo = $lesson->lessonNo;
@@ -150,9 +151,11 @@ class CourseInfo
 
             $currentLesson->activity = $activity;
             $lessons[] = $currentLesson;
+
+            $lessonsWithNo[(string) $currentLesson->lessonNo] = $currentLesson;
         }
 
-        // dd($lessons);
+        // dd($lessonsWithNo);
         
         /*
         ** Decide if there's any lesson or activity currently active
@@ -167,7 +170,7 @@ class CourseInfo
         if (count($uri) > 0 && (strpos($uri[count($uri) - 1], 'p') === 0 || strpos($uri[count($uri) - 1], 'situation') === 0 || strpos($uri[count($uri) - 1], 'extension') === 0) ) {
             $activity = $uri[count($uri) - 1];
         }
-        $request->attributes->add(['lessons' => $lessons, 'lessonNo' => $lessonNo, 'activity' => $activity]);
+        $request->attributes->add(['lessons' => $lessons, 'lessonsWithNo' => $lessonsWithNo, 'lessonNo' => $lessonNo, 'activity' => $activity]);
         return $next($request);
     }
 }

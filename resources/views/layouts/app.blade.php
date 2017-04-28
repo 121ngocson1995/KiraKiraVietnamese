@@ -88,7 +88,7 @@
     </nav>
 
     <script>
-        var lessons = <?php echo json_encode(\Request::get('lessons')); ?>
+        var lessons = <?php echo json_encode(\Request::get('lessonsWithNo')); ?>
     </script>
     
     <div id="mySidenav" class="sidenav" style="overflow: hidden;">
@@ -170,7 +170,8 @@
             function createActivity() {
                 $('#activity_menu').children().first().empty();
                 var pracNo = 0;
-                var lesson = lessons[parseInt(expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)) - 1];
+                console.log(lessons);
+                var lesson = lessons[expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)];
                 for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
                     var link = document.createElement('a');
