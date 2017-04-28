@@ -70,6 +70,14 @@ class P4Controller extends Controller
     	$totalNew = $request->all()['sumOrigin'];
     	for ($i=0; $i <= $totalNew ; $i++) { 
     		if ($request->exists("sentenceId".$i)) {
+
+                $checkArray = array();
+                $checkArray['sentence'.$i] = $request->all()['sentence'.$i];
+                Validator::make($checkArray, [
+                    'sentence'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:80',
+                    ],
+                    [
+                    ])->validate();
     			$p4Edit = P4SentenceRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["sentenceId".$i])->get();
 
 				// $this->validate($request, [
@@ -113,6 +121,14 @@ class P4Controller extends Controller
     	$sumAdd = $request->all()['sumAdd'];
     	for ($i=0; $i <= $sumAdd ; $i++) { 
     		if ($request->exists("sentenceAdd".$i)) {
+
+                $checkArray = array();
+                $checkArray['sentenceAdd'.$i] = $request->all()['sentenceAdd'.$i];
+                Validator::make($checkArray, [
+                    'sentenceAdd'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:80',
+                    ],
+                    [
+                    ])->validate();
     			$p4New = new P4SentenceRecognize;
     			$p4New->lesson_id = $request->all()['lessonID'];
     			$sentence = $request->all()["sentenceAdd".$i];

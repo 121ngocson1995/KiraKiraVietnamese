@@ -68,6 +68,13 @@ class P2Controller extends Controller
     	$totalNew = $request->all()['sumOrigin'];
     	for ($i=0; $i <= $totalNew ; $i++) { 
     		if ($request->exists("wordId".$i)) {
+
+                Validator::make($checkArray, [
+                    'word'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:20',
+                    ],
+                    [
+                    ])->validate();
+
     			$p2Edit = P2WordRecognize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["wordId".$i])->get();
 
 				// $this->validate($request, [
@@ -118,6 +125,13 @@ class P2Controller extends Controller
     	$sumAdd = $request->all()['sumAdd'];
     	for ($i=0; $i <= $sumAdd ; $i++) { 
     		if ($request->exists("wordAdd".$i)) {
+
+                Validator::make($checkArray, [
+                    'wordAdd'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:20',
+                    ],
+                    [
+                    ])->validate();
+
     			$p2New = new P2WordRecognize;
     			$p2New->lesson_id = $request->all()['lessonID'];
     			$word = $request->all()["wordAdd".$i];

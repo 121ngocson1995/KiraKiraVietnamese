@@ -79,7 +79,7 @@
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-6">
 				<label for="word{{$i}}">Word</label>
-				<input type="text" id="word{{$i}}" class="form-control" required="true" name="word{{$i}}" value="{{$p2[$i-1]->word}}">
+				<input type="text" id="word{{$i}}" class="form-control vld-spc" required="true" maxlength="20" name="word{{$i}}" value="{{$p2[$i-1]->word}}">
 			</div>
 			<div class="col-xs-5">
 				<label for="audio{{$i}}">Audio</label>
@@ -101,6 +101,14 @@
 
 </div>
 <script type="text/javascript">
+	var $input = $('input.file[type=file]');
+	if ($input.length) {
+		$input.fileinput({
+			maxFileSize: 1000
+		});
+	}
+
+
 	var p2 = <?php echo json_encode($p2); ?>;
 	var sumLine = p2.length;
 	var deleteLine = 0;
@@ -119,62 +127,65 @@
 	 * 
 	 * @return {void}
 	 */
-	function AddRow() {
-		addLine++;
-		sumLine++;
-		var node_rowBig = document.createElement("div");
-		node_rowBig.setAttribute('class', 'row');
-		node_rowBig.setAttribute('id', "row"+(sumLine));
-		node_rowBig.setAttribute('data-line', sumLine);
-		/* Create label Situation n */
-		var div_word = document.createElement("div");
-		div_word.setAttribute('class', "col-xs-6");
-		label_word = document.createElement("label");
-		label_word.setAttribute('for', 'wordAdd'+ addLine);
-		label_word.innerHTML = 'Word';
-		var word_input = document.createElement("input");
-		word_input.setAttribute('type', "text");
-		word_input.setAttribute('class', "form-control");
-		word_input.setAttribute('name', "wordAdd"+ addLine);
-		word_input.setAttribute('required', "true");
-		div_word.appendChild(label_word);
-		div_word.appendChild(word_input);
-		var div_audio = document.createElement("div");
-		div_audio.setAttribute('class', "col-xs-5");
-		label = document.createElement("label");
-		label.setAttribute('for', 'audioAdd'+ addLine);
-		label.innerHTML = 'Audio';
-		var audio_input = document.createElement("input");
-		audio_input.setAttribute('type', 'file');
-		audio_input.setAttribute('required', 'true');
-		audio_input.setAttribute('id', 'audioAdd'+addLine);
-		audio_input.setAttribute('name', 'audioAdd'+addLine);
-		audio_input.setAttribute('class', 'file audio');
-		audio_input.setAttribute('data-situ', addLine);
-		audio_input.setAttribute('data-show-upload', "false");
-		audio_input.setAttribute('data-show-caption', "true");
-		audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
-		div_audio.appendChild(label);
-		div_audio.appendChild(audio_input);
-		var div_btn = document.createElement("div");
-		div_btn.setAttribute('class', "col-xs-1");
-		var deleteBtn = document.createElement("button");
-		deleteBtn.setAttribute('type', 'button');
-		deleteBtn.setAttribute('class', 'deleteBtn');
-		deleteBtn.setAttribute('onclick', 'deleteRow(this)');
-		var icon = document.createElement("i");
-		icon.setAttribute('class', 'fa fa-trash');
-		deleteBtn.appendChild(icon);
-		div_btn.appendChild(deleteBtn);
-		node_rowBig.appendChild(div_word);
-		node_rowBig.appendChild(div_audio);
-		node_rowBig.appendChild(div_btn);
-		document.getElementById("p2Div").appendChild(node_rowBig);
-		var $input = $('input.file[type=file]');
-		if ($input.length) {
-			$input.fileinput();
-		}
-	}
+	 function AddRow() {
+	 	addLine++;
+	 	sumLine++;
+	 	var node_rowBig = document.createElement("div");
+	 	node_rowBig.setAttribute('class', 'row');
+	 	node_rowBig.setAttribute('id', "row"+(sumLine));
+	 	node_rowBig.setAttribute('data-line', sumLine);
+	 	/* Create label Situation n */
+	 	var div_word = document.createElement("div");
+	 	div_word.setAttribute('class', "col-xs-6");
+	 	label_word = document.createElement("label");
+	 	label_word.setAttribute('for', 'wordAdd'+ addLine);
+	 	label_word.innerHTML = 'Word';
+	 	var word_input = document.createElement("input");
+	 	word_input.setAttribute('type', "text");
+	 	word_input.setAttribute('maxlength', "20");
+	 	word_input.setAttribute('class', "form-control vld-spc");
+	 	word_input.setAttribute('name', "wordAdd"+ addLine);
+	 	word_input.setAttribute('required', "true");
+	 	div_word.appendChild(label_word);
+	 	div_word.appendChild(word_input);
+	 	var div_audio = document.createElement("div");
+	 	div_audio.setAttribute('class', "col-xs-5");
+	 	label = document.createElement("label");
+	 	label.setAttribute('for', 'audioAdd'+ addLine);
+	 	label.innerHTML = 'Audio';
+	 	var audio_input = document.createElement("input");
+	 	audio_input.setAttribute('type', 'file');
+	 	audio_input.setAttribute('required', 'true');
+	 	audio_input.setAttribute('id', 'audioAdd'+addLine);
+	 	audio_input.setAttribute('name', 'audioAdd'+addLine);
+	 	audio_input.setAttribute('class', 'file audio');
+	 	audio_input.setAttribute('data-situ', addLine);
+	 	audio_input.setAttribute('data-show-upload', "false");
+	 	audio_input.setAttribute('data-show-caption', "true");
+	 	audio_input.setAttribute('data-allowed-file-extensions', '["mp3"]');
+	 	div_audio.appendChild(label);
+	 	div_audio.appendChild(audio_input);
+	 	var div_btn = document.createElement("div");
+	 	div_btn.setAttribute('class', "col-xs-1");
+	 	var deleteBtn = document.createElement("button");
+	 	deleteBtn.setAttribute('type', 'button');
+	 	deleteBtn.setAttribute('class', 'deleteBtn');
+	 	deleteBtn.setAttribute('onclick', 'deleteRow(this)');
+	 	var icon = document.createElement("i");
+	 	icon.setAttribute('class', 'fa fa-trash');
+	 	deleteBtn.appendChild(icon);
+	 	div_btn.appendChild(deleteBtn);
+	 	node_rowBig.appendChild(div_word);
+	 	node_rowBig.appendChild(div_audio);
+	 	node_rowBig.appendChild(div_btn);
+	 	document.getElementById("p2Div").appendChild(node_rowBig);
+	 	var $input = $('input.file[type=file]');
+	 	if ($input.length) {
+	 		$input.fileinput({
+	 			maxFileSize: 1000
+	 		});
+	 	}
+	 }
 
 	/**
 	 * delete a row of word and audio
@@ -183,71 +194,116 @@
 	 * @param  {DOM} button 
 	 * @return {void}
 	 */
-	function deleteRow(button) {
-		deleteLine++;
-		var curLine = $(button).closest('.row').attr('data-line');
-		if(confirm("Are you sure you want to delete?")){
-			var node_delete = document.createElement('input');
-			node_delete.setAttribute('type', 'hidden');
-			node_delete.setAttribute('name', 'delete'+deleteLine);
-			node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
-			document.getElementById('p2Form').appendChild(node_delete);
-			$(button).closest('.row').empty().remove();
-			
-			for (var i = 0; i < sumLine; i++) {
-				if (curLine < i) {
-					$("#row"+i).attr('data-line', i-1);
-					$("#row"+i).attr('id', "row"+(i-1));
-					$("#wordId"+i).attr('name', "wordId"+(i-1));
-					$("#wordId"+i).attr('id', "wordId"+(i-1));
-					$("#word"+(i)).attr('name', "word"+(i-1));
-					$("#word"+(i)).attr('id', "word"+(i-1));
-					$("#audio"+(i)).attr('name', "audio"+(i-1));
-					$("#audio"+(i)).attr('data-situ', (i-1));
-					$("#audio"+(i)).attr('id', "audio"+(i-1));
-				}
-			}
-			sumLine--;
-		}
-	}
-	$("#p2Form").submit( function(eventObj) {
-		var node_delete = document.createElement('input');
-		node_delete.setAttribute('type', 'hidden');
-		node_delete.setAttribute('name', 'sumDelete');
-		node_delete.setAttribute('value', deleteLine);
-		document.getElementById('p2Form').appendChild(node_delete);
-		var node_add = document.createElement('input');
-		node_add.setAttribute('type', 'hidden');
-		node_add.setAttribute('name', 'sumAdd');
-		node_add.setAttribute('value', addLine);
-		document.getElementById('p2Form').appendChild(node_add);
-		var node_origin = document.createElement("input");
-		node_origin.setAttribute('type', 'hidden');
-		node_origin.setAttribute('name',"sumOrigin");
-		node_origin.setAttribute('value', $('.origin').length);
-		document.getElementById('p2Form').appendChild(node_origin);
-		$('.undone').each(function() {
-			if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
-				$('<input />').attr('type', 'hidden')
-				.attr('name', "audioPath"+$(this).attr('data-situ'))
-				.attr('value', $(this).attr('data-path-audio'))
-				.appendTo('#p2Form');
-				return true;
-			}
-		})
-	})
-	$(document).ready(function () {
-		$('.file.undone').on('change', function(event) {
-			var filename = this.value;
-			var extension = filename.split('.').pop();
-			if ($(this).hasClass('audio')) {
-				if (extension == 'mp3') {
-					$(this).removeClass('undone');
-					return;
-				}
-			}
-			$(this).addClass('undone');
-		});
-	});
-</script>
-@stop
+	 function deleteRow(button) {
+	 	deleteLine++;
+	 	var curLine = $(button).closest('.row').attr('data-line');
+	 	if(confirm("Are you sure you want to delete?")){
+	 		var node_delete = document.createElement('input');
+	 		node_delete.setAttribute('type', 'hidden');
+	 		node_delete.setAttribute('name', 'delete'+deleteLine);
+	 		node_delete.setAttribute('value', $(button).closest('.row').find('.id').attr('value'));
+	 		document.getElementById('p2Form').appendChild(node_delete);
+	 		$(button).closest('.row').empty().remove();
+
+	 		for (var i = 0; i < sumLine; i++) {
+	 			if (curLine < i) {
+	 				$("#row"+i).attr('data-line', i-1);
+	 				$("#row"+i).attr('id', "row"+(i-1));
+	 				$("#wordId"+i).attr('name', "wordId"+(i-1));
+	 				$("#wordId"+i).attr('id', "wordId"+(i-1));
+	 				$("#word"+(i)).attr('name', "word"+(i-1));
+	 				$("#word"+(i)).attr('id', "word"+(i-1));
+	 				$("#audio"+(i)).attr('name', "audio"+(i-1));
+	 				$("#audio"+(i)).attr('data-situ', (i-1));
+	 				$("#audio"+(i)).attr('id', "audio"+(i-1));
+	 			}
+	 		}
+	 		sumLine--;
+	 	}
+	 }
+
+	 function validate_chgColor(textElement) {
+	 	var text = textElement.value;
+	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 	if(text.trim() == "" || pattern.test(text)) {
+	 		$(textElement).attr('style', 'border-color: red;');
+	 	}else{
+	 		$(textElement).attr('style', 'border-color: #dddddd;');
+	 	}
+	 }
+
+	 function validate_space(textElement) {
+	 	var text = textElement.value;
+	 	if( text.trim() == "") {
+	 		alert ('Empty value is not allowed');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
+
+	 function validate_spcChar(textElement){
+	 	var text = textElement.value;
+	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 	if (pattern.test(text)) {
+	 		alert ('Special character is invalid');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
+
+	 $("#p2Form").submit( function(eventObj) {
+	 	$('.vld-spc').each(function(){
+	 		validate_chgColor(this);
+	 	})
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_space($('.vld-spc')[i])){
+	 			return false;
+	 			break;  
+	 		}
+	 		if(!validate_spcChar($('.vld-spc')[i])){
+	 			return false;
+	 			break;  
+	 		}
+	 	}
+	 	var node_delete = document.createElement('input');
+	 	node_delete.setAttribute('type', 'hidden');
+	 	node_delete.setAttribute('name', 'sumDelete');
+	 	node_delete.setAttribute('value', deleteLine);
+	 	document.getElementById('p2Form').appendChild(node_delete);
+	 	var node_add = document.createElement('input');
+	 	node_add.setAttribute('type', 'hidden');
+	 	node_add.setAttribute('name', 'sumAdd');
+	 	node_add.setAttribute('value', addLine);
+	 	document.getElementById('p2Form').appendChild(node_add);
+	 	var node_origin = document.createElement("input");
+	 	node_origin.setAttribute('type', 'hidden');
+	 	node_origin.setAttribute('name',"sumOrigin");
+	 	node_origin.setAttribute('value', $('.origin').length);
+	 	document.getElementById('p2Form').appendChild(node_origin);
+	 	$('.undone').each(function() {
+	 		if($(this).hasClass('audio') && $(this).attr('data-path-audio') != ''){
+	 			$('<input />').attr('type', 'hidden')
+	 			.attr('name', "audioPath"+$(this).attr('data-situ'))
+	 			.attr('value', $(this).attr('data-path-audio'))
+	 			.appendTo('#p2Form');
+	 			return true;
+	 		}
+	 	})
+	 })
+	 $(document).ready(function () {
+	 	$('.file.undone').on('change', function(event) {
+	 		var filename = this.value;
+	 		var extension = filename.split('.').pop();
+	 		if ($(this).hasClass('audio')) {
+	 			if (extension == 'mp3') {
+	 				$(this).removeClass('undone');
+	 				return;
+	 			}
+	 		}
+	 		$(this).addClass('undone');
+	 	});
+	 });
+	</script>
+	@stop
