@@ -54,8 +54,8 @@ class P12Controller extends Controller
 		if ($request->has('update')) {
 			foreach ($request->update as $id => $value) {
 				Validator::make($value, [
-					'content' => 'string|max:191',
-					'content_translate' => 'string|max:191',
+					'content' => 'string|max:1500',
+					'content_translate' => 'string|max:1500',
 					])->validate();
 
 				$p12Element = P12GroupInteraction::where('id', '=', $id)->first();
