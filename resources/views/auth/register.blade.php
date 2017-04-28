@@ -5,6 +5,7 @@
 {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap-formhelpers.min.css') }}">
 <script src="{{ asset('js/bootstrap-formhelpers.min.js') }}"></script> --}}
 <link rel="stylesheet" href="{{ asset('css/register-login.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
 <style>
 	body {
 		height: calc(100% - 65px);
@@ -33,10 +34,18 @@
 	}
 	.form-group > div:nth-child(2) {
 		display: inline-block;
+		display: ruby;
+	}
+	.gender-birth .alert.alert-danger {
+		display: -webkit-box;
+	}
+	.dropdown-menu {
+		color: initial;
 	}
 </style>
 <link href="{{ asset('css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('themes/explorer/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
 <script src="{{ asset('js/fileinput.min.js') }}" type="text/javascript"></script>
 
 @stop
@@ -143,85 +152,91 @@
 				</div>
 			</div>
 
-			<div style="display: inline-block;">
-				<div class="form-group col-sm-5" style="display: inline-block;">
-					<label for="gender" class="cols-sm-2 control-label">Gender</label>
-					{{-- <div style="display: inline-block"> --}}
-					<div class="gender">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-transgender fa-lg" aria-hidden="true"></i></span>
-							<select class="form-control" id="gender" name="gender">
-								<option value="1"{{ old('gender') == null || old('gender') === 1 ? ' selected' : '' }}>Male</option>
-								<option value="0"{{ old('gender') === 0 ? ' selected' : '' }}>Female</option>
-							</select>
+			<div class="gender-birth">
+				<div style="display: inline-block;">
+					<div class="form-group col-sm-5">
+						<label for="gender" class="cols-sm-2 control-label">Gender</label>
+						{{-- <div style="display: inline-block"> --}}
+						<div class="gender">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-transgender fa-lg" aria-hidden="true"></i></span>
+								<select class="form-control" id="gender" name="gender">
+									<option value="1"{{ old('gender') == null || old('gender') === 1 ? ' selected' : '' }}>Male</option>
+									<option value="0"{{ old('gender') === 0 ? ' selected' : '' }}>Female</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-7">
+						<label for="date-of-birth" class="cols-sm-2 control-label">Date of birth</label>
+						<div class="date-of-birth">
+							<div class="input-group" id="date-of-birth-input-group">
+								<span class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></span>
+								<input type="date" class="form-control" name="date-of-birth"{{ old('date-of-birth') ? 'value=' . old('date-of-birth')  : '' }} id="date-of-birth" required>
+							</div>
 						</div>
 					</div>
 				</div>
-                    {{-- <div class="col-sm-7 nationality">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
-                            <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true">
-                              <input type="hidden" value="">
-                              <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
-                                <span class="bfh-selectbox-option input-medium" data-option=""></span>
-                                <b class="caret"></b>
-                              </a>
-                              <div class="bfh-selectbox-options">
-                                <input type="text" class="bfh-selectbox-filter">
-                                <div role="listbox">
-                                <ul role="option">
-                                </ul>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="form-group col-sm-7" style="display: inline-block;">
-                    	<label for="date-of-birth" class="cols-sm-2 control-label">Date of birth</label>
-                    	<div class="date-of-birth">
-                    		<div class="input-group">
-                    			<span class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></span>
-                    			<input type="date" class="form-control" name="date-of-birth"{{ old('date-of-birth') ? 'value=' . old('date-of-birth')  : '' }} id="date-of-birth" required>
-                    		</div>
-                    	</div>
-                    </div>
 
-                    @if ($errors->has('gender'))
-                    <div class="alert alert-danger">
-                    	<span>{{ $errors->first('gender') }}</span>
-                    </div>
-                    @endif
+				@if ($errors->has('gender'))
+				<div class="alert alert-danger">
+					<span>{{ $errors->first('gender') }}</span>
+				</div>
+				@endif
 
-                    @if ($errors->has('date-of-birth'))
-                    <div class="alert alert-danger">
-                    	<span>{{ $errors->first('date-of-birth') }}</span>
-                    </div>
-                    @endif
-                </div>
+				@if ($errors->has('date-of-birth'))
+				<div class="alert alert-danger">
+					<span>{{ $errors->first('date-of-birth') }}</span>
+				</div>
+				@endif
+			</div>
 
-                <div class="form-group">
-                	<label for="cv-upload" class="cols-sm-2 control-label">CV File</label><span class="note">Only .doc, .docx, .pdf; Max size: 10Mb</span>
-                	<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'{{ old('cv') ? ' value=' . old('cv')  : '' }} required>
-                </div>
+			<div class="form-group">
+				<label for="cv-upload" class="cols-sm-2 control-label">CV File</label><span class="note">Only .doc, .docx, .pdf; Max size: 10Mb</span>
+				<input id="cv-upload" name="cv" type="file" class="file" data-show-upload="false" data-show-caption="true" data-show-preview="false" data-allowed-file-extensions='["pdf", "doc", "docx"]'{{ old('cv') ? ' value=' . old('cv')  : '' }} required>
+			</div>
 
-                @if ($errors->has('cv'))
-                <div class="alert alert-danger">
-                	<span>{{ $errors->first('cv') }}</span>
-                </div>
-                @endif
+			@if ($errors->has('cv'))
+			<div class="alert alert-danger">
+				<span>{{ $errors->first('cv') }}</span>
+			</div>
+			@endif
 
-                <hr>
+			<hr>
 
-                <div class="form-group">
-                	<button type="submit" target="_blank" id="submitBtn" class="btn btn-success btn-lg btn-block login-button">Register</button>
-                </div>
+			<div class="form-group">
+				<button type="submit" target="_blank" id="submitBtn" class="btn btn-success btn-lg btn-block login-button">Register</button>
+			</div>
 
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
+			{!! Form::close() !!}
+		</div>
+	</div>
+</div>
 
-    <script>
-    	console.log({{ old('date-of-birth') }});
-    </script>
-    @endsection
+<script src="{{ asset('js/modernizr-custom.js') }}"></script>
+
+<script>
+	if (!Modernizr.inputtypes.date) {
+		jQuery.getScript("{{ asset('js/bootstrap-datepicker.min.js') }}")
+		.done(function(){
+			var container = $('#date-of-birth').parent()[0];
+			$('#date-of-birth').remove();
+
+			var input = document.createElement('input');
+			input.name = "date-of-birth";
+			input.id = "date-of-birth";
+			input.type = 'text';
+			input.className = 'form-control';
+			input.value = '{{ old('date-of-birth') ? 'value=' . old('date-of-birth')  : '' }}';
+			input.required = '';
+			$(input).datepicker({
+				format: 'yyyy-mm-dd',
+				weekStart: 1,
+				container: '#date-of-birth-input-group'
+			});
+
+			container.appendChild(input);
+		});
+	}
+</script>
+@endsection
