@@ -83,12 +83,12 @@
 			@if ($p9[$j]->dialogNo == $dialogCnt[$i])
 			<div class="row origin" id="dia{{$i}}" data-dialog="{{$i}}" data-line="{{$p9[$j]->lineNo}}" data-id="{{ $p9[$j]->id }}">
 				<div id="dia{{$i}}line{{$j}}question" class="col-xs-5 questioncontent">
-					<input type="text" id="dia{{$i}}line{{$j}}" name="update[{{ $p9[$j]->id }}][{{$p9[$j]->dialogNo}}][{{ $p9[$j]->lineNo}}][line]" data-line="{{$j}}" class="question form-control" >
+					<input type="text" id="dia{{$i}}line{{$j}}" name="update[{{ $p9[$j]->id }}][{{$p9[$j]->dialogNo}}][{{ $p9[$j]->lineNo}}][line]" data-line="{{$j}}" class="question form-control vld-spc" maxlength="80" required="true" >
 				</div>
 				<div id="dia{{$i}}line{{$j}}answer" class="col-xs-5 answercontent" data-sumAnswer="{{count($p9[$j]->answer)}}">
 					@for ($k = 0; $k < count($p9[$j]->answer) ; $k++)
 					@if ($p9[$j]->answer[$k] != '')
-					<input type="text" id="dia{{$i}}line{{$j}}answer{{$k}}" name="update[{{ $p9[$j]->id }}][{{$p9[$j]->dialogNo}}][{{ $p9[$j]->lineNo}}][answer][]" class="form-control answer " value="{{$p9[$j]->answer[$k]}}">
+					<input type="text" id="dia{{$i}}line{{$j}}answer{{$k}}" name="update[{{ $p9[$j]->id }}][{{$p9[$j]->dialogNo}}][{{ $p9[$j]->lineNo}}][answer][]" class="form-control answer vld-spc" maxlength="80" required="true" value="{{$p9[$j]->answer[$k]}}">
 					@endif
 					@endfor
 				</div>
@@ -172,7 +172,8 @@
 		 	}else{
 		 		node_input.setAttribute('name', "insert["+dialog+"]["+line+"][answer][]");
 		 	}
-		 	node_input.setAttribute('class', 'form-control answer');
+		 	node_input.setAttribute('class', 'form-control answer vld-spc');
+		 	node_input.setAttribute('maxlength', '80');
 		 	node_input.setAttribute('required', 'true');
 
 		 	document.getElementById($(button).closest('.row').find('.answercontent').attr('id')).appendChild(node_input);
@@ -243,7 +244,8 @@
 
 		 	var input_question = document.createElement('input');
 		 	input_question .setAttribute('type', 'text');
-		 	input_question .setAttribute('class', 'question form-control');
+		 	input_question .setAttribute('class', 'question form-control vld-spc');
+		 	input_question.setAttribute('maxlength', '80');
 		 	input_question .setAttribute('required', 'true');
 		 	input_question .setAttribute('name', "insert["+($('.big').length )+"][0][line]");
 
@@ -361,7 +363,8 @@
 
 		  	var input_question = document.createElement('input');
 		  	input_question .setAttribute('type', 'text');
-		  	input_question .setAttribute('class', 'question form-control');
+		  	input_question .setAttribute('class', 'question form-control vld-spc');
+		  	input_question .setAttribute('maxlength', '80');
 		  	input_question .setAttribute('required', 'true');
 		  	input_question .setAttribute('name', "insert["+$(button).attr('data-diaNo')+"]["+$(button).closest('.big').find('.question').length+"][line]");
 
@@ -407,8 +410,66 @@
 		  	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
 		  }
 
-		  $("#p9Form").submit( function(eventObj) {
+		  function validate_chgColor() {
+		  	$('.vld-spc').each(function(){
+		  		var text = $(this).val();
+		  		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+		  		if(text.trim() == "" || pattern.test(text)) {
+		  			$(this).attr('style', 'border-color: red;');
+		  		}else{
+		  			$(this).attr('style', 'border-color: #dddddd;');
+		  		}
+		  	})
+		  	
+		  }
 
+		  function showMesg(element, msg) {
+		  	if ($(element).parent().find('.alert alert-danger').length) {
+		  		$(element).parent().find('span.help').html(msg);
+		  	} else {
+		  		var div_help = document.createElement('div');
+		  		div_help.className = 'alert alert-danger';
+		  		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+		  		$(div_help).insertAfter(element);
+		  	}
+		  }
+
+		  function validate_space(textElement) {
+		  	var text = textElement.value;
+		  	if( text.trim() == "") {
+		  		showMesg(textElement, 'Empty value is not allowed');
+		  		return false;
+		  	}else{
+		  		return true;
+		  	}
+		  }
+
+		  function validate_spcChar(textElement){
+		  	var text = textElement.value;
+		  	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+		  	if (pattern.test(text)) {
+		  		showMesg(textElement, 'Special character is invalid');
+		  		return false;
+		  	}else{
+		  		return true;
+		  	}
+		  }
+		  
+		  $("#p9Form").submit( function(eventObj) {
+		  	var fail = false;
+		  	validate_chgColor();
+		  	for (var i = 0; i < $('.vld-spc').length; i++) {
+		  		if(!validate_space($('.vld-spc')[i])){
+		  			fail =true;
+		  		}
+		  		if(!validate_spcChar($('.vld-spc')[i])){
+		  			fail =true;
+		  		}
+		  	}
+
+		  	if (fail) {
+		  		return false;
+		  	}
 		  	var node_delete_dia = document.createElement('input');
 		  	node_delete_dia.setAttribute('type', 'hidden');
 		  	node_delete_dia.setAttribute('name', 'sumDeleteDia');
