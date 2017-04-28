@@ -103,9 +103,9 @@
 		color: #e1ffff;
 	}
 	.nav-side-menu li a i {
-		padding-left: 10px;
-		width: 20px;
-		padding-right: 20px;
+		padding-left: 10px !important;
+		width: 20px !important;
+		padding-right: 20px !important;
 	}
 	.nav-side-menu li:hover {
 		border-left: 3px solid #d19b3d;
@@ -161,7 +161,13 @@
 		width: initial;
 		padding: 2em 1em;
 	}
-
+	.btn-file input[type=file] {
+		transform: translateX(100px);
+	}
+	.fa {
+		margin-left: 0;
+		margin-right: 0.5em;
+	}
 </style>
 
 @yield('header-more')
