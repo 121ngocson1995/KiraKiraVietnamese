@@ -145,7 +145,7 @@
 				@foreach ($p11 as $element)
 				<tr class="sentence" data-sentence-id="{{ $element->id }}">
 					<td class="sentence-holder">
-						<input type="text" class="form-control sentence-input" name="update[{{ $element->id }}][sentence]" value="{{ $element->sentence }}" required="">
+						<input type="text" class="form-control sentence-input vld-spc" maxlength="80" name="update[{{ $element->id }}][sentence]" value="{{ $element->sentence }}" required="">
 					</td>
 					<td class="order-holder">
 						@php
@@ -153,7 +153,7 @@
 						@endphp
 
 						@foreach ( explode(',', $element->correctOrder) as $order)
-						<input type="text" class="form-control order-input" name="update[{{ $element->id }}][order][{{ $orderNo }}]" value="{{ (integer)$order + 1 }}" required="">
+						<input type="number" min="1" class="form-control order-input" name="update[{{ $element->id }}][order][{{ $orderNo }}]" value="{{ (integer)$order + 1 }}" required="">
 						@php
 						$orderNo++;
 						@endphp
@@ -191,97 +191,100 @@
 	 *
 	 * @return {void}
 	 */
-	function newSentence() {
-		var tr = document.createElement('tr');
-		tr.className = 'sentence';
-		tr.setAttribute('data-insert-sentence-id', ++toAdd);
+	 function newSentence() {
+	 	var tr = document.createElement('tr');
+	 	tr.className = 'sentence';
+	 	tr.setAttribute('data-insert-sentence-id', ++toAdd);
 
-		var td = document.createElement('td');
-		td.className = 'sentence-holder';
-		var sentenceInput = document.createElement('input');
-		sentenceInput.setAttribute('type', 'text');
-		sentenceInput.className = 'form-control sentence-input';
-		sentenceInput.setAttribute('name', 'insert[' + toAdd + '][sentence]');
-		sentenceInput.setAttribute('required', '');
-		td.appendChild(sentenceInput);
-		tr.appendChild(td);
-		td = document.createElement('td');
-		td.className = 'order-holder';
-		if (document.getElementsByClassName('order-holder').length) {
-			for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
-				
-				var orderInput = document.createElement('input');
-				orderInput.setAttribute('type', 'text');
-				orderInput.className = 'form-control order-input';
-				orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
-				orderInput.setAttribute('required', '');
-				$(orderInput).focus(function() {
-					focusCol(this);
-				}).blur(function() {
-					blurCol(this);
-				});
-				td.appendChild(orderInput);
-				$(td).append("&nbsp;");
-			}
-		} else {
-			maxColId++;
+	 	var td = document.createElement('td');
+	 	td.className = 'sentence-holder';
+	 	var sentenceInput = document.createElement('input');
+	 	sentenceInput.setAttribute('type', 'text');
+	 	sentenceInput.setAttribute('required', 'true');
+	 	sentenceInput.setAttribute('maxlength', '80');
+	 	sentenceInput.className = 'form-control sentence-input vld-spc';
+	 	sentenceInput.setAttribute('name', 'insert[' + toAdd + '][sentence]');
+	 	sentenceInput.setAttribute('required', '');
+	 	td.appendChild(sentenceInput);
+	 	tr.appendChild(td);
+	 	td = document.createElement('td');
+	 	td.className = 'order-holder';
+	 	if (document.getElementsByClassName('order-holder').length) {
+	 		for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
+	 			
+	 			var orderInput = document.createElement('input');
+	 			orderInput.setAttribute('type', 'text');
+	 			orderInput.className = 'form-control order-input';
+	 			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
+	 			orderInput.setAttribute('required', '');
+	 			$(orderInput).focus(function() {
+	 				focusCol(this);
+	 			}).blur(function() {
+	 				blurCol(this);
+	 			});
+	 			td.appendChild(orderInput);
+	 			$(td).append("&nbsp;");
+	 		}
+	 	} else {
+	 		maxColId++;
 
-			var closeBtn = document.createElement('button');
-			closeBtn.setAttribute('type', 'button');
-			closeBtn.setAttribute('aria-label', 'Delete');
-			closeBtn.className = 'vertical close';
+	 		var closeBtn = document.createElement('button');
+	 		closeBtn.setAttribute('type', 'button');
+	 		closeBtn.setAttribute('aria-label', 'Delete');
+	 		closeBtn.className = 'vertical close';
 
-			$(closeBtn).click(function() {
-				deleteOrder([].indexOf.call(this.parentNode.children, this));
-			})
+	 		$(closeBtn).click(function() {
+	 			deleteOrder([].indexOf.call(this.parentNode.children, this));
+	 		})
 
-			var closeSpan = document.createElement('span');
-			closeSpan.setAttribute('aria-hidden', 'true');
-			closeSpan.innerHTML = '×';
-			closeBtn.appendChild(closeSpan);
+	 		var closeSpan = document.createElement('span');
+	 		closeSpan.setAttribute('aria-hidden', 'true');
+	 		closeSpan.innerHTML = '×';
+	 		closeBtn.appendChild(closeSpan);
 
-			var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
-			closeHolder.appendChild(closeBtn);
-			$(closeHolder).append("&nbsp;");
+	 		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+	 		closeHolder.appendChild(closeBtn);
+	 		$(closeHolder).append("&nbsp;");
 
-			var orderInput = document.createElement('input');
-			orderInput.setAttribute('type', 'text');
-			orderInput.className = 'form-control order-input';
-			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
-			orderInput.setAttribute('required', '');
-			$(orderInput).focus(function() {
-				focusCol(this);
-			}).blur(function() {
-				blurCol(this);
-			});
-			td.appendChild(orderInput);
-			$(td).append("&nbsp;");
-		}
-		
-		tr.appendChild(td);
+	 		var orderInput = document.createElement('input');
+	 		orderInput.setAttribute('type', 'number');
+	 		orderInput.setAttribute('min', '1');
+	 		orderInput.className = 'form-control order-input';
+	 		orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
+	 		orderInput.setAttribute('required', '');
+	 		$(orderInput).focus(function() {
+	 			focusCol(this);
+	 		}).blur(function() {
+	 			blurCol(this);
+	 		});
+	 		td.appendChild(orderInput);
+	 		$(td).append("&nbsp;");
+	 	}
+	 	
+	 	tr.appendChild(td);
 
-		td = document.createElement('td');
-		td.className = 'delete-holder';
+	 	td = document.createElement('td');
+	 	td.className = 'delete-holder';
 
-		var closeBtn = document.createElement('button');
-		closeBtn.setAttribute('type', 'button');
-		closeBtn.setAttribute('aria-label', 'Delete');
-		closeBtn.className = 'horizontal close';
+	 	var closeBtn = document.createElement('button');
+	 	closeBtn.setAttribute('type', 'button');
+	 	closeBtn.setAttribute('aria-label', 'Delete');
+	 	closeBtn.className = 'horizontal close';
 
-		$(closeBtn).click(function() {
-			deleteSentence($(this).closest('tr'));
-		})
+	 	$(closeBtn).click(function() {
+	 		deleteSentence($(this).closest('tr'));
+	 	})
 
-		var closeSpan = document.createElement('span');
-		closeSpan.setAttribute('aria-hidden', 'true');
-		closeSpan.innerHTML = '×';
-		closeBtn.appendChild(closeSpan);
+	 	var closeSpan = document.createElement('span');
+	 	closeSpan.setAttribute('aria-hidden', 'true');
+	 	closeSpan.innerHTML = '×';
+	 	closeBtn.appendChild(closeSpan);
 
-		td.appendChild(closeBtn);
-		tr.appendChild(td);
+	 	td.appendChild(closeBtn);
+	 	tr.appendChild(td);
 
-		document.getElementsByTagName('tbody')[0].appendChild(tr);
-	}
+	 	document.getElementsByTagName('tbody')[0].appendChild(tr);
+	 }
 
 	/**
 	 * Store id of content to be deleted
@@ -289,28 +292,28 @@
 	 *
 	 * @type {String}
 	 */
-	var toDelete = '';
+	 var toDelete = '';
 
-	function deleteSentence(sentenceRow) {
-		if (!confirm('Are you sure you want to delete this sentence?\r\nYou can recover the data by refreshing the page.')) {
-			return;
-		}
+	 function deleteSentence(sentenceRow) {
+	 	if (!confirm('Are you sure you want to delete this sentence?\r\nYou can recover the data by refreshing the page.')) {
+	 		return;
+	 	}
 
-		if (sentenceRow.attr('data-sentence-id')) {
-			if (toDelete) {
-				toDelete += ','
-			}
-			toDelete += sentenceRow.attr('data-sentence-id');
-		}
+	 	if (sentenceRow.attr('data-sentence-id')) {
+	 		if (toDelete) {
+	 			toDelete += ','
+	 		}
+	 		toDelete += sentenceRow.attr('data-sentence-id');
+	 	}
 
-		sentenceRow.get(0).parentElement.removeChild(sentenceRow.get(0));
+	 	sentenceRow.get(0).parentElement.removeChild(sentenceRow.get(0));
 
-		if (!$('tr.sentence').length) {
-			while(document.getElementsByClassName('vertical-close-holder')[0].firstChild) {
-				document.getElementsByClassName('vertical-close-holder')[0].removeChild(document.getElementsByClassName('vertical-close-holder')[0].firstChild);
-			}
-		}
-	}
+	 	if (!$('tr.sentence').length) {
+	 		while(document.getElementsByClassName('vertical-close-holder')[0].firstChild) {
+	 			document.getElementsByClassName('vertical-close-holder')[0].removeChild(document.getElementsByClassName('vertical-close-holder')[0].firstChild);
+	 		}
+	 	}
+	 }
 
 	/**
 	 * Delete an order
@@ -319,30 +322,30 @@
 	 *
 	 * @return {[type]}
 	 */
-	function deleteOrder(orderColumn) {
-		if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
-			return;
-		}
-		
-		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+	 function deleteOrder(orderColumn) {
+	 	if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+	 		return;
+	 	}
+	 	
+	 	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
 
-		if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-			$(closeHolder.children[orderColumn].nextSibling).remove();
-		}
+	 	if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+	 		$(closeHolder.children[orderColumn].nextSibling).remove();
+	 	}
 
-		closeHolder.removeChild(closeHolder.children[orderColumn]);
+	 	closeHolder.removeChild(closeHolder.children[orderColumn]);
 
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var tr = $('tr.sentence')[i];
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var tr = $('tr.sentence')[i];
 
-			var orderHolder = $(tr).find('.order-holder').get(0);
+	 		var orderHolder = $(tr).find('.order-holder').get(0);
 
-			if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-				$(orderHolder.children[orderColumn].nextSibling).remove();
-			}
-			orderHolder.removeChild(orderHolder.children[orderColumn]);
-		}
-	}
+	 		if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+	 			$(orderHolder.children[orderColumn].nextSibling).remove();
+	 		}
+	 		orderHolder.removeChild(orderHolder.children[orderColumn]);
+	 	}
+	 }
 
 	/**
 	 * Create a new order
@@ -350,45 +353,46 @@
 	 *
 	 * @return {void}
 	 */
-	function newOrder() {
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var tr = $('tr.sentence')[i];
+	 function newOrder() {
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var tr = $('tr.sentence')[i];
 
-			var orderHolder = $(tr).find('.order-holder').get(0);
+	 		var orderHolder = $(tr).find('.order-holder').get(0);
 
-			var orderInput = document.createElement('input');
-			orderInput.setAttribute('type', 'text');
-			orderInput.className = 'form-control order-input';
-			orderInput.setAttribute('name', (tr.getAttribute('data-sentence-id') ? 'update[' + tr.getAttribute('data-sentence-id') : 'insert[' + tr.getAttribute('data-insert-sentence-id')) + '][order][' + maxColId + ']');
-			orderInput.setAttribute('required', '');
-			$(orderInput).focus(function() {
-				focusCol(this);
-			}).blur(function() {
-				blurCol(this);
-			});
-			orderHolder.appendChild(orderInput);
-			$(orderHolder).append("&nbsp;");
-		}
-		maxColId++;
+	 		var orderInput = document.createElement('input');
+	 		orderInput.setAttribute('type', 'number');
+	 		orderInput.className = 'form-control order-input';
+	 		orderInput.setAttribute('name', (tr.getAttribute('data-sentence-id') ? 'update[' + tr.getAttribute('data-sentence-id') : 'insert[' + tr.getAttribute('data-insert-sentence-id')) + '][order][' + maxColId + ']');
+	 		orderInput.setAttribute('min', '1');
+	 		orderInput.setAttribute('required', '');
+	 		$(orderInput).focus(function() {
+	 			focusCol(this);
+	 		}).blur(function() {
+	 			blurCol(this);
+	 		});
+	 		orderHolder.appendChild(orderInput);
+	 		$(orderHolder).append("&nbsp;");
+	 	}
+	 	maxColId++;
 
-		var closeBtn = document.createElement('button');
-		closeBtn.setAttribute('type', 'button');
-		closeBtn.setAttribute('aria-label', 'Delete');
-		closeBtn.className = 'vertical close';
+	 	var closeBtn = document.createElement('button');
+	 	closeBtn.setAttribute('type', 'button');
+	 	closeBtn.setAttribute('aria-label', 'Delete');
+	 	closeBtn.className = 'vertical close';
 
-		$(closeBtn).click(function() {
-			deleteOrder([].indexOf.call(this.parentNode.children, this));
-		})
+	 	$(closeBtn).click(function() {
+	 		deleteOrder([].indexOf.call(this.parentNode.children, this));
+	 	})
 
-		var closeSpan = document.createElement('span');
-		closeSpan.setAttribute('aria-hidden', 'true');
-		closeSpan.innerHTML = '×';
-		closeBtn.appendChild(closeSpan);
+	 	var closeSpan = document.createElement('span');
+	 	closeSpan.setAttribute('aria-hidden', 'true');
+	 	closeSpan.innerHTML = '×';
+	 	closeBtn.appendChild(closeSpan);
 
-		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
-		closeHolder.appendChild(closeBtn);
-		$(closeHolder).append("&nbsp;");
-	}
+	 	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+	 	closeHolder.appendChild(closeBtn);
+	 	$(closeHolder).append("&nbsp;");
+	 }
 
 	/**
 	 * Check if the entered order is in the correct format
@@ -396,9 +400,9 @@
 	 *
 	 * @return {Boolean}
 	 */
-	function isOrderFormatCorrect() {
-		var orderList = new Array;
-		for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
+	 function isOrderFormatCorrect() {
+	 	var orderList = new Array;
+	 	for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
 			// orderList[i] = new Array();
 			var sentenceOrder = new Array;
 			for (var j = 0; j < $('tr.sentence').length; j++) {
@@ -436,30 +440,30 @@
 	 *
 	 * @return {void}
 	 */
-	function alert(message) {
-		var div = document.createElement('div');
-		div.className = 'alert alert-warning fade in';
+	 function alert(message) {
+	 	var div = document.createElement('div');
+	 	div.className = 'alert alert-warning fade in';
 
-		var close = document.createElement('a');
-		close.innerHTML = '×';
-		close.setAttribute('href', '#');
-		close.setAttribute('class', 'close');
-		close.setAttribute('data-dismiss', 'alert');
-		close.setAttribute('aria-label', 'close');
+	 	var close = document.createElement('a');
+	 	close.innerHTML = '×';
+	 	close.setAttribute('href', '#');
+	 	close.setAttribute('class', 'close');
+	 	close.setAttribute('data-dismiss', 'alert');
+	 	close.setAttribute('aria-label', 'close');
 
-		div.append(close);
+	 	div.append(close);
 
-		var i = document.createElement('i');
-		i.className = 'fa fa-exclamation';
-		div.append(i);
+	 	var i = document.createElement('i');
+	 	i.className = 'fa fa-exclamation';
+	 	div.append(i);
 
-		var span = document.createElement('i');
-		span.className = 'error-message';
-		span.innerHTML = message;
-		div.append(span);
+	 	var span = document.createElement('i');
+	 	span.className = 'error-message';
+	 	span.innerHTML = message;
+	 	div.append(span);
 
-		$('#error').prepend(div);
-	}
+	 	$('#error').prepend(div);
+	 }
 
 	/**
 	 * Highlight the error section
@@ -469,17 +473,17 @@
 	 *
 	 * @return {void}
 	 */
-	function markError(orderNo) {
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+	 function markError(orderNo) {
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
 
-			input.addClass('orderError');
+	 		input.addClass('orderError');
 
-			input.on('input', function() {
-				unmarkError(orderNo);
-			});
-		}
-	}
+	 		input.on('input', function() {
+	 			unmarkError(orderNo);
+	 		});
+	 	}
+	 }
 
 	/**
 	 * Unhighlight the error section
@@ -489,13 +493,13 @@
 	 *
 	 * @return {void}
 	 */
-	function unmarkError(orderNo) {
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
+	 function unmarkError(orderNo) {
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(orderNo);
 
-			input.removeClass('orderError');
-		}
-	}
+	 		input.removeClass('orderError');
+	 	}
+	 }
 
 	/**
 	 * Highlight a column
@@ -505,13 +509,13 @@
 	 *
 	 * @return {void}
 	 */
-	function focusCol(input) {
-		var index = [].indexOf.call(input.parentNode.children, input);
-		
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
-		}
-	}
+	 function focusCol(input) {
+	 	var index = [].indexOf.call(input.parentNode.children, input);
+	 	
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).addClass('focus');
+	 	}
+	 }
 
 	/**
 	 * Unhighlight a column
@@ -521,73 +525,131 @@
 	 *
 	 * @return {void}
 	 */
-	function blurCol(input) {
-		var index = [].indexOf.call(input.parentNode.children, input);
+	 function blurCol(input) {
+	 	var index = [].indexOf.call(input.parentNode.children, input);
 
-		for (var i = 0; i < $('tr.sentence').length; i++) {
-			var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
-		}
-	}
+	 	for (var i = 0; i < $('tr.sentence').length; i++) {
+	 		var input = $('tr.sentence').eq(i).find('td.order-holder').find('input.order-input').eq(index).removeClass('focus');
+	 	}
+	 }
 
 	/**
 	 * Create a new sentence
 	 *　新しいセンテンスを作成する。
 	 */
-	$('#newSentenceBtn').click(function() {
-		newSentence();
-	});
+	 $('#newSentenceBtn').click(function() {
+	 	newSentence();
+	 });
 
 	/**
 	 * Create a new order
 	 *　新しい順序を作成する。
 	 */
-	$('#newOrderBtn').click(function() {
-		newOrder();
-	});
+	 $('#newOrderBtn').click(function() {
+	 	newOrder();
+	 });
 
 	/**
 	 * Delete a sentence upon button click
 	 * ボタンをクリックすると、センテンスを削除する。
 	 */
-	$('.horizontal.close').click(function() {
-		deleteSentence($(this).closest('tr'));
-	})
+	 $('.horizontal.close').click(function() {
+	 	deleteSentence($(this).closest('tr'));
+	 })
 
 	/**
 	 * Delete an order upon button click
 	 * ボタンをクリックすると、順序を削除する。
 	 */
-	$('.vertical.close').click(function() {
-		deleteOrder([].indexOf.call(this.parentNode.children, this));
-	})
+	 $('.vertical.close').click(function() {
+	 	deleteOrder([].indexOf.call(this.parentNode.children, this));
+	 })
 
 	/**
 	 * Highlight a column when user click an input belonging to that column
 	 * ユーザーから入力をクリックすると、その列の入力を強調表示する。
 	 */
-	$('input.order-input')
-	.focus(function() {
-		focusCol(this);
-	}).blur(function() {
-		blurCol(this);
-	});
+	 $('input.order-input')
+	 .focus(function() {
+	 	focusCol(this);
+	 }).blur(function() {
+	 	blurCol(this);
+	 });
 
+	 function validate_chgColor() {
+	 	$('.vld-spc').each(function(){
+	 		var text = $(this).val();
+	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 		if(text.trim() == "" || pattern.test(text)) {
+	 			$(this).attr('style', 'border-color: red;');
+	 		}else{
+	 			$(this).attr('style', 'border-color: #dddddd;');
+	 		}
+	 	})
+	 	
+	 }
+
+	 function showMesg(element, msg) {
+	 	if ($(element).parent().find('.alert alert-danger').length) {
+	 		$(element).parent().find('span.help').html(msg);
+	 	} else {
+	 		var div_help = document.createElement('div');
+	 		div_help.className = 'alert alert-danger';
+	 		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	 		$(div_help).insertAfter(element);
+	 	}
+	 }
+
+	 function validate_space(textElement) {
+	 	var text = textElement.value;
+	 	if( text.trim() == "") {
+	 		showMesg(textElement, 'Empty value is not allowed');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
+
+	 function validate_spcChar(textElement){
+	 	var text = textElement.value;
+	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 	if (pattern.test(text)) {
+	 		showMesg(textElement, 'Special character is invalid');
+	 		return false;
+	 	}else{
+	 		return true;
+	 	}
+	 }
 	/**
 	 * Add a list of id of element to delete to the submiting form
 	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
-	$("#p11Form").submit( function(eventObj) {
-		if(!isOrderFormatCorrect()) {
-			return false;
-		}
+	 $("#p11Form").submit( function(eventObj) {
+	 	var fail = false;
+	 	validate_chgColor();
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_space($('.vld-spc')[i])){
+	 			fail =true;
+	 		}
+	 		if(!validate_spcChar($('.vld-spc')[i])){
+	 			fail =true;
+	 		}
+	 	}
 
-		if (toDelete) {
-			$('<input />').attr('type', 'hidden')
-			.attr('name', 'delete')
-			.attr('value', toDelete)
-			.appendTo('#p11Form');
-			return true;
-		}
-	});
-</script>
-@stop
+	 	if (fail) {
+	 		return false;
+	 	}
+	 	if(!isOrderFormatCorrect()) {
+	 		return false;
+	 	}
+
+	 	if (toDelete) {
+	 		$('<input />').attr('type', 'hidden')
+	 		.attr('name', 'delete')
+	 		.attr('value', toDelete)
+	 		.appendTo('#p11Form');
+	 		return true;
+	 	}
+	 });
+	</script>
+	@stop
