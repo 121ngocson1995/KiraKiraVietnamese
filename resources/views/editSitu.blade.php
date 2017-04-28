@@ -131,12 +131,15 @@
 
 		<div class="noteRow">
 			@if (count($note))
+			@php
+			$noteNo = 0;
+			@endphp
 			<hr class="images">
 			@for ($i = 0; $i < count($note); $i++)
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label for="note">Lesson note:</label>
+						<label class="situNo" for="note">Lesson note {{ ++$noteNo }}</label>
 						<button type="button" data-id="{{$note[$i]->id}}" class="deleteNoteBtn" onclick="deleteNote(this)"><i class="fa fa-trash"></i></button>
 						<textarea class="form-control note" name="updateNote[{{$note[$i]->id}}][note]" id="note" rows="5" required>{{ $note[$i]->content }}</textarea>
 					</div>
@@ -293,6 +296,7 @@
 	 	image_input.setAttribute('data-show-upload', "false");
 	 	image_input.setAttribute('data-show-caption', "true");
 	 	image_input.setAttribute('data-allowed-file-extensions', '["jpg", "png"]');
+	 	image_input.setAttribute('required', '');
 	 	form_group.appendChild(image_input);
 
 	 	col.appendChild(form_group);
@@ -326,7 +330,7 @@
 
 	 	node_rowBig.appendChild(bigDiv);
 
-	 	document.getElementById("situForm").appendChild(node_rowBig);
+	 	$(bigDiv).insertBefore(document.getElementsByClassName('noteRow')[0]);
 
 	 	var $input = $('input.file[type=file]');
 	 	if ($input.length) {
@@ -379,10 +383,13 @@
 	  * @return {void}
 	  */
 	  function addNote() {
-	  	var abc = document.createElement('div');
-	  	abc.innerHTML = '<div class="col-md-12"><div class="form-group"><label for="note">Lesson note:</label><button type="button" data-id="" class="deleteNoteBtn" onclick="deleteRow(this)"><i class="fa fa-trash"></i></button><textarea class="form-control note" name="insertNote['+$('.note').length+'][note]" id="note" rows="5" required></textarea></div></div>';
-	  	document.getElementsByClassName('noteRow')[0].appendChild(abc);
+	  	var div = document.createElement('div');
+	  	div.className = 'row';
+	  	div.innerHTML = '<div class="col-md-12"><div class="form-group"><label class="situNo" for="note">Lesson note ' + ($('.noteRow').find('.row').length + 1) + '</label><button type="button" data-id="" class="deleteNoteBtn" onclick="deleteNote(this)"><i class="fa fa-trash"></i></button><textarea class="form-control note" name="insertNote['+$('.note').length+'][note]" id="note" rows="5" required></textarea></div></div>';
+	  	document.getElementsByClassName('noteRow')[0].appendChild(div);
 	  }
+
+	  var toDeleteNote = '';
 
 	 /**
 	  * delete a note 
@@ -390,7 +397,13 @@
 	  * @return {void} 
 	  */
 	  function deleteNote(button) {
-	  	deleteNote ++;
+	  	if (button.getAttribute('data-id') != '') {
+	  		if (toDeleteNote != '') {
+	  			toDeleteNote += ',';
+	  		}
+	  		toDeleteNote += button.getAttribute('data-id');
+	  	}
+
 	  	if(confirm("Are you sure you want to delete?")){
 	  		var node_delete = document.createElement('input');
 	  		node_delete.setAttribute('type', 'hidden');
@@ -399,6 +412,12 @@
 	  		document.getElementById('situationForm').appendChild(node_delete);
 	  		$(button).closest('.row').empty().remove();
 	  	}
+
+	  	var noteNo = 0;
+
+	  	$('.noteRow').find('.row').each(function() {
+	  		$(this).find('label')[0].innerHTML = 'Lesson note ' + ++noteNo;
+	  	});
 	  }
 
 	  function validate_chgColor() {
@@ -543,6 +562,15 @@
 	  	.attr('name', "sumLine")
 	  	.attr('value', sumLine)
 	  	.appendTo('#situationForm');
+
+	  	if (toDeleteNote) {
+	  		$('<input />').attr('type', 'hidden')
+	  		.attr('name', 'deleteNote')
+	  		.attr('value', toDeleteNote)
+	  		.appendTo('#p6Form');
+	  		return true;
+	  	}
+
 	  	return true;
 
 	  });
