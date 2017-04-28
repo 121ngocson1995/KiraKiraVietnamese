@@ -63,7 +63,7 @@ class P3Controller extends Controller
                 $checkArray = array();
                 $checkArray['sentence'.$i] = $request->all()['sentence'.$i];
                 Validator::make($checkArray, [
-                    'sentence'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:80',
+                    'sentence'.$i => 'required|max:80',
                     ],
                     [
                     ])->validate();
@@ -119,7 +119,7 @@ class P3Controller extends Controller
                 $checkArray = array();
                 $checkArray['sentenceAdd'.$i] = $request->all()['sentenceAdd'.$i];
                 Validator::make($checkArray, [
-                    'sentenceAdd'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:80',
+                    'sentenceAdd'.$i => 'required|max:80',
                     ],
                     [
                     ])->validate();

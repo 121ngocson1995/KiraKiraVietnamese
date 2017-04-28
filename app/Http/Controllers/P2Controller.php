@@ -73,7 +73,7 @@ class P2Controller extends Controller
                 $checkArray = array();
                 $checkArray['word'.$i] = $request->all()['word'.$i];
                 Validator::make($checkArray, [
-                    'word'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:20',
+                    'word'.$i => 'required|max:20',
                     ],
                     [
                     ])->validate();
@@ -133,7 +133,7 @@ class P2Controller extends Controller
                 $checkArray = array();
                 $checkArray['wordAdd'.$i] = $request->all()['wordAdd'.$i];
                 Validator::make($checkArray, [
-                    'wordAdd'.$i => 'required|regex:/(^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹA-Za-z0-9 .?!]+$)+/|max:20',
+                    'wordAdd'.$i => 'required|max:20',
                     ],
                     [
                     ])->validate();
