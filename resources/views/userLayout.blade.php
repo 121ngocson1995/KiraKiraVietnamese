@@ -168,6 +168,14 @@
 		margin-left: 0;
 		margin-right: 0.5em;
 	}
+	.alert.alert-danger {
+		padding: 6px 25px;
+		color: #a94442;
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		font-weight: bolder;
+		font-style: italic;
+	}
 </style>
 
 @yield('header-more')

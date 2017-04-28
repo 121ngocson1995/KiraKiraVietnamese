@@ -104,7 +104,7 @@
 							<textarea class="form-control textarea" name="dialogTrans{{$i}}" id="dialogTrans{{$i}}" data-dialog="{{$situation[$i]->dialogTransArr}}" required maxlength="1600"></textarea>
 						</div>
 						@if ($errors->has('dialogTrans'.$i))
-						<div class="help-block">
+						<div class="alert alert-danger">
 							<span>{{ $errors->first('dialogTrans') }}</span>
 						</div>
 						@endif
@@ -418,11 +418,11 @@
 	  }
 
 	  function showMesg(parentElement, msg) {
-	  	if ($(parentElement).find('.help-block').length) {
+	  	if ($(parentElement).find('.alert alert-danger').length) {
 	  		$(parentElement).find('span.help').html(msg);
 	  	} else {
 	  		var div_help = document.createElement('div');
-	  		div_help.className = 'help-block';
+	  		div_help.className = 'alert alert-danger';
 	  		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
 	  		parentElement.append(div_help);
 	  	}
