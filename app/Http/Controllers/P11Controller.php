@@ -140,7 +140,7 @@ class P11Controller extends Controller
      */
     public function edit(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
