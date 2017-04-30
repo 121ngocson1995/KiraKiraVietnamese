@@ -339,7 +339,9 @@ class LessonController extends Controller
 
     	// Load data from Database
         // データベースからデータを出す。
-    	$lessonEdit = Lesson::where('course_id', '=', $course_id)->find($lessonId);
+    	$lessonEdit = Lesson::where('id', '=', $lessonId)->first();
+        $lessonNo = $lessonEdit->lessonNo;
+        
     	switch ($activityName) {
     		case 'situations':
     		$situation = Situation::where('lesson_id', '=', $lessonId)->get();
@@ -352,27 +354,27 @@ class LessonController extends Controller
     		for ($i=0; $i<count($note); $i++){
     			$note[$i]->content = str_replace( "|","\n", $note[$i]->content);
     		}
-    		return view('editSitu', compact(['situation', 'note', 'lessonId']));
+    		return view('editSitu', compact(['situation', 'note', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p1':
     		$p1 = P1WordMemorize::where('lesson_id', '=', $lessonId)->get();
-    		return view('editP1', compact(['p1', 'lessonId']));
+    		return view('editP1', compact(['p1', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p2':
     		$p2 = P2WordRecognize::where('lesson_id', '=', $lessonId)->get();
-    		return view('editP2', compact(['p2', 'lessonId']));
+    		return view('editP2', compact(['p2', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p3':
     		$p3 = P3SentenceMemorize::where('lesson_id', '=', $lessonId)->get();
-    		return view('editP3', compact(['p3', 'lessonId']));
+    		return view('editP3', compact(['p3', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p4':
     		$p4 = P4SentenceRecognize::where('lesson_id', '=', $lessonId)->get();
-    		return view('editP4', compact(['p4', 'lessonId']));
+    		return view('editP4', compact(['p4', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p5':
@@ -380,13 +382,13 @@ class LessonController extends Controller
     		for ($i=0; $i<count($p5); $i++){
     			$p5[$i]->dialogArr = str_replace( "|","\n", $p5[$i]->dialog);
     		}
-    		return view('editP5', compact(['p5', 'lessonId']));
+    		return view('editP5', compact(['p5', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p6':
     		$p6 = P6DialogueMultipleChoice::where('lesson_id', '=', $lessonId)->orderBy('dialogNo')->get();
 
-    		return view('manage.editP6', compact(['p6', 'lessonId']));
+    		return view('manage.editP6', compact(['p6', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p7':
@@ -415,7 +417,7 @@ class LessonController extends Controller
     				}
     			}
     		}
-    		return view('editP7', compact(['p7', 'contentArr', 'lessonId']));
+    		return view('editP7', compact(['p7', 'contentArr', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p8':
@@ -435,7 +437,7 @@ class LessonController extends Controller
     			$p8[$i]->line = explode('*', $p8[$i]->line);
     			$p8[$i]->answer = explode(',', $p8[$i]->answer);
     		}
-    		return view('editP8', compact(['p8', 'dialogCnt', 'lessonId']));
+    		return view('editP8', compact(['p8', 'dialogCnt', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p9':
@@ -455,7 +457,7 @@ class LessonController extends Controller
     			$p9[$i]->line = explode('*', $p9[$i]->line);
     			$p9[$i]->answer = explode(',', $p9[$i]->answer);
     		}
-    		return view('editP9', compact(['p9', 'dialogCnt', 'lessonId']));
+    		return view('editP9', compact(['p9', 'dialogCnt', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p10':
@@ -471,25 +473,25 @@ class LessonController extends Controller
     			$p10Element[$element->sentenceNo][] = $element;
     		}
 
-    		return view('manage.editP10', compact(['p10Element', 'lessonId']));
+    		return view('manage.editP10', compact(['p10Element', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p11':
     		$p11 = P11ConversationReorder::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		return view('manage.editP11', compact(['p11', 'lessonId']));
+    		return view('manage.editP11', compact(['p11', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p12':
     		$p12 = P12GroupInteraction::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		return view('manage.editP12', compact(['p12', 'lessonId']));
+    		return view('manage.editP12', compact(['p12', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p13':
     		$p13 = P13Text::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		return view('manage.editP13', compact(['p13', 'lessonId']));
+    		return view('manage.editP13', compact(['p13', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'p14':
@@ -513,13 +515,13 @@ class LessonController extends Controller
 
     			$p14[$pId]->sentenceParts = $sentenceParts;
     		}
-    		return view('manage.editP14', compact(['p14', 'lessonId']));
+    		return view('manage.editP14', compact(['p14', 'lessonId', 'lessonNo']));
     		break;
 
     		case 'extensions':
     		$ext = LanguageCulture::where('lesson_id', '=', $lessonId)->orderBy('id')->get();
 
-    		return view('manage.editExt', compact(['ext', 'lessonId']));
+    		return view('manage.editExt', compact(['ext', 'lessonId', 'lessonNo']));
     		break;
 
     		default:
