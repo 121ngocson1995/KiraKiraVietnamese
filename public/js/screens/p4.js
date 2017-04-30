@@ -408,7 +408,7 @@ function initAudio() {
 	for (var i = 0; i < elementData.length; i++) {
 		var audioFile = document.createElement("audio");
 		audioFile.id = 'audio' + elementData[i].id;
-		audioFile.innerHTML  = "<source src='" + assetPath + elementData[i].audio + "' type='audio/mp3'>";
+		audioFile.innerHTML  = "<source src='" + storagePath + elementData[i].audio + "' type='audio/mp3'>";
 		sampleGroup.appendChild(audioFile);
 
 		if (!isNaN(audioFile.duration)) {
