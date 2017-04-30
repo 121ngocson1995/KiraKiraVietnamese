@@ -122,7 +122,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Extension: Language and Culture for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="title"><h2>Edit Extension: Language and Culture for lesson {{ $lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
 		Add new content by clicking the plus sign. Choose a existing content by clicking tabs. Change existing ones by writing into text fields below.
 	</div>

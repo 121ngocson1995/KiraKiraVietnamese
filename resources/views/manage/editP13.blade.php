@@ -71,7 +71,7 @@
  	$('#li-edit').addClass('active');
  </script>
  <div class="container">
- 	<div class="title"><h2>Edit Practice 13: Text for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+ 	<div class="title"><h2>Edit Practice 13: Text for lesson {{ $lessonNo }}</h2></div>
  	<div class="row description" style="text-align: center; font-size: 1.5em">
  		Change paragraph and requirement's content as well as translation by writing into text fields below
  	</div>

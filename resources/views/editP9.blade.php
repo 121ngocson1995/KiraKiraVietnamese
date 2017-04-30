@@ -66,7 +66,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 9: Complete the dialogues for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 9: Complete the dialogues for lesson {{ $lessonNo }}</h2></div>
 	{!! Form::open(array('url'=>'editP9','method'=>'POST', 'files'=>true, 'id' =>'p9Form')) !!}
 	<div id="p9Div">
 		<input type="hidden" name="lessonID" value="{{$lessonId}}">

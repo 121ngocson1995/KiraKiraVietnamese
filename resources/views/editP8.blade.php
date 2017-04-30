@@ -63,13 +63,16 @@
 		width: 10em;
 		margin: 0 0.5em;
 	}
+	.form-control.answer {
+		display: initial;
+	}
 </style>
 <script type="text/javascript">
 	$('.listBtn').removeClass('active');
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 8: Fill in the blanks for lesson {{ $lessonId }}</h2></div>
+	<div class="title"><h2>Edit Practice 8: Fill in the blanks for lesson {{ $lessonNo }}</h2></div>
 	{!! Form::open(array('url'=>'editP8','method'=>'POST', 'files'=>true, 'id' =>'p8Form')) !!}
 	<div id="p8Div">
 		<input type="hidden" name="lessonID" value="{{$lessonId}}">
@@ -91,7 +94,7 @@
 				<div id="dia{{$i}}line{{$j}}answer" class="col-xs-5 answercontent" data-sumAnswer="{{count($p8[$j]->answer)}}">
 					@for ($k = 0; $k < count($p8[$j]->answer) ; $k++)
 					@if ($p8[$j]->answer[$k] != '')
-					<input type="text" id="dia{{$i}}line{{$j}}answer{{$k}}" name="update[{{ $p8[$j]->id }}][{{$p8[$j]->dialogNo}}][{{ $p8[$j]->lineNo}}][answer][]" class="answer vld-spc" maxlength="20" required="true" value="{{$p8[$j]->answer[$k]}}">
+					<input type="text" id="dia{{$i}}line{{$j}}answer{{$k}}" name="update[{{ $p8[$j]->id }}][{{$p8[$j]->dialogNo}}][{{ $p8[$j]->lineNo}}][answer][]" class="form-control answer vld-spc" maxlength="20" required="true" value="{{$p8[$j]->answer[$k]}}">
 					@endif
 					@endfor
 				</div>
@@ -186,7 +189,7 @@
 		 	}else{
 		 		node_input.setAttribute('name', "insert["+dialog+"]["+line+"][answer][]");
 		 	}
-		 	node_input.setAttribute('class', 'answer vld-spc');
+		 	node_input.setAttribute('class', 'answer vld-spc form-control');
 		 	node_input.setAttribute('maxlength', '20');
 		 	node_input.setAttribute('required', 'true');
 		 	
@@ -308,193 +311,193 @@
 
 		 }
 
-			/**
-			 * 	delete a dialog
-			 *　ダイアログを削除する。
-			 *
-			 * @param  {DOM} button 
-			 * @return {void}      
-			 */
-			 function deleteDialog(button){
-			 	if(confirm("Are you sure you want to delete?")){
-			 		
-			 		deleteDia ++;
-			 		var node_delete = document.createElement('input');
-			 		node_delete.setAttribute('type', 'hidden');
-			 		node_delete.setAttribute('name', 'deleteDia'+deleteDia);
-			 		node_delete.setAttribute('value', $(button).closest('.big').attr('data-dialog'));
-			 		document.getElementById('p8Form').appendChild(node_delete);
-			 		
-			 		var deleteIndex = $(button).closest('.big').find('.dialogIndex').html();
-			 		console.log($(button).closest('.big').find('.dialogIndex'));
-			 		$('.dialogIndex').each(function() {
-			 			if ($(this).html() > deleteIndex) {
-			 				var curIndex = $(this).html();
-			 				$(this).html( curIndex-1);
-			 			}
-			 		});
-			 		$(button).closest('.big').empty().remove();
-			 	}
-			 }
-			 
-			/**
-			 * delete a sentence of dialog
-			 *　ダイアログのセンテンスを削除する。
-			 *　
-			 * @param  {DOM} button 
-			 * @return {void}    
-			 */
-			 function deleteRow(button){
-			 	if(confirm("Are you sure you want to delete?")){
-			 		if($(button).closest('.row').hasClass('origin')){
-			 			rowDelete++;
-			 			var node_delete = document.createElement('input');
-			 			node_delete.setAttribute('type', 'hidden');
-			 			node_delete.setAttribute('name', 'delete'+rowDelete);
-			 			node_delete.setAttribute('value', $(button).closest('.row').attr('data-id'));
-			 			document.getElementById('p8Form').appendChild(node_delete);
-			 		}
-			 		$(button).closest('.row').empty();
-			 	}
-			 }
+		/**
+		 * 	delete a dialog
+		 *　ダイアログを削除する。
+		 *
+		 * @param  {DOM} button 
+		 * @return {void}      
+		 */
+		 function deleteDialog(button){
+		 	if(confirm("Are you sure you want to delete?")){
 
-		 /**
-		  * Add a　new sentence of dialog
-		 　*　新たなダイアログのセンテンスを追加する。
-		 　*
-		  * @param {DOM} button 
-		  * @return {void}
-		  */
-		  function addRow(button){
+		 		deleteDia ++;
+		 		var node_delete = document.createElement('input');
+		 		node_delete.setAttribute('type', 'hidden');
+		 		node_delete.setAttribute('name', 'deleteDia'+deleteDia);
+		 		node_delete.setAttribute('value', $(button).closest('.big').attr('data-dialog'));
+		 		document.getElementById('p8Form').appendChild(node_delete);
 
-		  	var node_row = document.createElement('div');
-		  	node_row.setAttribute('class', 'row');
-		  	node_row.setAttribute('data-dialog', $(button).attr('data-diaNo'));
-		  	node_row.setAttribute('data-line', $(button).closest('.big').find('.question').length);
+		 		var deleteIndex = $(button).closest('.big').find('.dialogIndex').html();
+		 		console.log($(button).closest('.big').find('.dialogIndex'));
+		 		$('.dialogIndex').each(function() {
+		 			if ($(this).html() > deleteIndex) {
+		 				var curIndex = $(this).html();
+		 				$(this).html( curIndex-1);
+		 			}
+		 		});
+		 		$(button).closest('.big').empty().remove();
+		 	}
+		 }
 
-		  	var node_question = document.createElement('div');
-		  	node_question.setAttribute('class', 'col-xs-5 questioncontent');
+		/**
+		 * delete a sentence of dialog
+		 *　ダイアログのセンテンスを削除する。
+		 *　
+		 * @param  {DOM} button 
+		 * @return {void}    
+		 */
+		 function deleteRow(button){
+		 	if(confirm("Are you sure you want to delete?")){
+		 		if($(button).closest('.row').hasClass('origin')){
+		 			rowDelete++;
+		 			var node_delete = document.createElement('input');
+		 			node_delete.setAttribute('type', 'hidden');
+		 			node_delete.setAttribute('name', 'delete'+rowDelete);
+		 			node_delete.setAttribute('value', $(button).closest('.row').attr('data-id'));
+		 			document.getElementById('p8Form').appendChild(node_delete);
+		 		}
+		 		$(button).closest('.row').empty();
+		 	}
+		 }
 
-		  	var input_question = document.createElement('input');
-		  	input_question .setAttribute('type', 'text');
-		  	input_question .setAttribute('class', 'question form-control vld-spc');
-		  	input_question .setAttribute('maxlength', '80');
-		  	input_question .setAttribute('required', 'true');
-		  	input_question .setAttribute('name', "insert["+$(button).attr('data-diaNo')+"]["+$(button).closest('.big').find('.question').length+"][line]");
+		/**
+		 * Add a　new sentence of dialog
+		　*　新たなダイアログのセンテンスを追加する。
+		　*
+		 * @param {DOM} button 
+		 * @return {void}
+		 */
+		 function addRow(button){
 
-		  	node_question.appendChild(input_question);
+		 	var node_row = document.createElement('div');
+		 	node_row.setAttribute('class', 'row');
+		 	node_row.setAttribute('data-dialog', $(button).attr('data-diaNo'));
+		 	node_row.setAttribute('data-line', $(button).closest('.big').find('.question').length);
 
-		  	var node_answer = document.createElement('div');
-		  	node_answer.setAttribute('class', 'col-xs-5 answercontent');
-		  	node_answer.setAttribute('id', 'dia'+$(button).attr('data-diaNo')+'line'+$(button).closest('.big').find('.question').length+'answer');
+		 	var node_question = document.createElement('div');
+		 	node_question.setAttribute('class', 'col-xs-5 questioncontent');
+
+		 	var input_question = document.createElement('input');
+		 	input_question .setAttribute('type', 'text');
+		 	input_question .setAttribute('class', 'question form-control vld-spc');
+		 	input_question .setAttribute('maxlength', '80');
+		 	input_question .setAttribute('required', 'true');
+		 	input_question .setAttribute('name', "insert["+$(button).attr('data-diaNo')+"]["+$(button).closest('.big').find('.question').length+"][line]");
+
+		 	node_question.appendChild(input_question);
+
+		 	var node_answer = document.createElement('div');
+		 	node_answer.setAttribute('class', 'col-xs-5 answercontent');
+		 	node_answer.setAttribute('id', 'dia'+$(button).attr('data-diaNo')+'line'+$(button).closest('.big').find('.question').length+'answer');
 
 
-		  	var node_btn = document.createElement('div');
-		  	node_btn.setAttribute('class', 'col-xs-2');
+		 	var node_btn = document.createElement('div');
+		 	node_btn.setAttribute('class', 'col-xs-2');
 
-		  	var btn_add = document.createElement('button');
-		  	btn_add.setAttribute('type', 'button');
-		  	btn_add.setAttribute('class', 'form-control btn-primary col-xs-2');
-		  	btn_add.setAttribute('onclick', 'addAnswer(this)');
+		 	var btn_add = document.createElement('button');
+		 	btn_add.setAttribute('type', 'button');
+		 	btn_add.setAttribute('class', 'form-control btn-primary col-xs-2');
+		 	btn_add.setAttribute('onclick', 'addAnswer(this)');
 
-		  	var icon_add = document.createElement('i');
-		  	icon_add.setAttribute('style', 'margin-right: 0.5em');
-		  	icon_add.setAttribute('class', 'fa fa-plus');
+		 	var icon_add = document.createElement('i');
+		 	icon_add.setAttribute('style', 'margin-right: 0.5em');
+		 	icon_add.setAttribute('class', 'fa fa-plus');
 
-		  	btn_add.appendChild(icon_add);
+		 	btn_add.appendChild(icon_add);
 
-		  	var btn_delete = document.createElement('button');
-		  	btn_delete.setAttribute('type', 'button');
-		  	btn_delete.setAttribute('class', 'deleteBtn col-xs-2');
-		  	btn_delete.setAttribute('onclick', 'deleteRow(this)');
+		 	var btn_delete = document.createElement('button');
+		 	btn_delete.setAttribute('type', 'button');
+		 	btn_delete.setAttribute('class', 'deleteBtn col-xs-2');
+		 	btn_delete.setAttribute('onclick', 'deleteRow(this)');
 
-		  	var icon_delete = document.createElement('i');
-		  	icon_delete.setAttribute('style', 'margin-right: 0.5em');
-		  	icon_delete.setAttribute('class', 'fa fa-trash');
+		 	var icon_delete = document.createElement('i');
+		 	icon_delete.setAttribute('style', 'margin-right: 0.5em');
+		 	icon_delete.setAttribute('class', 'fa fa-trash');
 
-		  	btn_delete.appendChild(icon_delete);
+		 	btn_delete.appendChild(icon_delete);
 
-		  	node_btn.appendChild(btn_add);
-		  	node_btn.appendChild(btn_delete);
+		 	node_btn.appendChild(btn_add);
+		 	node_btn.appendChild(btn_delete);
 
-		  	node_row.appendChild(node_question);
-		  	node_row.appendChild(node_answer);
-		  	node_row.appendChild(node_btn);
+		 	node_row.appendChild(node_question);
+		 	node_row.appendChild(node_answer);
+		 	node_row.appendChild(node_btn);
 
-		  	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
-		  }
+		 	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
+		 }
 
-		  function validate_chgColor() {
-		  	$('.vld-spc').each(function(){
-		  		var text = $(this).val();
-		  		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-		  		if(text.trim() == "" || pattern.test(text)) {
-		  			$(this).attr('style', 'border-color: red;');
-		  		}else{
-		  			$(this).attr('style', 'border-color: #dddddd;');
-		  		}
-		  	})
-		  	
-		  }
+		 function validate_chgColor() {
+		 	$('.vld-spc').each(function(){
+		 		var text = $(this).val();
+		 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+		 		if(text.trim() == "" || pattern.test(text)) {
+		 			$(this).attr('style', 'border-color: red;');
+		 		}else{
+		 			$(this).attr('style', 'border-color: #dddddd;');
+		 		}
+		 	})
 
-		  function showMesg(element, msg) {
-		  	if ($(element).parent().find('.alert alert-danger').length) {
-		  		$(element).parent().find('span.help').html(msg);
-		  	} else {
-		  		var div_help = document.createElement('div');
-		  		div_help.className = 'alert alert-danger';
-		  		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
-		  		$(div_help).insertAfter(element);
-		  	}
-		  }
+		 }
 
-		  function validate_space(textElement) {
-		  	var text = textElement.value;
-		  	if( text.trim() == "") {
-		  		showMesg(textElement, 'Empty value is not allowed');
-		  		return false;
-		  	}else{
-		  		return true;
-		  	}
-		  }
+		 function showMesg(element, msg) {
+		 	if ($(element).parent().find('.alert alert-danger').length) {
+		 		$(element).parent().find('span.help').html(msg);
+		 	} else {
+		 		var div_help = document.createElement('div');
+		 		div_help.className = 'alert alert-danger';
+		 		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+		 		$(div_help).insertAfter(element);
+		 	}
+		 }
 
-		  function validate_spcChar(textElement){
-		  	var text = textElement.value;
-		  	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-		  	if (pattern.test(text)) {
-		  		showMesg(textElement, 'Special character is invalid');
-		  		return false;
-		  	}else{
-		  		return true;
-		  	}
-		  }
-		  
-		  $("#p8Form").submit( function(eventObj) {
-		  	var fail = false;
-		  	validate_chgColor();
-		  	for (var i = 0; i < $('.vld-spc').length; i++) {
-		  		if(!validate_space($('.vld-spc')[i])){
-		  			fail =true;
-		  		}
-		  		if(!validate_spcChar($('.vld-spc')[i])){
-		  			fail =true;
-		  		}
-		  	}
+		 function validate_space(textElement) {
+		 	var text = textElement.value;
+		 	if( text.trim() == "") {
+		 		showMesg(textElement, 'Empty value is not allowed');
+		 		return false;
+		 	}else{
+		 		return true;
+		 	}
+		 }
 
-		  	if (fail) {
-		  		return false;
-		  	}
-		  	var node_delete_dia = document.createElement('input');
-		  	node_delete_dia.setAttribute('type', 'hidden');
-		  	node_delete_dia.setAttribute('name', 'sumDeleteDia');
-		  	node_delete_dia.setAttribute('value', deleteDia);
-		  	document.getElementById('p8Form').appendChild(node_delete_dia);
+		 function validate_spcChar(textElement){
+		 	var text = textElement.value;
+		 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+		 	if (pattern.test(text)) {
+		 		showMesg(textElement, 'Special character is invalid');
+		 		return false;
+		 	}else{
+		 		return true;
+		 	}
+		 }
 
-		  	var node_delete_row = document.createElement('input');
-		  	node_delete_row.setAttribute('type', 'hidden');
-		  	node_delete_row.setAttribute('name', 'sumDeleteRow');
-		  	node_delete_row.setAttribute('value', rowDelete);
-		  	document.getElementById('p8Form').appendChild(node_delete_row);
-		  });
+		 $("#p8Form").submit( function(eventObj) {
+		 	var fail = false;
+		 	validate_chgColor();
+		 	for (var i = 0; i < $('.vld-spc').length; i++) {
+		 		if(!validate_space($('.vld-spc')[i])){
+		 			fail =true;
+		 		}
+		 		if(!validate_spcChar($('.vld-spc')[i])){
+		 			fail =true;
+		 		}
+		 	}
+
+		 	if (fail) {
+		 		return false;
+		 	}
+		 	var node_delete_dia = document.createElement('input');
+		 	node_delete_dia.setAttribute('type', 'hidden');
+		 	node_delete_dia.setAttribute('name', 'sumDeleteDia');
+		 	node_delete_dia.setAttribute('value', deleteDia);
+		 	document.getElementById('p8Form').appendChild(node_delete_dia);
+
+		 	var node_delete_row = document.createElement('input');
+		 	node_delete_row.setAttribute('type', 'hidden');
+		 	node_delete_row.setAttribute('name', 'sumDeleteRow');
+		 	node_delete_row.setAttribute('value', rowDelete);
+		 	document.getElementById('p8Form').appendChild(node_delete_row);
+		 });
 		</script>
 		@stop

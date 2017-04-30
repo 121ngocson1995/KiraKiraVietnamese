@@ -74,7 +74,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 7: Practice speaking after dialogues for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="title"><h2>Edit Practice 7: Practice speaking after dialogues for lesson {{ $lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
 		Add new conversations or change existing ones by writing into appropriate text fields and uploading new audio files.
 	</div>

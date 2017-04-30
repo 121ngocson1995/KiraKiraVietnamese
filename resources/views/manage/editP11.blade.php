@@ -113,7 +113,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 11: Read and reorder the the sentences to make a complete dialogue for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="title"><h2>Edit Practice 11: Read and reorder the the sentences to make a complete dialogue for lesson {{ $lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
 		Change sentences and sentences' order by writing into text fields below
 	</div>

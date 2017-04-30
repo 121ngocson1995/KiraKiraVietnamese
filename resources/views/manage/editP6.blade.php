@@ -71,7 +71,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 6: Read and find the appropriate answer for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="title"><h2>Edit Practice 6: Read and find the appropriate answer for lesson {{ $lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
 		Add questions or change existing ones by inserting contents into text fields below.
 	</div>

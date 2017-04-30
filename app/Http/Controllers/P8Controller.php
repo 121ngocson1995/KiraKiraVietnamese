@@ -30,8 +30,8 @@ class P8Controller extends Controller
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-	public function load(Request $request, $lessonNo)
-	{
+    public function load(Request $request, $lessonNo)
+    {
 		// get lesson
         //　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
@@ -39,8 +39,8 @@ class P8Controller extends Controller
 
 		// Load data from Database
         // データベースからデータを出す。
-		$elementData = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->get();
-		$cnt = count($elementData);
+        $elementData = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->get();
+        $cnt = count($elementData);
 
         $dialogCnt = array();
         $answerArrs = array();
@@ -68,81 +68,79 @@ class P8Controller extends Controller
     public function edit(Request $request)
     {
         // dd($request->all()['update']['1'][0][0]['line']);
-         // dd($request->all());
-        $lesson = Lesson::find($request->all()['lessonID']);
+        // dd($request->all());
+        $lesson = Lesson::find($request->lessonID);
 
         if ($request->has('update')) {
             foreach ($request->update as $id => $content) {
                 foreach ($content as $dialogNo => $dialogContent) {
                     foreach ($dialogContent as $lineNo => $lineContent) {
-                       $p8Element = P8ConversationFillWord::where('id', '=', $id)->first();
-                       $p8Element->dialogNo = $dialogNo;
-                       $p8Element->lineNo = $lineNo;
-                       $line = str_replace("〇", '*', $lineContent['line']);
-                       $sumAnswer = count(explode('*',$line ))-1;
-                       $p8Element->line = $line;
-                       $answer = "";
-                       if($sumAnswer>0){
-                        foreach ($lineContent['answer'] as $answerContent ) {
+                        $p8Element = P8ConversationFillWord::where('id', '=', $id)->first();
+                        $p8Element->dialogNo = $dialogNo;
+                        $p8Element->lineNo = $lineNo;
+                        $line = str_replace("〇", '*', $lineContent['line']);
+                        $sumAnswer = count(explode('*',$line ))-1;
+                        $p8Element->line = $line;
+                        $answer = "";
+                        if($sumAnswer>0){
+                            foreach ($lineContent['answer'] as $answerContent ) {
+                                $answer = $answer.$answerContent.",";
+                            }
+                        }
+                        $answer = substr_replace($answer, "", -1);
+                        $p8Element->answer = $answer;
+                        $p8Element->save();
+                    }
+                }
+
+            }
+        }
+
+        if ($request->has('insert')) {
+
+            foreach ($request->insert as $dialogNo => $dialogNoContent) {
+                foreach ($dialogNoContent as $lineNo => $lineNoContent) {
+                    $p8New = new P8ConversationFillWord;
+                    $p8New->dialogNo = $dialogNo;
+                    $p8New->lineNo = $lineNo;
+                    $line = str_replace("〇", '*', $lineNoContent['line']);
+                    $sumAnswer = count(explode('*',$line ))-1;
+                    $p8New->line = $line;
+                    $answer = "";
+                    if($sumAnswer>0){
+                        foreach ($lineNoContent['answer'] as $answerContent ) {
                             $answer = $answer.$answerContent.",";
                         }
                     }
                     $answer = substr_replace($answer, "", -1);
-                    $p8Element->answer = $answer;
-                    $p8Element->save();
+                    $p8New->answer = $answer;
+                    $p8New->lesson_id = $request->all()['lessonID'];
+                    $p8New->save();
                 }
             }
-            
+
         }
-    }
 
-    if ($request->has('insert')) {
-
-        foreach ($request->insert as $dialogNo => $dialogNoContent) {
-            foreach ($dialogNoContent as $lineNo => $lineNoContent) {
-                $p8New = new P8ConversationFillWord;
-                $p8New->dialogNo = $dialogNo;
-                $p8New->lineNo = $lineNo;
-                $line = str_replace("〇", '*', $lineNoContent['line']);
-                $sumAnswer = count(explode('*',$line ))-1;
-                $p8New->line = $line;
-                $answer = "";
-                if($sumAnswer>0){
-                    foreach ($lineNoContent['answer'] as $answerContent ) {
-                        $answer = $answer.$answerContent.",";
-                    }
+        if ($request->has('sumDeleteRow')) {
+            $sumDeleteRow = $request->all()['sumDeleteRow'];
+            for ($i=0; $i <= $sumDeleteRow; $i++) { 
+                if ($request->has('delete'.$i)) {
+                    $deleteId = $request->all()['delete'.$i];
+                    $p8delete = P8ConversationFillWord::where('id', '=', $deleteId)->first()->delete();
                 }
-                $answer = substr_replace($answer, "", -1);
-                $p8New->answer = $answer;
-                $p8New->lesson_id = $request->all()['lessonID'];
-                $p8New->save();
             }
-            
         }
-        
-    }
 
-    if ($request->has('sumDeleteRow')) {
-        $sumDeleteRow = $request->all()['sumDeleteRow'];
-        for ($i=0; $i <= $sumDeleteRow; $i++) { 
-            if ($request->has('delete'.$i)) {
-                $deleteId = $request->all()['delete'.$i];
-                $p8delete = P8ConversationFillWord::where('id', '=', $deleteId)->first()->delete();
+        if ($request->has('sumDeleteDia')) {
+            $sumDeleteRow = $request->all()['sumDeleteDia'];
+            for ($i=0; $i <= $sumDeleteRow; $i++) { 
+                if ($request->has('deleteDia'.$i)) {
+                    $deleteId = $request->all()['deleteDia'.$i];
+                    $p8delete = P8ConversationFillWord::where('lesson_id', '=', $request->lessonID)->where('dialogNo', '=', $deleteId)->delete();
+                }
             }
-            
         }
-    }
 
-    if ($request->has('sumDeleteDia')) {
-        $sumDeleteRow = $request->all()['sumDeleteDia'];
-        for ($i=0; $i <= $sumDeleteRow; $i++) { 
-            if ($request->has('deleteDia'.$i)) {
-                $deleteId = $request->all()['deleteDia'.$i];
-                $p8delete = P8ConversationFillWord::where('dialogNo', '=', $deleteId)->delete();
-            }
-            
-        }
+        return redirect("/listAct".$request->all()['lessonID']);
     }
-    return redirect("/listAct".$request->all()['lessonID']);
-}
 }

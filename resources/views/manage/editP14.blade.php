@@ -136,7 +136,7 @@
 	$('#li-edit').addClass('active');
 </script>
 <div class="container">
-	<div class="title"><h2>Edit Practice 14: Learn by heart the following sentence patterns for lesson {{ \App\Lesson::where('id', '=', $lessonId)->first()->lessonNo }}</h2></div>
+	<div class="title"><h2>Edit Practice 14: Learn by heart the following sentence patterns for lesson {{ $lessonNo }}</h2></div>
 	<div class="row description" style="text-align: center; font-size: 1.5em">
 		Add new sentence's pattern or change existing ones by writing into appropriate text fields below.
 	</div>
