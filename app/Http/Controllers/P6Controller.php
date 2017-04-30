@@ -81,12 +81,11 @@ class P6Controller extends Controller
 		if ($request->has('insert')) {
 			foreach ($request->insert as $id => $value) {
 				$sentences = preg_split('/\r\n/u', $value['dialog']);
-				$dialog = '';
 				for ($i=0; $i < count($sentences); $i++) { 
 					if ($i != 0) {
 						$dialog .= '|';
 					}
-					$dialog .= '- ' . trim(preg_replace('/\s\s+|^-/u', ' ', $sentences[$i]));
+					$dialog = trim(preg_replace('/\s\s+/u', ' ', $sentences[$i]));
 				}
 
 				P6DialogueMultipleChoice::create([

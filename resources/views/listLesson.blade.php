@@ -1,5 +1,15 @@
 @extends('userLayout')
 
+@section('header-more')
+
+<style>
+	* {
+		word-wrap: break-word;
+	}
+</style>
+
+@stop
+
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
