@@ -407,32 +407,33 @@
 	 */
 	 function isOrderFormatCorrect() {
 	 	var orderList = new Array;
-	 	for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
-			// orderList[i] = new Array();
-			var sentenceOrder = new Array;
-			for (var j = 0; j < $('tr.sentence').length; j++) {
-				var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
-				sentenceOrder.push(parseInt(order));
+	 	if($('.order-holder').length) {
+		 	for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
+				var sentenceOrder = new Array;
+				for (var j = 0; j < $('tr.sentence').length; j++) {
+					var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
+					sentenceOrder.push(parseInt(order));
+				}
+
+				orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
 			}
 
-			orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
-		}
-
-		for (var i = 0; i < orderList.length; i++) {
-			if (orderList[i][0] != 1) {
-				alert('Sentence order must start at 1');
-				markError(i);
-				return false;
-			}
-
-			for (var j = 1; j < orderList[i].length; j++) {
-				if (orderList[i][j] != orderList[i][j-1] + 1) {
-					alert('Order value is not continuous');
+			for (var i = 0; i < orderList.length; i++) {
+				if (orderList[i][0] != 1) {
+					alert('Sentence order must start at 1');
 					markError(i);
 					return false;
 				}
+
+				for (var j = 1; j < orderList[i].length; j++) {
+					if (orderList[i][j] != orderList[i][j-1] + 1) {
+						alert('Order value is not continuous');
+						markError(i);
+						return false;
+					}
+				}
 			}
-		}
+	 	}
 
 		return true;
 	}
@@ -648,7 +649,7 @@
 	 	if(!isOrderFormatCorrect()) {
 	 		return false;
 	 	}
-
+	 	console.log(toDelete);
 	 	if (toDelete) {
 	 		$('<input />').attr('type', 'hidden')
 	 		.attr('name', 'delete')
