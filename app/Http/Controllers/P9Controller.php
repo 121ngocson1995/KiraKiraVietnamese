@@ -136,7 +136,7 @@ class P9Controller extends Controller
 			for ($i=0; $i <= $sumDeleteRow; $i++) { 
 				if ($request->has('deleteDia'.$i)) {
 					$deleteId = $request->all()['deleteDia'.$i];
-					$p9delete = P9ConversationFillSentence::where('dialogNo', '=', $deleteId)->delete();
+					$p9delete = P9ConversationFillSentence::where('lesson_id', '=', $request->lessonID)->where('dialogNo', '=', $deleteId)->delete();
 				}
 
 			}
