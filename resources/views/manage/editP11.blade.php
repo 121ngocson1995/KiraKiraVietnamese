@@ -213,7 +213,8 @@
 	 		for (var i = 0; i < document.getElementsByClassName('order-holder')[0].children.length; i++) {
 	 			
 	 			var orderInput = document.createElement('input');
-	 			orderInput.setAttribute('type', 'text');
+	 			orderInput.setAttribute('type', 'number');
+		 		orderInput.setAttribute('min', '1');
 	 			orderInput.className = 'form-control order-input';
 	 			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 	 			orderInput.setAttribute('required', '');
