@@ -62,6 +62,7 @@ class P14Controller extends Controller
      */
     public function edit(Request $request)
     {
+        // dd($request->all());
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 $p14Element = P14SentencePattern::where('id', '=', $id)->first();
@@ -112,8 +113,8 @@ class P14Controller extends Controller
 
                 P14SentencePattern::create([
                     'lesson_id' => $request->lessonId,
-                    'sentenceNo' => preg_replace('/\*\*+/', '*', trim(trim($sentence, ' '), '*')),
-                    'sentence' => $value['sentenceNo'],
+                    'sentenceNo' => $value['sentenceNo'],
+                    'sentence' => preg_replace('/\*\*+/', '*', trim(trim($sentence, ' '), '*')),
                     ]);
             }
         }

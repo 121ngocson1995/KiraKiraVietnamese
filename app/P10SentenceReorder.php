@@ -16,7 +16,7 @@ class P10SentenceReorder extends Model
      * @var array
      */
     protected $fillable = [
-        'lesson_id', 'sentence', 'correctOrder',
+        'lesson_id', 'sentenceNo', 'word', 'correctOrder',
     ];
 
     /**

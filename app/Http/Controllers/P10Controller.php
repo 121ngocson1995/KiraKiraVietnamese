@@ -90,6 +90,7 @@ class P10Controller extends Controller
      */
 	public function edit(Request $request)
 	{
+		// dd($request->all());
 		if ($request->has('update')) {
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
@@ -122,15 +123,13 @@ class P10Controller extends Controller
 					$lastOrder = 0;
 				}
 
-				$p10Element->sentenceNo = $sentenceNo;
-				$p10Element->correctOrder = $lastOrder++;
-				$p10Element->word = $value['word'];
+				// dd($sentenceNo);
 
 				P10SentenceReorder::create([
 					'lesson_id' => $request->lessonId,
 					'sentenceNo' => $sentenceNo,
 					'word' => $value['word'],
-					'correctOrder' => $lastOrder++,
+					'correctOrder' => $lastOrder++
 					]);
 			}
 		}
