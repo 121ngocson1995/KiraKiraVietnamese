@@ -128,7 +128,7 @@ class LessonController extends Controller
 
     	// Load data from Database
         // データベースからデータを出す。
-    	$lessonData = Lesson::where('course_id', '=', $course_id)->get();
+    	$lessonData = Lesson::where('course_id', '=', $course_id)->orderBy('lessonNo')->get();
 
     	return view('listLesson', compact('lessonData'));
     }
