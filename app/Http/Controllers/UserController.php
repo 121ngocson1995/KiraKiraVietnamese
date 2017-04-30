@@ -93,6 +93,7 @@ class UserController extends Controller
 
     			$query = $searchUsername->union($searchFirstname)->union($searchLastname)->union($searchEmail);
 
+
     			$userList = $query->get();
     			$count = $userList->count();
     			$slice = $userList->slice($pagination * ((integer)($request->page) - 1), $pagination);
@@ -114,18 +115,20 @@ class UserController extends Controller
 
     		if (strcmp($request->input('type'), 'pending') == 0 || strcmp($request->input('type'), 'rejected') == 0) {
     			for ($i=0; $i < count($users); $i++) {
-    				$s3 = \Storage::disk('s3-hidden');
-    				$client = $s3->getDriver()->getAdapter()->getClient();
-    				$expiry = "+2 minutes";
+    				if (strcmp($users[$i]->cv, '') != 0) {
+    					$s3 = \Storage::disk('s3-hidden');
+    					$client = $s3->getDriver()->getAdapter()->getClient();
+    					$expiry = "+2 minutes";
 
-    				$command = $client->getCommand('GetObject', [
-    					'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
-    					'Key'    => $users[$i]->cv
-    					]);
+    					$command = $client->getCommand('GetObject', [
+    						'Bucket' => \Config::get('filesystems.disks.s3-hidden.bucket'),
+    						'Key'    => $users[$i]->cv
+    						]);
 
-    				$url = (string) $client->createPresignedRequest($command, $expiry)->getUri();
+    					$url = (string) $client->createPresignedRequest($command, $expiry)->getUri();
 
-    				$users[$i]->cv = $url;
+    					$users[$i]->cv = $url;
+    				}
     			}
 
     			return view('userList.applicants', ['users' => $users])->render();
