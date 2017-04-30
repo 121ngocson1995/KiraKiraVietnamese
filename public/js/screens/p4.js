@@ -259,6 +259,7 @@ function showWords() {
 			});
 
 			playSample(0);
+			startProgressbar();
 		}
 	});
 	tl.staggerFromTo('.wordSpan', 0.5, {opacity:0, scale:0}, {opacity:1, scale:1}, 0.2);
