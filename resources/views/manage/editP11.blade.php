@@ -277,7 +277,7 @@
 
 	 	var closeSpan = document.createElement('span');
 	 	closeSpan.setAttribute('aria-hidden', 'true');
-	 	closeSpan.innerHTML = '×';
+	 	closeSpan.innerHTML = '<i class="fa fa-trash fa-1x"></i>';
 	 	closeBtn.appendChild(closeSpan);
 
 	 	td.appendChild(closeBtn);
@@ -323,27 +323,32 @@
 	 * @return {[type]}
 	 */
 	 function deleteOrder(orderColumn) {
-	 	if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+	 	if ($('tr.sentence').find('.order-holder').eq(0).find('input.order-input').length == 1) {
+	 		alert('Your dialog must have at least 1 order.');
 	 		return;
-	 	}
-	 	
-	 	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+	 	} else {
+		 	if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+		 		return;
+		 	}
+		 	
+		 	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
 
-	 	if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-	 		$(closeHolder.children[orderColumn].nextSibling).remove();
-	 	}
+		 	if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+		 		$(closeHolder.children[orderColumn].nextSibling).remove();
+		 	}
 
-	 	closeHolder.removeChild(closeHolder.children[orderColumn]);
+		 	closeHolder.removeChild(closeHolder.children[orderColumn]);
 
-	 	for (var i = 0; i < $('tr.sentence').length; i++) {
-	 		var tr = $('tr.sentence')[i];
+		 	for (var i = 0; i < $('tr.sentence').length; i++) {
+		 		var tr = $('tr.sentence')[i];
 
-	 		var orderHolder = $(tr).find('.order-holder').get(0);
+		 		var orderHolder = $(tr).find('.order-holder').get(0);
 
-	 		if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-	 			$(orderHolder.children[orderColumn].nextSibling).remove();
-	 		}
-	 		orderHolder.removeChild(orderHolder.children[orderColumn]);
+		 		if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+		 			$(orderHolder.children[orderColumn].nextSibling).remove();
+		 		}
+		 		orderHolder.removeChild(orderHolder.children[orderColumn]);
+		 	}
 	 	}
 	 }
 
@@ -463,6 +468,7 @@
 	 	div.append(span);
 
 	 	$('#error').prepend(div);
+	 	div.scrollIntoView();
 	 }
 
 	/**
