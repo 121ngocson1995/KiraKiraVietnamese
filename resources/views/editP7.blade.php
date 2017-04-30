@@ -281,7 +281,8 @@
 	  	sumLine = $(button).closest('.big').attr('data-sumline');
 
 	  	var node_header_row = document.createElement("div");
-	  	node_header_row.setAttribute('class', "row-"+dialogIndex+"-"+sumLine);
+	  	node_header_row.setAttribute('id', "row-"+dialogIndex+"-"+sumLine);
+	  	node_header_row.setAttribute('class', "row " + "row-"+dialogIndex+"-"+sumLine);
 
 
 	  	var node_header_speaker = document.createElement("div");
