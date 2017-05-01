@@ -223,15 +223,16 @@
 	 }
 
 	 function validate_chgColor() {
-	 	$('.vld-spc').each(function(){
-	 		var text = $(this).val();
-	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-	 		if(text.trim() == "" || pattern.test(text)) {
+	 	var fail = false;
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
 	 			$(this).attr('style', 'border-color: red;');
+	 			fail = true;
 	 		}else{
 	 			$(this).attr('style', 'border-color: #dddddd;');
 	 		}
-	 	})
+	 	}
+	 	return fail;
 	 	
 	 }
 
@@ -268,18 +269,8 @@
 	 }
 
 	 $("#p2Form").submit( function(eventObj) {
-	 	var fail = false;
-	 	validate_chgColor();
-	 	for (var i = 0; i < $('.vld-spc').length; i++) {
-	 		if(!validate_space($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 		if(!validate_spcChar($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 	}
-
-	 	if (fail) {
+	 	$('.alert').remove();
+	 	if (validate_chgColor()) {
 	 		return false;
 	 	}
 	 	var node_delete = document.createElement('input');

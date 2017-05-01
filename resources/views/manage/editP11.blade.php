@@ -214,7 +214,7 @@
 	 			
 	 			var orderInput = document.createElement('input');
 	 			orderInput.setAttribute('type', 'number');
-		 		orderInput.setAttribute('min', '1');
+	 			orderInput.setAttribute('min', '1');
 	 			orderInput.className = 'form-control order-input';
 	 			orderInput.setAttribute('name', 'insert[' + toAdd + '][order][' + i + ']');
 	 			orderInput.setAttribute('required', '');
@@ -328,28 +328,28 @@
 	 		alert('Your dialog must have at least 1 order.');
 	 		return;
 	 	} else {
-		 	if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
-		 		return;
-		 	}
-		 	
-		 	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
+	 		if (!confirm('Are you sure you want to delete this order?\r\nYou can recover the data by refreshing the page.')) {
+	 			return;
+	 		}
 
-		 	if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-		 		$(closeHolder.children[orderColumn].nextSibling).remove();
-		 	}
+	 		var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
 
-		 	closeHolder.removeChild(closeHolder.children[orderColumn]);
+	 		if (closeHolder.children[orderColumn].nextSibling && closeHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+	 			$(closeHolder.children[orderColumn].nextSibling).remove();
+	 		}
 
-		 	for (var i = 0; i < $('tr.sentence').length; i++) {
-		 		var tr = $('tr.sentence')[i];
+	 		closeHolder.removeChild(closeHolder.children[orderColumn]);
 
-		 		var orderHolder = $(tr).find('.order-holder').get(0);
+	 		for (var i = 0; i < $('tr.sentence').length; i++) {
+	 			var tr = $('tr.sentence')[i];
 
-		 		if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
-		 			$(orderHolder.children[orderColumn].nextSibling).remove();
-		 		}
-		 		orderHolder.removeChild(orderHolder.children[orderColumn]);
-		 	}
+	 			var orderHolder = $(tr).find('.order-holder').get(0);
+
+	 			if (orderHolder.children[orderColumn].nextSibling && orderHolder.children[orderColumn].nextSibling.nodeValue == '\xa0') {
+	 				$(orderHolder.children[orderColumn].nextSibling).remove();
+	 			}
+	 			orderHolder.removeChild(orderHolder.children[orderColumn]);
+	 		}
 	 	}
 	 }
 
@@ -409,35 +409,35 @@
 	 function isOrderFormatCorrect() {
 	 	var orderList = new Array;
 	 	if($('.order-holder').length) {
-		 	for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
-				var sentenceOrder = new Array;
-				for (var j = 0; j < $('tr.sentence').length; j++) {
-					var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
-					sentenceOrder.push(parseInt(order));
-				}
+	 		for (var i = 0; i < $('.order-holder')[0].children.length; i++) {
+	 			var sentenceOrder = new Array;
+	 			for (var j = 0; j < $('tr.sentence').length; j++) {
+	 				var order = $('tr.sentence').eq(j).find('td.order-holder').find('input.order-input').get(i).value;
+	 				sentenceOrder.push(parseInt(order));
+	 			}
 
-				orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
-			}
+	 			orderList.push(sentenceOrder.sort(function (a, b) { return a - b; }));
+	 		}
 
-			for (var i = 0; i < orderList.length; i++) {
-				if (orderList[i][0] != 1) {
-					alert('Sentence order must start at 1');
-					markError(i);
-					return false;
-				}
+	 		for (var i = 0; i < orderList.length; i++) {
+	 			if (orderList[i][0] != 1) {
+	 				alert('Sentence order must start at 1');
+	 				markError(i);
+	 				return false;
+	 			}
 
-				for (var j = 1; j < orderList[i].length; j++) {
-					if (orderList[i][j] != orderList[i][j-1] + 1) {
-						alert('Order value is not continuous');
-						markError(i);
-						return false;
-					}
-				}
-			}
+	 			for (var j = 1; j < orderList[i].length; j++) {
+	 				if (orderList[i][j] != orderList[i][j-1] + 1) {
+	 					alert('Order value is not continuous');
+	 					markError(i);
+	 					return false;
+	 				}
+	 			}
+	 		}
 	 	}
 
-		return true;
-	}
+	 	return true;
+	 }
 
 	/**
 	 * Show alert message
@@ -585,16 +585,17 @@
 	 });
 
 	 function validate_chgColor() {
-	 	$('.vld-spc').each(function(){
-	 		var text = $(this).val();
-	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-	 		if(text.trim() == "" || pattern.test(text)) {
+	 	var fail = false;
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
 	 			$(this).attr('style', 'border-color: red;');
+	 			fail = true;
 	 		}else{
 	 			$(this).attr('style', 'border-color: #dddddd;');
 	 		}
-	 	})
-	 	
+	 	}
+	 	return fail;
+
 	 }
 
 	 function showMesg(element, msg) {
@@ -633,20 +634,11 @@
 	 * 提出するフォームを削除するように、様子のイドのリストを追加する。
 	 */
 	 $("#p11Form").submit( function(eventObj) {
-	 	var fail = false;
-	 	validate_chgColor();
-	 	for (var i = 0; i < $('.vld-spc').length; i++) {
-	 		if(!validate_space($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 		if(!validate_spcChar($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 	}
-
-	 	if (fail) {
+	 	$('.alert').remove();
+	 	if (validate_chgColor()) {
 	 		return false;
 	 	}
+	 	
 	 	if(!isOrderFormatCorrect()) {
 	 		return false;
 	 	}

@@ -421,18 +421,19 @@
 	   	}
 	   }
 
-	   function validate_chgColor() {
-	   	$('.vld-spc').each(function(){
-	   		var text = $(this).val();
-	   		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
-	   		if(text.trim() == "" || pattern.test(text)) {
-	   			$(this).attr('style', 'border-color: red;');
-	   		}else{
-	   			$(this).attr('style', 'border-color: #dddddd;');
-	   		}
-	   	})
-
-	   }
+	  function validate_chgColor() {
+	 	var fail = false;
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
+	 			$(this).attr('style', 'border-color: red;');
+	 			fail = true;
+	 		}else{
+	 			$(this).attr('style', 'border-color: #dddddd;');
+	 		}
+	 	}
+	 	return fail;
+	 	
+	 }
 
 	   function showMesg(element, msg) {
 	   	if ($(element).parent().find('.alert alert-danger').length) {
@@ -468,15 +469,6 @@
 
 	   $("#p7Form").submit( function(eventObj) {
 	   	var fail = false;
-	   	validate_chgColor();
-	   	for (var i = 0; i < $('.vld-spc').length; i++) {
-	   		if(!validate_space($('.vld-spc')[i])){
-	   			fail =true;
-	   		}
-	   		if(!validate_spcChar($('.vld-spc')[i])){
-	   			fail =true;
-	   		}
-	   	}
 
 	   	for (var i = 0; i < $('.vld-null').length; i++) {
 	   		if(!validate_spcChar($('.vld-null')[i])){
