@@ -253,9 +253,7 @@
 	 function validate_chgColor() {
 	 	var fail = false;
 	 	for (var i = 0; i < $('.vld-spc').length; i++) {
-	 		var text = $('.vld-spc')[i].value;
 	 		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) || !validate_checkLine($('.vld-spc')[i])) {
-	 			console.log('chg');
 	 			$(this).attr('style', 'border-color: red;');
 	 			fail = true;
 	 		}else{
@@ -266,7 +264,6 @@
 	 }
 
 	 function showMesg(element, msg) {
-	 	console.log('c');
 	 	if ($(element).parent().find('.alert alert-danger').length) {
 	 		$(element).parent().find('span.help').html(msg);
 	 	} else {
@@ -278,11 +275,9 @@
 	 }
 
 	 function validate_checkLine(textElement) {
-	 	console.log('checkLine');
 	 	var text = textElement.value;
 	 	var text_count = text.split("\n").length;
 	 	if (text_count != 2 ) {
-	 		console.log('checkLine');
 	 		showMesg(textElement, "The number of sentence in a dialog must be 2 !");
 	 		return false;
 	 	}else{
@@ -291,7 +286,6 @@
 	 }
 
 	 function validate_space(textElement) {
-	 	console.log('SPACE');
 	 	var text = textElement.value;
 	 	var text_parts = text.split("\n");
 	 	for (var i = 0; i < text_parts.length; i++) {
@@ -311,9 +305,7 @@
 
 	 	var text = textElement.value;
 	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-	 	console.log(textElement);
 	 	if (pattern.test(text)) {
-	 		console.log('bug');
 	 		showMesg(textElement, 'Special character is invalid');
 	 		return false;
 	 	}else{
@@ -322,6 +314,7 @@
 	 }
 
 	 $("#p5Form").submit( function(eventObj) {
+	 	$('.alert').remove();
 	 	if (validate_chgColor()) {
 	 		return false;
 	 	}
