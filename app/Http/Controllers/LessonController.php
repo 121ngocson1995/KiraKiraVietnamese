@@ -50,7 +50,7 @@ class LessonController extends Controller
      */ 
     public static function getLesson($lessonNo, $course_id = 1)
     {
-    	$lesson = Lesson::where('lessonNo', '=', $lessonNo)->first();
+    	$lesson = Lesson::where('course_id', '=', $course_id)->where('lessonNo', '=', $lessonNo)->first();
     	return $lesson;
     }
 

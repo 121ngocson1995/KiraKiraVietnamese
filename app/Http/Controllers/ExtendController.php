@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use Illuminate\Http\Request;
 use App\LanguageCulture;
 use Illuminate\Support\Facades\Input;
@@ -30,14 +31,13 @@ class ExtendController extends Controller
      */
     public function load(Request $request, $lessonNo)
     {
-    	
     	$lesson = LessonController::getLesson($lessonNo);
         if (count($lesson) == 0) {
             $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
             return back();
         }
     	$lesson_id = $lesson->id;
-        
+
     	$elementData = LanguageCulture::where('lesson_id', '=', $lesson_id)->get();
         if (count($elementData) == 0) {
             $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
@@ -74,7 +74,7 @@ class ExtendController extends Controller
 
     public function edit(Request $request)
     {
-    	// dd($request->all());
+        $lesson = Lesson::find($request->lessonId);
     	if ($request->has('update')) {
     		foreach ($request->update as $id => $value) {
     			$extElement = LanguageCulture::where('id', '=', $id)->first();
@@ -320,6 +320,10 @@ class ExtendController extends Controller
                 LanguageCulture::where('id', '=', $id)->delete();
             }
         }
+
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
 
     	return Redirect("/listAct".$request->all()['lessonId']);
     }

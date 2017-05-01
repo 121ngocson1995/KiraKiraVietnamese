@@ -84,7 +84,7 @@ public function load(Request $request, $lessonNo){
 */
 public function edit(Request $request) {
 // dd($request->all());
-        $lesson = Lesson::find($request->all()['lessonID']);
+    $lesson = Lesson::find($request->lessonID);
     $totalNew = $request->sumOrigin;
     // dd($request->all());
 
@@ -256,6 +256,10 @@ public function edit(Request $request) {
             $lessonDelete = LessonNote::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["deleteNote".$i])->delete();
         }
     }
+
+    $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+    $course->last_updated_by = \Auth::user()->id;
+    $course->save();
 
     return Redirect("/listAct".$request->all()['lessonID']);
 }

@@ -167,6 +167,11 @@ class P3Controller extends Controller
     			$p3Edit = P3SentenceMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
     		}
     	}
+
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
+    
     	return Redirect("/listAct".$request->all()['lessonID']);
     }
 }

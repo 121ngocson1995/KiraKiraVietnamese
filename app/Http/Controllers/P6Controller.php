@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use Illuminate\Http\Request;
 use App\P6DialogueMultipleChoice;
 
@@ -62,7 +63,7 @@ class P6Controller extends Controller
      */
 	public function edit(Request $request)
 	{
-
+		$lesson = Lesson::find($request->all()['lessonId']);
 		if ($request->has('update')) {
 			foreach ($request->update as $id => $value) {
 				$p6Element = P6DialogueMultipleChoice::where('id', '=', $id)->first();
@@ -73,7 +74,7 @@ class P6Controller extends Controller
 					if ($i != 0) {
 						$dialog .= '|';
 					}
-					$dialog .= '- ' . trim(preg_replace('/\s\s+|^-/u', ' ', $sentences[$i]));
+					$dialog = trim(preg_replace('/\s\s+|^-/u', ' ', $sentences[$i]));
 				}
 
 				$p6Element->dialogNo = $value['dialogNo'];
@@ -112,6 +113,10 @@ class P6Controller extends Controller
 				P6DialogueMultipleChoice::where('id', '=', $id)->delete();
 			}
 		}
+
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
 
 		return Redirect("/listAct".$request->all()['lessonId']);
 	}

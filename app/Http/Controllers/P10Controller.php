@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use Illuminate\Http\Request;
 use App\P10SentenceReorder;
 
@@ -98,7 +99,7 @@ class P10Controller extends Controller
      */
 	public function edit(Request $request)
 	{
-		// dd($request->all());
+    	$lesson = Lesson::find($request->lessonId);
 		if ($request->has('update')) {
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
@@ -131,8 +132,6 @@ class P10Controller extends Controller
 					$lastOrder = 0;
 				}
 
-				// dd($sentenceNo);
-
 				P10SentenceReorder::create([
 					'lesson_id' => $request->lessonId,
 					'sentenceNo' => $sentenceNo,
@@ -147,6 +146,10 @@ class P10Controller extends Controller
 				P10SentenceReorder::where('id', '=', $id)->delete();
 			}
 		}
+
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
 
 		return redirect("/listAct".$request->all()['lessonId']);
 	}

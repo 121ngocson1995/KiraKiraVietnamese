@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use Illuminate\Http\Request;
 use App\P13Text;
 use Illuminate\Support\Facades\Validator;
@@ -66,6 +67,7 @@ class P13Controller extends Controller
      */
     public function edit(Request $request)
     {
+        $lesson = Lesson::find($request->lessonId);
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 Validator::make($value, [
@@ -105,6 +107,10 @@ class P13Controller extends Controller
                 P13Text::where('id', '=', $id)->delete();
             }
         }
+
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
 
         return Redirect("/listAct".$request->all()['lessonId']);
     }

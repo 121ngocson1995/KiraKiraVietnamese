@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td class="active">Last Update</td>
-                                    <td class="info"> {{ $value->updated_at }} </td>
+                                    <td class="info"> {{ isset($value->updated_at) ? date_format($value->updated_at, 'D, d M Y') : date_format($value->created_at, 'D, d M Y') }} </td>
                                 </tr>
                             </tbody>
                             @endforeach
@@ -63,12 +63,12 @@
 
     <div class="green-section">
         <div class="container">
-            <div class="panel-group" role="tablist" aria-multiselectable="true" id="accordion-1">
+            <div class="panel-group accordion" role="tablist" aria-multiselectable="true" id="accordion-1">
 
                 @foreach (\Request::get('lessons') as $lesson)
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
-                        <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" href="#accordion-1 .item-{{ $lesson->lessonNo }}">Lesson {{ $lesson->lessonNo }}</a></h4>
+                        <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" data-target="#accordion-1 .item-{{ $lesson->lessonNo }}">Lesson {{ $lesson->lessonNo }}</a></h4>
                     </div>
                     <div class="panel-collapse collapse item-{{ $lesson->lessonNo }}" role="tabpanel">
                         <div class="panel-body">

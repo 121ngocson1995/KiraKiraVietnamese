@@ -206,7 +206,9 @@ class P7Controller extends Controller
     		}
     	}
 
-
+        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
+        $course->last_updated_by = \Auth::user()->id;
+        $course->save();
 
     	return redirect("/listAct".$request->all()['lessonID']);
 
