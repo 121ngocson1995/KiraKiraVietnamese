@@ -15,7 +15,7 @@ class P11Controller extends Controller
     */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'load']);
+        // $this->middleware('auth', ['except' => 'load']);
     }
 
     /**
@@ -34,26 +34,28 @@ class P11Controller extends Controller
         $lesson = LessonController::getLesson($lessonNo);
         $lesson_id = $lesson->id;
 
-		// Load data from Database
+        // Load data from Database
         // データベースからデータを出す。
-		$elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
-    	$initOrder = [];
-    	$correctAnswer = [];
+        $elementData = P11ConversationReorder::where('lesson_id', '=', $lesson_id)->orderBy('correctOrder', 'asc')->get();
+        $initOrder = [];
+        $correctAnswer = [];
 
         $correctAnswerList = $this->makeAnswerListWithSentence($elementData);
 
-        foreach ($elementData as $key) {
-            $initOrder[] = $key->correctOrder;
-        }
+        if ( count($elementData) > 1 ) {
+            foreach ($elementData as $key) {
+                $initOrder[] = $key->correctOrder;
+            }
 
-        $currentOrder;
-        do {
-            $elementData = $elementData->shuffle();
-    		$currentOrder = array();
-    		foreach ($elementData as $key) {
-    			$currentOrder[] = $key->correctOrder;
-    		}
-    	} while ( $currentOrder === $initOrder );
+            $currentOrder;
+            do {
+                $elementData = $elementData->shuffle();
+                $currentOrder = array();
+                foreach ($elementData as $key) {
+                    $currentOrder[] = $key->correctOrder;
+                }
+            } while ( $currentOrder === $initOrder );
+        };
 
     	return view("activities.P11v2", compact(['elementData', 'correctAnswerList']));
     }
@@ -177,11 +179,11 @@ class P11Controller extends Controller
                 $newSentence = $value['sentence'];
 
                 while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
-                    $newSentence = trim($newSentence, '-');
+                    // $newSentence = trim($newSentence, '-');
                     $newSentence = trim($newSentence, ' ');
                 }
 
-                $newSentence = '- ' . $newSentence;
+                // $newSentence = '- ' . $newSentence;
 
                 $correctOrder = '';
                 $start = true;
