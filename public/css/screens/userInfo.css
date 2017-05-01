@@ -1,0 +1,126 @@
+div.teacher_img {
+	margin-bottom: 1em;
+}
+.teacher_img .img_container {
+	width: 250px;
+	height: 250px;
+	overflow: hidden;
+}
+.teacher_img img {
+	width: 600px;
+	max-width: 100%;
+	text-align: center;
+}
+div.container-fluid.author {
+	background-color: initial;
+	text-align: center;
+	/*padding: 0 100px 50px 100px;*/
+}
+div.label-wrapper {
+	margin-bottom: 8px;
+}
+i.fa ~ label {
+	margin-left: 0.5em;
+	margin-bottom: 0;
+}
+.textbox {
+	height: auto;
+	background: rgba(255,255,255,0);
+	color: #333;
+	padding: 0 1.5em;
+	border: none;
+	border-bottom: 2px solid rgba(0, 153, 255, 0);
+	border-radius: 1px;
+	font-size: 1.4em;
+	font-family: 'josefin_sansregular', sans-serif;
+	outline: none;
+	-webkit-transition: all 250ms ease-in;
+	-moz-transition: all 250ms ease-in;
+	-ms-transition: all 250ms ease-in;
+	-o-transition: all 250ms ease-in;
+	transition: all 250ms ease-in;
+}
+.textbox.username {
+	font-size: 3em;
+	padding: 0;
+}
+.textbox:focus {
+	background: white;
+	border-bottom: 2px solid rgba(0, 153, 255, 1);
+}
+input.textbox.username {
+	text-align: center;
+}
+.col-sm-4.form-group {
+	padding-left:3em;
+}
+div.row.info {
+	margin-bottom: 2em;
+}
+div.row.save {
+	padding-bottom: 2em;
+	text-align: center;
+}
+button#save {
+	font-size: 1.3em;
+}
+span.role {
+	font-size: 1.5em;
+	font-style: italic;
+}
+input::placeholder {
+	font-size: 0.7em;
+	color: #bfbfbf;
+	transition: all 250ms
+}
+input:focus::placeholder {
+	font-size: 0.7em;
+	color: #8c8c8c;
+}
+.img_container {
+	cursor: pointer;
+}
+.img_container .img-box {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 7px solid transparent;
+	overflow: hidden;
+}
+.img_container .img-box:after {
+	content: "";
+	position: absolute;
+	transform: translate(90px, -160px);
+	font-family: "Glyphicons Halflings";
+	font-size: 3.33333em;
+	color: #fff;
+	text-shadow: 0px 0px 10px #000;
+	opacity: 0;
+	display: none;
+}
+.img_container:hover .img-box:after {
+	opacity: 1;
+	display: block;
+}
+.img_container:hover .avatar_img {
+	opacity: 0.6;
+}
+.img_container:hover .image-avatar {
+	/*opacity: 0.8;*/
+}
+.help-block {
+	font-weight: 600;
+	font-style: italic;
+	color: red;
+	margin-top: 15px;
+}
+.modal-dialog {
+	height: 100%;
+	width: 400px;
+	margin: 0 auto !important;
+}
+.modal-content {
+	vertical-align: middle;
+	top: 60%;
+	transform: translateY(-70%);
+}

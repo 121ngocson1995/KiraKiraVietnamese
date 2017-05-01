@@ -32,8 +32,17 @@ class ExtendController extends Controller
     {
     	
     	$lesson = LessonController::getLesson($lessonNo);
+        if (count($lesson) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
+            return back();
+        }
     	$lesson_id = $lesson->id;
+        
     	$elementData = LanguageCulture::where('lesson_id', '=', $lesson_id)->get();
+        if (count($elementData) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
+            return back();
+        }
     	$cnt = count($elementData);
 
     	$slide_imgArr = array();

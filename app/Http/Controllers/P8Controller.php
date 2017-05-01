@@ -35,11 +35,19 @@ class P8Controller extends Controller
 		// get lesson
         //　レッスンを取る。
         $lesson = LessonController::getLesson($lessonNo);
+        if (count($lesson) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
+            return back();
+        }
         $lesson_id = $lesson->id;
 
 		// Load data from Database
         // データベースからデータを出す。
         $elementData = P8ConversationFillWord::where('lesson_id', '=', $lesson_id)->get();
+        if (count($elementData) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
+            return back();
+        }
         $cnt = count($elementData);
 
         $dialogCnt = array();

@@ -12,140 +12,14 @@ $user = \Auth::user();
 </script>
 {{-- <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script> --}}
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/screens/userInfo.css') }}">
 <link href="http://bootstrap-live-customizer.com/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot">
 <style>
-
-	div.teacher_img {
-		margin-bottom: 1em;
-	}
-	.teacher_img .img_container {
-		width: 250px;
-		height: 250px;
-		overflow: hidden;
-	}
-	.teacher_img img {
-		width: 600px;
-		max-width: 100%;
-		text-align: center;
-	}
-	div.container-fluid.author {
-		background-color: initial;
-		text-align: center;
-		/*padding: 0 100px 50px 100px;*/
-	}
-	div.label-wrapper {
-		margin-bottom: 8px;
-	}
-	i.fa ~ label {
-		margin-left: 0.5em;
-		margin-bottom: 0;
-	}
-	.textbox {
-		height: auto;
-		background: rgba(255,255,255,0);
-		color: #333;
-		padding: 0 1.5em;
-		border: none;
-		border-bottom: 2px solid rgba(0, 153, 255, 0);
-		border-radius: 1px;
-		font-size: 1.4em;
-		font-family: 'josefin_sansregular', sans-serif;
-		outline: none;
-		-webkit-transition: all 250ms ease-in;
-		-moz-transition: all 250ms ease-in;
-		-ms-transition: all 250ms ease-in;
-		-o-transition: all 250ms ease-in;
-		transition: all 250ms ease-in;
-	}
-	.textbox.username {
-		font-size: 3em;
-		padding: 0;
-	}
-	.textbox:focus {
-		background: white;
-		border-bottom: 2px solid rgba(0, 153, 255, 1);
-	}
-	input.textbox.username {
-		text-align: center;
-	}
-	.col-sm-4.form-group {
-		padding-left:3em;
-	}
-	div.row.info {
-		margin-bottom: 2em;
-	}
-	div.row.save {
-		padding-bottom: 2em;
-		text-align: center;
-	}
-	button#save {
-		font-size: 1.3em;
-	}
-	span.role {
-		font-size: 1.5em;
-		font-style: italic;
-	}
-	input::placeholder {
-		font-size: 0.7em;
-		color: #bfbfbf;
-		transition: all 250ms
-	}
-	input:focus::placeholder {
-		font-size: 0.7em;
-		color: #8c8c8c;
-	}
-	.img_container {
-		cursor: pointer;
-	}
 	.avatar_img {
 		background: url("{{ \Storage::url($user->avatar) }}") no-repeat center;
 		background-size: cover;
 		width: 100%;
 		height: 100%;
-	}
-	.img_container .img-box {
-		width: 100%;
-		height: 100%;
-		border-radius: 50%;
-		border: 7px solid transparent;
-		overflow: hidden;
-	}
-	.img_container .img-box:after {
-		content: "";
-		position: absolute;
-		transform: translate(90px, -160px);
-		font-family: "Glyphicons Halflings";
-		font-size: 3.33333em;
-		color: #fff;
-		text-shadow: 0px 0px 10px #000;
-		opacity: 0;
-		display: none;
-	}
-	.img_container:hover .img-box:after {
-		opacity: 1;
-		display: block;
-	}
-	.img_container:hover .avatar_img {
-		opacity: 0.6;
-	}
-	.img_container:hover .image-avatar {
-		/*opacity: 0.8;*/
-	}
-	.help-block {
-		font-weight: 600;
-		font-style: italic;
-		color: red;
-		margin-top: 15px;
-	}
-	.modal-dialog {
-		height: 100%;
-		width: 400px;
-		margin: 0 auto !important;
-	}
-	.modal-content {
-		vertical-align: middle;
-		top: 60%;
-		transform: translateY(-70%);
 	}
 </style>
 
@@ -371,44 +245,10 @@ $user = \Auth::user();
 
 			document.getElementsByClassName('date-of-birth-wrapper')[0].appendChild(input);
 		});
-    }
+	}
+</script>
 
-	/**
-	 * change Textbox Width 
-	 * @param  {DOM} input 
-	 * @return {void}     
-	 */
-	 function changeTextboxWidth(input) {
-	 	input.size= parseInt(input.value.length);
-	 }
+<script src="{{ asset('js/screens/userInfo.js') }}"></script>
 
-	 $('.img_container').click(function() {
-	 	$('input.uploadAvatar').click();
-	 });
-
-	 $('input.uploadAvatar').on('change', function() {
-	 	var ext = $('.uploadAvatar').val().split('.').pop().toLowerCase();
-
-	 	if($.inArray(ext, ['png','jpg']) == -1) {
-	 		$('.help-block.ext').show();
-	 		return;
-	 	}
-
-	 	document.getElementById('avatarForm').submit();
-	 });
-
-	 $("#avatarForm").on('submit',(function(e) {
-	 	e.preventDefault();
-	 	$.ajax({
-	 		url: "/editAvatar",
-	 		type: "put",
-	 		data: new FormData(this),
-	 	}).done(function (data) {
-	 		alert('okay');
-	 	}).fail(function () {
-	 		alert('Your request could not be done at the moment');
-	 	});
-	 }));
-	</script>
-	@stop
+@stop
 

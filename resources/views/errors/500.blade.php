@@ -30,7 +30,6 @@
 			text-align:center;
 			display:block;
 			position:relative;
-			letter-spacing: 12px;
 			font-size: 4em;
 			line-height: 80%;
 		}
@@ -237,10 +236,10 @@
 		<div class="cloud x5"></div>
 	</div>
 	<div class='c'>
-		<div class='_404'>404</div>
+		<div class='_404'>500</div>
 		<hr>
-		<div class='_1'>THE PAGE</div>
-		<div class='_2'>WAS NOT FOUND</div>
+		<div class='_1'>THE SERVER</div>
+		<div class='_2'>HAS ENCOUNTERED A PROBLEM</div>
 		<a class='btn' href='/'>BACK TO HOME</a>
 	</div>
 </body>

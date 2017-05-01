@@ -36,10 +36,18 @@ class P2Controller extends Controller
     {
     	 //　レッスンを取る。
     	$lesson = LessonController::getLesson($lessonNo);
+        if (count($lesson) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
+            return back();
+        }
 
 		// get P2
 		// P2を取る。
     	$elementData = P2WordRecognize::where('lesson_id', '=', $lesson->id)->get();
+        if (count($elementData) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
+            return back();
+        }
 
     	$textRender = array();
     	foreach ($elementData as $element) {

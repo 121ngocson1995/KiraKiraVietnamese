@@ -34,10 +34,19 @@ class P1Controller extends Controller
     public function load(Request $request, $lessonNo)
     {
     	$lesson = LessonController::getLesson($lessonNo);
+        if (count($lesson) == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
+            return back();
+        }
+
     	$lesson_id = $lesson->id;
 
     	$elementData = P1WordMemorize::where('lesson_id', '=', $lesson_id)->get();
     	$cnt = count($elementData);
+        if ($cnt == 0) {
+            $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
+            return back();
+        }
 
     	return view("activities.P1v3", compact(['elementData', 'firstLineNumber']));
     }
