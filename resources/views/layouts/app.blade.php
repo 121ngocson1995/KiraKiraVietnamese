@@ -45,6 +45,16 @@
     
 </head>
 <body>
+    <div id="alert-holder">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+            <div class="alert alert-{{ $msg }} alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span>{{ Session::get('alert-' . $msg) }}</span>
+            </div>
+            @endif
+        @endforeach
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
 
@@ -71,8 +81,9 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="caret"></span><img src="{{ \Storage::url(\Auth::user()->avatar) }}" class="dropdown-image"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                <li role="presentation"><a href="/userManage">Manage board</a></li>
-                                {{-- <li role="presentation"><a href="#">Payments</a></li> --}}
+                                @if (in_array(\Auth::user()->role, [3,10,100]))
+                                    <li role="presentation"><a href="/userManage">Manage board</a></li>
+                                @endif
                                 <li role="presentation"><a href="{{ url('/logout') }}" 
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Logout</a></li>

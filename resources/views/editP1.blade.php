@@ -233,11 +233,10 @@
 	 			$(this).attr('style', 'border-color: #dddddd;');
 	 		}
 	 	})
-	 	
 	 }
 
 	 function showMesg(element, msg) {
-	 	if ($(element).parent().find('.alert alert-danger').length) {
+	 	if ($(element).parent().find('.alert.alert-danger').length) {
 	 		$(element).parent().find('span.help').html(msg);
 	 	} else {
 	 		var div_help = document.createElement('div');

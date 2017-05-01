@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
-class AdminAuthenticate
+class ContentCareAuthenticate 
 {
     /**
      * The authentication factory instance.
@@ -53,9 +53,9 @@ class AdminAuthenticate
      */
     protected function authenticate(array $guards)
     {
-        if (!(\Auth::user()->role == 10 || \Auth::user()->role == 100)) {
+        if (!(\Auth::user()->role == 3 ||\Auth::user()->role == 10 || \Auth::user()->role == 100)) {
             \Session::flash('alert-warning', 'You\'re not authorized to vist that page.');
-            throw new AuthenticationException('Admin only.', $guards);
+            throw new AuthenticationException('Unauthenticated.', $guards);
         }
 
         if (empty($guards)) {

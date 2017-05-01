@@ -51,7 +51,7 @@
 			</td>
 			<td>
 				<a href="{{ $user->cv && strcmp($user->cv, '') != 0 ? $user->cv : '#' }}" class="btn btn-warning btn-sm" {{ $user->cv && strcmp($user->cv, '') != 0 ? 'download' : 'disabled' }}><i class="fa fa-download"></i>Download CV</a>
-				<button type="button" class="edit-modal btn btn-primary btn-sm" data-user-id="{{ $user->id }}" data-user-username="{{ $user->username }}"><i class="fa fa-edit"></i>Set role</button>
+				<button type="button" class="edit-modal btn btn-primary btn-sm btn-set-role{{ \Auth::user()->role <= $user->role ? ' no-auth' : '' }}" data-user-id="{{ $user->id }}" data-user-username="{{ $user->username }}" data-user-role="{{ $user->role }}"><i class="fa fa-edit"></i>Set role</button>
 			</td>
 		</tr>
 		@endforeach

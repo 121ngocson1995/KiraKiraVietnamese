@@ -119,7 +119,9 @@
 		cursor: text;
 		font-weight: 600;
 	}
-
+	.alert-dismissable .close, .alert-dismissible .close {
+		right: 0;
+	}
 </style>
 
 @stop
@@ -145,6 +147,7 @@
 			</ul>
 		</li>
 	</ul>
+	<div id="alertDiv"></div>
 	<div class="search-outer">
 		<div class="search">
 			<div class="field">
@@ -171,19 +174,7 @@
 				<div class="modal-body">
 					<label style="font-size: 1.2em;">Choose one from available roles below:</label>
 					<div class="chooseRole">
-						<div class="btn-group btn-group" data-toggle="buttons">
-							<label class="btn radio-role">
-								<input id="radio_sadmin" type="radio" name='role' value="100"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Super admin
-							</label>
-							<label class="btn radio-role">
-								<input id="radio_admin" type="radio" name='role' value="10"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Admin
-							</label>
-							<label class="btn radio-role">
-								<input id="radio_teacher" type="radio" name='role' value="3"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Teacher</span>
-							</label>
-							<label class="btn radio-role">
-								<input id="radio_norole" type="radio" name='role' value="0"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> No role</span>
-							</label>
+						<div class="btn-group btn-group roleToChoose" data-toggle="buttons">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -263,11 +254,54 @@
 			});
 		}
 
-		var userid, oldRole;
+		var userid, oldRole, auth=true;
 
 		$('body').on('click', '.edit-modal', function() {
 			userid = $(this).attr('data-user-id');
 			oldRole = $(this).attr('data-user-role');
+			var userRole = {{ \Auth::user()->role }};
+			var tr =  $(this).closest('tr');
+			$('#setRoleModal').find('.roleToChoose').empty();
+
+			if(userRole <= oldRole) {
+				var msg = 'You do not have enough authority to perform this action.';
+				var div_help = document.createElement('div');
+				div_help.className = 'alert alert-danger alert-dismissable fade in';
+				div_help.innerHTML = '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span class="help">' +  msg +  '</span>';
+				document.getElementById('alert-holder').appendChild(div_help);
+				$('#alert-holder')[0].scrollIntoView();
+
+				return false;
+			}
+			
+			if (userRole == 100) {
+				var label = document.createElement('label');
+				label.className = 'btn radio-role';
+				label.innerHTML = '<input id="radio_admin" type="radio" name="role" value="10"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Admin</span>';
+				$('#setRoleModal').find('.roleToChoose').append(label);
+
+				label = document.createElement('label');
+				label.className = 'btn radio-role';
+				label.innerHTML = '<input id="radio_teacher" type="radio" name="role" value="3"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Teacher</span>';
+				$('#setRoleModal').find('.roleToChoose').append(label);
+
+				label = document.createElement('label');
+				label.className = 'btn radio-role';
+				label.innerHTML = '<input id="radio_norole" type="radio" name="role" value="0"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> No role</span>';
+				$('#setRoleModal').find('.roleToChoose').append(label);
+			}
+			if (userRole == 10 && oldRole < 10) {
+				var label = document.createElement('label');
+				label.className = 'btn radio-role';
+				label.innerHTML = '<input id="radio_teacher" type="radio" name="role" value="3"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> Teacher</span>';
+				$('#setRoleModal').find('.roleToChoose').append(label);
+
+				label = document.createElement('label');
+				label.className = 'btn radio-role';
+				label.innerHTML = '<input id="radio_norole" type="radio" name="role" value="0"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i><span> No role</span>';
+				$('#setRoleModal').find('.roleToChoose').append(label);
+			}
+
 			$('.modal-title').text('Set role for ' + $(this).attr('data-user-username'));
 			$('.chooseRole input[type="radio"]').prop('checkd', false);
 			if ($(this).attr('data-user-role') == '0') {
@@ -316,53 +350,53 @@
 		});
 	});
 
-	$('.all_toggle').click(function() {
-		toggle_all();
-	})
+$('.all_toggle').click(function() {
+	toggle_all();
+})
 
-	$('.admins_toggle').click(function() {
-		toggle_admins();
-	})
+$('.admins_toggle').click(function() {
+	toggle_admins();
+})
 
-	$('.teachers_toggle').click(function() {
-		toggle_teachers();
-	})
+$('.teachers_toggle').click(function() {
+	toggle_teachers();
+})
 
-	$('.pending_toggle').click(function() {
-		toggle_pending();
-	})
+$('.pending_toggle').click(function() {
+	toggle_pending();
+})
 
-	$('.rejected_toggle').click(function() {
-		toggle_rejected();
-	})
+$('.rejected_toggle').click(function() {
+	toggle_rejected();
+})
 
-	function toggle_all() {
-		role = 'all';
-	}
+function toggle_all() {
+	role = 'all';
+}
 
-	function toggle_admins() {
-		role = 'admins';
-	}
+function toggle_admins() {
+	role = 'admins';
+}
 
-	function toggle_teachers() {
-		role = 'teachers';
-	}
+function toggle_teachers() {
+	role = 'teachers';
+}
 
-	function toggle_pending() {
-		role = 'pending';
-	}
+function toggle_pending() {
+	role = 'pending';
+}
 
-	function toggle_rejected() {
-		role = 'rejected';
-	}
+function toggle_rejected() {
+	role = 'rejected';
+}
 
-	var loading;
-	$(document).ready(function(){
-		loading = new Image();
-		loading.id = 'loadImg';
-		loading.style = 'position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;';
-		loading.src = '{{ asset('img/loading-ajax.gif') }}';
-	});
+var loading;
+$(document).ready(function(){
+	loading = new Image();
+	loading.id = 'loadImg';
+	loading.style = 'position: absolute; left: 50%; top: 50%; transform: translate(-60%, -60%) scale(0.5, 0.5); z-index: 100000;';
+	loading.src = '{{ asset('img/loading-ajax.gif') }}';
+});
 </script>
 @stop
 

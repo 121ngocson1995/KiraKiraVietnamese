@@ -150,19 +150,6 @@ $user = \Auth::user();
 </style>
 
 <div class="container">
-	@if (session('msg'))
-	<div class="alert alert-success">
-		{{ session('msg') }}
-	</div>
-	@endif
-	@foreach (['danger', 'warning', 'success', 'info'] as $msg)
-	@if(Session::has('alert-' . $msg))
-	<div class="alert alert-success alert-dismissable">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<strong>{{ Session::get('alert-' . $msg) }}</strong>
-	</div>
-	@endif
-	@endforeach
 	@if ($errors->has('pass'))
 	<div class="alert alert-danger alert-dismissable">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -203,10 +190,14 @@ $user = \Auth::user();
 			<div>
 				<span class="role">
 					@if ( $user->role == 0 )
-					Learner
+					No role
 					@elseif ($user->role == 1)
-					Teacher
+					Applicant
 					@elseif ($user->role == 2)
+					Leaner
+					@elseif ($user->role == 3)
+					Teacher
+					@elseif ($user->role == 10)
 					Admin
 					@elseif ($user->role == 100)
 					Super Admin

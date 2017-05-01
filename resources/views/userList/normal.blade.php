@@ -12,6 +12,7 @@
 
 		@foreach ($users as $user)
 		<tr>
+			<input type="hidden" class="current-role" value="{{ $user->role }}">
 			<td>
 				@if (($user->first_name || $user->last_name) && (strcmp($user->first_name, '') != 0 || strcmp($user->last_name, '') != 0))
 				{{ $user->first_name . ' ' . $user->last_name }}
@@ -50,7 +51,7 @@
 				@endif
 			</td>
 			<td>
-				<button type="button" class="edit-modal btn btn-primary btn-sm" data-user-id="{{ $user->id }}" data-user-username="{{ $user->username }}" data-user-role="{{ $user->role }}"><i class="fa fa-edit"></i>Set role</button>
+				<button type="button" class="edit-modal btn btn-primary btn-sm btn-set-role{{ \Auth::user()->role <= $user->role ? ' no-auth' : '' }}" data-user-id="{{ $user->id }}" data-user-username="{{ $user->username }}" data-user-role="{{ $user->role }}"><i class="fa fa-edit"></i>Set role</button>
 			</td>
 		</tr>
 		@endforeach

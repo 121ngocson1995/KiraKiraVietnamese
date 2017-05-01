@@ -21,7 +21,8 @@ class UserController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
-		$this->middleware('contentcare', ['only' => 'load']);
+		$this->middleware('contentcare');
+		$this->middleware('admin', ['only' => ['index', 'setRole']]);
 	}
 
     /**
@@ -62,7 +63,7 @@ class UserController extends Controller
      * @param  string 		$pagination
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function index(Request $request, $type='%', $keyword='%', $pagination=5)
+    public function index(Request $request, $type='%', $keyword='%', $pagination=10)
     {
     	$users = User::latest('created_at')->paginate($pagination);
 
@@ -222,6 +223,8 @@ class UserController extends Controller
 		$userData->language = $request->input('country');
 		$userData->save();
 
+		$request->session()->flash('alert-success', 'Your account information has been successfully changed.');
+
 		return redirect("/userManage");
 	}
 
@@ -251,6 +254,8 @@ class UserController extends Controller
 		
 		$user->avatar = $path;
 		$user->save();
+
+		$request->session()->flash('alert-success', 'Your avatar has been successfully changed.');
 
 		return back();
 	}
@@ -293,7 +298,7 @@ class UserController extends Controller
 		$user->password = \Hash::make($request->pass['newPassword']);
 		$user->save();
 
-		$request->session()->flash('alert-success', 'Your password has been successfully changed');
+		$request->session()->flash('alert-success', 'Your password has been successfully changed.');
 		return back();
 	}
 
