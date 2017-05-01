@@ -183,7 +183,7 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updateimages{{ $element->id }}-title">Title:</label>
-						<input id="updateimages{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control" placeholder="Enter title for this colection of images" value="{{ $element->title }}" required="">
+						<input id="updateimages{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter title for this colection of images" value="{{ $element->title }}" required="">
 					</div>
 				</div>
 				<hr class="images">
@@ -200,7 +200,7 @@
 						</div>
 						<div class="col-sm-5 form-group">
 							<label for="update-image-{{ $element->id }}-{{ $j }}-caption">Image caption:</label>
-							<input id="update-image-{{ $element->id }}-{{ $j }}-caption" name="update[{{ $element->id }}][caption][]" type="text" class="form-control" placeholder="Enter caption" value="{{ $captions[$j] }}" required>
+							<input id="update-image-{{ $element->id }}-{{ $j }}-caption" name="update[{{ $element->id }}][caption][]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter caption" value="{{ $captions[$j] }}" required>
 						</div>
 						<div class="col-sm-5 form-group">
 							<label for="update-image-{{ $element->id }}-{{ $j }}-image">Upload image:</label>
@@ -231,7 +231,7 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updatesong{{ $element->id }}-title">Title:</label>
-						<input id="updatesong{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control" placeholder="Enter title for this song" value="{{ $element->title }}" required="">
+						<input id="updatesong{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control vld-spc title" maxlength="200" placeholder="Enter title for this song" value="{{ $element->title }}" required="">
 					</div>
 				</div>
 				<hr class="images">
@@ -239,11 +239,11 @@
 					<div class="row">
 						<div class="col-sm-6 form-group">
 							<label for="update-song-{{ $element->id }}-composer">Composer:</label>
-							<input id="update-song-{{ $element->id }}-composer" name="update[{{ $element->id }}][composer]" type="text" class="form-control" placeholder="Enter the name of the composer" value="{{ $element->song_composer }}" required="">
+							<input id="update-song-{{ $element->id }}-composer" name="update[{{ $element->id }}][composer]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter the name of the composer" value="{{ $element->song_composer }}" required="">
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="update-song-{{ $element->id }}-performer">Performer:</label>
-							<input id="update-song-{{ $element->id }}-performer" name="update[{{ $element->id }}][performer]" type="text" class="form-control" placeholder="Enter the namne of the performer" value="{{ $element->song_performer }}" required="">
+							<input id="update-song-{{ $element->id }}-performer" name="update[{{ $element->id }}][performer]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter the namne of the performer" value="{{ $element->song_performer }}" required="">
 						</div>
 					</div>
 					<div class="row">
@@ -259,7 +259,7 @@
 					<div class="row">
 						<div class="col-sm-12 form-group">
 							<label for="update-song-{{ $element->id }}-content">Lyrics:</label>
-							<textarea id="update-song-{{ $element->id }}-content" name="update[{{ $element->id }}][content]" rows="10" class="form-control song-lyrics" placeholder="Enter lyrics of the song" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
+							<textarea id="update-song-{{ $element->id }}-content" name="update[{{ $element->id }}][content]" rows="10" class="form-control song-lyrics vld-spc" maxlength="2000" placeholder="Enter lyrics of the song" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -275,14 +275,14 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updatepoem{{ $element->id }}-title">Title:</label>
-						<input id="updatepoem{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control" placeholder="Enter title for this poem" value="{{ $element->title }}" required="">
+						<input id="updatepoem{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter title for this poem" value="{{ $element->title }}" required="">
 					</div>
 				</div>
 				<hr class="images">
 				<div class="row masterHolder">
 					<div class="col-sm-12 form-group">
 						<label for="updatepoem{{ $element->id }}-content">Content:</label>
-						<textarea id="updatepoem{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" rows="8" class="form-control poem-content" placeholder="Enter content of the poem" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
+						<textarea id="updatepoem{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" rows="8" class="form-control poem-content vld-spc" maxlength="2000" placeholder="Enter content of the poem" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
 					</div>
 				</div>
 			</div>
@@ -297,7 +297,7 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updateidiom{{ $element->id }}-content">Idioms – Proverbs – Folk-song:</label>
-						<textarea id="updateidiom{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control idiom-content" placeholder="Enter an idiom, a proverb or a folk song" required="">{{ $element->content }}</textarea>
+						<textarea id="updateidiom{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control idiom-content vld-spc" maxlength="2000" placeholder="Enter an idiom, a proverb or a folk song" required="">{{ $element->content }}</textarea>
 					</div>
 				</div>
 			</div>
@@ -312,7 +312,7 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updateriddle{{ $element->id }}-title">Title:</label>
-						<input id="updateriddle{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control" placeholder="Enter title for this riddle" value="{{ $element->title }}" required="">
+						<input id="updateriddle{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control vld-spc" maxlength="200" placeholder="Enter title for this riddle" value="{{ $element->title }}" required="">
 					</div>
 				</div>
 				<hr class="images">
@@ -320,7 +320,7 @@
 					<div class="row">
 						<div class="col-sm-6 form-group">
 							<label for="update-riddle-{{ $element->id }}-answer">Answer:</label>
-							<input id="update-riddle-{{ $element->id }}-answer" name="update[{{ $element->id }}][answer]" type="text" class="form-control">
+							<input id="update-riddle-{{ $element->id }}-answer" name="update[{{ $element->id }}][answer]" type="text" maxlength="200" class="form-control vld-spc">
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="update-riddle-{{ $element->id }}-thumbnail">Upload illustration:</label>
@@ -330,7 +330,7 @@
 					<div class="row">
 						<div class="col-sm-12 form-group">
 							<label for="updateriddle{{ $element->id }}-content">Riddle:</label>
-							<textarea id="updateriddle{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control riddle-content" rows="8" placeholder="Enter content of the riddle" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
+							<textarea id="updateriddle{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control riddle-content" maxlength="2000" rows="8" placeholder="Enter content of the riddle" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -346,7 +346,7 @@
 				<div class="row">
 					<div class="col-sm-12 form-group">
 						<label for="updateplay{{ $element->id }}-title">Title:</label>
-						<input id="updateplay{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" class="form-control" placeholder="Enter title for this game" value="{{ $element->title }}" required="">
+						<input id="updateplay{{ $element->id }}-title" name="update[{{ $element->id }}][title]" type="text" maxlength="200" class="form-control vld-spc" placeholder="Enter title for this game" value="{{ $element->title }}" required="">
 					</div>
 				</div>
 				<hr class="images">
@@ -360,7 +360,7 @@
 					<div class="row">
 						<div class="col-sm-12 form-group">
 							<label for="updateplay{{ $element->id }}-content">Content:</label>
-							<textarea id="updateplay{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control play-content" rows="8" placeholder="Enter content of the game" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
+							<textarea id="updateplay{{ $element->id }}-content" name="update[{{ $element->id }}][content]" type="text" class="form-control play-content" maxlength="2000" rows="8" placeholder="Enter content of the game" required="">{{ str_replace('|', '&#013;&#010;', $element->content) }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -423,9 +423,10 @@
 	 	var input = document.createElement('input');
 	 	input.id = 'insert-image-' + insertId + '-caption';
 	 	input.type = 'text';
-	 	input.className = 'form-control';
+	 	input.className = 'form-control vld-spc';
 	 	input.name = tabContent.find('input[name="prefix"]')[0].value + '[caption][]';
 	 	input.setAttribute('required', '');
+	 	input.setAttribute('maxlength', '200');
 	 	col5.appendChild(input);
 	 	imageHolder.appendChild(col5);
 
@@ -539,9 +540,10 @@
 	  	var input = document.createElement('input');
 	  	input.id = 'insert-images-' + insertId + '-title';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
 	  	input.name = 'insert[' + insertId + '][title]';
 	  	input.setAttribute('required', '');
+	  	input.setAttribute('maxlength', '200');
 	  	input.setAttribute('placeholder', 'Enter title for this colection of images');
 	  	col12.appendChild(input);
 	  	rowBig.appendChild(col12);
@@ -574,7 +576,8 @@
 	  	input = document.createElement('input');
 	  	input.id = 'insert-images-' + insertId + '-0-caption';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
+	  	input.setAttribute('maxlength', '200');
 	  	input.name = 'insert[' + insertId + '][caption][]';
 	  	col5.appendChild(input);
 	  	imageHolder.appendChild(col5);
@@ -687,9 +690,10 @@
 	  	var input = document.createElement('input');
 	  	input.id = 'insert-song-' + insertId + '-title';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
 	  	input.name = 'insert[' + insertId + '][title]';
 	  	input.setAttribute('required', '');
+	  	input.setAttribute('maxlength', '200');
 	  	input.setAttribute('placeholder', 'Enter title for this song');
 	  	col12.appendChild(input);
 	  	rowBig.appendChild(col12);
@@ -717,7 +721,8 @@
 	  	input = document.createElement('input');
 	  	input.id = 'insert-song-' + insertId + '-composer';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
+	  	input.setAttribute('maxlength', '200');
 	  	input.name = 'insert[' + insertId + '][composer]';
 	  	col6.appendChild(input);
 	  	row.appendChild(col6);
@@ -733,7 +738,8 @@
 	  	input = document.createElement('input');
 	  	input.id = 'insert-song-' + insertId + '-performer';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
+	  	input.setAttribute('maxlength', '200');
 	  	input.name = 'insert[' + insertId + '][performer]';
 	  	col6.appendChild(input);
 	  	row.appendChild(col6);
@@ -797,10 +803,11 @@
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-song-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control song-lyrics';
+	  	textarea.className = 'form-control song-lyrics vld-spc';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('rows', '10');
 	  	textarea.setAttribute('required', '');
+	  	textarea.setAttribute('maxlength', '2000');
 	  	textarea.setAttribute('placeholder', 'Enter lyrics of the song');
 	  	col12.appendChild(textarea);
 	  	row.appendChild(col12);
@@ -859,9 +866,10 @@
 	  	var input = document.createElement('input');
 	  	input.id = 'insert-poem-' + insertId + '-title';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
 	  	input.name = 'insert[' + insertId + '][title]';
 	  	input.setAttribute('required', '');
+	  	input.setAttribute('maxlength', '200');
 	  	input.setAttribute('placeholder', 'Enter title for this poem');
 	  	col12.appendChild(input);
 	  	rowBig.appendChild(col12);
@@ -886,9 +894,10 @@
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-poem-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control poem-content';
+	  	textarea.className = 'form-control poem-content vld-spc';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('required', '');
+	  	textarea.setAttribute('maxlength', '2000');
 	  	textarea.setAttribute('rows', '8');
 	  	textarea.setAttribute('placeholder', 'Enter content of the poem');
 	  	col12.appendChild(textarea);
@@ -942,9 +951,10 @@
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-idiom-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control idiom-content';
+	  	textarea.className = 'form-control idiom-content vld-spc';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('required', '');
+	  	textarea.setAttribute('maxlength', '2000');
 	  	textarea.setAttribute('placeholder', 'Enter an idiom, a proverb or a folk song');
 	  	col12.appendChild(textarea);
 	  	rowBig.appendChild(col12);
@@ -996,9 +1006,10 @@
 	  	var input = document.createElement('input');
 	  	input.id = 'insert-riddle-' + insertId + '-title';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
 	  	input.name = 'insert[' + insertId + '][title]';
 	  	input.setAttribute('required', '');
+	  	input.setAttribute('maxlength', '200');
 	  	input.setAttribute('placeholder', 'Enter title for this riddle');
 	  	col12.appendChild(input);
 	  	rowBig.appendChild(col12);
@@ -1026,7 +1037,8 @@
 	  	input = document.createElement('input');
 	  	input.id = 'insert-riddle-' + insertId + '-answer';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
+	  	input.setAttribute('maxlength', '200');
 	  	input.name = 'insert[' + insertId + '][answer]';
 	  	col6.appendChild(input);
 	  	row.appendChild(col6);
@@ -1066,9 +1078,10 @@
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-riddle-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control riddle-content';
+	  	textarea.className = 'form-control riddle-content vld-spc';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('rows', '8');
+	  	textarea.setAttribute('maxlength', '2000');
 	  	textarea.setAttribute('required', '');
 	  	textarea.setAttribute('placeholder', 'Enter content of the riddle');
 	  	col12.appendChild(textarea);
@@ -1128,9 +1141,10 @@
 	  	var input = document.createElement('input');
 	  	input.id = 'insert-play-' + insertId + '-title';
 	  	input.type = 'text';
-	  	input.className = 'form-control';
+	  	input.className = 'form-control vld-spc';
 	  	input.name = 'insert[' + insertId + '][title]';
 	  	input.setAttribute('required', '');
+	  	input.setAttribute('maxlength', '200');
 	  	input.setAttribute('placeholder', 'Enter title for this game');
 	  	col12.appendChild(input);
 	  	rowBig.appendChild(col12);
@@ -1184,9 +1198,10 @@
 	  	var textarea = document.createElement('textarea');
 	  	textarea.id = 'insert-play-' + insertId + '-content';
 	  	textarea.type = 'text';
-	  	textarea.className = 'form-control play-content';
+	  	textarea.className = 'form-control play-content vld-spc';
 	  	textarea.name = 'insert[' + insertId + '][content]';
 	  	textarea.setAttribute('rows', '8');
+	  	textarea.setAttribute('maxlength', '2000');
 	  	textarea.setAttribute('required', '');
 	  	textarea.setAttribute('placeholder', 'Enter content of the game');
 	  	col12.appendChild(textarea);
@@ -1278,86 +1293,135 @@
 	  /**
 	   * Add a new image to the current Images panel
 	   */
-	  $('.newImageBtn').click(function() {
-	  	newImage(this);
-	  });
+	   $('.newImageBtn').click(function() {
+	   	newImage(this);
+	   });
 
 	  /**
 	   * Delete a row containing image information from Images pane
 	   */
-	  $('.deleteImage').click(function() {
-	  	deleteImage($(this).closest('div.row'));
-	  });
+	   $('.deleteImage').click(function() {
+	   	deleteImage($(this).closest('div.row'));
+	   });
 
 	  /**
 	   * Add an "Images" pane
 	   */
-	  $('.addPart.images').click(function() {
-	  	addImagesPart();
-	  });
+	   $('.addPart.images').click(function() {
+	   	addImagesPart();
+	   });
 
 	  /**
 	   * Add a "Song" pane
 	   */
-	  $('.addPart.song').click(function() {
-	  	addSongPart();
-	  });
+	   $('.addPart.song').click(function() {
+	   	addSongPart();
+	   });
 
 	  /**
 	   * Add a "Poem" pane
 	   */
-	  $('.addPart.poem').click(function() {
-	  	addPoemPart();
-	  });
+	   $('.addPart.poem').click(function() {
+	   	addPoemPart();
+	   });
 
 	  /**
 	   * Add a "Idiom" pane
 	   */
-	  $('.addPart.idiom').click(function() {
-	  	addIdiomPart();
-	  });
+	   $('.addPart.idiom').click(function() {
+	   	addIdiomPart();
+	   });
 
 	  /**
 	   * Add a "Riddle" pane
 	   */
-	  $('.addPart.riddle').click(function() {
-	  	addRiddlePart();
-	  });
+	   $('.addPart.riddle').click(function() {
+	   	addRiddlePart();
+	   });
 
 	  /**
 	   * Add a "Riddle" pane
 	   */
-	  $('.addPart.play').click(function() {
-	  	addPlayPart();
-	  });
+	   $('.addPart.play').click(function() {
+	   	addPlayPart();
+	   });
 
 	  /**
 	   * Delete a pane
 	   */
-	  $('.nav-tabs .deletePart').click(function() {
-	  	deletePart(this);
-	  });
+	   $('.nav-tabs .deletePart').click(function() {
+	   	deletePart(this);
+	   });
+	   function validate_chgColor() {
+	   	var fail = false;
+	   	for (var i = 0; i < $('.vld-spc').length; i++) {
+	   		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
+	   			$(this).attr('style', 'border-color: red;');
+	   			fail = true;
+	   		}else{
+	   			$(this).attr('style', 'border-color: #dddddd;');
+	   		}
+	   	}
+	   	return fail;
 
+	   }
+
+	   function showMesg(element, msg) {
+	   	if ($(element).parent().find('.alert alert-danger').length) {
+	   		$(element).parent().find('span.help').html(msg);
+	   	} else {
+	   		var div_help = document.createElement('div');
+	   		div_help.className = 'alert alert-danger';
+	   		div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+	   		$(div_help).insertAfter(element);
+	   	}
+	   }
+
+	   function validate_space(textElement) {
+	   	var text = textElement.value;
+	   	if( text.trim() == "") {
+	   		showMesg(textElement, 'Empty value is not allowed');
+	   		return false;
+	   	}else{
+	   		return true;
+	   	}
+	   }
+
+	   function validate_spcChar(textElement){
+	   	var text = textElement.value;
+	   	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	   	if (pattern.test(text)) {
+	   		showMesg(textElement, 'Special character is invalid');
+	   		return false;
+	   	}else{
+	   		return true;
+	   	}
+	   }
 	  /**
 	   * Add a list of id of element to delete to the submiting form
 	   */
-	  $("#extForm").submit( function(eventObj) {
-	  	var extensionNo = 1;
-	  	$('.tab-pane').each(function() {
-	  		$('<input />').attr('type', 'hidden')
-	  		.attr('name', $(this).find('input[name="prefix"]')[0].value + '[extensionNo]')
-	  		.attr('value', extensionNo++)
-	  		.appendTo('#extForm');
-	  	});
+	   $("#extForm").submit( function(eventObj) {
+	   	var extensionNo = 1;
+	   	$('.alert').remove();
 
-	  	if (toDelete) {
-	  		$('<input />').attr('type', 'hidden')
-	  		.attr('name', 'delete')
-	  		.attr('value', toDelete)
-	  		.appendTo('#extForm');
-	  		return true;
-	  	}
-	  });
+	   	if (validate_chgColor()) {
+	   		return false;
+	   	}
+	   	$('.tab-pane').each(function() {
+	   		$('<input />').attr('type', 'hidden')
+	   		.attr('name', $(this).find('input[name="prefix"]')[0].value + '[extensionNo]')
+	   		.attr('value', extensionNo++)
+	   		.appendTo('#extForm');
+	   	});
+
+	   	if (toDelete) {
+	   		$('<input />').attr('type', 'hidden')
+	   		.attr('name', 'delete')
+	   		.attr('value', toDelete)
+	   		.appendTo('#extForm');
+	   		return true;
+	   	}
+	   });
 
 	</script>
 	@stop
