@@ -250,20 +250,23 @@
 	 	}
 	 }
 
-	function validate_chgColor() {
-	 	$('.vld-spc').each(function(){
-	 		var text = $(this).val();
-	 		var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
-	 		if(text.trim() == "" || pattern.test(text) ||validate_checkLine($(this))) {
+	 function validate_chgColor() {
+	 	var fail = false;
+	 	for (var i = 0; i < $('.vld-spc').length; i++) {
+	 		var text = $('.vld-spc')[i].value;
+	 		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) || !validate_checkLine($('.vld-spc')[i])) {
+	 			console.log('chg');
 	 			$(this).attr('style', 'border-color: red;');
+	 			fail = true;
 	 		}else{
 	 			$(this).attr('style', 'border-color: #dddddd;');
 	 		}
-	 	})
-	 	
+	 	}
+	 	return fail;
 	 }
 
-	function showMesg(element, msg) {
+	 function showMesg(element, msg) {
+	 	console.log('c');
 	 	if ($(element).parent().find('.alert alert-danger').length) {
 	 		$(element).parent().find('span.help').html(msg);
 	 	} else {
@@ -274,32 +277,43 @@
 	 	}
 	 }
 
-	function validate_checkLine(textElement) {
+	 function validate_checkLine(textElement) {
+	 	console.log('checkLine');
 	 	var text = textElement.value;
 	 	var text_count = text.split("\n").length;
-
 	 	if (text_count != 2 ) {
-	 		showMesg(element, "The number of sentence in a dialog must be 2 !");
+	 		console.log('checkLine');
+	 		showMesg(textElement, "The number of sentence in a dialog must be 2 !");
 	 		return false;
 	 	}else{
 	 		return true;
 	 	}
 	 }
 
-	function validate_space(textElement) {
+	 function validate_space(textElement) {
+	 	console.log('SPACE');
 	 	var text = textElement.value;
-	 	if( text.trim() == "") {
-	 		showMesg(textElement, 'Empty value is not allowed');
-	 		return false;
-	 	}else{
-	 		return true;
+	 	var text_parts = text.split("\n");
+	 	for (var i = 0; i < text_parts.length; i++) {
+	 		if (text_parts[i].trim() == "") {
+	 			showMesg(textElement, 'Empty sentence is not allowed');
+	 			return false;
+	 		}	
 	 	}
+	 	if( text.trim() == "") {
+	 		showMesg(textElement, 'Empty dialog is not allowed');
+	 		return false;	
+	 	}
+	 	return true;
 	 }
 
-	function validate_spcChar(textElement){
+	 function validate_spcChar(textElement){
+
 	 	var text = textElement.value;
 	 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+	 	console.log(textElement);
 	 	if (pattern.test(text)) {
+	 		console.log('bug');
 	 		showMesg(textElement, 'Special character is invalid');
 	 		return false;
 	 	}else{
@@ -307,23 +321,8 @@
 	 	}
 	 }
 
-	$("#p5Form").submit( function(eventObj) {
-	 	var fail = false;
-	 	validate_chgColor();
-	 	for (var i = 0; i < $('.vld-spc').length; i++) {
-	 		if(!validate_space($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 		if(!validate_spcChar($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 		if(!validate_checkLine($('.vld-spc')[i])){
-	 			fail =true;
-	 		}
-	 		
-	 	}
-
-	 	if (fail) {
+	 $("#p5Form").submit( function(eventObj) {
+	 	if (validate_chgColor()) {
 	 		return false;
 	 	}
 
@@ -352,8 +351,8 @@
 	 		}
 	 	})
 	 })
-	
-	$(document).ready(function () {
+
+	 $(document).ready(function () {
 	 	$('.file.undone').on('change', function(event) {
 	 		var filename = this.value;
 	 		var extension = filename.split('.').pop();
