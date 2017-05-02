@@ -244,12 +244,12 @@ class ExtendController extends Controller
     				$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     				$fileName_img = 'L' . $lessonNo . '_Culture_Song_' .  $id . '_' . $t . '.' . $extension_img;
 
-    				$path_img = $value['thumbnail']->storeAs('img/Culture/lesson' . $lessonNo, $fileName);
+    				$path_img = $value['thumbnail']->storeAs('img/Culture/lesson' . $lessonNo, $fileName_img);
 
     				$extension_au = $value['song']->getClientOriginalExtension();
     				$fileName_au = 'L' . $lessonNo . '_Culture_Song_' .  $id . '_' . $t . '.' . $extension_au;
 
-    				$path_au = $value['song']->storeAs('audio/Culture/lesson' . $lessonNo, $fileName);
+    				$path_au = $value['song']->storeAs('audio/Culture/lesson' . $lessonNo, $fileName_au);
 
     				LanguageCulture::create([
     					'lesson_id' => $request->lessonId,
