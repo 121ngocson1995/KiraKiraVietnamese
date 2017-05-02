@@ -182,11 +182,19 @@
                 $('#activity_menu').children().first().empty();
                 var pracNo = 0;
                 var lesson = lessons[expandBtn.parent().find('.lesson').attr('id').substring('lesson'.length)];
+                console.log(lesson);
                 for (var i = 0; i < lesson.activity.length; i++) {
                     var outerDiv = document.createElement('div');
                     var link = document.createElement('a');
+
                     link.id = lesson.activity[i].name;
                     link.className = "activity";
+
+                    if (!lesson.activity[i].exist) {
+                        link.className += ' unavailable';
+                        link.disabled = 'true';
+                    }
+
                     link.href = "/lesson" + lesson.lessonNo + "/" + lesson.activity[i].name;
                     link.innerHTML = lesson.activity[i].content;
                     // link.innerHTML = lessons[];

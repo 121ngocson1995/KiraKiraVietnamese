@@ -751,3 +751,8 @@ section {
   font-size: 30px !important;
   transform: translateY(-3px);
 }
+.activity_holder .unavailable {
+  color: rgba(255,255,255,.6);
+  font-style: italic;
+  pointer-events:none;
+}

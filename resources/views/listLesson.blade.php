@@ -2,6 +2,9 @@
 
 @section('header-more')
 
+<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
+
 <style>
 	* {
 		word-wrap: break-word;
@@ -11,9 +14,11 @@
 @stop
 
 @section('content')
+<script type="text/javascript">
+  $('.listBtn').removeClass('active');
+  $('#li-edit').addClass('active');
+</script>
 
-<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 <div class="green-section">
 	<div class="container">
 		<div class="panel-group" role="tablist" aria-multiselectable="true" id="accordion-1">
