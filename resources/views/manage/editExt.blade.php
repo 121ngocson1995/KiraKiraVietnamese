@@ -1402,38 +1402,37 @@
 	 	var error = false;
 
 	 	$('input:invalid').each(function () {
-	 		$(this).closest('.tab-content').find('.tab-pane').removeClass('in active');
-	 		$(this).closest('.tab-pane').addClass('in active');
-
-	 		this.focus();
+	 		focusError(this);
 	 		error = true;
 	 		return false;
-	 		return;
 	 	});
 
 	 	if (!error) {
 	 		$('textarea:invalid').each(function () {
-	 			$(this).closest('.tab-content').find('.tab-pane').removeClass('in active');
-	 			$(this).closest('.tab-pane').addClass('in active');
-
-	 			this.focus();
+	 			focusError(this);
 	 			error = true;
 	 			return false;
-	 			return;
 	 		});
 	 	}
 	 	
 	 	if (!error) {
 	 		if ((errorElement = validate_chgColor()) != false) {
-	 			$(errorElement).closest('.tab-content').find('.tab-pane').removeClass('in active');
-	 			$(errorElement).closest('.tab-pane').addClass('in active');
-
-	 			errorElement.focus();
+	 			focusError(errorElement);
 
 	 			return false;
 	 		}
 	 	}
 	 });
+
+	 function focusError(element) {
+	 	$(element).closest('.tab-content').find('.tab-pane').removeClass('in active');
+	 	$(element).closest('.tab-pane').addClass('in active');
+
+	 	element.focus();
+
+	 	$('ul.nav.nav-tabs').find('li').removeClass('active')
+	 	$('ul.nav.nav-tabs').find('li').eq($(element).closest('.tab-pane').prevAll().length).addClass('active');
+	 }
 
 	/**
 	 * Add a list of id of element to delete to the submiting form
