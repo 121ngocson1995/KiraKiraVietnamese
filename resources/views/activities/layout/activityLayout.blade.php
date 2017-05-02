@@ -69,6 +69,52 @@
 		-o-user-select: none;
 		user-select: none;
 	}
+
+	.pulse-button {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		margin-left: -50px;
+		display: block;
+		letter-spacing: -1px;
+		color: white;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.5);
+		-webkit-animation: pulseBtn 1.5s infinite;
+		animation: pulseBtn 1.5s infinite;
+		-webkit-animation-delay: 1s;
+		animation-delay: 1s;
+	}
+
+	.pulse-button:hover {
+		-webkit-animation: none;
+		animation: none;
+	}
+
+	@-webkit-keyframes pulseBtn {
+		0% {
+			-moz-transform: scale(0.9);
+			-ms-transform: scale(0.9);
+			-webkit-transform: scale(0.9);
+			transform: scale(0.9);
+		}
+		70% {
+			-moz-transform: scale(1);
+			-ms-transform: scale(1);
+			-webkit-transform: scale(1);
+			transform: scale(1);
+			box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+		}
+		100% {
+			-moz-transform: scale(0.9);
+			-ms-transform: scale(0.9);
+			-webkit-transform: scale(0.9);
+			transform: scale(0.9);
+			box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
+		}
+	}
 </style>
 
 @yield('header-more')
@@ -226,18 +272,9 @@
 	<audio id="wrong_sound2" src="{{ asset('audio/wrong_sound2.mp3') }}"></audio>
 </div>
 
-{{-- <div class="tooltip">
-    <a href="">
-        <img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
-    </a>
-    <span class="tooltiptext">
-        @yield('description')
-    </span>
-</div> --}}
-
 <div>
 	<span class="tooltip tooltip-effect-2">
-		<div class="tooltip-item">
+		<div class="tooltip-item pulse-button">
 			<img src="{{ asset('img/icons/activity-help.ico') }}" style="width: 50px; height: 50px">
 		</div>
 		<span class="tooltip-content">
