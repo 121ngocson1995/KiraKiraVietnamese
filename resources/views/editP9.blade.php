@@ -434,7 +434,24 @@
 		  		$(div_help).insertAfter(element);
 		  	}
 		  }
+		  
+		  function validate_blank() {
+		  	var dialog_fail =  false;
+		  	for (var i = 0; i < $('.row.big').length; i++) {
+		  		var fail = true;
+		  		for (var j = 0; j < $('.row.big:eq('+i+')').find('input.question').length; j++) {
+		  			if($('.row.big:eq('+i+')').find('input.question:eq('+j+')').val().includes("\u3007")){
+		  				fail = false;
+		  			}
+		  		}
+		  		if (fail) {
+		  			dialog_fail =  true;
+		  			showMesg($('.row.big')[i], 'Dialog must has at least 1 blank');
+		  		}
+		  	}
 
+		  	return dialog_fail;
+		  }
 		  function validate_space(textElement) {
 		  	var text = textElement.value;
 		  	if( text.trim() == "") {
@@ -458,10 +475,13 @@
 		  
 		  $("#p9Form").submit( function(eventObj) {
 		  	$('.alert').remove();
+		  	if (validate_blank()) {
+		  		return false;
+		  	}
 
-		 	if (validate_chgColor()) {
-		 		return false;
-		 	}
+		  	if (validate_chgColor()) {
+		  		return false;
+		  	}
 		  	var node_delete_dia = document.createElement('input');
 		  	node_delete_dia.setAttribute('type', 'hidden');
 		  	node_delete_dia.setAttribute('name', 'sumDeleteDia');

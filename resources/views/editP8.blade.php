@@ -462,6 +462,24 @@
 		 	}
 		 }
 
+		 function validate_blank() {
+		 	var dialog_fail =  false;
+		 	for (var i = 0; i < $('.row.big').length; i++) {
+		 		var fail = true;
+		 		for (var j = 0; j < $('.row.big:eq('+i+')').find('input.question').length; j++) {
+		 			if($('.row.big:eq('+i+')').find('input.question:eq('+j+')').val().includes("\u3007")){
+		 				fail = false;
+		 			}
+		 		}
+		 		if (fail) {
+		 			dialog_fail =  true;
+		 			showMesg($('.row.big')[i], 'Dialog must has at least 1 blank');
+		 		}
+		 	}
+		 	
+		 	return dialog_fail;
+		 }
+
 		 function validate_spcChar(textElement){
 		 	var text = textElement.value;
 		 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
@@ -474,8 +492,12 @@
 		 }
 
 		 $("#p8Form").submit( function(eventObj) {
+		 	
 		 	$('.alert').remove();
 
+		 	if (validate_blank()) {
+		 		return false;
+		 	}
 		 	if (validate_chgColor()) {
 		 		return false;
 		 	}
