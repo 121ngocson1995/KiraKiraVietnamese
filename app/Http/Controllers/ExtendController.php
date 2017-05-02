@@ -199,18 +199,19 @@ class ExtendController extends Controller
     		foreach ($request->insert as $id => $value) {
 
     			if ((integer)($value['type']) == 0) {
-
     				$caption = '';
-    				if (strcmp($caption, '') != 0) {
-    					$caption .= '|';
-    				}
-    				$caption .= $captionPart;
+    				foreach ($value['caption'] as $captionPart) {
+                        if (strcmp($caption, '') != 0) {
+                            $caption .= '|';
+                        }
+                        $caption .= $captionPart;
+                    }
 
-    				$dbImages = explode('|', $extElement->slideshow_images);
+    				$dbImages = array();
 
     				foreach ($value['image'] as $index => $image) {
-                    $t=time();
-                    $t=date("Y-m-d-H-i-s",$t);
+                        $t=time();
+                        $t=date("Y-m-d-H-i-s",$t);
     					$extension = $image->getClientOriginalExtension();
     					$lessonNo = \App\Lesson::where('id', '=', $request->lessonId)->first()->lessonNo;
     					$fileName = 'L' . $lessonNo . '_Culture_Slideshow_' . '_' . $t . $request->_token . '.' . $extension;
@@ -328,6 +329,3 @@ class ExtendController extends Controller
     	return Redirect("/listAct".$request->all()['lessonId']);
     }
 }
-
-
-

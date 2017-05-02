@@ -585,15 +585,15 @@
 	 	col5.className = 'col-sm-5 form-group';
 
 	 	label = document.createElement('label');
-	 	label.for = 'insert-images-' + insertId + '-thumbnail';
+	 	label.for = 'insert-images-' + insertId + '-image';
 	 	label.innerHTML = 'Upload image:';
 	 	col5.appendChild(label);
 
 	 	input = document.createElement('input');
-	 	input.id = 'insert-images-' + insertId + '-thumbnail';
+	 	input.id = 'insert-images-' + insertId + '-image';
 	 	input.type = 'file';
 	 	input.className = 'file';
-	 	input.name = 'insert[' + insertId + '][thumbnail]';
+	 	input.name = 'insert[' + insertId + '][image]';
 	 	input.setAttribute('required', '');
 	 	input.setAttribute('data-show-upload', 'false');
 	 	input.setAttribute('data-show-caption', 'true');
