@@ -25,7 +25,7 @@
 		<div class="row origin" id="row{{$i}}" data-line="{{$i}}">
 			<div class="col-xs-6">
 				<label for="dialog{{$i}}">dialog</label>
-				<textarea class="form-control textarea vld-spc" maxlength="20" name="dialog{{$i}}" required="true" id="dialog{{$i}}" data-dialog="{{$p5[$i]->dialogArr}}" required></textarea>
+				<textarea class="form-control textarea vld-spc" maxlength="200" name="dialog{{$i}}" required="true" id="dialog{{$i}}" data-dialog="{{$p5[$i]->dialogArr}}" required></textarea>
 			</div>
 			<div class="col-xs-5">
 				<label for="audio{{$i}}">Audio</label>
