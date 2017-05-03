@@ -164,7 +164,7 @@ $('.textarea').on('input focus keydown keyup', function() {
 
  	node_rowBig.appendChild(bigDiv);
 
- 	$(bigDiv).insertBefore(document.getElementsByClassName('noteRow')[0]);
+ 	$(node_rowBig).insertBefore(document.getElementsByClassName('noteRow')[0]);
 
  	var $input = $('input.file[type=file]');
  	if ($input.length) {
