@@ -81,6 +81,12 @@ class P9Controller extends Controller
 			foreach ($request->update as $id => $content) {
 				foreach ($content as $dialogNo => $dialogContent) {
 					foreach ($dialogContent as $lineNo => $lineContent) {
+						Validator::make($lineContent, [
+                            'line' => 'required|max:80',
+                            'answer.*' => 'required|max:80',
+                            ],
+                            [
+                            ])->validate();
 						$p9Element = P9ConversationFillSentence::where('id', '=', $id)->first();
 						$p9Element->dialogNo = $dialogNo;
 						$p9Element->lineNo = $lineNo;

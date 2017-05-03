@@ -83,6 +83,12 @@ class P8Controller extends Controller
             foreach ($request->update as $id => $content) {
                 foreach ($content as $dialogNo => $dialogContent) {
                     foreach ($dialogContent as $lineNo => $lineContent) {
+                        Validator::make($lineContent, [
+                            'line' => 'required|max:80',
+                            'answer.*' => 'required|max:20',
+                            ],
+                            [
+                            ])->validate();
                         $p8Element = P8ConversationFillWord::where('id', '=', $id)->first();
                         $p8Element->dialogNo = $dialogNo;
                         $p8Element->lineNo = $lineNo;

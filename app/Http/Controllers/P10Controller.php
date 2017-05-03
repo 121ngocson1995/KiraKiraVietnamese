@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\P10SentenceReorder;
+use Illuminate\Support\Facades\Validator;
 
 class P10Controller extends Controller
 {
@@ -104,6 +105,11 @@ class P10Controller extends Controller
 			$lastSentenceNo = 0;
 			$lastOrder = 0;
 			foreach ($request->update as $id => $value) {
+				Validator::make($value, [
+                            'word' => 'required|max:191',
+                            ],
+                            [
+                            ])->validate();
 				$p10Element = P10SentenceReorder::where('id', '=', $id)->first();
 
 				$sentenceNo = (integer)($value['sentenceNo']);

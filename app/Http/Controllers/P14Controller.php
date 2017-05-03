@@ -6,6 +6,7 @@ use App\Lesson;
 use Illuminate\Http\Request;
 use App\P14SentencePattern;
 use \DB;
+use Illuminate\Support\Facades\Validator; 
 
 class P14Controller extends Controller
 {
@@ -74,6 +75,11 @@ class P14Controller extends Controller
         $lesson = Lesson::find($request->lessonId);
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
+                Validator::make($value, [
+                    'sentence.*' => 'max:200',
+                    ],
+                    [
+                    ])->validate();
                 $p14Element = P14SentencePattern::where('id', '=', $id)->first();
 
                 $sentence = '';

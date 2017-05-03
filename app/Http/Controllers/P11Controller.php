@@ -154,6 +154,12 @@ class P11Controller extends Controller
         $lesson = Lesson::find($request->lessonId);
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
+                Validator::make($value, [
+                    'sentence'=> 'required|max:80',
+                    'order.*'=> 'numberic',
+                    ],
+                    [
+                    ])->validate();
                 $p11Element = P11ConversationReorder::where('id', '=', $id)->first();
                     
                 if (strcmp($p11Element->sentence, $value['sentence']) != 0) {

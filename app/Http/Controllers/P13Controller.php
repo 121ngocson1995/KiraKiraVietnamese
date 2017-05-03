@@ -71,7 +71,7 @@ class P13Controller extends Controller
         if ($request->has('update')) {
             foreach ($request->update as $id => $value) {
                 Validator::make($value, [
-                    'text' => 'string|max:191',
+                    'text' => 'string|max:1500',
                     'note' => 'string|max:191',
                     'note_translate' => 'string|max:191',
                     ])->validate();

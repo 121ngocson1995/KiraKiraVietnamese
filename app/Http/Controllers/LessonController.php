@@ -203,9 +203,9 @@ class LessonController extends Controller
 
     	Validator::make($array, [
     		'lsnNo' => 'required|numeric|max:2147483647|min:1|unique_no:checkLsnNo',
-    		'lsnName' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:191',
-    		'description' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:2000',
-    		'lsnAuthor' => 'required|regex:/(^[A-Za-z0-9 .?!]+$)+/|max:191',
+    		'lsnName' => 'required|max:191',
+    		'description' => 'required|max:2000',
+    		'lsnAuthor' => 'required|max:191',
     		],
     		[
     		'unique_no' => 'This lesson number is existed',
