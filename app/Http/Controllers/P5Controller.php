@@ -19,7 +19,7 @@ class P5Controller extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'load']);
+    	$this->middleware('auth', ['except' => 'load']);
     }
     
     /**
@@ -31,28 +31,28 @@ class P5Controller extends Controller
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-	public function load(Request $request, $lessonNo)
-	{
+    public function load(Request $request, $lessonNo)
+    {
 		// get lesson
 		//　レッスンを取る。
-        $lesson = LessonController::getLesson($lessonNo);
-        if (count($lesson) == 0) {
-            $request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
-            return back();
-        }
-		$lesson_id = $lesson->id;
+    	$lesson = LessonController::getLesson($lessonNo);
+    	if (count($lesson) == 0) {
+    		$request->session()->flash('alert-warning', 'Sorry! The lesson you\'ve chosen has yet been created.');
+    		return back();
+    	}
+    	$lesson_id = $lesson->id;
 
 		// Load data from Database
         // データベースからデータを出す。
-		$elementData = P5DialogueMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
-        if (count($elementData) == 0) {
-            $request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
-            return back();
-        }
-		$cnt = count($elementData);
-		
-		return view("activities.P5v2", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
-	}  
+    	$elementData = P5DialogueMemorize::where('lesson_id', '=', $lesson_id)->orderBy('dialogNo', 'ASC')->get();
+    	if (count($elementData) == 0) {
+    		$request->session()->flash('alert-warning', 'Sorry! The activity you\'ve chosen has yet been created.');
+    		return back();
+    	}
+    	$cnt = count($elementData);
+
+    	return view("activities.P5v2", compact(['elementData', 'contentArr', 'audioArr', 'cnt']));
+    }  
 
     /**
      * Update database based on user's input.
@@ -62,25 +62,25 @@ class P5Controller extends Controller
      *
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-	public function edit(Request $request) {
-		$lesson = Lesson::find($request->all()['lessonID']);
-		$totalNew = $request->all()['sumOrigin'];
-		for ($i=0; $i < $totalNew ; $i++) { 
-			if ($request->exists("dialogId".$i)) {
-				$p5Edit = P5DialogueMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["dialogId".$i])->get();
+    public function edit(Request $request) {
+    	$lesson = Lesson::find($request->all()['lessonID']);
+    	$totalNew = $request->all()['sumOrigin'];
+    	for ($i=0; $i < $totalNew ; $i++) { 
+    		if ($request->exists("dialogId".$i)) {
+    			$p5Edit = P5DialogueMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["dialogId".$i])->get();
 
-				$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
-				$dialog_validate = explode("|",$dialog);
-				
-				$messages = [
-				'max'    => 'The :attribute has maximum :max characters per sentence.',
-				];
+    			$dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
 
-				// Validator::make($validate, [
-				// 	'dialog.*' => 'string|max:80',
-				// 	], $messages)->validate();
-				$p5Edit[0]->dialog = $dialog;
-				$p5Edit[0]->dialogNo = $i;
+
+    			$checkArray = array();
+    			$checkArray['dialog'.$i] = $request->all()['dialog'.$i];
+    			Validator::make($checkArray, [
+    				'dialog'.$i => 'required|max:200',
+    				],
+    				[
+    				])->validate();
+    			$p5Edit[0]->dialog = $dialog;
+    			$p5Edit[0]->dialogNo = $i;
 
 				// if($request->exists("audioPath".$i)){
 				// 	$t=time();
@@ -90,10 +90,10 @@ class P5Controller extends Controller
 				// 	rename($oldName, $newName);
 				// 	$p5Edit[0]->audio = $newName;
 				// }else 
-				if($request->exists("audio".$i)){
+    			if($request->exists("audio".$i)){
 
-					$t=time();
-					$t=date("Y-m-d-H-i-s",$t);
+    				$t=time();
+    				$t=date("Y-m-d-H-i-s",$t);
 					// $destinationPath = "audio/P5/lesson".$lesson->lessonNo;
 
 					// $extension = Input::file("audio".$i)->getClientOriginalExtension();
@@ -102,40 +102,39 @@ class P5Controller extends Controller
 					// Input::file("audio".$i)->move($destinationPath, $fileName);
 					// $newName = "audio/P5/lesson".$lesson->lessonNo."/".$i."-".$t.'.'.$extension;
 
-					$data = $request["audio".$i];
-    			$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
-    			$extension = $data->getClientOriginalExtension();
-    			$fileName = $i."-".$t.'.'.$extension;
-    			$newName = $data->storeAs($destinationPath, $fileName);
+    				$data = $request["audio".$i];
+    				$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
+    				$extension = $data->getClientOriginalExtension();
+    				$fileName = $i."-".$t.'.'.$extension;
+    				$newName = $data->storeAs($destinationPath, $fileName);
 
-					$p5Edit[0]->audio = $newName;
-				}
-				$p5Edit[0]->save();
-			}
-		}
+    				$p5Edit[0]->audio = $newName;
+    			}
+    			$p5Edit[0]->save();
+    		}
+    	}
 
-		$sumAdd = $request->all()['sumAdd'];
-		for ($i=0; $i <= $sumAdd ; $i++) { 
-			if ($request->exists("dialogAdd".$i)) {
-				
-				$p5New = new P5DialogueMemorize;
-				$p5New->dialogNo = $totalNew - 1 + $i;
-				$p5New->lesson_id = $request->all()['lessonID'];
+    	$sumAdd = $request->all()['sumAdd'];
+    	for ($i=0; $i <= $sumAdd ; $i++) { 
+    		if ($request->exists("dialogAdd".$i)) {
 
-				$dialog = str_replace("\n", "|", $request->all()["dialogAdd".$i]);
-				$dialog_validate = explode("|",$dialog);
-				
-				$messages = [
-				'max'    => 'The :attribute has maximum :max characters per sentence.',
-				];
+    			$p5New = new P5DialogueMemorize;
+    			$p5New->dialogNo = $totalNew - 1 + $i;
+    			$p5New->lesson_id = $request->all()['lessonID'];
 
-				// Validator::make($validate, [
-				// 	'dialog.*' => 'string|max:80',
-				// 	], $messages)->validate();
+    			$dialog = str_replace("\n", "|", $request->all()["dialogAdd".$i]);
+    			
+    			$checkArray = array();
+    			$checkArray['dialogAdd'.$i] = $request->all()['dialogAdd'.$i];
+    			Validator::make($checkArray, [
+    				'dialogAdd'.$i => 'required|max:200',
+    				],
+    				[
+    				])->validate();
 
-				$p5New->dialog = $dialog;
-				$t=time();
-				$t=date("Y-m-d-H-i-s",$t);
+    			$p5New->dialog = $dialog;
+    			$t=time();
+    			$t=date("Y-m-d-H-i-s",$t);
 				// $destinationPath = "audio/P5/lesson".$lesson->lessonNo;
 
 				// $extension = Input::file("audioAdd".$i)->getClientOriginalExtension();
@@ -143,29 +142,29 @@ class P5Controller extends Controller
 
 				// Input::file("audioAdd".$i)->move($destinationPath, $fileName);
 				// $newName = "audio/P5/lesson".$lesson->lessonNo."/".$p5New->sentenceNo."-".$t.'.'.$extension;
-				
-				$data = $request["audioAdd".$i];
+
+    			$data = $request["audioAdd".$i];
     			$destinationPath = "audio/P5/lesson".$lesson->lessonNo;
     			$extension = $data->extension();
     			$fileName = $i."-".$t.'.'.$extension;
     			$newName = $data->storeAs($destinationPath, $fileName);
 
-				$p5New->audio = $newName;
-				$p5New->save();
-			}
-		}
+    			$p5New->audio = $newName;
+    			$p5New->save();
+    		}
+    	}
 
-		$sumDelete = $request->all()['sumDelete'];
-		for ($i=0; $i <= $sumDelete ; $i++) { 
-			if ($request->exists("delete".$i)) {
-				$p5Edit = P5DialogueMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
-			}
-		}
+    	$sumDelete = $request->all()['sumDelete'];
+    	for ($i=0; $i <= $sumDelete ; $i++) { 
+    		if ($request->exists("delete".$i)) {
+    			$p5Edit = P5DialogueMemorize::where('lesson_id', '=', $request->all()['lessonID'])->where('id', '=', $request->all()["delete".$i])->delete();
+    		}
+    	}
 
-        $course = \App\Course::where('id', '=', $lesson->course_id)->first();
-        $course->last_updated_by = \Auth::user()->id;
-        $course->save();
-    
-		return Redirect("/listAct".$request->all()['lessonID']);
-	}
+    	$course = \App\Course::where('id', '=', $lesson->course_id)->first();
+    	$course->last_updated_by = \Auth::user()->id;
+    	$course->save();
+
+    	return Redirect("/listAct".$request->all()['lessonID']);
+    }
 }
