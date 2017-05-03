@@ -963,6 +963,7 @@ var insertId = 0;
  });
 
  function validate_chgColor() {
+ 	$('.alert').remove();
  	var fail = false;
  	for (var i = 0; i < $('.vld-spc').length; i++) {
  		if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
@@ -999,7 +1000,7 @@ var insertId = 0;
 
  function validate_spcChar(textElement){
  	var text = textElement.value;
- 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\":<>]/);
+ 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
  	if (pattern.test(text)) {
  		showMesg(textElement, 'Special character is invalid');
  		return false;
@@ -1035,6 +1036,7 @@ var insertId = 0;
  });
 
  function focusError(element) {
+ 	
  	$(element).closest('.tab-content').find('.tab-pane').removeClass('in active');
  	$(element).closest('.tab-pane').addClass('in active');
 
@@ -1049,7 +1051,6 @@ var insertId = 0;
  */
  $("#extForm").submit( function(eventObj) {
  	var extensionNo = 1;
- 	$('.alert').remove();
 
  	$('.tab-pane').each(function() {
  		$('<input />').attr('type', 'hidden')
