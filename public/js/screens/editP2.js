@@ -1,6 +1,7 @@
 var sumLine = p2.length;
 var deleteLine = 0;
 var addLine = 0;
+
 $("#p2Form").submit( function(eventObj) {
 	$('<input />').attr('type', 'hidden')
 	.attr('name', "sumLine")
@@ -8,6 +9,18 @@ $("#p2Form").submit( function(eventObj) {
 	.appendTo('#p2Form');
 	return true;
 });
+
+/**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
 
 /**
  * Add new row of word and audio
@@ -73,6 +86,8 @@ $("#p2Form").submit( function(eventObj) {
  			maxFileSize: 1000
  		});
  	}
+
+ 	reIndex();
  }
 
 /**
@@ -186,6 +201,7 @@ $("#p2Form").submit( function(eventObj) {
  		}
  	})
  })
+
  $(document).ready(function () {
  	$('.file.undone').on('change', function(event) {
  		var filename = this.value;
@@ -198,4 +214,6 @@ $("#p2Form").submit( function(eventObj) {
  		}
  		$(this).addClass('undone');
  	});
+
+ 	reIndex();
  });

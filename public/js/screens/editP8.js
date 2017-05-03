@@ -4,6 +4,19 @@ var addedDialog = 0;
 var rowDelete = 0;
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+ function reIndex() {
+ 	var tabIndex = 1;
+ 	$('input, textarea').each(function() {
+ 		$(this).attr('tabindex', tabIndex);
+ 	});
+ 	console.log('a')
+ }
+
+/**
  * prevent client delete symbol "\u3007" in textbox
  *　クライアントからテキストボックスの「\u3007」記号を防ぐ。
  *
@@ -49,6 +62,8 @@ var rowDelete = 0;
  	node_input.setAttribute('required', 'true');
  	
  	document.getElementById($(button).closest('.row').find('.answercontent').attr('id')).appendChild(node_input);
+
+ 	reIndex();
  }
 
 /**
@@ -164,6 +179,7 @@ var rowDelete = 0;
 
  	document.getElementById('p8Div').appendChild(row_big);
 
+ 	reIndex();
  }
 
 /**
@@ -280,6 +296,8 @@ var rowDelete = 0;
  	node_row.appendChild(node_btn);
 
  	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
+
+ 	reIndex();
  }
 
  function validate_chgColor() {
@@ -367,4 +385,8 @@ var rowDelete = 0;
  	node_delete_row.setAttribute('name', 'sumDeleteRow');
  	node_delete_row.setAttribute('value', rowDelete);
  	document.getElementById('p8Form').appendChild(node_delete_row);
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

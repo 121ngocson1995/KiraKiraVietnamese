@@ -42,6 +42,8 @@ $('.question').each(function() {
  	node_input.setAttribute('required', 'true');
 
  	document.getElementById($(button).closest('.row').find('.answercontent').attr('id')).appendChild(node_input);
+  
+  reIndex();
  }
 
 /**
@@ -157,6 +159,7 @@ $('.question').each(function() {
 
  	document.getElementById('p9Div').appendChild(row_big);
 
+  reIndex();
  }
 
 /**
@@ -273,6 +276,8 @@ $('.question').each(function() {
   	node_row.appendChild(node_btn);
 
   	document.getElementById('dialog'+$(button).attr('data-diaNo')).appendChild(node_row);
+    
+  reIndex();
   }
 
   function validate_chgColor() {
@@ -358,4 +363,8 @@ $('.question').each(function() {
   	node_delete_row.setAttribute('name', 'sumDeleteRow');
   	node_delete_row.setAttribute('value', rowDelete);
   	document.getElementById('p9Form').appendChild(node_delete_row);
+  });
+
+  $(document).ready(function () {
+    reIndex();
   });

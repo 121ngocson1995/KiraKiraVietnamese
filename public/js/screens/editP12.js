@@ -1,6 +1,30 @@
 var toDelete = '';
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
  * Delete the chosen requirement
  * 選択する要求を削除する。
  * @return {void}
@@ -95,6 +119,7 @@ var toDelete = '';
  	$(holder).insertBefore(document.getElementById('saveBtn-holder'));
 
  	$('#plusBtn').hide();
+ 	reIndex();
  }
 
 /**
@@ -185,4 +210,8 @@ var toDelete = '';
  		.appendTo('#p12Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

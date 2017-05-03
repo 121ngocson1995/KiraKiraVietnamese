@@ -1,14 +1,14 @@
 /**
- * Change textbox's width
- * テキストボックスの幅を変更する。
- *
- * @param  {DOM Object}
+ * Edit elements' tab indexes
  *
  * @return {void}
  */
- function changeTextboxWidth(input) {
- 	input.size = parseInt(input.value.length) + 1;
- }
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
 
 /**
  * Add a new sentence
@@ -105,6 +105,8 @@
  	document.getElementsByClassName('sentences')[0].appendChild(hr);
 
  	$('.sentences').find('input').last().focus();
+
+ 	reIndex();
  }
 
 /**
@@ -155,6 +157,7 @@
  	sentenceParts[0].appendChild(createWord(newSentenceNo));
 
  	$(sentenceParts).find('input').last().focus();
+ 	reIndex();
  }
 
 /**
@@ -342,8 +345,6 @@
  	}
  }
  
-
- 
 /**
  * Add a list of id of element to delete to the submiting form
  * 提出するフォームを削除するように、様子のイドのリストを追加する。
@@ -360,4 +361,8 @@
  		.appendTo('#p10Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

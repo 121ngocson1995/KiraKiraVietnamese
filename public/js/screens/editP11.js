@@ -3,6 +3,18 @@ var toAdd = -1;
 var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length : 0;
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+ function reIndex() {
+ 	var tabIndex = 1;
+ 	$('input, textarea').each(function() {
+ 		$(this).attr('tabindex', tabIndex);
+ 	});
+ }
+
+/**
  * Create a new sentence
  * 新しいセンテンスを作成する。
  *
@@ -102,6 +114,8 @@ var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length
  	tr.appendChild(td);
 
  	document.getElementsByTagName('tbody')[0].appendChild(tr);
+
+ 	reIndex();
  }
 
 /**
@@ -215,6 +229,8 @@ var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length
  	var closeHolder = $('.vertical-close-wrapper').find('.vertical-close-holder').get(0);
  	closeHolder.appendChild(closeBtn);
  	$(closeHolder).append("&nbsp;");
+
+ 	reIndex();
  }
 
 /**
@@ -459,7 +475,6 @@ var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length
  	if(!isOrderFormatCorrect()) {
  		return false;
  	}
- 	console.log(toDelete);
  	if (toDelete) {
  		$('<input />').attr('type', 'hidden')
  		.attr('name', 'delete')
@@ -467,4 +482,8 @@ var maxColId = $('.order-holder').length ? $('.order-holder')[0].children.length
  		.appendTo('#p11Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

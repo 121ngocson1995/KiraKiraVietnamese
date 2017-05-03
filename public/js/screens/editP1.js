@@ -80,6 +80,8 @@ $("#p1Form").submit( function(eventObj) {
  			maxFileSize: 1000
  		});
  	}
+
+ 	reIndex();
  }
 
 /**
@@ -194,4 +196,8 @@ $("#p1Form").submit( function(eventObj) {
  			return true;
  		}
  	})
+ });
+
+ $('input[type="file"]').on('focus', function() {
+ 	$(this).closest('div.form-control')[0].focus();
  })

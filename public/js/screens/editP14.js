@@ -1,6 +1,18 @@
 var toAdd = 0;
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
  * Change textbox's size on keyboard pressing
  * 押すキーボードでテキストボックスのサイズを変更する。
  * 
@@ -109,6 +121,8 @@ var toAdd = 0;
  	document.getElementById('sentencesHolder').appendChild(div);
  	var hr =   document.createElement('hr')
  	document.getElementById('sentencesHolder').appendChild(hr);
+
+ 	reIndex();
  }
 
 /**
@@ -180,6 +194,8 @@ var toAdd = 0;
 
  		tabble[0].appendChild(createPart(newName));
  	}
+
+ 	reIndex();
  }
 
 /**
@@ -204,6 +220,8 @@ var toAdd = 0;
  		$(this.firstElementChild).fadeOut(60);
  	});
  	$(newOption).insertBefore(button);
+
+ 	reIndex();
  }
 
 /**
@@ -479,4 +497,8 @@ var toAdd = 0;
  		.appendTo('#p14Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

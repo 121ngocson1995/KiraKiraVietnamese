@@ -81,4 +81,4 @@
 </div>
 
 <script src="{{ asset('js/screens/editP11.js') }}"></script>
-	@stop
+@stop

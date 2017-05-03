@@ -1,6 +1,18 @@
 var toDelete = '';
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
  * Delete the chosen paragraph
  *　選択する段落を削除する。
  * @return {void}
@@ -116,6 +128,8 @@ var toDelete = '';
  	$(holder).insertBefore(document.getElementById('saveBtn-holder'));
 
  	$('#plusBtn').hide();
+
+ 	reIndex();
  }
 
 /**
@@ -205,4 +219,20 @@ var toDelete = '';
  		.appendTo('#p13Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	$('.file.undone').on('change', function(event) {
+ 		var filename = this.value;
+ 		var extension = filename.split('.').pop();
+ 		if ($(this).hasClass('audio')) {
+ 			if (extension == 'mp3') {
+ 				$(this).removeClass('undone');
+ 				return;
+ 			}
+ 		}
+ 		$(this).addClass('undone');
+ 	});
+
+ 	reIndex();
  });

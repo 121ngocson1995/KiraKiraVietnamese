@@ -49,6 +49,13 @@
 <script type="text/javascript">
 	var p1 = <?php echo json_encode($p1); ?>;
 
+	function reIndex() {
+		var tabIndex = 1;
+		$('input, textarea').each(function() {
+			$(this).attr('tabindex', tabIndex);
+		});
+	}
+
 	$(document).ready(function () {
 		$('.file.undone').on('change', function(event) {
 			var filename = this.value;
@@ -61,6 +68,8 @@
 			}
 			$(this).addClass('undone');
 		});
+
+		reIndex();
 	});
 </script>
 

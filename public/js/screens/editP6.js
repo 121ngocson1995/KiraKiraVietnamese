@@ -1,4 +1,16 @@
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+ function reIndex() {
+ 	var tabIndex = 1;
+ 	$('input, textarea').each(function() {
+ 		$(this).attr('tabindex', tabIndex);
+ 	});
+ }
+
+/**
  * Add new pairs of question and answer
  * @return {void} 
  */
@@ -161,6 +173,8 @@
  			}
  		});
  	});
+
+ 	reIndex();
  }	
 
  var toDelete = '';
@@ -261,4 +275,8 @@
  		.appendTo('#p6Form');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

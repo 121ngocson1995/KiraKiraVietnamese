@@ -72,6 +72,18 @@
 	 $('input').each(function() {
 	 	changeTextboxWidth(this);
 	 });
+
+	/**
+	 * Change textbox's width
+	 * テキストボックスの幅を変更する。
+	 *
+	 * @param  {DOM Object}
+	 *
+	 * @return {void}
+	 */
+	 function changeTextboxWidth(input) {
+	 	input.size = parseInt(input.value.length) + 1;
+	 }
 	</script>
 
 	<script src="{{ asset('js/screens/editP10.js') }}"></script>

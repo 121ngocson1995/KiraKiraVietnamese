@@ -3,6 +3,18 @@ var deleteDia = 0;
 var addDialog = 0;
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+ function reIndex() {
+  var tabIndex = 1;
+  $('input, textarea').each(function() {
+    $(this).attr('tabindex', tabIndex);
+});
+}
+
+/**
  * 	Add new Dialog
  *　新たなダイアログを追加する。
  *
@@ -122,6 +134,8 @@ var addDialog = 0;
  			maxFileSize: 1000
  		});
  	}
+
+    reIndex();
  }
 
  /**
@@ -199,6 +213,7 @@ var addDialog = 0;
   	sumLine ++;
   	$(button).closest('.big').attr('data-sumline',sumLine);
 
+    reIndex();
   }
 
  /**
@@ -280,75 +295,75 @@ var addDialog = 0;
    function validate_chgColor() {
     var fail = false;
     for (var i = 0; i < $('.vld-spc').length; i++) {
-       if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
-          $(this).attr('style', 'border-color: red;');
-          fail = true;
-      }else{
-          $(this).attr('style', 'border-color: #dddddd;');
-      }
+     if(!validate_spcChar($('.vld-spc')[i]) || !validate_space($('.vld-spc')[i]) ) {
+      $(this).attr('style', 'border-color: red;');
+      fail = true;
+  }else{
+      $(this).attr('style', 'border-color: #dddddd;');
   }
-  return fail;
+}
+return fail;
 
 }
 
 function showMesg(element, msg) {
   if ($(element).parent().find('.alert alert-danger').length) {
-     $(element).parent().find('span.help').html(msg);
- } else {
-     var div_help = document.createElement('div');
-     div_help.className = 'alert alert-danger';
-     div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
-     $(div_help).insertAfter(element);
- }
+   $(element).parent().find('span.help').html(msg);
+} else {
+   var div_help = document.createElement('div');
+   div_help.className = 'alert alert-danger';
+   div_help.innerHTML = '<span class="help">' +  msg +  '</span>';
+   $(div_help).insertAfter(element);
+}
 }
 
 function validate_space(textElement) {
   var text = textElement.value;
   if( text.trim() == "") {
-     showMesg(textElement, 'Empty value is not allowed');
-     return false;
- }else{
-     return true;
- }
+   showMesg(textElement, 'Empty value is not allowed');
+   return false;
+}else{
+   return true;
+}
 }
 
 function validate_spcChar(textElement){
   var text = textElement.value;
   var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
   if (pattern.test(text)) {
-     showMesg(textElement, 'Special character is invalid');
-     return false;
- }else{
-     return true;
- }
+   showMesg(textElement, 'Special character is invalid');
+   return false;
+}else{
+   return true;
+}
 }
 
 $("#p7Form").submit( function(eventObj) {
   var fail = false;
 
   for (var i = 0; i < $('.vld-null').length; i++) {
-     if(!validate_spcChar($('.vld-null')[i])){
-        fail =true;
-    }
+   if(!validate_spcChar($('.vld-null')[i])){
+    fail =true;
+}
 }
 
 if (fail) {
-   return false;
+ return false;
 }
 $('.big').each(function() {
-   if($(this).hasClass('origin')){
-      $('<input />').attr('type', 'hidden')
-      .attr('name', $(this).attr('id'))
-      .attr('value', $(this).attr('data-sumline'))
-      .appendTo('#p7Form');
-      return true;
-  }else{
-      $('<input />').attr('type', 'hidden')
-      .attr('name', "dialogAdd"+$(this).attr('data-dialogAdd'))
-      .attr('value', $(this).attr('data-sumline'))
-      .appendTo('#p7Form');
-      return true;
-  }
+ if($(this).hasClass('origin')){
+  $('<input />').attr('type', 'hidden')
+  .attr('name', $(this).attr('id'))
+  .attr('value', $(this).attr('data-sumline'))
+  .appendTo('#p7Form');
+  return true;
+}else{
+  $('<input />').attr('type', 'hidden')
+  .attr('name', "dialogAdd"+$(this).attr('data-dialogAdd'))
+  .attr('value', $(this).attr('data-sumline'))
+  .appendTo('#p7Form');
+  return true;
+}
 })
 
 var node_delete = document.createElement('input');
@@ -387,11 +402,13 @@ $(document).ready(function () {
 
         if ($(this).hasClass('audio')) {
             if (extension == 'mp3') {
-               $(this).removeClass('undone');
-               return;
-           }
-       }
+             $(this).removeClass('undone');
+             return;
+         }
+     }
 
-       $(this).addClass('undone');
-   });
+     $(this).addClass('undone');
+ });
+
+    reIndex();
 });

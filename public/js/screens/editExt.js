@@ -2,6 +2,18 @@ var toAdd = '';
 var insertId = 0;
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
  * @param  {DOM Object}
  * @return {void}
  */
@@ -90,6 +102,7 @@ var insertId = 0;
  	}
 
  	insertId++;
+ 	reIndex();
  }
 
 /**
@@ -260,6 +273,7 @@ var insertId = 0;
  	}
 
  	insertId++;
+ 	reIndex();
  }
 
 /**
@@ -436,6 +450,7 @@ var insertId = 0;
  	}
 
  	insertId++;
+ 	reIndex();
  }
 
 /**
@@ -521,6 +536,7 @@ var insertId = 0;
  	addTabBtn('insert' + insertId, 'Poem');
 
  	insertId++;
+ 	reIndex();
  }
 
 /**
@@ -577,6 +593,7 @@ var insertId = 0;
  	addTabBtn('insert' + insertId, 'Idiom');
 
  	insertId++;
+ 	reIndex();
  }
 
  /**
@@ -711,6 +728,8 @@ var insertId = 0;
  	}
 
  	insertId++;
+ 	
+ 	reIndex();
  }
 
 /**
@@ -831,6 +850,7 @@ var insertId = 0;
  	}
 
  	insertId++;
+ 	reIndex();
  }
 
 /**
@@ -1066,4 +1086,8 @@ var insertId = 0;
  		.appendTo('#extForm');
  		return true;
  	}
+ });
+
+ $(document).ready(function () {
+ 	reIndex();
  });

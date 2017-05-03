@@ -9,6 +9,13 @@ $("#p3Form").submit( function(eventObj) {
 	return true;
 });
 
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
 /**
  * Add new row of sentence and audio
  * センテンスと音響の行を追加する。
@@ -73,6 +80,8 @@ $("#p3Form").submit( function(eventObj) {
  			maxFileSize: 1000
  		});
  	}
+
+ 	reIndex();
  }
 
 /**
@@ -201,4 +210,6 @@ $("#p3Form").submit( function(eventObj) {
  		}
  		$(this).addClass('undone');
  	});
+
+ 	reIndex();
  });

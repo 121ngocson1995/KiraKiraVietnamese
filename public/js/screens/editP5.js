@@ -15,6 +15,18 @@ $("#p5Form").submit( function(eventObj) {
 });
 
 /**
+ * Edit elements' tab indexes
+ *
+ * @return {void}
+ */
+function reIndex() {
+	var tabIndex = 1;
+	$('input, textarea').each(function() {
+		$(this).attr('tabindex', tabIndex);
+	});
+}
+
+/**
  *  Add new row of sentence and audio
  * 　センテンスと音響の行を追加する。
  *
@@ -88,6 +100,8 @@ $("#p5Form").submit( function(eventObj) {
  			}
  		});
  	});
+
+ 	reIndex();
  }
 
 /**
@@ -243,4 +257,6 @@ $("#p5Form").submit( function(eventObj) {
  			}
  		});
  	});
+
+ 	reIndex();
  });
