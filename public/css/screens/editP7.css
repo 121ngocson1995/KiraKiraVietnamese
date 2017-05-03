@@ -1,0 +1,61 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+label.situNo {
+	font-size: 1.4em;
+}
+.textarea {
+	height: 103px !important;
+}
+.file-thumbnail-footer {
+	height: initial !important;
+}
+.file-footer-caption {
+	display: none !important;
+}
+.kv-file-content {
+	height: initial !important;
+}
+.file-preview-image.kv-preview-data {
+	height: 100px !important;
+}
+.krajee-default[data-template="audio"] .file-preview-audio {
+	height: 100px !important;
+}
+.krajee-default .file-other-icon {
+	font-size: 4em;
+}
+.krajee-default .file-preview-other {
+	padding: 10px 10px 0 10px;
+}
+.fa {
+	margin: 0;
+}
+.deleteBtn {
+	outline: none;
+	/*padding: 0;*/
+	border: none;
+	background: initial;
+	opacity: 0.3;
+	transition: all 0.5s;
+}
+.deleteBtn:hover {
+	opacity: 1;
+}
+.editSituControl {
+	width: 10em;
+	margin: 0 0.5em;
+}
+.header {
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+input {
+	margin: 3px;
+}

@@ -1,0 +1,107 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+.sentence-input {
+	/*width: 100%;*/
+	display: inline-block;
+}
+#wrapper {
+	padding: 1em 4em;
+}
+div.sentence-holder {
+	padding: 3em 0;
+}
+div.sentenceNo {
+	display: inline-block;
+	margin-right: 1em;
+}
+div.sentenceParts, div.word {
+	display: inline-block;
+}
+label {
+	font-size: 1.2em !important;
+	font-weight: bold !important;
+}
+input {
+	height: 50px !important;
+	font-size: 1.25em !important;
+	margin: 0 0.2em;
+	width: initial !important;
+	text-align: center;
+	padding: 8px 20px;
+}
+hr {
+	margin: 5px 0;
+	border-top: 1px solid #b3b3b3;
+}
+.fa {
+	margin-left: 0;
+	margin-right: 0.3em;
+}
+#saveBtn-holder {
+	text-align: center;
+	margin-top: 2em;
+}
+div.addPart {
+	display: inline-block;
+	transform: translateY(4px);
+}
+div.word {
+	text-align: right;
+}
+button {
+	outline: none;
+}
+button.addPartBtn {
+	background: transparent;
+	/*font-size: 1.4em;*/
+	border: none;
+	opacity: 0.4;
+	display: none;
+}
+button.addPartBtn:hover {
+	opacity: 1;
+}
+button.close {
+	color: black;
+	float: none;
+	margin: 0 0.5em;
+	line-height: initial;
+	display: none;
+}
+button.close:hover, button.close:focus {
+	color: black;
+}
+.deleteSentence {
+	position: absolute;
+	right: 0;
+	margin-right: 5em;
+	transform: translateY(-2.7em);
+	background: transparent;
+	/*font-size: 1.4em;*/
+	border: none;
+	/*right: 2em;*/
+	/*position: absolute;*/
+	/*transform: translateY(-20%);*/
+	display: none;
+}
+.deleteSentence button {
+	display: initial !important;
+	position: initial !important;
+	margin: 0;
+}
+
+button.deleteOption {
+	float: right;
+	margin-left: -30px;
+	margin-top: 8px;
+}
+input:focus {
+	border-color: red;
+}

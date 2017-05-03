@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *　割り当て可能な属性。
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id', 'thumbnail', 'name', 'description', 'age', 'author', 'added_by', 'last_updated_by',
+    ];
+
+    /**
 	 * Get the administrator that added the course.
 	 * コースを追加した管理者を取る。
 	 */

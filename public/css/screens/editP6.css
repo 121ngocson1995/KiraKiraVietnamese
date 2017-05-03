@@ -1,0 +1,57 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+.sentence-input {
+	/*width: 100%;*/
+	display: inline-block;
+}
+#wrapper {
+	padding: 1em 4em;
+}
+button.close {
+	color: black;
+	float: none;
+	margin: 0 0.5em;
+	outline: none;
+	line-height: initial;
+}
+button.close:hover, button.close:focus {
+	color: black;
+}
+textarea {
+	text-align: center;
+	font-size: 1.4em !important;
+	resize: vertical;
+}
+hr {
+	border-top: 1px solid #b3b3b3;
+}
+input.correctAnswer:focus {
+	border-color: #00b300;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,255,0,.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,255,0,.6);
+}
+input.wrongAnswer:focus {
+	border-color: #ff0000;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(255, 77, 77, .6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(255,77,77,.6);
+}
+#saveBtn-holder {
+	text-align: center;
+	margin-top: 2em;
+}
+.fa {
+	margin-left: 0;
+	margin-right: 0.3em;
+}
+.deleteDialog {
+	display: none;
+}
