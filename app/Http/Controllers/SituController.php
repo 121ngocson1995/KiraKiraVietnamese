@@ -90,6 +90,16 @@ public function edit(Request $request) {
 
     for ($i=0; $i < $totalNew ; $i++) {
         if ($request->exists("situationId".$i)) {
+            $checkArray = array();
+            $checkArray['dialog'.$i] = $request->all()['dialog'.$i];
+            $checkArray['dialogTrans'.$i] = $request->all()['dialog'.$i];
+            Validator::make($checkArray, [
+                'dialog'.$i => 'required|max:1600',
+
+                'dialogTrans'.$i => 'required|max:1600',
+                ],
+                [
+                ])->validate();
             $situEdit = Situation::where('lesson_id', '=', $request->lessonID)->where('id', '=', $request->all()["situationId".$i])->get();
 
             $dialog = str_replace("\n", "|", $request->all()["dialog".$i]);
