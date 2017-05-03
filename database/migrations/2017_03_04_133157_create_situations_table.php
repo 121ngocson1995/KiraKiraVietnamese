@@ -25,7 +25,7 @@ class CreateSituationsTable extends Migration
             $table->string('thumbnail');
             $table->text('dialog');
             $table->text('dialog_translate');
-            $table->string('audio');
+            $table->string('audio')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

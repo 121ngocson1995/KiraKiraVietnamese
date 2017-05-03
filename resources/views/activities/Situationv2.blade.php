@@ -66,7 +66,7 @@
 						<img id="thumbnail" class="img" src="{{ \Storage::url($elementData[$i]->thumbnail) }}">
 					</div>
 					<div id="audioHolder" style="text-align: center;">
-						<audio id="audio{{$i}}" src="{{ \Storage::url($elementData[$i]->audio) }}" type="audio/mpeg">
+						<audio id="audio{{$i}}" src="{{ isset($elementData[$i]->audio) ? \Storage::url($elementData[$i]->audio) : '' }}" type="audio/mpeg">
 						</audio>
 					</div>
 				</div>
