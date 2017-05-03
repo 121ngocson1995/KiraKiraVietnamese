@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\P6DialogueMultipleChoice;
+use Illuminate\Support\Facades\Validator;
 
 class P6Controller extends Controller
 {
@@ -66,6 +67,13 @@ class P6Controller extends Controller
 		$lesson = Lesson::find($request->all()['lessonId']);
 		if ($request->has('update')) {
 			foreach ($request->update as $id => $value) {
+				Validator::make($value, [
+					'dialog' => 'string|max:200',
+					'answers.*.correct' => 'string|max:20',
+					'answers.*.wrong1' => 'string|max:20',
+					'answers.*.wrong2' => 'string|max:20',
+					])->validate();
+
 				$p6Element = P6DialogueMultipleChoice::where('id', '=', $id)->first();
 
 				$sentences = preg_split('/\r\n/u', $value['dialog']);
@@ -89,6 +97,12 @@ class P6Controller extends Controller
 
 		if ($request->has('insert')) {
 			foreach ($request->insert as $id => $value) {
+				Validator::make($value, [
+					'dialog' => 'string|max:200',
+					'answers.*.correct' => 'string|max:20',
+					'answers.*.wrong1' => 'string|max:20',
+					'answers.*.wrong2' => 'string|max:20',
+					])->validate();
 				$sentences = preg_split('/\r\n/u', $value['dialog']);
 				$dialog = '';
 				for ($i=0; $i < count($sentences); $i++) { 
