@@ -182,6 +182,9 @@ function showCorrect(correctSentence) {
 	});
 	$('.score').addClass('resultSpace');
 
+	console.log(currentNo);
+	console.log(currentNo);
+
 	if (currentNo == totalNo - 1) {
 		$('#nextBtn > span').html('Redo');
 	} else {
@@ -255,10 +258,12 @@ function changeSentence(index, isNext) {
 	emptyDiv(droppable);
 	var draggable = document.getElementById('draggable');
 	emptyDiv(draggable);
+	var redo = false;
 
 	if (index == totalNo) {
 		index = 0;
 		currentNo = 0;
+		redo = true;
 	}
 
 	shuffleWords(index);
@@ -290,7 +295,7 @@ function changeSentence(index, isNext) {
 		if (isNext) {
 			correctNo = 0;
 			totalQuestion = 0;
-			currentNo++;
+			currentNo = redo ? 0 : currentNo + 1;
 			$('.score').removeClass('resultSpace');
 		}
 	});
