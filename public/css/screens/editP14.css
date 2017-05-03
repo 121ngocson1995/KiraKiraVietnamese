@@ -1,0 +1,122 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+#wrapper {
+	padding: 1em 1em;
+}
+button.close {
+	color: black;
+	float: none;
+	margin: 0 0.5em;
+	outline: none;
+	line-height: initial;
+}
+button.close:hover, button.close:focus {
+	color: black;
+}
+.fa {
+	margin-left: 0;
+	margin-right: 0.3em;
+}
+textarea.form-control {
+	/*height: 38px !important;*/
+	margin: 0 0.0em 0.5em;
+	resize: none;
+}
+div.row.sentence, div.sentenceParts-holder {
+	display: flex;
+	align-items: center;
+}
+div.tabble {
+	display: table;
+	align-items: center;
+	margin-bottom: 0;
+}
+div.sentenceParts {
+	width: 11em;
+	display: table-cell;
+	vertical-align: middle;
+	padding: 10px;
+}
+.controlBtn-holder {
+	height: 15px;
+	text-align: center;
+}
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid #b3b3b3;
+}
+#saveBtn-holder {
+	text-align: center;
+	margin-top: 2em;
+}
+.form-group {
+	margin-top: 15px;
+	margin-bottom: 0;
+}
+button {
+	outline: none;
+}
+button.addInputBtn, button.deleteInputBtn {
+	display: none;
+	width: 25px;
+	height: 25px;
+	padding: 0 0.3em 0.3em;
+	background: transparent;
+	font-size: 1.4em;
+	border: none;
+}
+button.close {
+	position: absolute;
+	margin: 2px -20px;
+	display: none;
+}
+button.addPartBtn {
+	background: transparent;
+	/*font-size: 1.4em;*/
+	border: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(calc( -50% - 11px  ));
+	display: none;
+}
+.deleteSentence {
+	background: transparent;
+	/*font-size: 1.4em;*/
+	border: none;
+	right: 2em;
+	position: absolute;
+	transform: translateY(-20%);
+}
+button.deleteOption {
+	display: none;
+}
+button.addInputBtn, button.addPartBtn, button.close {
+	opacity: 0.4;
+}
+button.addInputBtn:hover, button.addPartBtn:hover, button.close:hover {
+	opacity: 1;
+}
+.deleteSentence button {
+	display: initial !important;
+	position: initial !important;
+	margin: 0;
+}
+div.aligned {
+	text-align: right;
+}
+
+.col-md-1 {
+	width: 4% !important;
+	padding: 0 !important;
+}
+.col-md-10 {
+	width: 90%;
+}

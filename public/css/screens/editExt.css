@@ -1,0 +1,104 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+.sentence-input {
+	/*width: 100%;*/
+	display: inline-block;
+}
+#wrapper {
+	padding: 1em 4em;
+}
+textarea {
+	resize: vertical;
+}
+textarea.song-lyrics, textarea.poem-content, textarea.riddle-content, textarea.play-content textarea.idiom-content {
+	text-align: center;
+}
+label {
+	font-size: 1.2em !important;
+	font-weight: bold !important;
+}
+.fa {
+	margin-left: 0;
+	margin-right: 0.3em;
+}
+#saveBtn-holder {
+	text-align: center;
+	margin-top: 2em;
+}
+.deleteContent {
+	position: absolute;
+	right: 0;
+	margin-right: 3em;
+	display: none;
+}
+.close, .close:hover {
+	color: black;
+}
+.file-thumbnail-footer {
+	height: initial !important;
+}
+.file-footer-caption {
+	display: none !important;
+}
+.kv-file-content {
+	height: initial !important;
+}
+.file-preview-image.kv-preview-data {
+	height: 100px !important;
+}
+.krajee-default[data-template="audio"] .file-preview-audio {
+	height: 100px !important;
+}
+.krajee-default .file-other-icon {
+	font-size: 4em;
+}
+.krajee-default .file-preview-other {
+	padding: 10px 10px 0 10px;
+}
+
+button {
+	outline: none;
+}
+.deleteImage {
+	margin-top: 38px;
+}
+.tab-content {
+	margin-top: 2em;
+}
+hr.images {
+	margin-top: 25px;
+	margin-bottom: 30px;
+	border-top: 1px solid #b3b3b3;
+	width: 60%;
+}
+@media (min-width: 768px) {
+	.col-sm-5 {
+		width: 46%;
+	}
+	.col-sm-1 {
+		width: 4%;
+	}
+}
+.newImage {
+	text-align: center;
+}
+.active .fa {
+	margin-right: 0;
+}
+.deletePart {
+	opacity: 0.3;
+	cursor: pointer;
+}
+.deletePart:hover {
+	opacity: 1;
+}
+.fa-normal {
+	margin-right: 0;
+}

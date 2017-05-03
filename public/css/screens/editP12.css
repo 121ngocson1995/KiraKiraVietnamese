@@ -1,0 +1,57 @@
+div.title {
+	padding: 0 2em;
+	text-align: center;
+	margin-top: 2em;
+}
+div.description {
+	padding: 0 3em;
+	margin-bottom: 2em;
+}
+.sentence-input {
+	/*width: 100%;*/
+	display: inline-block;
+}
+#wrapper {
+	padding: 1em 4em;
+}
+textarea {
+	resize: vertical;
+}
+div.sentence-holder {
+	padding: 3em 0;
+}
+div.sentenceNo {
+	display: inline-block;
+	margin-right: 1em;
+}
+div.sentenceParts, div.word {
+	display: inline-block;
+}
+label {
+	font-size: 1.2em !important;
+	font-weight: bold !important;
+}
+hr {
+	margin: 5px 0;
+	border-top: 1px solid #b3b3b3;
+}
+.fa-save {
+	margin-left: 0;
+	margin-right: 0.3em;
+}
+.fa-plus, .fa-trash {
+	margin: 0;
+}
+#saveBtn-holder {
+	text-align: center;
+	margin-top: 2em;
+}
+.deleteContent {
+	position: absolute;
+	right: 0;
+	margin-right: 3em;
+	display: none;
+}
+.close, .close:hover {
+	color: black;
+}

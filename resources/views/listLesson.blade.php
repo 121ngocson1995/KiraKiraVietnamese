@@ -38,7 +38,7 @@
 										<div class="span8">
 											<h3>{{$lesson->lesson_name}}</h3>
 											<h6>Description: {{ $lesson->description }}</h6>
-											<h6>Author:{{ $lesson->author }}</h6>	
+											<h6>Author: {{ $lesson->author }}</h6>	
 										</div>
 
 										<div class="span2">

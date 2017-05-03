@@ -89,7 +89,7 @@ $('.textarea').on('input focus keydown keyup', function() {
  	form_group.setAttribute('class', 'form-group');
  	label = document.createElement("label");
  	label.setAttribute('for', 'dialogTrans'+(rowAdded));
- 	label.innerHTML = 'Dialog';
+ 	label.innerHTML = 'Dialog\'s translation';
  	form_group.appendChild(label);
 
  	textarea = document.createElement("textarea");
