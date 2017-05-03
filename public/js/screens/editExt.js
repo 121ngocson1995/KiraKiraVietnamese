@@ -1000,7 +1000,7 @@ var insertId = 0;
 
  function validate_spcChar(textElement){
  	var text = textElement.value;
- 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\';/{}|\\"<>]/);
+ 	var pattern = new RegExp(/[~`@#$%\^&*+=\\[\]\\;/{}|\\<>]/);
  	if (pattern.test(text)) {
  		showMesg(textElement, 'Special character is invalid');
  		return false;
