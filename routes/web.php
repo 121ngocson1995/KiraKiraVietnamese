@@ -28,6 +28,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/lessons', 'AboutController@load');
+Route::get('/disclaimer', function () {
+    return view('disclaimer');
+});
 Route::get('/lesson{lessonNo}/p1', 'P1Controller@load');
 Route::get('/lesson{lessonNo}/p2', 'P2Controller@load');
 Route::get('/lesson{lessonNo}/p3', 'P3Controller@load');

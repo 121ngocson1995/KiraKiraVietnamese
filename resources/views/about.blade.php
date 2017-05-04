@@ -5,6 +5,24 @@
 <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/KiraNav.css') }}">
 
+<style>
+    .btn-group {
+        display: initial;
+    }
+    .panel-heading {
+        padding: 12px 15px;
+    }
+    .panel-heading a {
+        font-size: 1.1em !important;
+    }
+    .unavailable {
+        background-color: #d5eef6;
+        border-color: #d5eef6;
+        font-style: italic;
+        pointer-events:none;
+    }
+</style>
+
 @stop
 
 @section('body')
@@ -60,62 +78,35 @@
         </div>
     </div>
 
-    <div class="green-section">
-        <div class="container">
+    <div class="green-section row">
+        <div class="container col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
             <div class="panel-group accordion" role="tablist" aria-multiselectable="true" id="accordion-1">
 
                 @foreach (\Request::get('lessons') as $lesson)
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
-                        <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" data-target="#accordion-1 .item-{{ $lesson->lessonNo }}">Lesson {{ $lesson->lessonNo }}</a></h4>
+                        <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion-1" aria-expanded="true" data-target="#accordion-1 .item-{{ $lesson->lessonNo }}">Lesson {{ $lesson->lessonNo }}: {{ $lesson->name }}</a></h4>
                     </div>
                     <div class="panel-collapse collapse item-{{ $lesson->lessonNo }}" role="tabpanel">
                         <div class="panel-body">
                             <span> {{ $lesson->description }} </span>
                             <div class="row">
-                                <div class="col-md-12 btn-group" role="group">
-
+                                <div class="btn-group" role="group">
                                     @foreach ($lesson->activity as $activity)
-                                    @php
-                                        // dd($activity);
-                                    @endphp
-                                    <div style=" margin: 0.5em 2em"><a class="btn btn-info" href="/lesson{{ $lesson->lessonNo }}/{{ $activity->name }}" style = "width: 100%;font-size: 1.2em; font-weight: 600; color: white; text-decoration: none;"  >{{ $activity->content }}</a></div>
+                                    <div style=" margin: 0.5em 2em"><a class="btn btn-info{{ $activity->exist ? '' : ' unavailable' }}" href="/lesson{{ $lesson->lessonNo }}/{{ $activity->name }}" style = "width: 100%;font-size: 1.2em; font-weight: 600; color: white; text-decoration: none;">{{ $activity->content }}</a>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
                             
                         </div>                   
                     </div>
-                    @endforeach
-
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
 
-<footer>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 footer-navigation">
-            <h3><a href="#">KiraKiraVietnamese </a></h3>
-            <p class="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a href="#">About</a><strong> · </strong><a href="#">Faq</a><strong> · </strong><a href="#">Contact</a></p>
-            <p class="company-name">Company Name © 2017 </p>
-        </div>
-        <div class="col-md-4 col-sm-6 footer-contacts">
-            <div><i class="fa fa-phone footer-contacts-icon"></i>
-                <p class="footer-center-info email text-left">+84123456789 </p>
-            </div>
-            <div><i class="fa fa-envelope footer-contacts-icon"></i>
-                <p> <a href="#" target="_blank">support@kirakira.com</a></p>
-            </div>
-        </div>
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-4 footer-about">
-            <h4>About the company</h4>
-            <p> Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
-            </p>
-            <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
-        </div>
-    </div>
-</footer>
+    @include('vendor.footer')
 
-@stop
+    @stop
