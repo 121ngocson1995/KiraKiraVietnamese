@@ -182,6 +182,9 @@ class UserController extends Controller
 
 		$todayDate = date("Y/m/d");
 
+		$data = $request->all();
+		$data['nameWord'] = array_merge(explode(' ', $data['first-name']), explode(' ', $data['last-name']));
+
 		Validator::extend('18yo', function ($attribute, $value, $parameters, $validator) {
 			return strtotime($value) <= strtotime('-18 years');
 		});
@@ -190,9 +193,10 @@ class UserController extends Controller
 			return array_key_exists($value, $this->countries);
 		});
 
-		Validator::make($request->all(), [
-			'first-name' => 'required|alpha|max:30',
-			'last-name' => 'required|alpha|max:30',
+		Validator::make($data, [
+			'first-name' => 'required|max:30',
+			'last-name' => 'required|max:30',
+            'nameWord.*' => 'alpha',
 			'username' => [
 			'required',
 			'alpha_dash',

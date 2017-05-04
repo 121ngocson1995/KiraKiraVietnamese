@@ -53,7 +53,7 @@ $user = \Auth::user();
 				@endif
 			</div>
 			<div class="{{ $errors->has('username') ? ' has-error' : '' }}" style="text-align: center;">
-				<input type="text" class="textbox username" name="username" id="username" size="7" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
+				<input type="text" class="textbox username" name="username" id="username" value="{{ $user->username }}" maxlength="191" onkeypress="changeTextboxWidth(this)" required>
 
 				@if ($errors->has('username'))
 				<div class="help-block">
@@ -222,33 +222,44 @@ $user = \Auth::user();
 
 <script>
 
-	if (!Modernizr.inputtypes.date) {
-		jQuery.getScript("{{ asset('js/bootstrap-datepicker.min.js') }}")
-		.done(function(){
-			$('.date-of-birth-wrapper').empty();
-			while(document.getElementsByClassName('date-of-birth-wrapper')[0].firstChild) {
-				document.getElementsByClassName('date-of-birth-wrapper').removeChild(document.getElementsByClassName('date-of-birth-wrapper').firstChild);
-			}
+	/**
+	 * change Textbox Width 
+	 * @param  {DOM} input 
+	 * @return {void}     
+	 */
+	 function changeTextboxWidth(input) {
+	 	input.size= parseInt(input.value.length);
+	 }
 
-			var input = document.createElement('input');
-			input.name = "date-of-birth";
-			input.id = "date-of-birth";
-			input.type = 'text';
-			input.className = 'textbox date-of-birth';
-			input.value = '{{ $user->date_of_birth }}';
-			input.required = '';
-			$(input).datepicker({
-				format: 'yyyy-mm-dd',
-				weekStart: 1,
-				container: '.date-of-birth-wrapper'
-			});
+	changeTextboxWidth(document.getElementsByClassName('username'));
 
-			document.getElementsByClassName('date-of-birth-wrapper')[0].appendChild(input);
-		});
-	}
-</script>
+	 if (!Modernizr.inputtypes.date) {
+	 	jQuery.getScript("{{ asset('js/bootstrap-datepicker.min.js') }}")
+	 	.done(function(){
+	 		$('.date-of-birth-wrapper').empty();
+	 		while(document.getElementsByClassName('date-of-birth-wrapper')[0].firstChild) {
+	 			document.getElementsByClassName('date-of-birth-wrapper').removeChild(document.getElementsByClassName('date-of-birth-wrapper').firstChild);
+	 		}
 
-<script src="{{ asset('js/screens/userInfo.js') }}"></script>
+	 		var input = document.createElement('input');
+	 		input.name = "date-of-birth";
+	 		input.id = "date-of-birth";
+	 		input.type = 'text';
+	 		input.className = 'textbox date-of-birth';
+	 		input.value = '{{ $user->date_of_birth }}';
+	 		input.required = '';
+	 		$(input).datepicker({
+	 			format: 'yyyy-mm-dd',
+	 			weekStart: 1,
+	 			container: '.date-of-birth-wrapper'
+	 		});
 
-@stop
+	 		document.getElementsByClassName('date-of-birth-wrapper')[0].appendChild(input);
+	 	});
+	 }
+	</script>
+
+	<script src="{{ asset('js/screens/userInfo.js') }}"></script>
+
+	@stop
 

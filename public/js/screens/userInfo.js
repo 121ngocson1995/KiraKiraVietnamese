@@ -1,13 +1,4 @@
-/**
- * change Textbox Width 
- * @param  {DOM} input 
- * @return {void}     
- */
- function changeTextboxWidth(input) {
- 	input.size= parseInt(input.value.length);
- }
-
- $('.img_container').click(function() {
+$('.img_container').click(function() {
  	$('input.uploadAvatar').click();
  });
 
