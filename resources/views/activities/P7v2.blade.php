@@ -15,7 +15,7 @@
 @section('actContent')
 
 <div>
-	<audio id="sample"></audio>
+	<audio id="sample"{{ count($elementData) > 0 && isset($elementData[0]->audio) ? 'src="' . \Storage::url($elementData[0]->audio) . '"' : '' }}></audio>
 	<audio id="auRecord"></audio>
 </div>
 
