@@ -92,7 +92,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <footer>
     <div class="row">
