@@ -15,7 +15,7 @@
 @section('actContent')
 
 <div>
-	<audio id="sample"{{ count($elementData) > 0 && isset($elementData[0]->audio) ? 'src="' . \Storage::url($elementData[0]->audio) . '"' : '' }}></audio>
+	<audio id="sample"></audio>
 	<audio id="auRecord"></audio>
 </div>
 
@@ -148,7 +148,7 @@
 
 		$(document).ready(function(){
 			var elementData = <?php echo json_encode($elementData); ?>;
-			document.getElementById('sample').setAttribute('src', '{{ asset('') }}' + elementData[0].audio);
+			document.getElementById('sample').setAttribute('src', '{{ \Storage::url($elementData[0]->audio) }}');
 			document.getElementById('sample').load();
 
 			preloadImage();
