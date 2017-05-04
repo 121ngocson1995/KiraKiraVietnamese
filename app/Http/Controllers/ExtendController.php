@@ -64,7 +64,7 @@ class ExtendController extends Controller
        $titleArr[] = $key->title;
    } 
    $typeEn = ['Images', 'Song', 'Poem','Idioms','Riddle', 'Play'];
-   $typeVn = ['Hình ảnh đất nước - con người Việt Nam', 'Bài hát dành cho em', 'Em đọc thơ', 'Thành ngữ -Tục ngữ - Ca dao', 'Câu đố', 'Cùng chơi các ban ơi!'];
+   $typeVn = ['Hình ảnh đất nước - con người Việt Nam', 'Bài hát dành cho em', 'Em đọc thơ', 'Thành ngữ - Tục ngữ - Ca dao', 'Câu đố', 'Cùng chơi các bạn ơi!'];
 
    return view("activities.Extendv2", compact(['elementData', 'contentArr','thumbArr', 'slide_imgArr', 'slide_nameArr', 'typeEn', 'typeVn','cnt']));
 
