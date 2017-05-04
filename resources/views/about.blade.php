@@ -32,7 +32,6 @@
                 </div>
                 <div class="col-md-4">
                     <div>
-
                         <table class="table table-striped">
                             @foreach ($courseData as $value)                        
                             <tbody>
