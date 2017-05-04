@@ -339,6 +339,7 @@ function validate_spcChar(textElement){
 }
 
 $("#p7Form").submit( function(eventObj) {
+  $('.alert').remove();
   var fail = false;
 
   for (var i = 0; i < $('.vld-null').length; i++) {
