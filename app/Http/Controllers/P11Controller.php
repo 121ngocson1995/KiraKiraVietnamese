@@ -157,7 +157,6 @@ class P11Controller extends Controller
             foreach ($request->update as $id => $value) {
                 Validator::make($value, [
                     'sentence'=> 'required|max:80',
-                    'order.*'=> 'numberic',
                     ],
                     [
                     ])->validate();
