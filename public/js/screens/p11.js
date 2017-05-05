@@ -103,6 +103,7 @@ function reposition(i, timeout, bestAnswer, blankIdList) {
 
 			var dragSentence = $('.dragSentence:not(.ordered)')[j];
 
+			$($('.dropSentence')[i]).css('height', $(dragSentence).css('height'));
 			$(dragSentence).position({
 				my: "center",
 				at: "center",
@@ -111,7 +112,6 @@ function reposition(i, timeout, bestAnswer, blankIdList) {
 					$(this).animate(pos, timeout, "swing");
 				}
 			});
-			$($('.dropSentence')[i]).css('height', $(dragSentence).css('height'));
 
 			$(dragSentence).addClass('ordered');
 			break loopDrag;
