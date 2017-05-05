@@ -165,12 +165,7 @@ class P11Controller extends Controller
                 if (strcmp($p11Element->sentence, $value['sentence']) != 0) {
                     $newSentence = $value['sentence'];
 
-                    while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
-                        $newSentence = trim($newSentence, '-');
-                        $newSentence = trim($newSentence, ' ');
-                    }
-
-                    $p11Element->sentence = '- ' . $newSentence;
+                    $p11Element->sentence = trim($newSentence, ' ');
                 }
 
                 $correctOrder = '';
@@ -193,13 +188,6 @@ class P11Controller extends Controller
             foreach ($request->insert as $id => $value) {
                 $newSentence = $value['sentence'];
 
-                while (strcmp($newSentence[0], '-') == 0 || strcmp($newSentence[0], ' ') == 0) {
-                    // $newSentence = trim($newSentence, '-');
-                    $newSentence = trim($newSentence, ' ');
-                }
-
-                // $newSentence = '- ' . $newSentence;
-
                 $correctOrder = '';
                 $start = true;
                 foreach ($value['order'] as $key => $order) { 
@@ -213,7 +201,7 @@ class P11Controller extends Controller
 
                 P11ConversationReorder::create([
                     'lesson_id' => $request->lessonId,
-                    'sentence' => $newSentence,
+                    'sentence' => trim($newSentence, ' '),
                     'correctOrder' => $correctOrder,
                 ]);
             }
