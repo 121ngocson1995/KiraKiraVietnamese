@@ -6,9 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "illuminate/html": "5.*",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "laravelcollective/html": "^5.4",
         "league/flysystem-aws-s3-v3": "~1.0"
     },
     "require-dev": {

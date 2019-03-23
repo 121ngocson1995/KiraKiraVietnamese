@@ -30,9 +30,7 @@ trait RegistersUsers
     {
         $this->validator($request->all())->validate();
 
-        $cv_path = $this->saveCV($request);
-
-        event(new Registered($user = $this->create($request->all(), $cv_path)));
+        event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
 
